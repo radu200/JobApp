@@ -43,7 +43,8 @@ $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
 $link-color: color("light-blue", "darken-1") !default;
 
-
+ $custom-color1:#0389ff;
+ $btn-color:#fd5c63;
 // 2. Badges
 // ==========================================================================
 
@@ -68,7 +69,7 @@ $button-disabled-background: #DFDFDF !default;
 $button-disabled-color: #9F9F9F !default;
 
 // Raised buttons
-$button-raised-background: $secondary-color !default;
+$button-raised-background: $btn-color !default;
 $button-raised-background-hover: lighten($button-raised-background, 5%) !default;
 $button-raised-color: #fff !default;
 
@@ -169,7 +170,7 @@ $input-border: 1px solid $input-border-color !default;
 $input-background: #fff !default;
 $input-error-color: $error-color !default;
 $input-success-color: $success-color !default;
-$input-focus-color: $secondary-color !default;
+$input-focus-color: $custom-color1!default;
 $input-font-size: 16px !default;
 $input-margin-bottom: 8px;
 $input-margin: 0 0 $input-margin-bottom 0 !default;
@@ -185,7 +186,7 @@ $placeholder-text-color: lighten($input-border-color, 20%) !default;
 // Radio Buttons
 $radio-fill-color: $secondary-color !default;
 $radio-empty-color: #5a5a5a !default;
-$radio-border: 2px solid $radio-fill-color !default;
+$radio-border: 2px solid $custom-color1 !default;
 
 // Range
 $range-height: 14px !default;
