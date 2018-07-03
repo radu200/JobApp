@@ -1,0 +1,60 @@
+
+{{>NavBar}}
+<section  class="signup">
+    <div class="row">
+            <div class="col s12 l4 offset-l4">
+              <div class="card ">
+                <div class="card-content">
+                  <h4 class="card-title center-align">Înregistrare</h4>
+                  <form>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>
+                        <input type="email" id="email" class="validate" placeholder="Email " />
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">person</i>
+                        <input type="text" id="firstname" class="validate" placeholder="Nume" />
+                    </div>
+                        <div class="input-field col s12 m6">
+                                <i class="material-icons prefix">person</i>
+                            <input type="text" id="lastname" class="validate" placeholder="Numele de familie" />
+                        </div>
+                
+                    </div>                  
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <input type="password" id="password" class="validate" placeholder="Parola"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                            <div class="input-field col s12">
+                              <i class="material-icons prefix">lock</i>
+                              <input type="password" id="password" class="validate" placeholder=" Confirma Parola"/>
+                            </div>
+                          </div>
+                            <p>
+                            <label>
+                                <input type="checkbox" />
+                                <span>Am facut cunostinta si sunt deacord cu <a>regulile site-ului</a></span>
+                            </label>
+                        </p>
+                       <br>
+                    <div class="row">
+                      <button class="btn  signup-btn btn-large waves-effect waves-light red lighten-1" type="submit" name="action">CONTINUA
+                      </button>
+                    </div>
+                  </form>
+                  <p>Ai deja un cont ? <a href="/login">INTRA</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+</section>
+
+{{>Footer}}
+{{>FooterCopyRight}}
