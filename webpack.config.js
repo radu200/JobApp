@@ -2,9 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './public/js/main.js',
+  entry: './Public/js/main.js',
   output: {
-    path: path.join(__dirname, '/public/dist'),
+    path: path.join(__dirname, '/Public/dist'),
     filename: 'bundle.js'
   },
   module: {
@@ -45,7 +45,7 @@ module.exports = {
             loader: 'expose-loader',
             options: '$'
         }]
-    }
+     }
     ]
   },
 
