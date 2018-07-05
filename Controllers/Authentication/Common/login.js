@@ -49,3 +49,21 @@ module.exports.getLogin = (req, res, next) => {
     }
 
 };
+
+
+module.exports.getLogout = function (req, res, next) {
+    req.logout();
+    req.session.destroy(function (err) {
+        if (err) {
+            return next(err);
+        }else{
+            // destroy session data
+            req.session = null;
+    
+            res.redirect('/login');
+
+        }
+
+    });
+
+};

@@ -97,7 +97,33 @@ app.use(function(req, res, next) {
 });  
 
 
+///middleware to restrict access in ui in dependece of user
+app.use(function(req, res, next) {
+    if(req.isAuthenticated() === true){
+   res.locals.userCustomer = function(){
+       if(req.user.type === 'employer'){
+           return true;
+           nex()
+       }else{
+           return false;
+           res.redirect('/login');
+       }
+   }
 
+   res.locals.userBasic = function(){
+    if(req.user.type === 'jobseeker'){
+        return true;
+    } else{
+        return false;
+        res.redirect('/login');
+        
+       }
+    
+      }
+
+    }
+    next();
+  });
 
 app.use(express.static(path.join(__dirname, 'Public')));
 

@@ -9,8 +9,9 @@ const signupJobSeekerController = require('../Controllers/Authentication/JobSeek
 const loginController = require('../Controllers/Authentication/Common/login');
 const homeController = require('../Controllers/home');
 
+const accessController = require('../Middleware/access_control_middleware');
 
-  app.get('/jobs',  jobsController.getJobsPage)
+  app.get('/jobs', accessController.EnsureAuthenticated, jobsController.getJobsPage)
   app.get('/',  homeController.getHomePage)
 
   
@@ -18,10 +19,11 @@ const homeController = require('../Controllers/home');
   app.get('/employer/signup',  signupEmployerController.getSignUpEmployer)
   app.post('/employer/signup',  signupEmployerController.postSignUpEmployer)
 
-  app.get('/job_seeker/signup',  signupJobSeekerController.getSignUpJobSeeker)
+  app.get('/job_seeker/signup', signupJobSeekerController.getSignUpJobSeeker)
 
   app.get('/login',  loginController.getLogin)
   app.post('/login',  loginController.postLogin)
+  app.get('/logout',  loginController.getLogout)
 
 
 }
