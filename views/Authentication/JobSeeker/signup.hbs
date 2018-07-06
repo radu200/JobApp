@@ -1,39 +1,59 @@
-
+]
 {{>NavBar}}
-<section  class="signup">
-    <div class="row">
+      <section  class="signup">
+         {{#if error_msg}} 
+              <div class="row" id="alert_box">
+                <div class="container">
+                  <div class="card red darken-1">
+                    <div class="row">
+                      <div class="col s12 m10">
+                        <div class="card-content white-text ">
+                        {{#each error_msg}}
+                                <p>{{msg}}</p>
+                        {{/each}}
+                      </div>
+                     </div>
+                     <div class="col s12 m2">
+                       <i class="material-icons close_icon_style " id="alert_close">close</i>                            
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+          {{/if}}
+           <div class="row">
             <div class="col s12 l4 offset-l4">
               <div class="card ">
                 <div class="card-content">
                   <h4 class="card-title center-align">Înregistrare</h4>
-                  <form>
+                  <form method="post" action="/job_seeker/signup">
                     <div class="row">
                       <div class="input-field col s12">
                         <i class="material-icons prefix">email</i>
-                        <input type="email" id="email" class="validate" placeholder="Email " />
+                        <input type="email" id="email" class="validate" placeholder="Email"  name="email"/>
                       </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12 m6">
                         <i class="material-icons prefix">person</i>
-                        <input type="text" id="firstname" class="validate" placeholder="Nume" />
+                        <input type="text" id="firstname" class="validate" placeholder="Nume" name="first_name" />
                     </div>
                         <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">person</i>
-                            <input type="text" id="lastname" class="validate" placeholder="Numele de familie" />
+                            <input type="text" id="lastname" class="validate" placeholder="Numele de familie" name="last_name" />
                         </div>
                 
                     </div>                  
                     <div class="row">
                       <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input type="password" id="password" class="validate" placeholder="Parola"/>
+                        <input type="password" id="password" class="validate" placeholder="Parola" name="password"/>
                       </div>
                     </div>
                     <div class="row">
                             <div class="input-field col s12">
                               <i class="material-icons prefix">lock</i>
-                              <input type="password" id="password" class="validate" placeholder=" Confirma Parola"/>
+                              <input type="password" id="password" class="validate" placeholder=" Confirma Parola" name="confirm_password"/>
                             </div>
                           </div>
                             <p>
@@ -53,8 +73,7 @@
               </div>
             </div>
           </div>
-
-</section>
+  </section>
 
 {{>Footer}}
 {{>FooterCopyRight}}

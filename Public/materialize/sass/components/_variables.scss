@@ -45,6 +45,7 @@ $link-color: color("light-blue", "darken-1") !default;
 
  $custom-color1:#0389ff;
  $btn-color:#fd5c63;
+ $dropdown-color:black;
 // 2. Badges
 // ==========================================================================
 
@@ -156,7 +157,7 @@ $timepicker-clock-plate-bg: #eee !default;
 
 $dropdown-bg-color: #fff !default;
 $dropdown-hover-bg-color: #eee !default;
-$dropdown-color: $secondary-color !default;
+$dropdown-color: $dropdown-color !default;
 $dropdown-item-height: 50px !default;
 
 

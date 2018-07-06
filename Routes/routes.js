@@ -20,6 +20,7 @@ const accessController = require('../Middleware/access_control_middleware');
   app.post('/employer/signup',  signupEmployerController.postSignUpEmployer)
 
   app.get('/job_seeker/signup', signupJobSeekerController.getSignUpJobSeeker)
+  app.post('/job_seeker/signup', signupJobSeekerController.postSignUpJobSeeker)
 
   app.get('/login',  loginController.getLogin)
   app.post('/login',  loginController.postLogin)

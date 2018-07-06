@@ -4,8 +4,8 @@
 
                 <a href="#" class="brand-logo red-text text-lighten-1">Logo</a>
                 <ul id="nav-mobile" class=" right hide-on-med-and-down">
-                        <li>
-                                <a href="/jobs" class="grey-text text-darken-4">Cauta</a>
+                           <li>
+                             <a href="/jobs" class="grey-text text-darken-4">Cauta</a>
                             </li>
                             <li>
                                 <a href="/my-jobs" class="grey-text text-darken-4">Joburile Mele</a>
@@ -14,42 +14,58 @@
                                 <a href="/chat" class="grey-text text-darken-4">Chat</a>
                             </li>
                             {{#if isAuthenticated}}
-
+                            
+                              <!--jobseeker-->
+                            {{#if JobSeeker}}
                              <li>
-                                   <a href="/logout"  class="waves-effect waves-light btn ">logout</a>
+                                <a href="/chat" class="grey-text text-darken-4">CV Meu</a>
+                            </li>
+                                 <!--dropdown-->
+                            <li>
+                                 <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">  
+                                      <span class="black-text">Mai mult</span> 
+                                        <i class="material-icons right black-text">arrow_drop_down</i>
+                                    </a>
                              </li>
+
+                                <ul id="moreNavBar" class="dropdown-content">
+                                    <li>
+                                        <a href="#!">Angajeaza</a>
+                                    </li>
+                                    <li>
+                                        <a href="#!">Ajutor</a>
+                                    </li>
+                                    <li>
+                                        <a href="#!">Setari</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="logout">Iesire</a>
+                                    </li>
+                                </ul>
+                               {{/if}}
+                                
                              {{else}}
                             <li>
                                 <a href="/login" class="waves-effect waves-light  btn ">Intra</a>
-                            </li>
+                              </li>
                             <li>
                                 <a href="/signup"  class="waves-effect waves-light btn ">înregistrare</a>
                             </li>
-                            {{/if}}
+                      {{/if}}
 
                 </ul>
             </div>
         </div>
 
 
-        <ul id="dropdown1" class="dropdown-content">
-            <li>
-                <a href="#!">one</a>
-            </li>
-            <li>
-                <a href="#!">two</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#!">three</a>
-            </li>
-        </ul>
+        
 
 
                     <!-- side-nav -->
         <ul id="slide-out" class="sidenav">
             <li>
-                <a href="#!">Second Link</a>
+                <a href="#!">Salut numele</a>
             </li>
             <li>
                 <div class="divider"></div>
@@ -61,15 +77,32 @@
             <li>
                 <a class="waves-effect" href="#!">Third Link With Waves</a>
             </li>
+
+         {{#if isAuthenticated}}
+
+          <!--dropdown-->
             <li>
-                <a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown
+                <a class="dropdown-trigger" href="#!" data-target="moreSideNav">Mai Mult
                     <i class="material-icons right">arrow_drop_down</i>
                 </a>
             </li>
 
-         {{#if isAuthenticated}}
+            <ul id="moreSideNav" class="dropdown-content">
+             <li>
+                <a href="#!">Angajeaza</a>
+            </li>
             <li>
-                <a href="/logout"  class="waves-effect waves-light btn ">logout</a>
+                <a href="#!">Ajutor</a>
+            </li>
+            <li>
+                <a href="#!">Setari</a>
+            </li>
+            <li class="divider"></li>
+            
+        </ul>
+
+            <li>
+                <a href="/logout"  class="waves-effect waves-light btn ">Iesire</a>
             </li>
             {{else}}
           <li>

@@ -77,7 +77,9 @@ function CreatEmployer (res){
         //creat employer
         db.query('insert into users set ?', user, (error, results) => {
             if (error) throw error
-            res.redirect('/')
+            req.login(user,(err) => {
+                res.redirect('/jobs')
+            }) 
         })
 
     })

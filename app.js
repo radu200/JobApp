@@ -100,7 +100,7 @@ app.use(function(req, res, next) {
 ///middleware to restrict access in ui in dependece of user
 app.use(function(req, res, next) {
     if(req.isAuthenticated() === true){
-   res.locals.userCustomer = function(){
+   res.locals.Employer = function(){
        if(req.user.type === 'employer'){
            return true;
            nex()
@@ -110,7 +110,7 @@ app.use(function(req, res, next) {
        }
    }
 
-   res.locals.userBasic = function(){
+   res.locals.JobSeeker = function(){
     if(req.user.type === 'jobseeker'){
         return true;
     } else{
