@@ -13,3 +13,50 @@
 }
 
 
+.input-field{
+  margin-top: 10px;
+}
+
+
+
+
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+
+
+
+/* Make circles that indicate the steps of the form: */
+.step {
+
+  opacity: 0.5;
+}
+.add-jobs-step-container{
+ text-align:center;
+ margin-top:40px;
+ display: flex;
+ justify-content: space-around;
+  font-size: 16px;
+}
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+ color: black;
+}
+
+.category-title{
+  color:black;
+  font-size:16px;
+}
+@media (max-width:600px){
+  .add-jobs-step-container{
+      flex-direction: column;
+
+   }
+}

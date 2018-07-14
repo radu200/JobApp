@@ -31,6 +31,4 @@ const accessController = require('../Middleware/access_control_middleware');
   //jobs controller 
   app.get('/jobs/add', jobsController.getAddJobs)
 
-
-
 }

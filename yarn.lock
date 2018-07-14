@@ -4786,6 +4786,10 @@ materialize-css@0.100.2:
     hammerjs "^2.0.8"
     jquery "^3.0.0 || ^2.1.4"
 
+materialize-stepper@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/materialize-stepper/-/materialize-stepper-2.1.4.tgz#aaf0ab64b81948539dc70c12ba7650cd7a8e98b0"
+
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
