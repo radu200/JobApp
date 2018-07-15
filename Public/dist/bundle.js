@@ -97,7 +97,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/main.scss */ "./Public/scss/main.scss");
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js-exposed");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _materialize_js_bin_materialize_min_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../materialize/js/bin/materialize.min.js */ "./Public/materialize/js/bin/materialize.min.js");
 /* harmony import */ var _materialize_js_bin_materialize_min_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_materialize_js_bin_materialize_min_js__WEBPACK_IMPORTED_MODULE_2__);
@@ -530,17 +530,17 @@ $.fn.validateStepInput = function () {
    return valid;
 };
 
-//   $(document).ready(function() {
-//     $('select').material_select();
+$(document).ready(function () {
+   $('select').material_select();
 
-//     // for HTML5 "required" attribute
-//     $("select[required]").css({
-//       display: "inline",
-//       height: 0,
-//       padding: 0,
-//       width: 0
-//     });
-//   });
+   // for HTML5 "required" attribute
+   $("select[required]").css({
+      display: "inline",
+      height: 0,
+      padding: 0,
+      width: 0
+   });
+});
 
 /***/ }),
 
@@ -3209,7 +3209,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".login {\n  margin-top: 50px; }\n\n.login-btn {\n  width: 100%; }\n\n.login-btn:hover {\n  opacity: 0.8; }\n\n.login-forgot-password {\n  float: right; }\n\n.signup {\n  margin-top: 50px; }\n\n.signup-btn {\n  width: 100%; }\n\n.signup-btn:hover {\n  opacity: 0.8; }\n\n.footer-copyright {\n  color: black;\n  left: 0;\n  bottom: 0;\n  text-align: center;\n  padding-top: 10px; }\n\n.close_icon_style {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n  font-size: 20px;\n  color: white;\n  cursor: pointer;\n  border: 1px solid white;\n  border-radius: 10px; }\n  .close_icon_style:hover {\n    opacity: 0.8; }\n\n.input-field {\n  margin-top: 10px; }\n\n/* Hide all steps by default: */\n.tab {\n  display: none; }\n\n/* Make circles that indicate the steps of the form: */\n.step {\n  opacity: 0.5; }\n\n.add-jobs-step-container {\n  text-align: center;\n  margin-top: 40px;\n  display: flex;\n  justify-content: space-around;\n  font-size: 16px; }\n\n.step.active {\n  opacity: 1; }\n\n/* Mark the steps that are finished and valid: */\n.step.finish {\n  color: black; }\n\n.category-title {\n  color: black;\n  font-size: 16px; }\n\n@media (max-width: 600px) {\n  .add-jobs-step-container {\n    flex-direction: column; } }\n", ""]);
+exports.push([module.i, "body {\n  overflow-x: hidden; }\n\n.login {\n  margin-top: 50px; }\n\n.login-btn {\n  width: 100%; }\n\n.login-btn:hover {\n  opacity: 0.8; }\n\n.login-forgot-password {\n  float: right; }\n\n.signup {\n  margin-top: 50px; }\n\n.signup-btn {\n  width: 100%; }\n\n.signup-btn:hover {\n  opacity: 0.8; }\n\n.footer-copyright {\n  color: black;\n  left: 0;\n  bottom: 0;\n  text-align: center;\n  padding-top: 10px; }\n\n.close_icon_style {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n  font-size: 20px;\n  color: white;\n  cursor: pointer;\n  border: 1px solid white;\n  border-radius: 10px; }\n  .close_icon_style:hover {\n    opacity: 0.8; }\n\n.input-field {\n  margin-top: 10px; }\n\n/* Hide all steps by default: */\n.tab {\n  display: none; }\n\n/* Make circles that indicate the steps of the form: */\n.step {\n  opacity: 0.5; }\n\n.add-jobs-step-container {\n  text-align: center;\n  margin-top: 40px;\n  display: flex;\n  justify-content: space-around;\n  font-size: 16px; }\n\n.step.active {\n  opacity: 1; }\n\n/* Mark the steps that are finished and valid: */\n.step.finish {\n  color: black; }\n\n.category-title {\n  color: black;\n  font-size: 16px; }\n\n@media (max-width: 600px) {\n  .add-jobs-step-container {\n    flex-direction: column; }\n  .step {\n    display: none; }\n  .step.active {\n    opacity: 1;\n    display: block; } }\n", ""]);
 
 // exports
 
@@ -3310,12 +3310,12 @@ function toComment(sourceMap) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(/*! -!./jquery.js */ "./node_modules/jquery/dist/jquery.js?1157");
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(/*! -!./jquery.js */ "./node_modules/jquery/dist/jquery.js");
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/jquery/dist/jquery.js?1157":
+/***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
   \********************************************/
@@ -13691,10 +13691,10 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./node_modules/jquery/dist/jquery.js?fe57":
-/*!********************************************!*\
-  !*** ./node_modules/jquery/dist/jquery.js ***!
-  \********************************************/
+/***/ "./node_modules/jquery/dist/jquery.js-exposed":
+/*!****************************************************!*\
+  !*** ./node_modules/jquery/dist/jquery.js-exposed ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

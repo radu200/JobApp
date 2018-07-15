@@ -31,7 +31,7 @@
 
 /* Make circles that indicate the steps of the form: */
 .step {
-
+ 
   opacity: 0.5;
 }
 .add-jobs-step-container{
@@ -43,6 +43,7 @@
 }
 .step.active {
   opacity: 1;
+  
 }
 
 /* Mark the steps that are finished and valid: */
@@ -59,4 +60,11 @@
       flex-direction: column;
 
    }
+   .step{
+    display: none;
+   }
+   .step.active {
+    opacity: 1;
+    display: block;
+  }
 }

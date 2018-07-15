@@ -1,6 +1,8 @@
 
+body{
+    overflow-x:hidden;
+}
 @import "./authentication/login";
 @import "./authentication/signup";
 @import "./components/footer";
 @import "./components/alerts"
-

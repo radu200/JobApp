@@ -3,210 +3,209 @@
  <div class="container">
    <div class="row">
   
-    
-    
-  <form id="regForm" action="/action">
-
     <div class="add-jobs-step-container" >
-        <span class="step">Categories </span>--
-        <span class="step">Description</span>--
-        <span class="step">Location</span>--
-        <span class="step">salary</span>
-        <span class="step">Details</span>--
-        <span class="step">Photo</span>--
+        <span class="step">Categoriii </span>
+        <span class="step">Descriere</span>
+        <span class="step">Locatie</span>
+        <span class="step">Salariu</span>
+        <span class="step">Detalii suplimentare</span>
+        <span class="step">Fotografie</span>
     </div>
+  <form id="regForm" method="POST" action="/jobs/add">
+
   <!-- One "tab" for each step in the form: -->
   
   <div class="tab"> 
-       <h4>Job Category</h4> <!--obligatoriu-->
+       <h4>Categoria jobului</h4> <!--obligatoriu-->
           <div class="col s12 m6">
                   
                    <label>
-                        <input class="with-gap" name="group1" type="radio" checked />
-                        <span class="category-title">bold </span>
+                        <input class="with-gap"  type="radio" value="Barista și Barman" checked   name="category"  />
+                        <span class="category-title">Barista și Barman</span>
                     </label>
                         <hr>
                      <label>
-                        <input class="with-gap" name="group1" type="radio"  value="on" />
+                        <input class="with-gap"  type="radio"  name="category" value="Frumuseţe si Bunastare" />
+                        <span class="category-title">Frumuseţe si Bunastare </span>
+                    </label>
+                        <hr>
+                      <label>
+                        <input class="with-gap"  type="radio"  name="category" value="Îngrijitorii și sănătatea" />
+                        <span class="category-title">Îngrijitorii și sănătatea </span>
+                    </label>
+                        <hr>
+                         <label>
+                        <input class="with-gap"  type="radio"  name="category" value="Bucatar" />
+                        <span class="category-title">Bucatar </span>
+                    </label>
+                        <hr>
+                         <label>
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
                         <span class="category-title">bold </span>
                     </label>
                         <hr>
-                      
-                 <input class="with-gap" name="group1" type="radio"  value="on" />
+                         <label>
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
                         <span class="category-title">bold </span>
                     </label>
                         <hr>
-                         <input class="with-gap" name="group1" type="radio"  value="on" />
+                         <label>
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
                         <span class="category-title">bold </span>
                     </label>
                         <hr>
-                         <input class="with-gap" name="group1" type="radio"  value="on" />
-                        <span class="category-title">bold </span>
-                    </label>
-                        <hr>
-                         <input class="with-gap" name="group1" type="radio"  value="on" />
-                        <span class="category-title">bold </span>
-                    </label>
-                        <hr>
-                         <input class="with-gap" name="group1" type="radio"  value="on" />
-                        <span class="category-title">bold </span>
-                    </label>
-                        <hr>
-            
                   </div>
            <div class="col s12 m6">
-                  
-                   <label>
-                        <input class="with-gap" name="group1" type="radio"  />
+                    <label>
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
                         <span class="category-title">bold </span>
                     </label>
                         <hr>
                      <label>
-                        <input class="with-gap" name="group1" type="radio"  />
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
                         <span class="category-title">bold </span>
                     </label>
                         <hr>
-                        <label>
-                        <input class="with-gap" name="group1" type="radio"  />
-                        <span class="category-title">bold </span>
-                    </label>
-                        <hr>
-                        <label>
-                        <input class="with-gap" name="group1" type="radio"  />
-                        <span class="category-title">bold </span>
-                    </label>
-                        <hr>
-                        <label>
-                        <input class="with-gap" name="group1" type="radio"  />
+                     <label>
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
                         <span class="category-title">bold </span>
                     </label>
                         <hr>
                          <label>
-                        <input class="with-gap" name="group1" type="radio"  />
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
                         <span class="category-title">bold </span>
                     </label>
                         <hr>
                          <label>
-                        <input class="with-gap" name="group1" type="radio"  />
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
                         <span class="category-title">bold </span>
                     </label>
                         <hr>
-            
+                         <label>
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
+                        <span class="category-title">bold </span>
+                    </label>
+                        <hr>
+                         <label>
+                        <input class="with-gap"  type="radio"  name="category" value="on" />
+                        <span class="category-title">bold </span>
+                    </label>
+                        <hr>
                   </div>
       
   </div>
             <!--job description--> <!--obligatoriu-->
     <div class="tab">
-        <h4>Job Description</h4>
+        <h4>Descriere job</h4>
         <div class="col s12 m12">
             <div class="input-field">
-            <input  type="text" placeholder="Position" class="validate" required="" aria-required="true">
-            
-            </div>   
+            <input  id="position" type="text" placeholder="Positie"  aria-required="true"name="position" >
+             <label for="position">Field</label>
+            </div> 
         </div>
         <div class="col s12 m12">
             <div class="input-field">
-            <textarea id="textarea2" data-length="300" placeholder="Descrie rolul clar pentru a atrage candidati"  class="materialize-textarea validate"  maxlength="300" required  ></textarea>
+            <textarea id="textarea2" data-length="300" placeholder="Descrie rolul clar pentru a atrage candidati"  class="materialize-textarea validate"  maxlength="300"  name="job_description" required  ></textarea>
                 <span for="textarea2"></span>
             </div>
         </div>
     </div>
 
 
-  <div class="tab">Birthday:
-     <h4>Where job is located ?</h4>
+  <div class="tab">
+     <h4>Unde este localizat jobul ?</h4>
      <!--select city--> <!--obligatoriu-->
      
          <div class="input-field">
-            <select required>
-                <option value="" selected>City</option>
-                 <option value="1">Chisinau</option>
-                <option value="2">Balti</option>
+            <select  name="city" required>
+                <option value="" selected>Orasul</option>
+                 <option value="Chisinau">Chisinau</option>
+                <option value="Balti">Balti</option>
             </select>
         </div>
    </div>
   
 
     <div class="tab">
-     <h4>Employment Type</h4>
+     <h4>Tipul de angajare</h4>
         <div class="col s12 m12">
             <!--obligatoriu-->
             <label>
-            <input class="with-gap validate" name="group1" type="radio" aria-required="true"  />
+            <input class="with-gap validate"  type="radio" aria-required="true" value="Full-Time" name="employment_type" />
             <span>Full-time</span>
         </label>
             <br>
         <label>
-            <input class="with-gap validate" name="group1" type="radio" aria-required="true"/>
+            <input class="with-gap validate"  type="radio" aria-required="true" value="Part-Time" name="employment_type"/>
             <span>Part-time</span>
         </label>  
     </div>
        <!-- nu e obligatoriu-->
         <div class="col s12 m12">
                 <div class="input-field">
-                    <span>Schedule details</span>
-                <textarea id="textarea2" class="materialize-textarea"  data-length="70" placeholder="ex. Monday-Friday 9AM-4PM" ></textarea>
+                    <span>Programul</span>
+                      <textarea id="textarea2" class="materialize-textarea"  data-length="70" placeholder="ex.Luni-Vineri 9AM-4PM" name="schedule_details" ></textarea>
                     <span for="textarea2"></span>
                 </div>
         </div>
 
         <div class="col s12 m12">
         <label>
-             <input type="checkbox" class="filled-in"  />
-                <span >Immediate start</span>
+             <input type="checkbox"   value="Începeți imediat" name="immediate_start"  />
+                <span >Începeți imediat</span>
             </label>
         </div>
           <div class="col s12 m12">
-           <h4 class="add-job-title">Salary </h4> 
+           <h4 class="add-job-title">Salariu </h4> 
             <div class="col s12 m6">
                 <div class="input-field">
-                    <span>From</span>
-                <input  type="text" placeholder="min" class="validate">
+                    <span>De La</span>
+                <input  type="text" placeholder="minmul" class="validate" name="salary">
                 </div>   
             </div>
             <div class="col s12 m6">
                 <div class="input-field">
-                    <span>to</span>
-                <input  type="text" placeholder="max" class="validate">
+                    <span>Pina La</span>
+                <input  type="text" placeholder="maximul" class="validate" name="salary" >
                 </div>   
             </div>
             </div>
             
             <div class="col s12 m12">
                 <div class="input-field">
-                    <span>Extra compensation (tips, commission, etc.)</span>
-                <textarea id="textarea2" class="materialize-textarea"  data-length="70" placeholder="ex. Extra compensation (tips, commission, etc.)" ></textarea>
+                    <span>Compensare suplimentară (comisioane etc.)</span>
+                <textarea id="textarea2" class="materialize-textarea"  data-length="70" placeholder="ex. Compensare suplimentară (sfaturi, comisioane etc.)" name="commission" ></textarea>
                     <span for="textarea2"></span>
                 </div>
             </div>
     </div>
 
         <div class="tab">
-            <h4>Additional Details</h4>
+            <h4>Detalii Suplimentare</h4>
             <!--additional information-->
                 <div class="col s12 m12">
-                    <span>Does this role require experience?</span> <!--obligatoriu-->
+                    <span>Acest rol necesită experiență?</span> <!--obligatoriu-->
                     <br>
                 <label>
-                    <input class="with-gap" name="group1" type="radio"  />
-                    <span>Yes</span>
+                    <input class="with-gap"  type="radio" value="Da" name="experience"  />
+                    <span>Da</span>
                 </label>
                     <br>
                 <label>
-                    <input class="with-gap" name="group1" type="radio"  />
-                    <span>No</span>
+                    <input class="with-gap"  type="radio" value="Nu" name="experience"  />
+                    <span>Nu</span>
                 </label>
                     <br>
 
                 </div>
 
                 <div class="col s12 m12">
-                    <p>Are any specific language skills required ? optional</p>
+                    <p>Sunt necesare anumite competențe lingvistice ? optional</p>
                     <div class="input-field">
-                        <select>
+                        <select name="language">
                             <option value="" selected>Selecteaza Limba</option>
-                            <option value="1">Engleza</option>
-                            <option value="2">Germana</option>
+                            <option value="Engleza">Engleza</option>
+                            <option value="Germana">Germana</option>
                         </select>
                     </div>
             </div>
@@ -214,12 +213,12 @@
                 
                     <div class="col s12 m12">
                             <div class="input-field">
-                                <select>
+                                <select name="language_level">
                                     <option value="" selected>Nivel</option>
-                                    <option value="1">Basic</option>
-                                    <option value="2">Intermediar</option>
-                                    <option value="2">Avansat</option>
-                                    <option value="2">Nativ</option>
+                                    <option value="Basic">Basic</option>
+                                    <option value="Intermediar">Intermediar</option>
+                                    <option value="AVansat">Avansat</option>
+                                    <option value="Nativ">Nativ</option>
                                 </select>
                             </div>
                     </div>
@@ -238,7 +237,7 @@
                             <input  type="file" >
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path " type="text" placeholder=" Incarca imagine">
+                          <input class="file-path " type="text" placeholder=" Incarca imagine">
                         </div>
                         </div>
                     </div>
@@ -246,15 +245,13 @@
 
 
         <div class="col s12 m12">
-            <button type="button" class="btn grey left" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-            <button type="button"  class="btn blue right" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            <button type="button" class="btn grey left" id="prevBtn" onclick="nextPrev(-1)">Inapoi</button>
+            <button type="button"  class="btn blue right" id="nextBtn" onclick="nextPrev(1)">Continua </button>
         </div>
 
         <!-- Circles which indicates the steps of the form: -->
  </form>
             
-            
-      
       <!--upload photo-->      
      </div> <!--row ends-->
 </div><!--container-->
@@ -280,9 +277,9 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").innerHTML = "Posteaza";
   } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
+    document.getElementById("nextBtn").innerHTML = "Continua";
   }
   //... and run a function that will display the correct step indicator:
   fixStepIndicator(n)
