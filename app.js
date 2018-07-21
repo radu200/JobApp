@@ -26,7 +26,8 @@ const hbs = exphbs.create({
     defaultLayout: 'main',
     extname: '.hbs',
     partialsDir: [
-        'views/partials/',
+        'views/Partials/',
+        'views/Partials/NavBars',
     ]
 });
 

@@ -29,6 +29,6 @@ const accessController = require('../Middleware/access_control_middleware');
   app.get('/logout',  loginController.getLogout)
 
   //jobs controller 
-  app.get('/jobs/add', jobsController.getAddJobs)
-  app.post('/jobs/add', jobsController.postAddJobs)
+  app.get('/jobs/add', accessController.EnsureAuthenticated, jobsController.getAddJobs)
+  app.post('/jobs/add', accessController.EnsureAuthenticated,jobsController.postAddJobs)
 }

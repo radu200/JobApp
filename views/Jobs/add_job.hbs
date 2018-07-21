@@ -1,8 +1,28 @@
-  {{>NavBarEmployer}}
- 
+
+  {{>NavBarAddJobs}}
+      {{#if error_msg}} 
+          <div class="row" id="alert_box">
+            <div class="container">
+              <div class="card red darken-1">
+                <div class="row">
+                  <div class="col s12 m10">
+                    <div class="card-content white-text ">
+                    {{#each error_msg}}
+                          <p>{{msg}}</p>
+                    {{/each}}
+                  </div>
+                  </div>
+                  <div class="col s12 m2">
+                    <i class="material-icons close_icon_style " id="alert_close">close</i>                            
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+      {{/if}}
  <div class="container">
+      <div clas 
    <div class="row">
-  
     <div class="add-jobs-step-container" >
         <span class="step">Categoriii </span>
         <span class="step">Descriere</span>
@@ -20,7 +40,7 @@
           <div class="col s12 m6">
                   
                    <label>
-                        <input class="with-gap"  type="radio" value="Barista și Barman" checked   name="category"  />
+                        <input class="with-gap"  type="radio" value="Barista și Barman"   name="category"  />
                         <span class="category-title">Barista și Barman</span>
                     </label>
                         <hr>
@@ -93,31 +113,29 @@
                         <hr>
                   </div>
       
-  </div>
-            <!--job description--> <!--obligatoriu-->
+          </div>
+    <!--job description--> <!--obligatoriu-->
     <div class="tab">
         <h4>Descriere job</h4>
         <div class="col s12 m12">
             <div class="input-field">
-            <input  id="position" type="text" placeholder="Positie"  aria-required="true"name="position" >
-             <label for="position">Field</label>
+            <input id="position" type="text" placeholder="Pozitie"  name="position" class="validate" required="true" >
             </div> 
         </div>
         <div class="col s12 m12">
-            <div class="input-field">
-            <textarea id="textarea2" data-length="300" placeholder="Descrie rolul clar pentru a atrage candidati"  class="materialize-textarea validate"  maxlength="300"  name="job_description" required  ></textarea>
-                <span for="textarea2"></span>
+                <div class="input-field">
+                <textarea id="description" class="materialize-textarea"  data-length="300" placeholder="ex.Descriere" name="description" ></textarea>
+                    <span for="descriptio"></span>
+                </div>
             </div>
-        </div>
     </div>
 
 
   <div class="tab">
      <h4>Unde este localizat jobul ?</h4>
      <!--select city--> <!--obligatoriu-->
-     
          <div class="input-field">
-            <select  name="city" required>
+            <select  name="city">
                 <option value="" selected>Orasul</option>
                  <option value="Chisinau">Chisinau</option>
                 <option value="Balti">Balti</option>
@@ -131,12 +149,12 @@
         <div class="col s12 m12">
             <!--obligatoriu-->
             <label>
-            <input class="with-gap validate"  type="radio" aria-required="true" value="Full-Time" name="employment_type" />
+            <input class="with-gap validate"  type="radio"  value="Full-Time" name="employment_type" />
             <span>Full-time</span>
         </label>
             <br>
         <label>
-            <input class="with-gap validate"  type="radio" aria-required="true" value="Part-Time" name="employment_type"/>
+            <input class="with-gap "  type="radio"  value="Part-Time" name="employment_type"/>
             <span>Part-time</span>
         </label>  
     </div>
@@ -155,21 +173,14 @@
                 <span >Începeți imediat</span>
             </label>
         </div>
-          <div class="col s12 m12">
-           <h4 class="add-job-title">Salariu </h4> 
-            <div class="col s12 m6">
+       
+            <div class="col s12 m12">
                 <div class="input-field">
-                    <span>De La</span>
-                <input  type="text" placeholder="minmul" class="validate" name="salary">
+                    <span>Salariu</span>
+                      <input  type="text" placeholder="Salariu lunar"  name="salary">
                 </div>   
             </div>
-            <div class="col s12 m6">
-                <div class="input-field">
-                    <span>Pina La</span>
-                <input  type="text" placeholder="maximul" class="validate" name="salary" >
-                </div>   
-            </div>
-            </div>
+        
             
             <div class="col s12 m12">
                 <div class="input-field">
@@ -209,11 +220,10 @@
                         </select>
                     </div>
             </div>
-
                 
                     <div class="col s12 m12">
                             <div class="input-field">
-                                <select name="language_level">
+                                <select id="myList2" name="language_level">
                                     <option value="" selected>Nivel</option>
                                     <option value="Basic">Basic</option>
                                     <option value="Intermediar">Intermediar</option>
@@ -222,7 +232,6 @@
                                 </select>
                             </div>
                     </div>
-
         </div>
 
         <div class="tab">
@@ -250,14 +259,11 @@
         </div>
 
         <!-- Circles which indicates the steps of the form: -->
- </form>
+   </form>
             
       <!--upload photo-->      
      </div> <!--row ends-->
 </div><!--container-->
-
-
-
 
 
 
@@ -307,20 +313,12 @@ function nextPrev(n) {
 function validateForm() {
   // This function deals with validation of the form fields
   var x, y, i, valid = true;
-  x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
-  // A loop that checks every input field in the current tab:
-  for (i = 0; i < y.length; i++) {
-    // If a field is empty...
-    if (y[i].value == "") {
-      // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      // and set the current valid status to false
-      valid = false;
-    }
-  }
+ 
+  var position =  document.getElementById('position').value;
+
   // If the valid status is true, mark the step as finished and valid:
   if (valid) {
+
     document.getElementsByClassName("step")[currentTab].className += " finish";
   }
   return valid; // return the valid status
@@ -336,3 +334,5 @@ function fixStepIndicator(n) {
   x[n].className += " active";
 }
 </script>
+
+
