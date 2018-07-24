@@ -1,6 +1,17 @@
 const db = require('../.././Config/database.js');
+
 module.exports.getJobsPage = (req, res, next) => { 
-   res.render('Jobs/jobs')
+   db.query("select * from jobs", function(err,results){
+      if( err){
+        console.log("[mysql error],", err)
+      }else{
+          res.render('Jobs/jobs',{
+              'results':results
+          })
+      }
+      console.log('results', results)
+      console.log('user', req.user)
+   })
 };
 
 
@@ -25,7 +36,7 @@ module.exports.postAddJobs =  (req, res, next) => {
 
      console.log('category',category)
      console.log(position)
-     console.log(description)
+     console.log('des',description)
      console.log(city)
      console.log('employement',employment_type)
      console.log(schedule_details)
@@ -40,22 +51,17 @@ module.exports.postAddJobs =  (req, res, next) => {
      req.checkBody('category', 'Alege Categoria').notEmpty();
      req.checkBody("position",   'Poziția  este necesară').notEmpty();
      req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 150 de caractere').len(1, 150);
-     req.checkBody("description",   'Descriere este necesara').notEmpty();
-     req.checkBody('description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 300);
+     req.checkBody("job_description",   'Descriere este necesara').notEmpty();
+     req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 300);
      req.checkBody('city', "Locatia este necesara").notEmpty();
      req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
      req.checkBody('schedule_details', ' Descrierea trebuie să aibă o lungime între 0 și 70 de caractere').len(0, 70);
-     req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 70 de caractere.').len(0,70);
+     req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 8 de cifre.').len(0,8);
      req.checkBody({'salary':{ optional: {  options: { checkFalsy: true }},isDecimal: {  errorMessage: 'Salariu trebuie sa fie decimal'} } });
      req.checkBody('commission', 'Comisioanele trebuie să aibă o lungime între 0 și 70 de caractere').len(0, 70);
      req.checkBody('experience', 'Alege experienta').notEmpty();
 
-     //  req.checkBody('first_name', 'first name is required').notEmpty();
-    //  req.checkBody('first_name', 'first name must be between 3 and  50 characters long.').len(3, 50);
-    //  req.checkBody('last_name', 'last name is required').notEmpty();
-    //  req.checkBody('last_name', 'last name must be between 3 and  50 characters long.').len(3, 50);
-    //  req.checkBody('password', 'Password must be between 6-100 characters long.').len(6,100);
-    //  req.checkBody('confirm_password', 'Passwords do not match').equals(req.body.password);
+   
     
      const errors = req.validationErrors();
 
@@ -76,7 +82,7 @@ module.exports.postAddJobs =  (req, res, next) => {
          experience:experience,
          language:language,
          language_level:language_level,
-        //  image:'lalla'
+        
     }
 
     //creat employer

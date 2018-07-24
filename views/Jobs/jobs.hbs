@@ -25,179 +25,51 @@
 </div>
 
     <!-- Section: jobs -->
+              
     <section id="jobs" class="section section-popular scrollspy">
         <div class="container">
             <div class="row">
                 <h4 class="center">
-                    <span class="teal-text">Popular</span> Jobs</h4>
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-image">
+          {{#if results}}
+            <span class="teal-text">Popular</span> Jobs</h4>
+     
+             {{#each results}}
+                <div class="col s12 m6 l4">
+                    <div class="card hoverable">
+                        <div class="card-image small"> 
                             <img src="https://image.ibb.co/hbEMux/resort1.jpg" alt="">
+                            <span class="card-title yellow-text text-lighten-1 ">{{immediate_start}}</span>
                         </div>
+                       
                         <div class="card-content">
-                            <p>
-                                <b>LEI 9.83 - 10.83  LUNAR
-                                    | <span>FULL-TIME</span>
-                                </b>
-                            </p>
-                            <p class="flow-text">
-                                <b>Bartender</b>
-                            </p>
-                            <p class="truncate">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium,
-                                architecto delectus?
-                            </p>
-                            <p>
-                                <b>NUmele cine a postat</b>
-                            </p>
-                            <p>CHISINAU</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#" class=" btn white-text text-lighten-1 waves-effect"> Vezi Mai mult</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="https://image.ibb.co/mn1egc/resort2.jpg" alt="">
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                <b>EURO 9.83 - 10.83
-                                    <span>FULL-TIME</span>
-                                </b>
-                            </p>
-                            <p class="flow-text">
-                                <b>Bartender</b>
-                            </p>
-                            <p class="truncate">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium,
-                                architecto delectus?
-                            </p>
-                            <p>
-                                <b>NUmele cine a postat</b>
-                            </p>
-                            <p>East west, London</p>
-                        </div>
-                        <div class="card-action">
-                                <a href="#" class=" btn white-text blue text-lighten-1">More</a>
-                            </div>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="https://image.ibb.co/mbCVnH/resort3.jpg" alt="">
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                <b>DOLARI 9.83 - 10.83  LA-ORA
-                                    | <span>FULL-TIME</span>
-                                </b>
-                            </p>
-                            <p class="flow-text">
-                                <b>Bartender</b>
-                            </p>
-                            <p class="truncate">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium,
-                                architecto delectus?
-                            </p>
-                            <p>
-                                <b>NUmele cine a postat</b>
-                            </p>
-                            <p>East west, London</p>
-                        </div>
-                        <div class="card-action">
-                                <a href="#" class=" btn white-text text-lighten-1">More</a>
-                            </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col s12 m4">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="https://image.ibb.co/hbEMux/resort1.jpg" alt="">
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    <b>$9.83 - 10.83
-                                        <span>FULL-TIME</span>
+                               <p class="salary">
+                                    <b> {{salary}} LEI 
+                                        | <span>{{employment_type}}</span>
                                     </b>
-                                </p>
-                                <p class="flow-text">
-                                    <b>Bartender</b>
-                                </p>
-                                <p class="truncate">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium,
-                                    architecto delectus?
-                                </p>
-                                <p>
-                                    <b>NUmele cine a postat</b>
-                                </p>
-                                <p>East west, London</p>
-                            </div>
+                               </p>
+                               
+                            
+                                <p class="card-position"> <b>{{position}}</b> </p>
+                                <p class="truncate description">{{description}}</p>
+
+                                <p class="text-opacity truncate"> company description</p>
+                                <p><b>company name</b></p>
+                                <p class="text-opacity">{{city}}</p>
+
+                         </div>
+                        
                             <div class="card-action">
-                                <a href="#">More</a>
+                                <a href="#" class=" btn blue white-text text-lighten-1 waves-effect waves-light"> Vezi Mai mult</a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col s12 m4">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="https://image.ibb.co/mn1egc/resort2.jpg" alt="">
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    <b>$9.83 - 10.83 pe-Ora
-                                        <span>FULL-TIME</span>
-                                    </b>
-                                </p>
-                                <p class="flow-text">
-                                    <b>Bartender</b>
-                                </p>
-                                <p class="truncate">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium,
-                                    architecto delectus?
-                                </p>
-                                <p>
-                                    <b>NUmele cine a postat</b>
-                                </p>
-                                <p>East west, London</p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 m4">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="https://image.ibb.co/hbEMux/resort1.jpg" alt="">
-                                </div>
-                                <div class="card-content">
-                                    <p>
-                                        <b>$9.83 - 10.83
-                                            <span>FULL-TIME</span>
-                                        </b>
-                                    </p>
-                                    <p class="flow-text">
-                                        <b>Bartender</b>
-                                    </p>
-                                    <p class="truncate">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium,
-                                        architecto delectus?
-                                    </p>
-                                    <p>
-                                        <b>NUmele cine a postat</b>
-                                    </p>
-                                    <p>East west, London</p>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#" class="red lighten-1">More</a>
-                                </div>
-                            </div>
-                        </div>
-            </div>
+                   </div>
+                </div>
+            {{/each}}
+         {{else}}
+           <h4  class="center">Nici un job nu este disponibil la moment</h4>
+         {{/if}}
         </div>
-    </section>
+    </div>
+</section>
 
 
-    {{>Footer}}
+ {{>Footer}}

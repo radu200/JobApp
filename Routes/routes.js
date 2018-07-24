@@ -5,6 +5,7 @@ module.exports = function (app){
 const jobsController = require('../Controllers/Jobs/jobs');
 const signupEmployerController = require('../Controllers/Authentication/Employer/signup');
 const signupJobSeekerController = require('../Controllers/Authentication/JobSeeker/signup');
+const pagesController = require('../Controllers/pages/profile');
 
 const loginController = require('../Controllers/Authentication/Common/login');
 const homeController = require('../Controllers/home');
@@ -22,6 +23,8 @@ const accessController = require('../Middleware/access_control_middleware');
   app.get('/job_seeker/signup', signupJobSeekerController.getSignUpJobSeeker)
   app.post('/job_seeker/signup', signupJobSeekerController.postSignUpJobSeeker)
 
+  //profile
+  app.get('/profile', accessController.EnsureAuthenticated, pagesController.getProfile)
 
   //login
   app.get('/login',  loginController.getLogin)

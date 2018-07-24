@@ -22,7 +22,7 @@ module.exports = function (passport) {
     }, function (req, username, password, done) {
             //validation login
 
-        db.query('SELECT id, password,type, email  FROM users WHERE email = ?', [username], function (error, results, fileds) {
+        db.query('SELECT id, password,type, email,first_name, last_name FROM users WHERE email = ?', [username], function (error, results, fileds) {
             if (error) {
                 done(error)
             }

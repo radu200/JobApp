@@ -26,7 +26,7 @@
     "test": "npx jest",
     "test:coverage": "npx jest --coverage --bail",
     "start": "node server.js",
-    "dev": " webpack --mode development --open",
+    "dev": " webpack --mode development --open --watch",
     "build": "webpack --mode production",
     "lint:js": "npx eslint",
     "stylelint": " npx stylelint 'src/**/*.scss'"
