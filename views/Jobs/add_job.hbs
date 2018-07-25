@@ -1,5 +1,5 @@
 
-  {{>NavBarAddJobs}}
+  {{>SimpleNavBar}}
       {{#if error_msg}} 
           <div class="row" id="alert_box">
             <div class="container">
@@ -119,13 +119,13 @@
         <h4>Descriere job</h4>
         <div class="col s12 m12">
             <div class="input-field">
-            <input id="position" type="text" placeholder="Pozitie"  name="position" class="validate" required="true" >
+            <input id="position " type="text" placeholder="Pozitie"  data-length="70" name="position" class="validate" required="true" maxlength="70" >
             </div> 
         </div>
         <div class="col s12 m12">
                 <div class="input-field">
-                <textarea id="description" class="materialize-textarea"  data-length="300" placeholder="ex.Descriere" name="job_description"  class="validate"></textarea>
-                    <span for="descriptio"></span>
+                <textarea id="description" class="materialize-textarea"  data-length="300" placeholder="ex.Descriere" name="job_description"  class="validate" maxlength="300"></textarea>
+                    <span for="description"></span>
                 </div>
             </div>
     </div>
@@ -162,7 +162,7 @@
         <div class="col s12 m12">
                 <div class="input-field">
                     <span>Programul</span>
-                      <textarea id="textarea2" class="materialize-textarea"  data-length="70" placeholder="ex.Luni-Vineri 9AM-4PM" name="schedule_details" ></textarea>
+                      <textarea id="textarea2" class="materialize-textarea"  data-length="70" placeholder="ex.Luni-Vineri 9AM-4PM" name="schedule_details"  maxlength="70" ></textarea>
                     <span for="textarea2"></span>
                 </div>
         </div>
@@ -174,18 +174,27 @@
             </label>
         </div>
        
-            <div class="col s12 m12">
+            <div class="col s12 m8">
                 <div class="input-field">
                     <span>Salariu</span>
-                      <input  type="text" placeholder="Salariu lunar"  name="salary">
+                      <input  type="text" placeholder="Salariu lunar"  name="salary"  maxlength="8">
                 </div>   
             </div>
-        
+            <div class="col s12 m3">
+                <div class="input-field">
+                      <span>Valuta</span>
+                    <select name="currency">
+                        <option value="LEI" selected>LEI</option>
+                        <option value="EURO">EURO</option>
+                        <option value="DOLARI">DOLARI</option>
+                    </select>
+                </div>
+        </div>
             
             <div class="col s12 m12">
                 <div class="input-field">
                     <span>Compensare suplimentară (comisioane etc.)</span>
-                <textarea id="textarea2" class="materialize-textarea"  data-length="70" placeholder="ex. Compensare suplimentară (sfaturi, comisioane etc.)" name="commission" ></textarea>
+                <textarea id="textarea2" class="materialize-textarea"  data-length="70" placeholder="ex. Compensare suplimentară (sfaturi, comisioane etc.)" name="commission"  maxlength="70"></textarea>
                     <span for="textarea2"></span>
                 </div>
             </div>
@@ -248,8 +257,8 @@
                         <div class="file-path-wrapper">
                           <input class="file-path " type="text" placeholder=" Incarca imagine">
                         </div>
-                        </div>
-                    </div>
+                   </div>
+               </div>
             </div>
 
           

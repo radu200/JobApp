@@ -35,18 +35,19 @@
      
              {{#each results}}
                 <div class="col s12 m6 l4">
+                 <a href="/" class="fullcard" target="_blank"> </a>
                     <div class="card hoverable">
                         <div class="card-image small"> 
                             <img src="https://image.ibb.co/hbEMux/resort1.jpg" alt="">
                             <span class="card-title yellow-text text-lighten-1 ">{{immediate_start}}</span>
                         </div>
                        
-                        <div class="card-content">
+                        <div class="card-content card-content-jobs">
                                <p class="salary">
-                                    <b> {{salary}} LEI 
+                                    <b> {{salary}} {{currency}}
                                         | <span>{{employment_type}}</span>
                                     </b>
-                               </p>
+                                </p>
                                
                             
                                 <p class="card-position"> <b>{{position}}</b> </p>
@@ -57,7 +58,8 @@
                                 <p class="text-opacity">{{city}}</p>
 
                          </div>
-                        
+                   
+                    
                             <div class="card-action">
                                 <a href="#" class=" btn blue white-text text-lighten-1 waves-effect waves-light"> Vezi Mai mult</a>
                             </div>

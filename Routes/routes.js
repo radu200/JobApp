@@ -5,14 +5,14 @@ module.exports = function (app){
 const jobsController = require('../Controllers/Jobs/jobs');
 const signupEmployerController = require('../Controllers/Authentication/Employer/signup');
 const signupJobSeekerController = require('../Controllers/Authentication/JobSeeker/signup');
-const pagesController = require('../Controllers/pages/profile');
+const profileController = require('../Controllers/profile/profile');
 
 const loginController = require('../Controllers/Authentication/Common/login');
 const homeController = require('../Controllers/home');
 
 const accessController = require('../Middleware/access_control_middleware');
 
-  app.get('/jobs', accessController.EnsureAuthenticated, jobsController.getJobsPage)
+  app.get('/jobs', accessController.ensureAuthenticated, jobsController.getJobsPage)
   app.get('/',  homeController.getHomePage)
 
   
@@ -24,7 +24,10 @@ const accessController = require('../Middleware/access_control_middleware');
   app.post('/job_seeker/signup', signupJobSeekerController.postSignUpJobSeeker)
 
   //profile
-  app.get('/profile', accessController.EnsureAuthenticated, pagesController.getProfile)
+  app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
+  app.get('/profile/edit', accessController.ensureAuthenticated, profileController.getProfileEdit)
+  app.get('/company/info/edit', accessController.ensureAuthenticated, profileController.getCompanyInfoEdit)
+  app.get('/change/password', accessController.ensureAuthenticated, profileController.getChangePassword)
 
   //login
   app.get('/login',  loginController.getLogin)
@@ -32,6 +35,6 @@ const accessController = require('../Middleware/access_control_middleware');
   app.get('/logout',  loginController.getLogout)
 
   //jobs controller 
-  app.get('/jobs/add', accessController.EnsureAuthenticated, jobsController.getAddJobs)
-  app.post('/jobs/add', accessController.EnsureAuthenticated,jobsController.postAddJobs)
+  app.get('/jobs/add', accessController.ensureAuthenticated ,accessController.employer, jobsController.getAddJobs)
+  app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer, jobsController.postAddJobs)
 }

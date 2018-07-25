@@ -33,6 +33,7 @@ module.exports.postAddJobs =  (req, res, next) => {
      const language = req.body.language;
      const language_level = req.body.language_level;
      const commission = req.body.commission
+     const currency = req.body.currency
 
      console.log('category',category)
      console.log(position)
@@ -50,9 +51,9 @@ module.exports.postAddJobs =  (req, res, next) => {
 
      req.checkBody('category', 'Alege Categoria').notEmpty();
      req.checkBody("position",   'Poziția  este necesară').notEmpty();
-     req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 150 de caractere').len(1, 150);
+     req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
      req.checkBody("job_description",   'Descriere este necesara').notEmpty();
-     req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 300);
+     req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
      req.checkBody('city', "Locatia este necesara").notEmpty();
      req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
      req.checkBody('schedule_details', ' Descrierea trebuie să aibă o lungime între 0 și 70 de caractere').len(0, 70);
@@ -82,7 +83,7 @@ module.exports.postAddJobs =  (req, res, next) => {
          experience:experience,
          language:language,
          language_level:language_level,
-        
+         currency:currency
     }
 
     //creat employer
