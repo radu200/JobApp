@@ -1,9 +1,9 @@
+ {{#if isAuthenticated}}
     <nav class="white">
       <a href="#" class="brand-logo red-text text-lighten-1 logo-employer">Employer</a>
             <div class="nav-wrapper  lighten-4 ">
               <div class="container">
 
-                    {{#if isAuthenticated}}
                  <ul id="nav-mobile" class=" left hide-on-med-and-down">
                            <li>
                              <a href="/jobs" class="grey-text text-darken-4"> Joburile Mele</a>
@@ -19,11 +19,11 @@
                                 <a href="/chat" class="grey-text text-darken-4">Compania mea</a>
                             </li>
                          </ul>
+                    </div>
                                             <!-- hamburger -->
                         <a href="#" data-target="slide-out" class="sidenav-trigger">
                             <i class="material-icons grey-text text-darken-4">menu</i>
                         </a>
-                    </div>
                          <!--right side-->
 
                         <ul id="nav-mobile" class=" right hide-on-med-and-down">
@@ -102,9 +102,9 @@
             <li>
                 <a href="/logout"  class="waves-effect waves-light btn ">Iesire</a>
             </li>
-        {{/if}}
 
         </ul>
 
         
     </nav>
+    {{/if}}

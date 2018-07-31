@@ -5,9 +5,9 @@
    
 // }
 
-// const description = $('#description').val();
-// console.log(description)
-// if (position === "") {
-//     $('.description-error').text('Please fill up description')
+const description = $('#description').val();
+console.log(description)
+if ( description === "") {
+    $('.description-error').text('Please fill up description')
   
-// }
+}
