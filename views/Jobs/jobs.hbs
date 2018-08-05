@@ -11,7 +11,7 @@
         </div>
       <div class="col s12 m2">
                 <form action="">
-                    <button class="btn search-btn blue">Cauta </button>
+                    <button class="btn search-btn ">Cauta </button>
                 </form>
             </div>
         </div>
@@ -23,9 +23,11 @@
     <div class="container">
     <div class="row">
       <div class="col s6 m4 l2">
-          <div class="card-panel">
+          <a href="/profile">
+          <div class="card-panel black-text">
               sdlkflkj
        </div>
+       </a>
   </div>
     <div class="col s6 m4 l2">
           <div class="card-panel">
@@ -103,7 +105,7 @@
 
      </div>
      <div class="col s6 m4 l2">
-          <div class="card-panel all-category grey lighten-2">
+          <div class="card-panel blue-text all-category grey lighten-2 center">
               Vezi Toate
        </div>
      </div>
@@ -115,15 +117,13 @@
     <section id="jobs" class="section section-popular scrollspy">
         <div class="container">
             <div class="row">
-          <h4 class="center">
           {{#if results}}
-            <span class="teal-text">Popular</span> Jobs</h4>
-     
+            
              {{#each results}}
                 <div class="col s12 m6 l4">
                     <div class="card hoverable">
                         <div class="card-image small"> 
-                            <img src="https://image.ibb.co/hbEMux/resort1.jpg" alt="">
+                            <img src="./uploads/{{this.image}}" alt="">
                             <span class="card-title yellow-text text-lighten-1 ">{{immediate_start}}</span>
                         </div>
                        
@@ -140,13 +140,15 @@
 
                                 <p class="text-opacity truncate"> company description</p>
                                 <p><b>company name</b></p>
+                                <p><b>{{language}}</b></p>
+
                                 <p class="text-opacity">{{city}}</p>
 
                          </div>
                    
                     
                             <div class="card-action">
-                                <a href="#" class=" btn blue white-text text-lighten-1 waves-effect waves-light"> Vezi Mai mult</a>
+                                <a href="#" class=" btn white-text text-lighten-1 waves-effect waves-light"> Vezi Mai mult</a>
                             </div>
                    </div>
                 </div>

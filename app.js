@@ -13,7 +13,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MySQLStore = require('express-mysql-session')(session);
- const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 const helmet = require('helmet')
 const crypto = require('crypto');
@@ -126,7 +126,7 @@ app.use(function(req, res, next) {
     next();
   });
 
-app.use(express.static(path.join(__dirname, 'Public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 require('./Routes/routes.js')(app);
 

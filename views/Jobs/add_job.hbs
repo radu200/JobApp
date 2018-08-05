@@ -22,9 +22,9 @@
       {{/if}}
  <div class="container">
       <div class="row">
-        <form id="regForm" method="POST" action="/jobs/add">
-        <h4>Categoria jobului</h4> <!--obligatoriu-->
-          <div class="col s12 m6"> 
+        <form id="post_job" method="POST" enctype="multipart/form-data">
+          <h4>Categoria jobului</h4> <!--obligatoriu-->
+          {{!-- <div class="col s12 m6"> 
                    <label>
                         <input class="with-gap"  type="radio" value="Barista și Barman"   name="category"  />
                         <span class="category-title">Barista și Barman</span>
@@ -210,27 +210,34 @@
                                             </select>
                                         </div>
                                 </div>
-                                    
+                                     --}}
                                     
                                         
                                     <!--image upload-->
+
+                                      <div class="progress">
+                                        <div class="determinate "id="progressBar" value="0" max="100" style="width: 0%"></div>
+                                       <span class="sr-only"></span>
+                                      </div>
                                             <div class="col s12 m12">
                                             <h4>Adauga imagine</h4>
 
                                             <div class="file-field input-field">
                                                 <div class="btn blue ">
                                                     <span>  Incarca imagine</span>
-                                                    <input  type="file" >
+                                                    <input  type="file" id="job_image" name="job_image" >
                                                 </div>
-                                                <div class="file-path-wrapper">
+                                           <div class="file-path-wrapper">
                                                 <input class="file-path " type="text" placeholder=" Incarca imagine">
-                                                </div>
+                                            </div>
                                         </div>
                                     </div>             
                                         <button type="submit"  class="btn blue right">Posteaza<i class="material-icons right">send</i></button>
                                    
                                 <!-- Circles which indicates the steps of the form: -->
-                        </form>            
+                        </form>   
+
+                                     
      </div> <!--row ends-->
 </div><!--container-->
 
