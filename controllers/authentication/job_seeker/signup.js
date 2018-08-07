@@ -1,5 +1,5 @@
 
- const db = require('../../../Config/database.js');
+ const db = require('../../../config/database.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 

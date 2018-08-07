@@ -26,8 +26,8 @@ const hbs = exphbs.create({
     defaultLayout: 'main',
     extname: '.hbs',
     partialsDir: [
-        'views/Partials/',
-        'views/Partials/NavBars',
+        'views/partials/',
+        'views/partials/NavBars',
     ]
 });
 
@@ -38,7 +38,7 @@ const hbs = exphbs.create({
 require('dotenv').config({ path: '.env' })
 
 //Passport configuration.
-require('./Config/passport')(passport);
+require('./config/passport')(passport);
 
 
 app.engine('.hbs', hbs.engine);
@@ -74,8 +74,8 @@ app.use(session({
     resave:false, //session will be saved each time no matter if exist or not
     saveUninitialized: false,  //if it's true session will be stored on server no matter if is something there
     expires: expiryDate //1 hour
-   // cookie: {   secure: true, // httpOnly: true, // domain: 'example.com',  //path: 'foo/bar', 
-//},
+    // cookie: {   secure: true, // httpOnly: true, // domain: 'example.com',  //path: 'foo/bar', 
+    //},
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -93,7 +93,7 @@ app.use(function(req, res, next) {
     res.locals.warning_msg = req.flash('warning_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
- 
+    
     next();
 });  
 
@@ -101,34 +101,34 @@ app.use(function(req, res, next) {
 ///middleware to restrict access in ui in dependece of user
 app.use(function(req, res, next) {
     if(req.isAuthenticated() === true){
-   res.locals.Employer = function(){
-       if(req.user.type === 'employer'){
-           return true;
-           nex()
-       }else{
-           return false;
-           res.redirect('/login');
-       }
-   }
-
-   res.locals.JobSeeker = function(){
-    if(req.user.type === 'jobseeker'){
-        return true;
-    } else{
-        return false;
-        res.redirect('/login');
+        res.locals.Employer = function(){
+            if(req.user.type === 'employer'){
+                return true;
+                nex()
+            }else{
+                return false;
+                res.redirect('/login');
+            }
+        }
         
-       }
-    
-      }
-
+        res.locals.JobSeeker = function(){
+            if(req.user.type === 'jobseeker'){
+                return true;
+            } else{
+                return false;
+                res.redirect('/login');
+                
+            }
+            
+        }
+        
     }
     next();
-  });
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./Routes/routes.js')(app);
+require('./routes/routes.js')(app);
 
 
 module.exports = app;

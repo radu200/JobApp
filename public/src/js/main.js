@@ -4,9 +4,6 @@ import scss from '../scss/main.scss';
 import $ from 'jquery';
 import '../materialize/js/bin/materialize.min.js'
 import "../materialize/sass/materialize.scss"
-import sidenav from './partials/sidenav';
-import inputs from './partials/inputs';
-import alerts from './partials/alerts';
-import PostJob from './ajax/post_job';
-
+import PartialsMain from './partials/partials_main';
+import JobsMain from './jobs/jobs_main';
 

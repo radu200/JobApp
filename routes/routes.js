@@ -2,15 +2,15 @@
 
 module.exports = function (app){
     
-const jobsController = require('../Controllers/Jobs/jobs');
-const signupEmployerController = require('../Controllers/Authentication/Employer/signup');
-const signupJobSeekerController = require('../Controllers/Authentication/JobSeeker/signup');
-const profileController = require('../Controllers/profile/profile');
+const jobsController = require('../controllers/jobs/jobs');
+const signupEmployerController = require('../controllers/authentication/employer/signup');
+const signupJobSeekerController = require('../controllers/authentication/job_seeker/signup');
+const profileController = require('../controllers/profile/profile');
 
-const loginController = require('../Controllers/Authentication/Common/login');
-const homeController = require('../Controllers/home');
+const loginController = require('../controllers/authentication/common/login');
+const homeController = require('../controllers/home');
 
-const accessController = require('../Middleware/access_control_middleware');
+const accessController = require('../middleware/access_control_middleware');
 
   app.get('/jobs', accessController.ensureAuthenticated, jobsController.getJobsPage)
   app.get('/',  homeController.getHomePage)
@@ -37,4 +37,8 @@ const accessController = require('../Middleware/access_control_middleware');
   //jobs controller 
   app.get('/jobs/add', accessController.ensureAuthenticated ,accessController.employer, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer, jobsController.postAddJobs)
+  app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)
+  app.post('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.postJobImageEdit)
+
+
 }

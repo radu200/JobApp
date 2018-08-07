@@ -2,7 +2,7 @@
 const passport = require('passport');
 
 module.exports.getLogin = (req, res, next) => {
-    res.render('Authentication/Common/login')
+    res.render('authentication/common/login')
  };
 
 

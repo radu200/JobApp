@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const db = require('./database');
-const saltRounds = 10;
+
 
 
 module.exports = function (passport) {

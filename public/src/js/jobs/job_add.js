@@ -48,7 +48,7 @@ function progressHandler(event){
 function completeHandler(event){
 	// _("status").innerHTML = event.target.responseText;
 	 _('post_job').reset();
-	 // location.href="/success"
+	   location.href="/jobs"
 	
 }
 function errorHandler(event){

@@ -1,10 +1,10 @@
-const db = require('../../../Config/database.js');
+const db = require('../../../config/database.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
 module.exports.getSignUpEmployer = function (req, res, next) {
-    res.render('Authentication/Employer/signup')
+    res.render('authentication/employer/signup')
 };
 
 module.exports.postSignUpEmployer = function (req, res, next) {
