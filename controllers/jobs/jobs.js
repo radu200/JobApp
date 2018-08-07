@@ -43,29 +43,27 @@ const EditJobImage = multer({
 }).single('job_image_edit')
 
 
-module.exports.getJobsPage = (req, res, next) => { 
-   db.query("select * from jobs", function(err,results){
-      if( err){
-        console.log("[mysql error],", err)
-      }else{
-          res.render('jobs/jobs',{
-              'results':results
-          })
-      }
-    
-   })
+module.exports.getJobsPage = (req, res, next) => {
+    db.query("select * from jobs", function (err, results) {
+        if (err) {
+            console.log("[mysql error],", err)
+        } else {
+            res.render('jobs/jobs', {
+                'results': results
+            })
+        }
 
-
+    })
 
 };
 
 
-module.exports.getAddJobs =  (req, res, next) => {
+module.exports.getAddJobs = (req, res, next) => {
     res.render('jobs/add_job')
 };
 
 
-module.exports.postAddJobs =  (req, res, next) => {
+module.exports.postAddJobs = (req, res, next) => {
     //  const category = req.body.category;
     //  const position = req.body.position;
     //  const description = req.body.job_description;
@@ -90,9 +88,9 @@ module.exports.postAddJobs =  (req, res, next) => {
     //  console.log(salary)
     //  console.log('experience',experience)
     //  console.log(language.toString())
-  
+
     //  console.log('user',req.user)
-  
+
 
     //  req.checkBody('category', 'Alege Categoria').notEmpty();
     //  req.checkBody("position",   'Poziția  este necesară').notEmpty();
@@ -107,175 +105,179 @@ module.exports.postAddJobs =  (req, res, next) => {
     //  req.checkBody('commission', 'Comisioanele trebuie să aibă o lungime între 0 și 70 de caractere').len(0, 70);
     //  req.checkBody('experience', 'Alege experienta').notEmpty();
 
-   
-    
-     const errors = req.validationErrors();
 
-     if (errors) {
-         req.flash('error_msg', errors);
-         return res.redirect('back')
-     }
-     
-     uploadJobImage(req,res, (err) => {
 
-          if(req.file){
-          var job_image = req.file.filename;
-        
-          sharp(req.file.path)
-          .resize(500,281)
-          .toFile( './public/uploads/' + req.file.filename, (err, info) => {
-              console.log(info)
+    const errors = req.validationErrors();
 
-              if(err){
-                  console.log('err' ,err)
-              }else{
-                    //delete original image
-                    fs.unlink('./public/tmp_folder/' + job_image, function(err){
+    if (errors) {
+        req.flash('error_msg', errors);
+        return res.redirect('back')
+    }
+
+    uploadJobImage(req, res, (err) => {
+
+        if (req.file) {
+            var job_image = req.file.filename;
+
+            sharp(req.file.path)
+                .resize(500, 281)
+                .toFile('./public/uploads/' + req.file.filename, (err, info) => {
+                    console.log(info)
+
+                    if (err) {
+                        console.log('err', err)
+                    } else {
+                        //delete original image
+                        fs.unlink('./public/tmp_folder/' + job_image, function (err) {
                             if (err) {
-                            console.log("failed to delete file:" + err);
-                        } else {
-                            console.log('successfully deleted ');
-                             }
+                                console.log("failed to delete file:" + err);
+                            } else {
+                                console.log('successfully deleted ');
+                            }
                         })
 
-                      console.log('resized success')
-                   }
+                        console.log('resized success')
+                    }
 
                 });
-            
-            
-        } else{
-            job_image = 'no_job_image.png' 
+
+
+        } else {
+
+            job_image = 'noJobImage.png'
+
         }
         // let lang = language.toString();
-        
+
         let jobs = {
-            
+
             //  employer_id:req.user.id,
-        //  category:category,
-        //  position:position,
-        //  city:city,
-        //  employment_type:employment_type,
-        //  schedule_details:schedule_details,
-        //  immediate_start:immediate_start,
-        //  salary:salary,
-        //  experience:experience,
-        //  language:lang,
-        //  currency:currency
-        image:job_image
-    }
-    
-    
-    
-    //creat employer
-    db.query('INSERT INTO jobs SET ?', jobs, (error, results) => {
-        
-        
-      
-    
-        
-        //  description:description,
-        
-        if (err) {
-            console.log('[mysql error]', error)
-            res.status(500).json({
-                error: err
-            });
-        } else {
-            res.status(200).json({
-                message: "Job Added",
-                //   posts: {
-                //     image: filename,
-                //     name: req.body.name,
-    //                 size:5e+6
-        //   }
-     })
-    }
-  })
- })
+            //  category:category,
+            //  position:position,
+            //  city:city,
+            //  employment_type:employment_type,
+            //  schedule_details:schedule_details,
+            //  immediate_start:immediate_start,
+            //  salary:salary,
+            //  experience:experience,
+            //  language:lang,
+            //  currency:currency
+            image: job_image
+        }
+
+
+
+        //creat employer
+        db.query('INSERT INTO jobs SET ?', jobs, (error, results) => {
+
+            if (err) {
+                console.log('[mysql error]', error)
+                res.status(500).json({
+                    error: err
+                });
+            } else {
+                res.status(200).json({
+                    message: "Job Added",
+                  
+                })
+            }
+        })
+    })
 };
 
-module.exports.getJobImageEdit = (req,res,next) => {
-   db.query('select id, image from jobs  where id= ?',[req.params.id],(err,results) => {
-       
-       res.render('./jobs/job_edit_image',{
-              'results':results
-       })
-   })
+module.exports.getJobImageEdit = (req, res, next) => {
+    db.query('select id, image from jobs  where id= ?', [req.params.id], (err, results) => {
+
+        res.render('./jobs/job_edit_image', {
+            'results': results
+        })
+    })
 }
 
 
 
-module.exports.postJobImageEdit =  (req, res, next) => {
-   //delete old image
-  db.query(`select id, image from jobs where id=${req.params.id}`, (err, results) => {
-      console.log(results)
-    fs.unlink('./public/uploads/' + results[0].image, function(err){
-        if (err) {
-        console.log("failed to delete file:" + err);
-    } else {
-        console.log('successfully deleted ');
-    }
-   })
-    
-  })
-     const errors = req.validationErrors();
+module.exports.postJobImageEdit = (req, res, next) => {
+    //delete old image
+    db.query(`select id, image from jobs where id=${req.params.id}`, (err, results) => {
+        console.log(results)
 
-     if (errors) {
-         req.flash('error_msg', errors);
-         return res.redirect('back')
-     }
-     
-     EditJobImage(req,res, (err) => {
-
-          if(req.file){
-          var job_image = req.file.filename;
-        
-          sharp(req.file.path)
-          .resize(600,157)
-          .toFile( './public/uploads/' + req.file.filename, (err, info) => {
-            if(err){
-                console.log('sharp err',err)
-            }else{
-                fs.unlink('./public/tmp_folder/' + req.file.filename, function(err){
-                    if (err) {
+        if (!results[0].image === 'noJobImage.png') {
+            fs.unlink('./public/uploads/' + results[0].image, function (err) {
+                if (err) {
                     console.log("failed to delete file:" + err);
                 } else {
                     console.log('successfully deleted ');
                 }
             })
-            
-            console.log('resized success')
-        }
-    });
-            
-            
-        } else{
-            job_image = 'no_job_image.png' 
-        }
-        
-        let jobs = {
-       
-        image:job_image
-    }
-    
-    
-    
-    //creat employer
-    db.query(`update jobs set ? where id =${req.params.id}`, jobs, (error, results) => {
-         
-        if (err) {
-            console.log('[mysql error]', error)
-            res.status(500).json({
-                error: err
-            });
+
         } else {
-            res.status(200).json({
-                message: "image succefully edited",
-           
-      })
-    
-    }
-  })
- })
-};
+
+
+            const errors = req.validationErrors();
+
+            if (errors) {
+                req.flash('error_msg', errors);
+                return res.redirect('back')
+            }
+
+            EditJobImage(req, res, (err) => {
+
+                if (req.file) {
+                    var job_image_edit = req.file.filename;
+
+                    sharp(req.file.path)
+                        .resize(600, 157)
+                        .toFile('./public/uploads/' + req.file.filename, (err, info) => {
+                            if (err) {
+                                console.log('sharp err', err)
+                            } else {
+
+                                //delete old image that was just resized
+                                fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
+                                    if (err) {
+                                        console.log("failed to delete file:" + err);
+                                    } else {
+                                        console.log('successfully deleted ');
+                                    }
+                                })
+
+                                console.log('resized success')
+                            }
+                        });
+
+
+                } else {
+                    job_image = 'no_job_image.png'
+                }
+
+                let image = {
+                    image: job_image_edit
+                }
+
+
+
+                //creat employer
+                db.query(`update jobs set ? where id =${req.params.id}`, image, (error, results) => {
+
+                    if (err) {
+                        console.log('[mysql error]', error)
+                        res.status(500).json({
+                            error: err
+                        });
+                    } else {
+                        res.status(200).json({
+                            message: "image succefully edited"
+
+                        })
+
+                    }
+                })
+            })
+
+
+        }
+
+    }) //db select query ends
+
+
+}; //module ends

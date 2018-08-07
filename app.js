@@ -41,6 +41,7 @@ require('dotenv').config({ path: '.env' })
 require('./config/passport')(passport);
 
 
+app.use(express.static(path.join(__dirname, 'react/job/build')));
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.use(compression());

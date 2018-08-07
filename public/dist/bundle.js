@@ -11133,152 +11133,15 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./public/src/js/jobs/job_add.js":
-/*!***************************************!*\
-  !*** ./public/src/js/jobs/job_add.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-function _(el) {
-	return document.getElementById(el);
-}
-_("post_job").addEventListener("submit", function (event) {
-	event.preventDefault();
-	// var name = _("name").value;
-	var file = _("job_image").files[0];
-	// alert(file.name+" | "+file.size+" | "+file.type);
-
-	var formdata = new FormData();
-
-	//file input validation
-	// if(file === undefined){
-	//    file = 0;
-	// } 
-	// else if(file.size > 5e+6 ){
-	// 	//alert("image is too big")
-	// 	_("job_image_error").innerHTML = 'image too big, max 5 mb';
-
-	// 	return false;
-	// }
-
-	// if(name === ''){
-	// 	//alert('fill up name')
-	// 	_('name_error').innerHTML = 'please fill up name field';
-	// 	return false;
-	// }
-
-
-	formdata.append("job_image", file);
-	// formdata.append("name", name );
-	var ajax = new XMLHttpRequest();
-	ajax.upload.addEventListener("progress", progressHandler, false);
-	ajax.addEventListener("load", completeHandler, false);
-	ajax.addEventListener("error", errorHandler, false);
-	ajax.addEventListener("abort", abortHandler, false);
-	ajax.open("POST", "/jobs/add");
-	ajax.send(formdata);
-});
-function progressHandler(event) {
-	//_("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
-	var percent = event.loaded / event.total * 100;
-	_("progressBar").style.width = percent + "%";
-	// _("status").innerHTML = Math.round(percent)+"% uploaded";
-}
-function completeHandler(event) {
-	// _("status").innerHTML = event.target.responseText;
-	_('post_job').reset();
-	// location.href="/success"
-}
-function errorHandler(event) {
-
-	// _("status").innerHTML = "Upload Failed";
-}
-function abortHandler(event) {
-	// _("status").innerHTML = "Upload Aborted";
-}
-
-/***/ }),
-
-/***/ "./public/src/js/jobs/job_image_edit.js":
-/*!**********************************************!*\
-  !*** ./public/src/js/jobs/job_image_edit.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-function _(el) {
-	return document.getElementById(el);
-}
-_("job_image_edit_form").addEventListener("submit", function (event) {
-	event.preventDefault();
-	let jobForm = _('job_image_edit_form');
-	let jobId = jobForm.getAttribute('data-job_id');
-	let file = _("job_image_edit").files[0];
-
-	//console.log(file.name+" | "+file.size+" | "+file.type)
-	// //  alert(file.name+" | "+file.size+" | "+file.type);
-
-	let formdata = new FormData();
-
-	//file input validation
-	if (file === undefined) {
-		file = 0;
-	} else if (file.size > 5e+6) {
-		//alert("image is too big")
-		_("job_image_error").innerHTML = 'image too big, max 5 mb';
-
-		return false;
-	}
-
-	//append input
-	formdata.append("job_image_edit", file);
-	let xhr = new XMLHttpRequest();
-	xhr.upload.addEventListener("progress", progressHandler, false);
-	xhr.addEventListener("load", completeHandler, false);
-	xhr.addEventListener("error", errorHandler, false);
-	xhr.addEventListener("abort", abortHandler, false);
-	xhr.open("POST", ` /job_image/edit/${jobId}`);
-	xhr.send(formdata);
-});
-function progressHandler(event) {
-	// _("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
-	let percent = event.loaded / event.total * 100;
-	_("progressBarEdit").style.width = percent + "%";
-	_("statusd").innerHTML = Math.round(percent) + "% uploaded";
-}
-function completeHandler(event) {
-	_("statusd").innerHTML = event.target.responseText;
-	//_('post_job').reset();
-	//location.href="/"
-}
-function errorHandler(event) {
-
-	//  _("status").innerHTML = "Upload Failed";
-}
-function abortHandler(event) {
-	//  _("status").innerHTML = "Upload Aborted";
-}
-
-/***/ }),
-
 /***/ "./public/src/js/jobs/jobs_main.js":
 /*!*****************************************!*\
   !*** ./public/src/js/jobs/jobs_main.js ***!
   \*****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _job_image_edit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./job_image_edit */ "./public/src/js/jobs/job_image_edit.js");
-/* harmony import */ var _job_image_edit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_job_image_edit__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _job_add__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./job_add */ "./public/src/js/jobs/job_add.js");
-/* harmony import */ var _job_add__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_job_add__WEBPACK_IMPORTED_MODULE_1__);
-
-
+// import ImageEdit from './job_image_edit';
+// import JobAdd from './job_add';
 
 /***/ }),
 
@@ -11301,6 +11164,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _materialize_sass_materialize_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_materialize_sass_materialize_scss__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _partials_partials_main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./partials/partials_main */ "./public/src/js/partials/partials_main.js");
 /* harmony import */ var _jobs_jobs_main__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./jobs/jobs_main */ "./public/src/js/jobs/jobs_main.js");
+/* harmony import */ var _jobs_jobs_main__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_jobs_jobs_main__WEBPACK_IMPORTED_MODULE_5__);
 
 
 

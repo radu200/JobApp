@@ -1,14 +1,15 @@
 
-function _(el){
-	return document.getElementById(el);
-}
- _("post_job").addEventListener("submit",function(event){
+// function _(el){
+// 	return document.getElementById(el);
+// }
+ document.getElementById("post_job").addEventListener("submit",function(event){
 	event.preventDefault();
 	// var name = _("name").value;
-	var file = _("job_image").files[0];
-	// alert(file.name+" | "+file.size+" | "+file.type);
+	// var file = _("job_image").files[0];
+	// // alert(file.name+" | "+file.size+" | "+file.type);
 
-	var formdata = new FormData();
+	// var formdata = new FormData();
+	alert('hello')
 
 	//file input validation
 	// if(file === undefined){
@@ -28,33 +29,33 @@ function _(el){
 	// }
 	
 
-	formdata.append("job_image", file );
-	// formdata.append("name", name );
-	var ajax = new XMLHttpRequest();
-	ajax.upload.addEventListener("progress", progressHandler, false)
-	ajax.addEventListener("load", completeHandler, false);
-	ajax.addEventListener("error", errorHandler, false);
-	ajax.addEventListener("abort", abortHandler, false);
-	ajax.open("POST", "/jobs/add");
-	ajax.send(formdata);
+	// formdata.append("job_image", file );
+	// // formdata.append("name", name );
+	// var ajax = new XMLHttpRequest();
+	// ajax.upload.addEventListener("progress", progressHandler, false)
+	// ajax.addEventListener("load", completeHandler, false);
+	// ajax.addEventListener("error", errorHandler, false);
+	// ajax.addEventListener("abort", abortHandler, false);
+	// ajax.open("POST", "/jobs/add");
+	// ajax.send(formdata);
 	
 })
-function progressHandler(event){
-	//_("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
-	var percent = (event.loaded / event.total) * 100;
-    _("progressBar").style.width = percent + "%";
-	// _("status").innerHTML = Math.round(percent)+"% uploaded";
-}
-function completeHandler(event){
-	// _("status").innerHTML = event.target.responseText;
-	 _('post_job').reset();
-	   location.href="/jobs"
+// function progressHandler(event){
+// 	//_("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
+// 	var percent = (event.loaded / event.total) * 100;
+//     _("progressBar").style.width = percent + "%";
+// 	// _("status").innerHTML = Math.round(percent)+"% uploaded";
+// }
+// function completeHandler(event){
+// 	// _("status").innerHTML = event.target.responseText;
+// 	 _('post_job').reset();
+// 	   location.href="/jobs"
 	
-}
-function errorHandler(event){
+// }
+// function errorHandler(event){
 
-	// _("status").innerHTML = "Upload Failed";
-}
-function abortHandler(event){
-	// _("status").innerHTML = "Upload Aborted";
-}
+// 	// _("status").innerHTML = "Upload Failed";
+// }
+// function abortHandler(event){
+// 	// _("status").innerHTML = "Upload Aborted";
+// }
