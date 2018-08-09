@@ -3,6 +3,8 @@ const multer = require('multer');
 const path = require('path')
 const fs = require('fs')
 const sharp = require('sharp')
+const { check, validationResult } = require('express-validator/check');
+
 // multer configuration for product image upload
 const uploadJobImage = multer({
     dest: 'public/tmp_folder/',
@@ -64,45 +66,48 @@ module.exports.getAddJobs = (req, res, next) => {
 
 
 module.exports.postAddJobs = (req, res, next) => {
-    //  const category = req.body.category;
-    //  const position = req.body.position;
-    //  const description = req.body.job_description;
-    //  const city = req.body.city; 
-    //  const employment_type = req.body.employment_type;
-    //  const schedule_details = req.body.schedule_details;
-    //  const immediate_start  = req.body.immediate_start
-    //  const salary = req.body.salary;
-    //  const experience = req.body.experience;
-    //  const language = req.body.language;
-    //  const language_level = req.body.language_level;
-    //  const commission = req.body.commission
-    //  const currency = req.body.currency
+    console.log('body', req.body)
+
+
+    
+     const category = req.body.category;
+     const position = req.body.position;
+     const description = req.body.job_description;
+     const city = req.body.city; 
+     const employment_type = req.body.employment_type;
+     const immediate_start  = req.body.immediate_start
+     const salary = req.body.salary;
+     const experience = req.body.experience;
+     const language = req.body.language;
+     const currency = req.body.currency
 
     //  console.log('category',category)
     //  console.log(position)
     //  console.log('des',description)
     //  console.log(city)
     //  console.log('employement',employment_type)
-    //  console.log(schedule_details)
     //  console.log(immediate_start)
     //  console.log(salary)
     //  console.log('experience',experience)
-    //  console.log(language.toString())
-
+    // //  console.log(language.toString())
+    //  console.log(currency)
     //  console.log('user',req.user)
 
+      
+   
 
     //  req.checkBody('category', 'Alege Categoria').notEmpty();
-    //  req.checkBody("position",   'Poziția  este necesară').notEmpty();
+    //  req.checkBody("position",   'Poziția  este necesară').notEmpty()
+    //  req.checkBody('job_description','Poszitia nu trebuie sa contina cifre' ).matches(/\b[^\d\W]+\b/g);
     //  req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
-    //  req.checkBody("job_description",   'Descriere este necesara').notEmpty();
+    //  req.checkBody("job_description",   'Descriere este necesara').notEmpty().isString() ;
     //  req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
+    //  req.checkBody('job_description','Descrierea nu trebuie sa contina cifre' ).matches(/\b[^\d\W]+\b/g)
     //  req.checkBody('city', "Locatia este necesara").notEmpty();
     //  req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
-    //  req.checkBody('schedule_details', ' Descrierea trebuie să aibă o lungime între 0 și 70 de caractere').len(0, 70);
-    //  req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 8 de cifre.').len(0,8);
+    //  req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 8 de cifre.').len(0,9);
     //  req.checkBody({'salary':{ optional: {  options: { checkFalsy: true }},isDecimal: {  errorMessage: 'Salariu trebuie sa fie decimal'} } });
-    //  req.checkBody('commission', 'Comisioanele trebuie să aibă o lungime între 0 și 70 de caractere').len(0, 70);
+    //  req.checkBody('salary','Formatul salariului este incorect' ).matches(/^\d{0,6}(?:\.\d{0,2})?$/);
     //  req.checkBody('experience', 'Alege experienta').notEmpty();
 
 
@@ -111,7 +116,7 @@ module.exports.postAddJobs = (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('back')
+        // res.redirect('back')
     }
 
     uploadJobImage(req, res, (err) => {
@@ -147,42 +152,46 @@ module.exports.postAddJobs = (req, res, next) => {
             job_image = 'noJobImage.png'
 
         }
-        // let lang = language.toString();
-
+     
+    if(language){
+       var lang = language.toString();
+    }
+    
         let jobs = {
 
-            //  employer_id:req.user.id,
-            //  category:category,
-            //  position:position,
-            //  city:city,
-            //  employment_type:employment_type,
-            //  schedule_details:schedule_details,
-            //  immediate_start:immediate_start,
-            //  salary:salary,
-            //  experience:experience,
-            //  language:lang,
-            //  currency:currency
-            image: job_image
+                employer_id:req.user.id,
+                category:category,
+                position:position,
+                city:city,
+                employment_type:employment_type,
+                immediate_start:immediate_start,
+                salary:salary,
+                experience:experience,
+                language:lang,
+                currency:currency,
+                image: job_image
         }
 
 
 
-        //creat employer
+    //     //creat employer
         db.query('INSERT INTO jobs SET ?', jobs, (error, results) => {
 
-            if (err) {
+            if (error) {
                 console.log('[mysql error]', error)
                 res.status(500).json({
-                    error: err
+                    error: errors
                 });
             } else {
+               // res.redirect('/jobs/add')
                 res.status(200).json({
                     message: "Job Added",
-                  
-                })
+                    jobs:jobs
+               })
             }
         })
-    })
+        
+     })//uploadJobImage ends
 };
 
 module.exports.getJobImageEdit = (req, res, next) => {

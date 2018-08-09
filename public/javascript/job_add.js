@@ -4,11 +4,12 @@ function _(el){
 }
 document.getElementById("post_job").addEventListener("submit",function(event){
 	 event.preventDefault();
-	//alert('hello')
-	//var name = _("name").value;
 	var file = _("job_image").files[0];
 	// alert(file.name+" | "+file.size+" | "+file.type);
-
+	// var language = _('language').value;
+	var position = _("position").value;
+	 console.log(position)
+	
 	var formdata = new FormData();
 
 
@@ -31,26 +32,32 @@ document.getElementById("post_job").addEventListener("submit",function(event){
 	
 
 	formdata.append("job_image", file );
-	// formdata.append("name", name );
+	// formdata.append("language", language );
+	formdata.append("position", position);
+
 	var ajax = new XMLHttpRequest();
 	ajax.upload.addEventListener("progress", progressHandlerJobAdd, false)
 	ajax.addEventListener("load", completeHandlerJobAdd, false);
 	ajax.addEventListener("error", errorHandlerJobAdd, false);
 	ajax.addEventListener("abort", abortHandlerJobAdd, false);
 	ajax.open("POST", "/jobs/add");
+	// ajax.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	//  ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
 	ajax.send(formdata);
+	return false;
+
 	
 })
 function progressHandlerJobAdd(event){
 	//_("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
-	var percent = (event.loaded / event.total) * 100;
-    _("progressBar").style.width = percent + "%";
+	 var percent = (event.loaded / event.total) * 100;
+     _("progressBar").style.width = percent + "%";
 	// _("status").innerHTML = Math.round(percent)+"% uploaded";
 }
 function completeHandlerJobAdd(event){
 	// _("status").innerHTML = event.target.responseText;
-	 _('post_job').reset();
-	   location.href="/jobs"
+	//  _('post_job').reset();
+	 //  location.href="/jobs"
 	
 }
 function errorHandlerJobAdd(event){

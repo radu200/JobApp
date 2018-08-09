@@ -41,30 +41,40 @@ require('dotenv').config({ path: '.env' })
 require('./config/passport')(passport);
 
 
-app.use(express.static(path.join(__dirname, 'react/job/build')));
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator({}));
 app.use(cookieParser());
-
-
-app.use(helmet());
-app.use( helmet.hidePoweredBy() ) ;
-app.use(methodOverride('_method'))
-
-const options = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database : process.env.DB_NAME,
-    //checkExpirationInterval: 9000,
-    // expiration: 864
-};
+app.use((req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+            "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if (req.method === "OPTIONS") {
+            res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+            return res.status(200).json({});
+        }
+        next();
+    });
+    
+    
+    app.use(helmet());
+    app.use( helmet.hidePoweredBy() ) ;
+    app.use(methodOverride('_method'))
+    
+    const options = {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database : process.env.DB_NAME,
+        //checkExpirationInterval: 9000,
+        // expiration: 864
+    };
 const sessionStore = new MySQLStore(options);
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
@@ -127,8 +137,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.static(path.join(__dirname, 'public')));
 require('./routes/routes.js')(app);
 
 
