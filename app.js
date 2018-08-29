@@ -20,7 +20,11 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
 const app = express();
+    // Load environment variables from .env file
+require('dotenv').config({ path: '.env' })
 
+//Passport configuration.
+require('./config/passport')(passport);
 //view engine setup
 const hbs = exphbs.create({
     defaultLayout: 'main',
@@ -31,42 +35,34 @@ const hbs = exphbs.create({
     ]
 });
 
-
-
-
-// Load environment variables from .env file
-require('dotenv').config({ path: '.env' })
-
-//Passport configuration.
-require('./config/passport')(passport);
-
-
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.use(compression());
 app.use(logger('dev'));
+app.set('port', process.env.PORT || 3000);
+app.use(expressValidator({}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expressValidator({}));
 app.use(cookieParser());
-app.use((req, res, next) => {
-        res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-            "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    if (req.method === "OPTIONS") {
-            res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-            return res.status(200).json({});
-        }
-        next();
-    });
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//             "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//     );
+//     if (req.method === "OPTIONS") {
+//             res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+//             return res.status(200).json({});
+//         }
+//         next();
+//     });
     
     
-    app.use(helmet());
-    app.use( helmet.hidePoweredBy() ) ;
-    app.use(methodOverride('_method'))
-    
+   // app.use(helmet());
+   // app.use( helmet.hidePoweredBy() ) ;
+    //app.use(methodOverride('_method'))
+
     const options = {
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
@@ -138,8 +134,34 @@ app.use(function(req, res, next) {
 });
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
+
 require('./routes/routes.js')(app);
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
 
-module.exports = app;
+// error handler
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+
+app.listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + app.get('port'));
+});
+
+

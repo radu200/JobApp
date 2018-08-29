@@ -6,12 +6,12 @@ const db = require('./database');
 
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
-        console.log('seriliaze', user)
+        // console.log('seriliaze', user)
         done(null, user);
     });
 
     passport.deserializeUser(function (user, done) {
-        console.log('deseriliza', user)
+        // console.log('deseriliza', user)
         done(null, user);
 
     });

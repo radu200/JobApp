@@ -1,7 +1,7 @@
 {
   "name": "jobapp",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "app.js",
   "author": "Prodan Radu",
   "license": "MIT",
   "devDependencies": {

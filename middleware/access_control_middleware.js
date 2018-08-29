@@ -1,3 +1,4 @@
+
 //Login required middleware
 module.exports.ensureAuthenticated = function  (req, res, next) {  
     if (req.isAuthenticated()) {
@@ -27,3 +28,6 @@ module.exports.jobSeeker = function (req,res,next){
         res.redirect('/login')
     }
 }
+
+
+
