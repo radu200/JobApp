@@ -1,4 +1,3 @@
-import { retry } from "rxjs/operator/retry";
 
 //category
 $('#job_add_form').on('submit', function (event) {
@@ -39,28 +38,43 @@ $('#job_add_form').on('submit', function (event) {
 //position
 $('#job_add_form').on('submit', function (event) {
     event.stopPropagation();
-    let position = $('#position').val();
+    let position = $('#position').val().replace(/\s{2,}/g, ' ');;
+    console.log(position)
     if (position === "") {
         $('.position-error').text('Te rog  compleateaza inputul pozitie')
         return false
+    } else if (!/^[a-zA-Z]*$/g.test(position) ){
+        $('.position-error').text('Te rog nu include cifre,mail sau url')
+         return false;
     } else {
         return true;
     }
 
 })
+
+
+
 
 //description
 $('#job_add_form').on('submit', function (event) {
     event.stopPropagation();
-    let description = $('#description').val();
+    let description = $('#description').val().replace(/\s{2,}/g, ' ');
+
+    console.log(description)
     if (description === "") {
         $('.description-error').text('Te rog  compleateaza descrierea')
-        return false
+        return false;
+        ///validation no numbers
+    } else if (!/^[a-zA-Z]*$/g.test(description) ){
+        $('.description-error').text('Te rog nu include cifre,mail sau url ')
+        return false;
     } else {
         return true;
     }
 
 })
+
+
 
 $('#job_add_form').on('submit', function (event) {
     event.stopPropagation();
@@ -74,16 +88,19 @@ $('#job_add_form').on('submit', function (event) {
 
 })
 
-// $('#job_add_form').on('submit', function (event) {
-//     event.stopPropagation();
+$('#job_add_form').on('submit', function (event) {
+    event.stopPropagation();
 
-//      let salary = $('#salary').val();
-//     if (salary != "" ){
+     let salary = $('#salary').val();
+     console.log(salary.length)
+      if(salary.length > 8){
+          $('.error-salary').text('Salariu nu poate fi mai mare de 8 cifre')
+          return false;
+      }else{
+          return true;
+      }
 
-//         $('.currency-error').text('Te rog  alege valuta')
-//         return false;
-      
-//     }  
+})
 
-// })
+
 

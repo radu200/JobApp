@@ -67,16 +67,16 @@ module.exports.postAddJobs = (req, res, next) => {
 
      req.checkBody('category', 'Alege Categoria').notEmpty();
      req.checkBody("position",   'Poziția  este necesară').notEmpty()
-     req.checkBody('job_description','Poszitia nu trebuie sa contina cifre' ).matches(/\b[^\d\W]+\b/g);
+     req.checkBody('job_description','Poszitia nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/);
      req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
      req.checkBody("job_description",   'Descriere este necesara').notEmpty().isString() ;
      req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
-     req.checkBody('job_description','Descrierea nu trebuie sa contina cifre' ).matches(/\b[^\d\W]+\b/g)
+     req.checkBody('job_description','Descrierea nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/)
      req.checkBody('city', "Locatia este necesara").notEmpty();
      req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
      req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 8 de cifre.').len(0,9);
      req.checkBody({'salary':{ optional: {  options: { checkFalsy: true }},isDecimal: {  errorMessage: 'Salariu trebuie sa fie decimal'} } });
-    //  req.checkBody('salary','Formatul salariului este incorect' ).matches(/^\d{0,6}(?:\.\d{0,2})?$/);
+     req.checkBody('salary','Formatul salariului este incorect' ).matches(/^\d{0,8}(?:\.\d{0,2})?$/);
      req.checkBody('experience', 'Alege experienta').notEmpty();
 
 
@@ -89,7 +89,7 @@ module.exports.postAddJobs = (req, res, next) => {
     console.log(city)
     console.log('employement',employment_type)
     console.log(immediate_start)
-    console.log(salary)
+    console.log('salary',salary)
     console.log('experience',experience)
    // console.log(language.toString())
     console.log(currency)
@@ -140,6 +140,12 @@ module.exports.postAddJobs = (req, res, next) => {
     if(language){
        var lang = language.toString();
     }
+
+    if(salary != ''){
+        var wage = `${salary}  LEI | `
+     }else{
+         wage = salary;
+     };
     
         let jobs = {
                 employer_id:req.user.id,
@@ -149,7 +155,7 @@ module.exports.postAddJobs = (req, res, next) => {
                 city:city,
                 employment_type:employment_type,
                 immediate_start:immediate_start,
-                salary:salary,
+                salary:wage,
                 experience:experience,
                 language:lang,
                 currency:currency,

@@ -117,7 +117,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  overflow-x: hidden; }\n\n.hidden-category {\n  display: none; }\n\n.start_time {\n  margin-top: 10px; }\n\n.login {\n  margin-top: 50px; }\n\n.login-btn {\n  width: 100%; }\n  .login-btn:hover {\n    opacity: 0.8; }\n\n.login-forgot-password {\n  float: right; }\n\n.signup {\n  margin-top: 50px; }\n\n.signup-btn {\n  width: 100%; }\n\n.signup-btn:hover {\n  opacity: 0.8; }\n\n.footer-copyright {\n  color: black;\n  left: 0;\n  bottom: 0;\n  text-align: center;\n  padding-top: 10px; }\n\n.close_icon_style {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n  font-size: 20px;\n  color: white;\n  cursor: pointer;\n  border: 1px solid white;\n  border-radius: 10px; }\n  .close_icon_style:hover {\n    opacity: 0.8; }\n\n.input-field {\n  margin-top: 10px; }\n\n/* Hide all steps by default: */\n.tab {\n  display: none; }\n\n/* Make circles that indicate the steps of the form: */\n.step {\n  opacity: 0.5; }\n\n.add-jobs-step-container {\n  text-align: center;\n  margin-top: 40px;\n  display: flex;\n  justify-content: space-around;\n  font-size: 16px; }\n\n.step.active {\n  opacity: 1; }\n\n/* Mark the steps that are finished and valid: */\n.step.finish {\n  color: black; }\n\n.category-title {\n  color: black;\n  font-size: 16px; }\n\n@media (max-width: 600px) {\n  .add-jobs-step-container {\n    flex-direction: column; }\n  .step {\n    display: none; }\n  .step.active {\n    opacity: 1;\n    display: block; } }\n\n.error {\n  color: red; }\n\n.text-opacity {\n  opacity: 0.5; }\n\n.card-position {\n  font-size: 20px;\n  padding: 4px 0px 4px 0px;\n  word-break: break-all; }\n\n.card-image, img {\n  height: 169px; }\n\n.card-content-jobs {\n  height: 170px; }\n\n.salary {\n  padding: 0px 0px 5px 0px;\n  word-break: break-all; }\n\n.description {\n  padding-bottom: 5px; }\n\n.card-profile-image {\n  height: 200px;\n  width: 170px;\n  margin: 0 auto;\n  padding: 20px 0 10px 0; }\n\n.full-width-btn {\n  width: 100%; }\n  .full-width-btn:hover {\n    opacity: 0.8; }\n\n.search-btn {\n  margin-top: 22px;\n  width: 100%; }\n\n@media (max-width: 600px) {\n  .search-btn {\n    margin-top: 0px;\n    width: 100%; } }\n", ""]);
+exports.push([module.i, "body {\n  overflow-x: hidden; }\n\n.hidden-category {\n  display: none; }\n\n.start_time {\n  margin-top: 10px; }\n\n@media (min-width: 992px) {\n  .logo-employer {\n    margin: 0 0 0 30px; } }\n\n.login {\n  margin-top: 50px; }\n\n.login-btn {\n  width: 100%; }\n  .login-btn:hover {\n    opacity: 0.8; }\n\n.login-forgot-password {\n  float: right; }\n\n.signup {\n  margin-top: 50px; }\n\n.signup-btn {\n  width: 100%; }\n\n.signup-btn:hover {\n  opacity: 0.8; }\n\n.footer-copyright {\n  color: black;\n  left: 0;\n  bottom: 0;\n  text-align: center;\n  padding-top: 10px; }\n\n.close_icon_style {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n  font-size: 20px;\n  color: white;\n  cursor: pointer;\n  border: 1px solid white;\n  border-radius: 10px; }\n  .close_icon_style:hover {\n    opacity: 0.8; }\n\n.input-field {\n  margin-top: 10px; }\n\n/* Hide all steps by default: */\n.tab {\n  display: none; }\n\n/* Make circles that indicate the steps of the form: */\n.step {\n  opacity: 0.5; }\n\n.add-jobs-step-container {\n  text-align: center;\n  margin-top: 40px;\n  display: flex;\n  justify-content: space-around;\n  font-size: 16px; }\n\n.step.active {\n  opacity: 1; }\n\n/* Mark the steps that are finished and valid: */\n.step.finish {\n  color: black; }\n\n.category-title {\n  color: black;\n  font-size: 16px; }\n\n@media (max-width: 600px) {\n  .add-jobs-step-container {\n    flex-direction: column; }\n  .step {\n    display: none; }\n  .step.active {\n    opacity: 1;\n    display: block; } }\n\n.error {\n  color: red; }\n\n.text-opacity {\n  opacity: 0.5; }\n\n.card-position {\n  font-size: 20px;\n  padding: 4px 0px 4px 0px;\n  word-break: break-all; }\n\n.card-image, img {\n  height: 169px; }\n\n.card-content-jobs {\n  height: 170px; }\n\n.salary {\n  padding: 0px 0px 5px 0px;\n  word-break: break-all; }\n\n.description {\n  padding-bottom: 5px; }\n\n.card-profile-image {\n  height: 200px;\n  width: 170px;\n  margin: 0 auto;\n  padding: 20px 0 10px 0; }\n\n.full-width-btn {\n  width: 100%; }\n  .full-width-btn:hover {\n    opacity: 0.8; }\n\n.search-btn {\n  margin-top: 22px;\n  width: 100%; }\n\n@media (max-width: 600px) {\n  .search-btn {\n    margin-top: 0px;\n    width: 100%; } }\n", ""]);
 
 // exports
 
@@ -218,12 +218,12 @@ function toComment(sourceMap) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(/*! -!./jquery.js */ "./node_modules/jquery/dist/jquery.js?1157");
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(/*! -!./jquery.js */ "./node_modules/jquery/dist/jquery.js");
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/jquery/dist/jquery.js?1157":
+/***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
   \********************************************/
@@ -10599,812 +10599,15 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./node_modules/jquery/dist/jquery.js?fe57":
-/*!********************************************!*\
-  !*** ./node_modules/jquery/dist/jquery.js ***!
-  \********************************************/
+/***/ "./node_modules/jquery/dist/jquery.js-exposed":
+/*!****************************************************!*\
+  !*** ./node_modules/jquery/dist/jquery.js-exposed ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(/*! -!./node_modules/expose-loader?$!./jquery.js */ "./node_modules/expose-loader/index.js?$!./node_modules/jquery/dist/jquery.js-exposed");
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/Observer.js":
-/*!***************************************!*\
-  !*** ./node_modules/rxjs/Observer.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.empty = {
-    closed: true,
-    next: function (value) { },
-    error: function (err) { throw err; },
-    complete: function () { }
-};
-//# sourceMappingURL=Observer.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/Subscriber.js":
-/*!*****************************************!*\
-  !*** ./node_modules/rxjs/Subscriber.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var isFunction_1 = __webpack_require__(/*! ./util/isFunction */ "./node_modules/rxjs/util/isFunction.js");
-var Subscription_1 = __webpack_require__(/*! ./Subscription */ "./node_modules/rxjs/Subscription.js");
-var Observer_1 = __webpack_require__(/*! ./Observer */ "./node_modules/rxjs/Observer.js");
-var rxSubscriber_1 = __webpack_require__(/*! ./symbol/rxSubscriber */ "./node_modules/rxjs/symbol/rxSubscriber.js");
-/**
- * Implements the {@link Observer} interface and extends the
- * {@link Subscription} class. While the {@link Observer} is the public API for
- * consuming the values of an {@link Observable}, all Observers get converted to
- * a Subscriber, in order to provide Subscription-like capabilities such as
- * `unsubscribe`. Subscriber is a common type in RxJS, and crucial for
- * implementing operators, but it is rarely used as a public API.
- *
- * @class Subscriber<T>
- */
-var Subscriber = (function (_super) {
-    __extends(Subscriber, _super);
-    /**
-     * @param {Observer|function(value: T): void} [destinationOrNext] A partially
-     * defined Observer or a `next` callback function.
-     * @param {function(e: ?any): void} [error] The `error` callback of an
-     * Observer.
-     * @param {function(): void} [complete] The `complete` callback of an
-     * Observer.
-     */
-    function Subscriber(destinationOrNext, error, complete) {
-        _super.call(this);
-        this.syncErrorValue = null;
-        this.syncErrorThrown = false;
-        this.syncErrorThrowable = false;
-        this.isStopped = false;
-        switch (arguments.length) {
-            case 0:
-                this.destination = Observer_1.empty;
-                break;
-            case 1:
-                if (!destinationOrNext) {
-                    this.destination = Observer_1.empty;
-                    break;
-                }
-                if (typeof destinationOrNext === 'object') {
-                    // HACK(benlesh): To resolve an issue where Node users may have multiple
-                    // copies of rxjs in their node_modules directory.
-                    if (isTrustedSubscriber(destinationOrNext)) {
-                        var trustedSubscriber = destinationOrNext[rxSubscriber_1.rxSubscriber]();
-                        this.syncErrorThrowable = trustedSubscriber.syncErrorThrowable;
-                        this.destination = trustedSubscriber;
-                        trustedSubscriber.add(this);
-                    }
-                    else {
-                        this.syncErrorThrowable = true;
-                        this.destination = new SafeSubscriber(this, destinationOrNext);
-                    }
-                    break;
-                }
-            default:
-                this.syncErrorThrowable = true;
-                this.destination = new SafeSubscriber(this, destinationOrNext, error, complete);
-                break;
-        }
-    }
-    Subscriber.prototype[rxSubscriber_1.rxSubscriber] = function () { return this; };
-    /**
-     * A static factory for a Subscriber, given a (potentially partial) definition
-     * of an Observer.
-     * @param {function(x: ?T): void} [next] The `next` callback of an Observer.
-     * @param {function(e: ?any): void} [error] The `error` callback of an
-     * Observer.
-     * @param {function(): void} [complete] The `complete` callback of an
-     * Observer.
-     * @return {Subscriber<T>} A Subscriber wrapping the (partially defined)
-     * Observer represented by the given arguments.
-     */
-    Subscriber.create = function (next, error, complete) {
-        var subscriber = new Subscriber(next, error, complete);
-        subscriber.syncErrorThrowable = false;
-        return subscriber;
-    };
-    /**
-     * The {@link Observer} callback to receive notifications of type `next` from
-     * the Observable, with a value. The Observable may call this method 0 or more
-     * times.
-     * @param {T} [value] The `next` value.
-     * @return {void}
-     */
-    Subscriber.prototype.next = function (value) {
-        if (!this.isStopped) {
-            this._next(value);
-        }
-    };
-    /**
-     * The {@link Observer} callback to receive notifications of type `error` from
-     * the Observable, with an attached {@link Error}. Notifies the Observer that
-     * the Observable has experienced an error condition.
-     * @param {any} [err] The `error` exception.
-     * @return {void}
-     */
-    Subscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            this.isStopped = true;
-            this._error(err);
-        }
-    };
-    /**
-     * The {@link Observer} callback to receive a valueless notification of type
-     * `complete` from the Observable. Notifies the Observer that the Observable
-     * has finished sending push-based notifications.
-     * @return {void}
-     */
-    Subscriber.prototype.complete = function () {
-        if (!this.isStopped) {
-            this.isStopped = true;
-            this._complete();
-        }
-    };
-    Subscriber.prototype.unsubscribe = function () {
-        if (this.closed) {
-            return;
-        }
-        this.isStopped = true;
-        _super.prototype.unsubscribe.call(this);
-    };
-    Subscriber.prototype._next = function (value) {
-        this.destination.next(value);
-    };
-    Subscriber.prototype._error = function (err) {
-        this.destination.error(err);
-        this.unsubscribe();
-    };
-    Subscriber.prototype._complete = function () {
-        this.destination.complete();
-        this.unsubscribe();
-    };
-    /** @deprecated internal use only */ Subscriber.prototype._unsubscribeAndRecycle = function () {
-        var _a = this, _parent = _a._parent, _parents = _a._parents;
-        this._parent = null;
-        this._parents = null;
-        this.unsubscribe();
-        this.closed = false;
-        this.isStopped = false;
-        this._parent = _parent;
-        this._parents = _parents;
-        return this;
-    };
-    return Subscriber;
-}(Subscription_1.Subscription));
-exports.Subscriber = Subscriber;
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var SafeSubscriber = (function (_super) {
-    __extends(SafeSubscriber, _super);
-    function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
-        _super.call(this);
-        this._parentSubscriber = _parentSubscriber;
-        var next;
-        var context = this;
-        if (isFunction_1.isFunction(observerOrNext)) {
-            next = observerOrNext;
-        }
-        else if (observerOrNext) {
-            next = observerOrNext.next;
-            error = observerOrNext.error;
-            complete = observerOrNext.complete;
-            if (observerOrNext !== Observer_1.empty) {
-                context = Object.create(observerOrNext);
-                if (isFunction_1.isFunction(context.unsubscribe)) {
-                    this.add(context.unsubscribe.bind(context));
-                }
-                context.unsubscribe = this.unsubscribe.bind(this);
-            }
-        }
-        this._context = context;
-        this._next = next;
-        this._error = error;
-        this._complete = complete;
-    }
-    SafeSubscriber.prototype.next = function (value) {
-        if (!this.isStopped && this._next) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (!_parentSubscriber.syncErrorThrowable) {
-                this.__tryOrUnsub(this._next, value);
-            }
-            else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (this._error) {
-                if (!_parentSubscriber.syncErrorThrowable) {
-                    this.__tryOrUnsub(this._error, err);
-                    this.unsubscribe();
-                }
-                else {
-                    this.__tryOrSetError(_parentSubscriber, this._error, err);
-                    this.unsubscribe();
-                }
-            }
-            else if (!_parentSubscriber.syncErrorThrowable) {
-                this.unsubscribe();
-                throw err;
-            }
-            else {
-                _parentSubscriber.syncErrorValue = err;
-                _parentSubscriber.syncErrorThrown = true;
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.complete = function () {
-        var _this = this;
-        if (!this.isStopped) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (this._complete) {
-                var wrappedComplete = function () { return _this._complete.call(_this._context); };
-                if (!_parentSubscriber.syncErrorThrowable) {
-                    this.__tryOrUnsub(wrappedComplete);
-                    this.unsubscribe();
-                }
-                else {
-                    this.__tryOrSetError(_parentSubscriber, wrappedComplete);
-                    this.unsubscribe();
-                }
-            }
-            else {
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
-        try {
-            fn.call(this._context, value);
-        }
-        catch (err) {
-            this.unsubscribe();
-            throw err;
-        }
-    };
-    SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
-        try {
-            fn.call(this._context, value);
-        }
-        catch (err) {
-            parent.syncErrorValue = err;
-            parent.syncErrorThrown = true;
-            return true;
-        }
-        return false;
-    };
-    /** @deprecated internal use only */ SafeSubscriber.prototype._unsubscribe = function () {
-        var _parentSubscriber = this._parentSubscriber;
-        this._context = null;
-        this._parentSubscriber = null;
-        _parentSubscriber.unsubscribe();
-    };
-    return SafeSubscriber;
-}(Subscriber));
-function isTrustedSubscriber(obj) {
-    return obj instanceof Subscriber || ('syncErrorThrowable' in obj && obj[rxSubscriber_1.rxSubscriber]);
-}
-//# sourceMappingURL=Subscriber.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/Subscription.js":
-/*!*******************************************!*\
-  !*** ./node_modules/rxjs/Subscription.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var isArray_1 = __webpack_require__(/*! ./util/isArray */ "./node_modules/rxjs/util/isArray.js");
-var isObject_1 = __webpack_require__(/*! ./util/isObject */ "./node_modules/rxjs/util/isObject.js");
-var isFunction_1 = __webpack_require__(/*! ./util/isFunction */ "./node_modules/rxjs/util/isFunction.js");
-var tryCatch_1 = __webpack_require__(/*! ./util/tryCatch */ "./node_modules/rxjs/util/tryCatch.js");
-var errorObject_1 = __webpack_require__(/*! ./util/errorObject */ "./node_modules/rxjs/util/errorObject.js");
-var UnsubscriptionError_1 = __webpack_require__(/*! ./util/UnsubscriptionError */ "./node_modules/rxjs/util/UnsubscriptionError.js");
-/**
- * Represents a disposable resource, such as the execution of an Observable. A
- * Subscription has one important method, `unsubscribe`, that takes no argument
- * and just disposes the resource held by the subscription.
- *
- * Additionally, subscriptions may be grouped together through the `add()`
- * method, which will attach a child Subscription to the current Subscription.
- * When a Subscription is unsubscribed, all its children (and its grandchildren)
- * will be unsubscribed as well.
- *
- * @class Subscription
- */
-var Subscription = (function () {
-    /**
-     * @param {function(): void} [unsubscribe] A function describing how to
-     * perform the disposal of resources when the `unsubscribe` method is called.
-     */
-    function Subscription(unsubscribe) {
-        /**
-         * A flag to indicate whether this Subscription has already been unsubscribed.
-         * @type {boolean}
-         */
-        this.closed = false;
-        this._parent = null;
-        this._parents = null;
-        this._subscriptions = null;
-        if (unsubscribe) {
-            this._unsubscribe = unsubscribe;
-        }
-    }
-    /**
-     * Disposes the resources held by the subscription. May, for instance, cancel
-     * an ongoing Observable execution or cancel any other type of work that
-     * started when the Subscription was created.
-     * @return {void}
-     */
-    Subscription.prototype.unsubscribe = function () {
-        var hasErrors = false;
-        var errors;
-        if (this.closed) {
-            return;
-        }
-        var _a = this, _parent = _a._parent, _parents = _a._parents, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
-        this.closed = true;
-        this._parent = null;
-        this._parents = null;
-        // null out _subscriptions first so any child subscriptions that attempt
-        // to remove themselves from this subscription will noop
-        this._subscriptions = null;
-        var index = -1;
-        var len = _parents ? _parents.length : 0;
-        // if this._parent is null, then so is this._parents, and we
-        // don't have to remove ourselves from any parent subscriptions.
-        while (_parent) {
-            _parent.remove(this);
-            // if this._parents is null or index >= len,
-            // then _parent is set to null, and the loop exits
-            _parent = ++index < len && _parents[index] || null;
-        }
-        if (isFunction_1.isFunction(_unsubscribe)) {
-            var trial = tryCatch_1.tryCatch(_unsubscribe).call(this);
-            if (trial === errorObject_1.errorObject) {
-                hasErrors = true;
-                errors = errors || (errorObject_1.errorObject.e instanceof UnsubscriptionError_1.UnsubscriptionError ?
-                    flattenUnsubscriptionErrors(errorObject_1.errorObject.e.errors) : [errorObject_1.errorObject.e]);
-            }
-        }
-        if (isArray_1.isArray(_subscriptions)) {
-            index = -1;
-            len = _subscriptions.length;
-            while (++index < len) {
-                var sub = _subscriptions[index];
-                if (isObject_1.isObject(sub)) {
-                    var trial = tryCatch_1.tryCatch(sub.unsubscribe).call(sub);
-                    if (trial === errorObject_1.errorObject) {
-                        hasErrors = true;
-                        errors = errors || [];
-                        var err = errorObject_1.errorObject.e;
-                        if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
-                            errors = errors.concat(flattenUnsubscriptionErrors(err.errors));
-                        }
-                        else {
-                            errors.push(err);
-                        }
-                    }
-                }
-            }
-        }
-        if (hasErrors) {
-            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
-        }
-    };
-    /**
-     * Adds a tear down to be called during the unsubscribe() of this
-     * Subscription.
-     *
-     * If the tear down being added is a subscription that is already
-     * unsubscribed, is the same reference `add` is being called on, or is
-     * `Subscription.EMPTY`, it will not be added.
-     *
-     * If this subscription is already in an `closed` state, the passed
-     * tear down logic will be executed immediately.
-     *
-     * @param {TeardownLogic} teardown The additional logic to execute on
-     * teardown.
-     * @return {Subscription} Returns the Subscription used or created to be
-     * added to the inner subscriptions list. This Subscription can be used with
-     * `remove()` to remove the passed teardown logic from the inner subscriptions
-     * list.
-     */
-    Subscription.prototype.add = function (teardown) {
-        if (!teardown || (teardown === Subscription.EMPTY)) {
-            return Subscription.EMPTY;
-        }
-        if (teardown === this) {
-            return this;
-        }
-        var subscription = teardown;
-        switch (typeof teardown) {
-            case 'function':
-                subscription = new Subscription(teardown);
-            case 'object':
-                if (subscription.closed || typeof subscription.unsubscribe !== 'function') {
-                    return subscription;
-                }
-                else if (this.closed) {
-                    subscription.unsubscribe();
-                    return subscription;
-                }
-                else if (typeof subscription._addParent !== 'function' /* quack quack */) {
-                    var tmp = subscription;
-                    subscription = new Subscription();
-                    subscription._subscriptions = [tmp];
-                }
-                break;
-            default:
-                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
-        }
-        var subscriptions = this._subscriptions || (this._subscriptions = []);
-        subscriptions.push(subscription);
-        subscription._addParent(this);
-        return subscription;
-    };
-    /**
-     * Removes a Subscription from the internal list of subscriptions that will
-     * unsubscribe during the unsubscribe process of this Subscription.
-     * @param {Subscription} subscription The subscription to remove.
-     * @return {void}
-     */
-    Subscription.prototype.remove = function (subscription) {
-        var subscriptions = this._subscriptions;
-        if (subscriptions) {
-            var subscriptionIndex = subscriptions.indexOf(subscription);
-            if (subscriptionIndex !== -1) {
-                subscriptions.splice(subscriptionIndex, 1);
-            }
-        }
-    };
-    Subscription.prototype._addParent = function (parent) {
-        var _a = this, _parent = _a._parent, _parents = _a._parents;
-        if (!_parent || _parent === parent) {
-            // If we don't have a parent, or the new parent is the same as the
-            // current parent, then set this._parent to the new parent.
-            this._parent = parent;
-        }
-        else if (!_parents) {
-            // If there's already one parent, but not multiple, allocate an Array to
-            // store the rest of the parent Subscriptions.
-            this._parents = [parent];
-        }
-        else if (_parents.indexOf(parent) === -1) {
-            // Only add the new parent to the _parents list if it's not already there.
-            _parents.push(parent);
-        }
-    };
-    Subscription.EMPTY = (function (empty) {
-        empty.closed = true;
-        return empty;
-    }(new Subscription()));
-    return Subscription;
-}());
-exports.Subscription = Subscription;
-function flattenUnsubscriptionErrors(errors) {
-    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
-}
-//# sourceMappingURL=Subscription.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/operator/retry.js":
-/*!*********************************************!*\
-  !*** ./node_modules/rxjs/operator/retry.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var retry_1 = __webpack_require__(/*! ../operators/retry */ "./node_modules/rxjs/operators/retry.js");
-/**
- * Returns an Observable that mirrors the source Observable with the exception of an `error`. If the source Observable
- * calls `error`, this method will resubscribe to the source Observable for a maximum of `count` resubscriptions (given
- * as a number parameter) rather than propagating the `error` call.
- *
- * <img src="./img/retry.png" width="100%">
- *
- * Any and all items emitted by the source Observable will be emitted by the resulting Observable, even those emitted
- * during failed subscriptions. For example, if an Observable fails at first but emits [1, 2] then succeeds the second
- * time and emits: [1, 2, 3, 4, 5] then the complete stream of emissions and notifications
- * would be: [1, 2, 1, 2, 3, 4, 5, `complete`].
- * @param {number} count - Number of retry attempts before failing.
- * @return {Observable} The source Observable modified with the retry logic.
- * @method retry
- * @owner Observable
- */
-function retry(count) {
-    if (count === void 0) { count = -1; }
-    return retry_1.retry(count)(this);
-}
-exports.retry = retry;
-//# sourceMappingURL=retry.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/operators/retry.js":
-/*!**********************************************!*\
-  !*** ./node_modules/rxjs/operators/retry.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subscriber_1 = __webpack_require__(/*! ../Subscriber */ "./node_modules/rxjs/Subscriber.js");
-/**
- * Returns an Observable that mirrors the source Observable with the exception of an `error`. If the source Observable
- * calls `error`, this method will resubscribe to the source Observable for a maximum of `count` resubscriptions (given
- * as a number parameter) rather than propagating the `error` call.
- *
- * <img src="./img/retry.png" width="100%">
- *
- * Any and all items emitted by the source Observable will be emitted by the resulting Observable, even those emitted
- * during failed subscriptions. For example, if an Observable fails at first but emits [1, 2] then succeeds the second
- * time and emits: [1, 2, 3, 4, 5] then the complete stream of emissions and notifications
- * would be: [1, 2, 1, 2, 3, 4, 5, `complete`].
- * @param {number} count - Number of retry attempts before failing.
- * @return {Observable} The source Observable modified with the retry logic.
- * @method retry
- * @owner Observable
- */
-function retry(count) {
-    if (count === void 0) { count = -1; }
-    return function (source) { return source.lift(new RetryOperator(count, source)); };
-}
-exports.retry = retry;
-var RetryOperator = (function () {
-    function RetryOperator(count, source) {
-        this.count = count;
-        this.source = source;
-    }
-    RetryOperator.prototype.call = function (subscriber, source) {
-        return source.subscribe(new RetrySubscriber(subscriber, this.count, this.source));
-    };
-    return RetryOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var RetrySubscriber = (function (_super) {
-    __extends(RetrySubscriber, _super);
-    function RetrySubscriber(destination, count, source) {
-        _super.call(this, destination);
-        this.count = count;
-        this.source = source;
-    }
-    RetrySubscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            var _a = this, source = _a.source, count = _a.count;
-            if (count === 0) {
-                return _super.prototype.error.call(this, err);
-            }
-            else if (count > -1) {
-                this.count = count - 1;
-            }
-            source.subscribe(this._unsubscribeAndRecycle());
-        }
-    };
-    return RetrySubscriber;
-}(Subscriber_1.Subscriber));
-//# sourceMappingURL=retry.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/symbol/rxSubscriber.js":
-/*!**************************************************!*\
-  !*** ./node_modules/rxjs/symbol/rxSubscriber.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var root_1 = __webpack_require__(/*! ../util/root */ "./node_modules/rxjs/util/root.js");
-var Symbol = root_1.root.Symbol;
-exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
-    Symbol.for('rxSubscriber') : '@@rxSubscriber';
-/**
- * @deprecated use rxSubscriber instead
- */
-exports.$$rxSubscriber = exports.rxSubscriber;
-//# sourceMappingURL=rxSubscriber.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/util/UnsubscriptionError.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/rxjs/util/UnsubscriptionError.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * An error thrown when one or more errors have occurred during the
- * `unsubscribe` of a {@link Subscription}.
- */
-var UnsubscriptionError = (function (_super) {
-    __extends(UnsubscriptionError, _super);
-    function UnsubscriptionError(errors) {
-        _super.call(this);
-        this.errors = errors;
-        var err = Error.call(this, errors ?
-            errors.length + " errors occurred during unsubscription:\n  " + errors.map(function (err, i) { return ((i + 1) + ") " + err.toString()); }).join('\n  ') : '');
-        this.name = err.name = 'UnsubscriptionError';
-        this.stack = err.stack;
-        this.message = err.message;
-    }
-    return UnsubscriptionError;
-}(Error));
-exports.UnsubscriptionError = UnsubscriptionError;
-//# sourceMappingURL=UnsubscriptionError.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/util/errorObject.js":
-/*!***********************************************!*\
-  !*** ./node_modules/rxjs/util/errorObject.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// typeof any so that it we don't have to cast when comparing a result to the error object
-exports.errorObject = { e: {} };
-//# sourceMappingURL=errorObject.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/util/isArray.js":
-/*!*******************************************!*\
-  !*** ./node_modules/rxjs/util/isArray.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
-//# sourceMappingURL=isArray.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/util/isFunction.js":
-/*!**********************************************!*\
-  !*** ./node_modules/rxjs/util/isFunction.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function isFunction(x) {
-    return typeof x === 'function';
-}
-exports.isFunction = isFunction;
-//# sourceMappingURL=isFunction.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/util/isObject.js":
-/*!********************************************!*\
-  !*** ./node_modules/rxjs/util/isObject.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function isObject(x) {
-    return x != null && typeof x === 'object';
-}
-exports.isObject = isObject;
-//# sourceMappingURL=isObject.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/util/root.js":
-/*!****************************************!*\
-  !*** ./node_modules/rxjs/util/root.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-// CommonJS / Node have global context exposed as "global" variable.
-// We don't want to include the whole node.d.ts this this compilation unit so we'll just fake
-// the global "global" var for now.
-var __window = typeof window !== 'undefined' && window;
-var __self = typeof self !== 'undefined' && typeof WorkerGlobalScope !== 'undefined' &&
-    self instanceof WorkerGlobalScope && self;
-var __global = typeof global !== 'undefined' && global;
-var _root = __window || __global || __self;
-exports.root = _root;
-// Workaround Closure Compiler restriction: The body of a goog.module cannot use throw.
-// This is needed when used with angular/tsickle which inserts a goog.module statement.
-// Wrap in IIFE
-(function () {
-    if (!_root) {
-        throw new Error('RxJS could not find any global context (window, self, global)');
-    }
-})();
-//# sourceMappingURL=root.js.map
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/util/tryCatch.js":
-/*!********************************************!*\
-  !*** ./node_modules/rxjs/util/tryCatch.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var errorObject_1 = __webpack_require__(/*! ./errorObject */ "./node_modules/rxjs/util/errorObject.js");
-var tryCatchTarget;
-function tryCatcher() {
-    try {
-        return tryCatchTarget.apply(this, arguments);
-    }
-    catch (e) {
-        errorObject_1.errorObject.e = e;
-        return errorObject_1.errorObject;
-    }
-}
-function tryCatch(fn) {
-    tryCatchTarget = fn;
-    return tryCatcher;
-}
-exports.tryCatch = tryCatch;
-;
-//# sourceMappingURL=tryCatch.js.map
 
 /***/ }),
 
@@ -11934,13 +11137,8 @@ module.exports = g;
 /*!****************************************************!*\
   !*** ./public/src/js/jobs/jobs_form_validation.js ***!
   \****************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var rxjs_operator_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operator/retry */ "./node_modules/rxjs/operator/retry.js");
-/* harmony import */ var rxjs_operator_retry__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(rxjs_operator_retry__WEBPACK_IMPORTED_MODULE_0__);
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 
 //category
@@ -11979,9 +11177,13 @@ $('#job_add_form').on('submit', function (event) {
 //position
 $('#job_add_form').on('submit', function (event) {
     event.stopPropagation();
-    let position = $('#position').val();
+    let position = $('#position').val().replace(/\s{2,}/g, ' ');;
+    console.log(position);
     if (position === "") {
         $('.position-error').text('Te rog  compleateaza inputul pozitie');
+        return false;
+    } else if (!/^[a-zA-Z]*$/g.test(position)) {
+        $('.position-error').text('Te rog nu include cifre,mail sau url');
         return false;
     } else {
         return true;
@@ -11991,9 +11193,15 @@ $('#job_add_form').on('submit', function (event) {
 //description
 $('#job_add_form').on('submit', function (event) {
     event.stopPropagation();
-    let description = $('#description').val();
+    let description = $('#description').val().replace(/\s{2,}/g, ' ');
+
+    console.log(description);
     if (description === "") {
         $('.description-error').text('Te rog  compleateaza descrierea');
+        return false;
+        ///validation no numbers
+    } else if (!/^[a-zA-Z]*$/g.test(description)) {
+        $('.description-error').text('Te rog nu include cifre,mail sau url ');
         return false;
     } else {
         return true;
@@ -12011,18 +11219,18 @@ $('#job_add_form').on('submit', function (event) {
     }
 });
 
-// $('#job_add_form').on('submit', function (event) {
-//     event.stopPropagation();
+$('#job_add_form').on('submit', function (event) {
+    event.stopPropagation();
 
-//      let salary = $('#salary').val();
-//     if (salary != "" ){
-
-//         $('.currency-error').text('Te rog  alege valuta')
-//         return false;
-
-//     }  
-
-// })
+    let salary = $('#salary').val();
+    console.log(salary.length);
+    if (salary.length > 8) {
+        $('.error-salary').text('Salariu nu poate fi mai mare de 8 cifre');
+        return false;
+    } else {
+        return true;
+    }
+});
 
 /***/ }),
 
@@ -12036,6 +11244,7 @@ $('#job_add_form').on('submit', function (event) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jobs_form_validation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./jobs_form_validation */ "./public/src/js/jobs/jobs_form_validation.js");
+/* harmony import */ var _jobs_form_validation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_jobs_form_validation__WEBPACK_IMPORTED_MODULE_0__);
 // import ImageEdit from './job_image_edit';
 //  import JobAdd from './job_add';
 
@@ -12053,7 +11262,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/main.scss */ "./public/src/scss/main.scss");
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js-exposed");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _materialize_js_bin_materialize_min_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../materialize/js/bin/materialize.min.js */ "./public/src/materialize/js/bin/materialize.min.js");
 /* harmony import */ var _materialize_js_bin_materialize_min_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_materialize_js_bin_materialize_min_js__WEBPACK_IMPORTED_MODULE_2__);
