@@ -75,7 +75,7 @@ $('#job_add_form').on('submit', function (event) {
 })
 
 
-
+//city
 $('#job_add_form').on('submit', function (event) {
     event.stopPropagation();
     let city = $('#city').val();
@@ -88,6 +88,7 @@ $('#job_add_form').on('submit', function (event) {
 
 })
 
+//salary
 $('#job_add_form').on('submit', function (event) {
     event.stopPropagation();
 

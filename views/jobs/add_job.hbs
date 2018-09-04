@@ -22,7 +22,7 @@
       {{/if}}
  <div class="container">
       <div class="row">
-        <form method="POST"  enctype="multipart/form-data"  action="/jobs/add" id="job_add_form"  >
+        <form id="job_add_form"  method="POST"  action="/jobs/add" enctype="multipart/form-data"    >
           <div class="col s12 m12">
           <h4>Categoria jobului <span class="red-text text-darken-2">*</span> </h4> <!--obligatoriu-->
          
@@ -219,7 +219,7 @@
                                             <div class="file-field input-field">
                                                 <div class="btn blue ">
                                                     <span>  Incarca imagine</span>
-                                                    <input  type="file" id="job_image" name="job_image" >
+                                                    <input  type="file" id="job_image" name="job_image"  accept=".jpeg, .jpg, .png">
                                                 </div>
                                            <div class="file-path-wrapper">
                                                 <input class="file-path " type="text" placeholder=" Incarca imagine">

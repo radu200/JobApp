@@ -13,16 +13,16 @@
 // 	var formdata = new FormData();
 
 
-// // //file input validation
-// // 	if(file === undefined){
-// // 	   file = 0;
-// // 	} 
-// // 	else if(file.size > 5e+6 ){
-// // 		//alert("image is too big")
-// // 		_("job_image_error").innerHTML = 'image too big, max 5 mb';
+// //file input validation
+// 	if(file === undefined){
+// 	   file = 0;
+// 	} 
+// 	else if(file.size > 5e+6 ){
+// 		//alert("image is too big")
+// 		_("job_image_error").innerHTML = 'image too big, max 5 mb';
 	  
-// // 		return false;
-// // 	}
+// 		return false;
+// 	}
 	
 	
 

@@ -24,35 +24,33 @@
  <div class="container">
       <div class="row">
       {{#each results}}
-        <form id="job_image_edit_form" method="POST"  data-job_id="{{id}}">
-          <h4>Schimba imaginea</h4> <!--obligatoriu-->              
-                                   
-                                    <!--image upload-->
+        <form id="job_image_edit_form" method="POST"  data_job_id="{{id}}">
+          <h4>Schimba imaginea</h4> <!--obligatoriu-->
+            <p class="job_image_edit_error error"></p>                                 
+                   <!--image upload-->
+                        <div class="progress">
+                          <div class="determinate "id="progressBarEdit" value="0" max="100" style="width: 0%"></div>
+                          <span class="sr-only"></span>
+                        </div>
+                              <div class="col s12 m12">
+                              <h4>Adauga imagine</h4>
 
-                                      <div class="progress">
-                                        <div class="determinate "id="progressBarEdit" value="0" max="100" style="width: 0%"></div>
-                                       <span class="sr-only"></span>
-                                       <div class="job_image_error"></div>
-                                      </div>
-                                            <div class="col s12 m12">
-                                            <h4>Adauga imagine</h4>
+                              <div class="file-field input-field">
+                                  <div class="btn blue ">
+                                      <span>  Incarca imagine</span>
+                                      <input  type="file" id="job_image_edit" name="job_image_edit" accept=".jpeg, .jpg, .png" >
+                                  </div>
+                              <div class="file-path-wrapper">
+                                  <input class="file-path " type="text" placeholder=" Incarca imagine">
+                              </div>
+                          </div>
+                      </div>  
 
-                                            <div class="file-field input-field">
-                                                <div class="btn blue ">
-                                                    <span>  Incarca imagine</span>
-                                                    <input  type="file" id="job_image_edit" name="job_image_edit" >
-                                                </div>
-                                           <div class="file-path-wrapper">
-                                                <input class="file-path " type="text" placeholder=" Incarca imagine">
-                                            </div>
-                                        </div>
-                                    </div>  
-
-                                        <button type="submit"  class="btn blue right">Posteaza<i class="material-icons right">send</i></button>
-                                   <div id="statusd"></div>
+                <button type="submit"  class="btn blue right">Posteaza<i class="material-icons right">send</i></button>
+             <div id="statusd"></div>
                                 <!-- Circles which indicates the steps of the form: -->
-                        </form>   
-                  {{/each}}
+        </form>   
+      {{/each}}
                                      
      </div> <!--row ends-->
 </div><!--container-->

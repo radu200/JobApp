@@ -40,8 +40,12 @@ module.exports = function (app){
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)
   app.post('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.postJobImageEdit)
+  app.get('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.getEmployerJobEdit)
+  app.post('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.postEmployerJobEdit)
 
 
+  //employer jobs
+  app.get('/my_jobs', accessController.ensureAuthenticated, accessController.employer, jobsController.getEmployerJobs)
 
 }
 

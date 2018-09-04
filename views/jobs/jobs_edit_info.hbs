@@ -1,0 +1,163 @@
+
+  {{>NavBarEmployer}}
+      {{#if error_msg}} 
+          <div class="row" id="alert_box">
+            <div class="container">
+              <div class="card red darken-1">
+                <div class="row">
+                  <div class="col s12 m10">
+                    <div class="card-content white-text ">
+                    {{#each error_msg}}
+                          <p>{{msg}}</p>
+                    {{/each}}
+                  </div>
+                  </div>
+                  <div class="col s12 m2">
+                    <i class="material-icons close_icon_style " id="alert_close">close</i>                            
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+      {{/if}}
+
+      {{#if result }}
+ <div class="container">
+    
+      <div class="row">
+        <form method="POST"   action="/job/edit/{{result.id}}" id="job_edit_form"  >
+          <div class="col s12 m12">
+         
+           <p class="category_error_edit error"></p>
+          </div>
+              <div class="col s12 m12">
+                 <h4>Categoria jobului <span class="red-text text-darken-2">*</span> </h4> <!--obligatoriu-->
+                                <div class="input-field">
+                                    <select  id="category_edit" name="category" >
+                                        <option value="{{result.category}}"  >{{result.category}}</option>
+                                        <option value="Barista și Barman">Barista și Barman</option>
+                                        <option value="Frumuseţe si Bunastare">Frumuseţe si Bunastare</option>
+                                        <option value="Îngrijitorii și sănătatea">Îngrijitorii și sănătatea</option>
+                                        <option value="Bucatar">Bucatar</option>
+                                        <option value="Curățenie">Curățenie</option>
+                                        <option value="Constructie">Constructie</option>
+                                        <option value="Sofer">Sofer</option>
+                                        <option value="Tehnologie si Inginerie">Tehnologie si Inginerie</option>
+                                        <option value="Educaţie">Educaţie</option>
+                                        <option value="Evenimente și promovare">Evenimente și promovare</option>
+                                        <option value="Bucătărie portar">Bucătărie portar</option>
+                                        <option value="Oficiu si Administratre ">Oficiu si Administratre </option>
+                                        <option value="Vanzari si Marketing">Vanzari si Marketing</option>
+                                        <option value="Ospătar sau servitoare">Ospătar sau servitoare</option>
+                                        <option value="Despozit">Depozit</option>
+                                        <option value="Alte">Alte</option>
+                                    </select>
+                                </div>
+                            </div>  
+                
+
+            <!--job description--> <!--obligatoriu-->
+              <div class="col s12 m12">
+                <h4>Descriere job <span class="red-text text-darken-2">*</span></h4>
+                 <p class="position_error_edit error"></p>
+                <div class="input-field">
+                    <input id="position_edit" type="text" placeholder="Pozitie.Te rog nu inlude numere."  data-length="70" class="validate" maxlength="70"  name="position" value={{result.position}} >
+                 </div> 
+               </div>
+
+
+                    <div class="col s12 m12">
+                        <p class="description_error_edit error"></p>
+
+                        <div class="input-field">
+                        <textarea id="description_edit" class="materialize-textarea"  data-length="300" placeholder="ex.Descriere.Te rog nu inlude numere" name="job_description"  maxlength="300" pattern="[a-zA-Z]*" >{{result.description}}</textarea>
+                            <span for="description_edit"></span>
+                        </div>
+                    </div>
+
+                    <div class="col m12">
+
+                    <h4>Unde este localizat jobul ? <span class="red-text text-darken-2">*</span></h4>
+                      <p class="city-error error"></p>
+                    <!--select city--> <!--obligatoriu-->
+                        <div class="input-field">
+                            <select  name="city" id="city">
+                                <option value="{{result.city}}" selected>{{result.city}}</option>
+                                <option value="Chisinau">Chisinau</option>
+                                <option value="Balti">Balti</option>
+                            </select>
+                        </div>
+                      </div>
+
+                 <div class="col m12">
+                    <h4>Tipul de angajare <span class="red-text text-darken-2">*</span></h4>
+                      <p class="employement_type_error_edit error"></p>
+
+                    <!--select city--> <!--obligatoriu-->
+                        <div class="input-field">
+                            <select  name="employment_type" id="employment_type_edit">
+                                <option value="{{result.employment_type}}" selected>{{result.employment_type}}</option>
+                                <option value="FULL-TIME">Full-time</option>
+                                <option value="PART-TIME">Part-Time</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      
+
+                            <div class="col s12 m12 start_time ">
+                                <label>
+                                    <input type="checkbox"  value="Începeți imediat" name="immediate_start"  />
+                                        <span >Începeți imediat (optional)</span>
+                                    </label>
+                                </div>
+        
+               
+                                <div class="col s12 m12">
+                                    <div class="input-field">
+                                        <span>Salariu (optional)</span>
+                                        <input  type="number" placeholder="Salariu lunar"  name="salary"  id="salary" value="{{result.salary}}">
+                                    </div>   
+                                    <div class="error-salary error"></div>
+                                </div>
+                            
+                                
+                           
+                    
+                                <!--additional information-->
+                              <div class="col m12">
+                                 <h4>Detalii Suplimentare</h4>
+                                  <p class="experience_error_edit error"></p>
+
+                                  <span>Acest rol necesită experiență? <span class="red-text text-darken-2">*</span></span> <!--obligatoriu-->
+                                      <div class="input-field">
+                                        <select  name="experience" id="experience_edit">
+                                            <option value="{{result.experience}}" select>{{result.experience}}</option>
+                                            <option value="experiență necesara">DA</option>
+                                            <option value="Fără experiență">NU</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                               
+    
+                             <div class="col s12 m12">
+                                <p>Sunt necesare anumite competențe lingvistice ? (optional)</p>
+                                <div class="input-field">
+                                    <select  id="language" name="language" multiple >
+                                        <option value="{{result.language}}"  select>{{result.language}} </option>
+                                        <option value="Engleza">Engleza</option>
+                                        <option value="Germana">Germana</option>
+                                    </select>
+                                </div>
+                            </div>      
+                         <button type="submit"  class="btn blue right">Posteaza<i class="material-icons right">send</i></button>
+
+            </form>
+                                
+     </div> <!--row ends-->
+</div><!--container-->
+
+
+{{/if}}

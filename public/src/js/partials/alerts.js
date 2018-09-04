@@ -5,3 +5,9 @@ $('#alert_close').click(function(){
   $(' .dropdown-content').on('click', function(event) {
     event.stopPropagation();
   });
+
+
+  $(document).ready(function(){
+    $('.tooltipped').tooltip();
+  });
+        
