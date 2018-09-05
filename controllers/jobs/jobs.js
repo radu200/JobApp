@@ -1,29 +1,9 @@
 const db = require('../.././config/database.js');
-const multer = require('multer');
-const path = require('path')
 const fs = require('fs')
 const sharp = require('sharp')
 
 
 
-const EditJobImage = multer({
-    dest: 'public/tmp_folder/',
-    limits: {
-        fileSize: 5e+6
-    },
-
-    fileFilter: function (req, file, cb) {
-        const filetypes = /jpeg|jpg|png/;
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype = filetypes.test(file.mimetype);
-        if (mimetype && extname) {
-            return cb(null, true);
-        } else {
-
-            cb(" We only support PNG, GIF, or JPG pictures.")
-        }
-    }
-}).single('job_image_edit')
 
 
 module.exports.getJobsPage = (req, res, next) => {
@@ -97,7 +77,7 @@ module.exports.postAddJobs = (req, res, next) => {
 
 
         if (req.file) {
-            var job_image = req.file.filename;
+            var job_image =  '/uploads/' + req.file.filename;
            
            
             sharp(req.file.path)
@@ -109,7 +89,7 @@ module.exports.postAddJobs = (req, res, next) => {
                         console.log('err', err)
                     } else {
                         //delete original image
-                        fs.unlink('./public/tmp_folder/' + job_image, function (err) {
+                        fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
                             if (err) {
                                 console.log("failed to delete file:" + err);
                             } else {
@@ -165,7 +145,7 @@ module.exports.postAddJobs = (req, res, next) => {
                 experience:experience,
                 language:lang,
                 currency:currency,
-                image: job_image
+                image:job_image
         }
 
     //     //creat employer
@@ -175,7 +155,7 @@ module.exports.postAddJobs = (req, res, next) => {
                 console.log('[mysql error]', error)
               
             } else {
-                res.redirect('/jobs')
+                res.redirect('/my_jobs')
           
             }
         })
@@ -196,8 +176,7 @@ module.exports.getJobImageEdit = (req, res, next) => {
 
 module.exports.postJobImageEdit = (req, res, next) => {
     db.query(`select id, image from jobs where id=${req.params.id}`, (err, results) => {
-        
-        
+ 
         fs.unlink('./public/' + results[0].image, function (err) {
             if (err) {
                 console.log("failed to delete file:" + err);
@@ -214,7 +193,6 @@ module.exports.postJobImageEdit = (req, res, next) => {
                 return res.redirect('back')
             }
 
-            EditJobImage(req, res, (err) => {
 
                 if (req.file) {
                     var job_image_edit = './uploads/' + req.file.filename;
@@ -250,13 +228,14 @@ module.exports.postJobImageEdit = (req, res, next) => {
                     let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png']; 
 
                     let  random = images[Math.floor(Math.random() * images.length)];
-                    console.log('randon',random)
-                    job_image_edit = random;
-                }
 
-                let image = {
-                    image: job_image_edit
-                }
+                    job_image_edit = random;
+                  
+}
+
+                    let image = {
+                        image: job_image_edit
+                    }
 
 
 
@@ -264,24 +243,22 @@ module.exports.postJobImageEdit = (req, res, next) => {
                 db.query(`update jobs set ? where id =${req.params.id}`, image, (error, results) => {
 
                     if (err) {
-                         console.log('[mysql error]', error)
-                        // res.status(500).json({
-                        //     error: err
-                        // });
+                        // console.log('[mysql error]', error)
+                        res.status(500).json({
+                            error: err
+                        });
                     } else {
-                        // res.status(200).json({
-                        //     message: "image succefully edited"
-
-                        // })
+                        res.status(200).json({
+                            message: "image succefully edited"
+                        })
                         // console.log(req.file.path)
                       
 
-                        res.redirect('/my_jobs')
+                        //res.redirect('/my_jobs')
                     }
 
-
                 })
-            })
+           
 
 
         
@@ -295,16 +272,15 @@ module.exports.postJobImageEdit = (req, res, next) => {
 
 //employer jobs
 module.exports.getEmployerJobs = (req,res, next) => {
+
     db.query("select * from jobs where employer_id = ? ",[req.user.id], function (err, results) {
         if (err) {
             console.log("[mysql error],", err)
         } else {
-
-            // res.json(results)
-            res.render('jobs/employer_jobs', {
-                'results': results
-            })
-        }
+              res.render('jobs/employer_jobs', {
+                        'results': results
+                    })
+                }
 
 
     })
@@ -416,3 +392,32 @@ module.exports.postEmployerJobEdit = (req,res, next) => {
 
   }
 }
+
+
+//delete product
+module.exports.deleteJob = function (req, res, next) {
+    let id = req.params.id;
+    db.query(`SELECT id,image FROM jobs  WHERE id =${id}`, function (err, results) {
+         if (err) throw err;
+          if (results[0].image ) {
+            fs.unlink("./public" + results[0].image, function(err) {
+
+                if (err) {
+                    console.log("failed to delete local image:" + err);
+                } else {
+                    console.log('successfully deleted local image');
+                }
+            });
+        }
+      
+        db.query(`DELETE FROM jobs  WHERE id =${id}`, function (err, result) {
+            if (err) throw err;
+
+            req.flash('success_msg', {
+                msg: "job deleted"
+            });
+            res.redirect('back');
+        })
+     })
+
+};

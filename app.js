@@ -20,7 +20,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
 const app = express();
-    // Load environment variables from .env file
+// Load environment variables from .env file
 require('dotenv').config({ path: '.env' })
 
 //Passport configuration.
@@ -41,12 +41,14 @@ app.use(compression());
 app.use(logger('dev'));
 app.set('port', process.env.PORT || 3000);
 app.use(expressValidator({}));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(methodOverride('_method'))
 app.use(cookieParser());
 //app.use( '/uploads',express.static( 'uploads'));
 app.use(express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -64,7 +66,6 @@ app.use((req, res, next) => {
     
    // app.use(helmet());
    // app.use( helmet.hidePoweredBy() ) ;
-    //app.use(methodOverride('_method'))
 
     const options = {
         host: process.env.DB_HOST,

@@ -25,9 +25,16 @@ module.exports = function (app){
   
   //profile
   app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
-  app.get('/profile/edit', accessController.ensureAuthenticated, profileController.getProfileEdit)
-  app.get('/company/info/edit', accessController.ensureAuthenticated, profileController.getCompanyInfoEdit)
   app.get('/change/password', accessController.ensureAuthenticated, profileController.getChangePassword)
+  
+  //employer profile
+  app.get('/profile/info/edit', accessController.ensureAuthenticated, profileController.getEmployerProfileInfoEdit)
+  app.post('/profile/info/edit', accessController.ensureAuthenticated, profileController.postEmployerProfileInfoEdit)
+
+  
+  //company
+  app.get('/company/info/edit', accessController.ensureAuthenticated, profileController.getCompanyInfoEdit)
+  app.post('/company/info/edit/:id', accessController.ensureAuthenticated, profileController.postCompanyInfoEdit)
 
   //login
   app.get('/login',  loginController.getLogin)
@@ -39,13 +46,14 @@ module.exports = function (app){
   app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)
-  app.post('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.postJobImageEdit)
+  app.post('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, filesController.editJobImage, jobsController.postJobImageEdit)
   app.get('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.getEmployerJobEdit)
   app.post('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.postEmployerJobEdit)
 
 
   //employer jobs
-  app.get('/my_jobs', accessController.ensureAuthenticated, accessController.employer, jobsController.getEmployerJobs)
+  app.get('/my_jobs', jobsController.getEmployerJobs)
+  app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
 
 }
 

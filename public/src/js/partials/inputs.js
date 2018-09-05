@@ -12,6 +12,9 @@ $(document).ready(function(){
     $('textarea#description').characterCounter();
   });
   
+  $(document).ready(function() {
+    $('textarea#company_description').characterCounter();
+  });
   $(document).ready(function(){
     $('select').formSelect();
   });

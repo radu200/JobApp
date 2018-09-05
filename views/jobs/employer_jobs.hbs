@@ -47,18 +47,26 @@
                                     <i class="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
+                               
+                            <li>
+
+                           
+
 
                             <ul id="card-dropdown" class="dropdown-content">
+
                             <li>
                                 <a href="/job/edit/{{id}}" class="black-text  text-lighten-1 waves-effect waves-light">Editeaza</a>
                             </li>
                             <li>
-                               <a href="#" class=" red-text text-lighten-1 waves-effect waves-light">Sterge</a>
-
+                              <form method="POST" action="/job/delete/{{id}}?_method=DELETE" >
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                <button class="btn red delte-btn"  type='submit' value='delete'>Sterge</button>
+                              </form>                       
+                            </li>
                             </li>
                         
                             <li class="divider"></li>
-
                             
                         </ul>
                     </div>
