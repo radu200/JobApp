@@ -30,6 +30,8 @@ module.exports = function (app){
   //employer profile
   app.get('/profile/info/edit', accessController.ensureAuthenticated, profileController.getEmployerProfileInfoEdit)
   app.post('/profile/info/edit', accessController.ensureAuthenticated, profileController.postEmployerProfileInfoEdit)
+  app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
+  app.post('/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)
 
   
   //company

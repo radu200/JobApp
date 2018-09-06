@@ -3,9 +3,9 @@
  <div class="row">
     <div class="col s12 m6 l4 center">
       <div class="card">
-        <a class="btn grey right" href="/profile/edit"><i class="material-icons">create</i></a>
+        <a class="btn grey right tooltipped" href="/profile/avatar " data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">create</i></a>
         <div class="card-image card-profile-image">
-          <img src="https://image.ibb.co/hbEMux/resort1.jpg">
+          <img  src="{{this.result.avatar}}" class="avatar">
         </div>
         <div class="card-content center">
           <h4>{{result.first_name}} {{result.last_name}}</h4>

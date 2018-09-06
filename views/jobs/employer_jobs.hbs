@@ -1,83 +1,73 @@
-  {{>NavBarEmployer}}
-  <!-- search -->
- 
+{{>NavBarEmployer}}
+<!-- Section: jobs -->
+<section id="jobs" class="section section-popular scrollspy">
+    <div class="container">
+        <div class="row">
+            {{#if results}}
 
-  
-  
-    <!-- Section: jobs -->
-              
-    <section id="jobs" class="section section-popular scrollspy">
-        <div class="container">
-            <div class="row">
-          {{#if results}}
-            
-             {{#each results}}
-                <div class="col s12 m6 l4">
-                    <div class="card hoverable">
-                        <div class="card-image small"> 
-                            <img src="{{this.image}}" alt="">
-                            <span class="card-title yellow-text text-lighten-1 ">{{immediate_start}}</span>
-                            <a href="/job_image/edit/{{id}}" class="btn-floating btn-large halfway-fab  waves-effect waves-light blue tooltipped " data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">edit</i></a>
+            {{#each results}}
+            <div class="col s12 m6 l4">
+                <div class="card hoverable">
+                    <div class="card-image small">
+                        <img src="{{this.image}}" alt="">
+                        <span class="card-title yellow-text text-lighten-1 ">{{immediate_start}}</span>
+                        <a href="/job_image/edit/{{id}}" class="btn-floating btn-large halfway-fab  waves-effect waves-light blue tooltipped "
+                            data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">edit</i></a>
 
-                        </div>
-                       
-                        <div class="card-content card-content-jobs">
-                               <p >
-                                    <b> <span class="salary-card">{{salary}} {{currency}}</span>
-                                        <span>{{employment_type}}</span>
-                                    </b>
-                                </p>
-                               
-                            
-                                <p class="card-position"> <b>{{position}}</b> </p>
-                                <p><b>company name</b></p>
-                                <p class="truncate description text-opacity" >{{description}}</p>
+                    </div>
+
+                    <div class="card-content card-content-jobs">
+                        <p>
+                            <b> <span class="salary-card">{{salary}} {{currency}}</span>
+                                <span>{{employment_type}}</span>
+                            </b>
+                        </p>
 
 
-                                <p class="text-opacity">{{city}}</p>
-
-                         </div>
-                   
-                    
-                            <div class="card-action">
-                                
-                               
-                            <li>
-                                <a class="dropdown-trigger btn blue " href="#!" data-target="card-dropdown">Editeaza
-                                    <i class="material-icons right">arrow_drop_down</i>
-                                </a>
-                            </li>
-                               
-                            <li>
-
-                           
+                        <p class="card-position"> <b>{{position}}</b> </p>
+                        <p><b>company name</b></p>
+                        <p class="truncate description text-opacity">{{description}}</p>
 
 
+                        <p class="text-opacity">{{city}}</p>
+
+                    </div>
+
+
+                    <div class="card-action">
+
+
+                        <li>
+                            <a class="dropdown-trigger btn blue " href="#!" data-target="card-dropdown">Editeaza
+                                <i class="material-icons right">arrow_drop_down</i>
+                            </a>
+                        </li>
+
+                        <li>
                             <ul id="card-dropdown" class="dropdown-content">
 
-                            <li>
-                                <a href="/job/edit/{{id}}" class="black-text  text-lighten-1 waves-effect waves-light">Editeaza</a>
-                            </li>
-                            <li>
-                              <form method="POST" action="/job/delete/{{id}}?_method=DELETE" >
-                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                <button class="btn red delte-btn"  type='submit' value='delete'>Sterge</button>
-                              </form>                       
-                            </li>
-                            </li>
-                        
-                            <li class="divider"></li>
-                            
+                                <li>
+                                    <a href="/job/edit/{{id}}" class="black-text  text-lighten-1 waves-effect waves-light">Editeaza</a>
+                                </li>
+                                <li>
+                                    <form method="POST" action="/job/delete/{{id}}?_method=DELETE">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <button class="btn red btn_full_width " type='submit' value='delete'>Sterge</button>
+                                    </form>
+                                </li>
+                        </li>
+
+                        <li class="divider"></li>
+
                         </ul>
                     </div>
-                   </div>
                 </div>
+            </div>
             {{/each}}
-         {{else}}
-           <h4  class="center">Nici un job nu este disponibil la moment</h4>
-         {{/if}}
+          
+            {{else}}
+            <h4 class="center">Nici un job nu este disponibil la moment</h4>
+            {{/if}}
         </div>
     </div>
 </section>
-
-

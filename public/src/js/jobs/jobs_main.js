@@ -5,12 +5,12 @@ import  JobEdit from  './job_edit'
 
 
 
-axios.get('http://localhost:5000/my_jobs')
-.then(function (response) {
-  // handle success
-  console.log(response);
-})
-.catch(function (error) {
-  // handle error
-  console.log(error);
-})
+// axios.get('http://localhost:5000/my_jobs')
+// .then(function (response) {
+//   // handle success
+//   console.log(response);
+// })
+// .catch(function (error) {
+//   // handle error
+//   console.log(error);
+// })

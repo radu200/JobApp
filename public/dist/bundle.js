@@ -1785,7 +1785,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "* {\n  list-style-type: none; }\n\nbody {\n  overflow-x: hidden; }\n\n.hidden-category {\n  display: none; }\n\n.start_time {\n  margin-top: 10px; }\n\n@media (min-width: 992px) {\n  .logo-employer {\n    margin: 0 0 0 30px; } }\n\n.login {\n  margin-top: 50px; }\n\n.login-btn {\n  width: 100%; }\n  .login-btn:hover {\n    opacity: 0.8; }\n\n.login-forgot-password {\n  float: right; }\n\n.signup {\n  margin-top: 50px; }\n\n.signup-btn {\n  width: 100%; }\n\n.signup-btn:hover {\n  opacity: 0.8; }\n\n.footer-copyright {\n  color: black;\n  left: 0;\n  bottom: 0;\n  text-align: center;\n  padding-top: 10px; }\n\n.close_icon_style {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n  font-size: 20px;\n  color: white;\n  cursor: pointer;\n  border: 1px solid white;\n  border-radius: 10px; }\n  .close_icon_style:hover {\n    opacity: 0.8; }\n\n.input-field {\n  margin-top: 10px; }\n\n/* Hide all steps by default: */\n.tab {\n  display: none; }\n\n/* Make circles that indicate the steps of the form: */\n.step {\n  opacity: 0.5; }\n\n.add-jobs-step-container {\n  text-align: center;\n  margin-top: 40px;\n  display: flex;\n  justify-content: space-around;\n  font-size: 16px; }\n\n.step.active {\n  opacity: 1; }\n\n/* Mark the steps that are finished and valid: */\n.step.finish {\n  color: black; }\n\n.category-title {\n  color: black;\n  font-size: 16px; }\n\n@media (max-width: 600px) {\n  .add-jobs-step-container {\n    flex-direction: column; }\n  .step {\n    display: none; }\n  .step.active {\n    opacity: 1;\n    display: block; } }\n\n.error {\n  color: red; }\n\n.text-opacity {\n  opacity: 0.5; }\n\n.card-position {\n  font-size: 20px;\n  padding: 4px 0px 4px 0px;\n  word-break: break-all; }\n\n.card-image, img {\n  height: 169px; }\n\n.card-content-jobs {\n  height: 170px; }\n\n.salary {\n  padding: 0px 0px 5px 0px;\n  word-break: break-all; }\n\n.description {\n  padding-bottom: 5px; }\n\n.card-profile-image {\n  height: 200px;\n  width: 170px;\n  margin: 0 auto;\n  padding: 20px 0 10px 0; }\n\n.full-width-btn {\n  width: 100%; }\n  .full-width-btn:hover {\n    opacity: 0.8; }\n\n.search-btn {\n  margin-top: 22px;\n  width: 100%; }\n\n@media (max-width: 600px) {\n  .search-btn {\n    margin-top: 0px;\n    width: 100%; } }\n\n.break_text {\n  word-break: break-all; }\n", ""]);
+exports.push([module.i, "* {\n  list-style-type: none; }\n\nbody {\n  overflow-x: hidden; }\n\n.hidden-category {\n  display: none; }\n\n.start_time {\n  margin-top: 10px; }\n\n@media (min-width: 992px) {\n  .logo-employer {\n    margin: 0 0 0 30px; } }\n\n.login {\n  margin-top: 50px; }\n\n.login-btn {\n  width: 100%; }\n  .login-btn:hover {\n    opacity: 0.8; }\n\n.login-forgot-password {\n  float: right; }\n\n.signup {\n  margin-top: 50px; }\n\n.signup-btn {\n  width: 100%; }\n\n.signup-btn:hover {\n  opacity: 0.8; }\n\n.footer-copyright {\n  color: black;\n  left: 0;\n  bottom: 0;\n  text-align: center;\n  padding-top: 10px; }\n\n.close_icon_style {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n  font-size: 20px;\n  color: white;\n  cursor: pointer;\n  border: 1px solid white;\n  border-radius: 10px; }\n  .close_icon_style:hover {\n    opacity: 0.8; }\n\n.input-field {\n  margin-top: 10px; }\n\n/* Hide all steps by default: */\n.tab {\n  display: none; }\n\n/* Make circles that indicate the steps of the form: */\n.step {\n  opacity: 0.5; }\n\n.add-jobs-step-container {\n  text-align: center;\n  margin-top: 40px;\n  display: flex;\n  justify-content: space-around;\n  font-size: 16px; }\n\n.step.active {\n  opacity: 1; }\n\n/* Mark the steps that are finished and valid: */\n.step.finish {\n  color: black; }\n\n.category-title {\n  color: black;\n  font-size: 16px; }\n\n@media (max-width: 600px) {\n  .add-jobs-step-container {\n    flex-direction: column; }\n  .step {\n    display: none; }\n  .step.active {\n    opacity: 1;\n    display: block; } }\n\n.error {\n  color: red; }\n\n.text-opacity {\n  opacity: 0.5; }\n\n.card-position {\n  font-size: 20px;\n  padding: 4px 0px 4px 0px;\n  word-break: break-all; }\n\n.card-image, img {\n  height: 169px; }\n\n.card-content-jobs {\n  height: 170px; }\n\n.salary {\n  padding: 0px 0px 5px 0px;\n  word-break: break-all; }\n\n.description {\n  padding-bottom: 5px; }\n\n.card-profile-image {\n  height: 200px;\n  width: 170px;\n  margin: 0 auto;\n  padding: 20px 0 10px 0; }\n  .card-profile-image .avatar {\n    border-radius: 50% !important; }\n\n.full-width-btn {\n  width: 100%; }\n  .full-width-btn:hover {\n    opacity: 0.8; }\n\n.search-btn {\n  margin-top: 22px;\n  width: 100%; }\n\n@media (max-width: 600px) {\n  .search-btn {\n    margin-top: 0px;\n    width: 100%; } }\n\n.break_text {\n  word-break: break-all; }\n\n.btn_full_width {\n  width: 100%; }\n", ""]);
 
 // exports
 
@@ -13317,15 +13317,6 @@ var _job_edit2 = _interopRequireDefault(_job_edit);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//  import JobAdd from './job_add';
-axios.get('http://localhost:5000/my_jobs').then(function (response) {
-  // handle success
-  console.log(response);
-}).catch(function (error) {
-  // handle error
-  console.log(error);
-});
-
 /***/ }),
 
 /***/ "./public/src/js/main.js":
@@ -13361,6 +13352,10 @@ var _partials_main2 = _interopRequireDefault(_partials_main);
 var _jobs_main = __webpack_require__(/*! ./jobs/jobs_main */ "./public/src/js/jobs/jobs_main.js");
 
 var _jobs_main2 = _interopRequireDefault(_jobs_main);
+
+var _profile_main = __webpack_require__(/*! ./profile/profile_main */ "./public/src/js/profile/profile_main.js");
+
+var _profile_main2 = _interopRequireDefault(_profile_main);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13478,6 +13473,101 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 $(document).ready(function () {
     $('.sidenav').sidenav();
 });
+
+/***/ }),
+
+/***/ "./public/src/js/profile/profile_avatar.js":
+/*!*************************************************!*\
+  !*** ./public/src/js/profile/profile_avatar.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _(el) {
+	return document.getElementById(el);
+}
+
+$("#profile_avatar_form").on("submit", function (event) {
+	event.preventDefault();
+	// alert('hello')
+	var avatarForm = $('#profile_avatar_form');
+	var avatarId = avatarForm.attr('data_avatar_id');
+
+	//console.log(file.name+" | "+file.size+" | "+file.type)
+	// //  alert(file.name+" | "+file.size+" | "+file.type);
+
+	var formdata = new FormData();
+
+	// let avatarInput =  $('#profile_avatar');
+	// if(imageInput.val() === ''){
+	// 	$('.avatar_image_error').text('Te rog alege imagine')
+	// 	return false;
+	// }
+
+	// //size validation
+	var file = _("profile_avatar").files[0];
+	//    if(file.size > 5e+6 ){
+	// 		//alert("image is too big")
+	//      $(".job_image_edit_error").text('Imagine nu trebuie sa fie mai mare de 5mb');
+
+	// 	return false;
+	//   }
+
+	//append input
+	formdata.append("avatar", file);
+
+	var xhr = new XMLHttpRequest();
+	xhr.upload.addEventListener("progress", progressHandlerImageEdit, false);
+	xhr.addEventListener("load", completeHandlerImageEdit, false);
+	xhr.addEventListener("error", errorHandlerImageEdit, false);
+	xhr.addEventListener("abort", abortHandlerImageEdit, false);
+	xhr.open("POST", " /profile/avatar/" + avatarId);
+	//var contentType = "multipart/form-data";
+	//xhr.setRequestHeader("Content-Type", contentType);
+
+	xhr.send(formdata);
+});
+function progressHandlerImageEdit(event) {
+	// _("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
+	var percent = event.loaded / event.total * 100;
+	console.log(percent);
+	_("progressBarAavatar").style.width = percent + "%";
+	// _("statusd").innerHTML = Math.round(percent)+"% uploaded";
+}
+function completeHandlerImageEdit(event) {
+	window.location.href = "/profile";
+
+	// _("statusd").innerHTML = event.target.responseText;
+	//_('post_job').reset();
+}
+function errorHandlerImageEdit(event) {
+
+	//  _("status").innerHTML = "Upload Failed";
+}
+function abortHandlerImageEdit(event) {
+	//  _("status").innerHTML = "Upload Aborted";
+}
+
+/***/ }),
+
+/***/ "./public/src/js/profile/profile_main.js":
+/*!***********************************************!*\
+  !*** ./public/src/js/profile/profile_main.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _profile_avatar = __webpack_require__(/*! ./profile_avatar */ "./public/src/js/profile/profile_avatar.js");
+
+var _profile_avatar2 = _interopRequireDefault(_profile_avatar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 

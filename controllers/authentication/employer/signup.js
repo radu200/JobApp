@@ -66,7 +66,7 @@ function CreatEmployer (res){
             first_name: first_name,
             last_name: last_name,
             type: 'employer',
-
+            avatar:'/images/no_user_image.png'
         }
 
         //creat employer
@@ -74,7 +74,7 @@ function CreatEmployer (res){
             if (error) throw error
            req.login(user,(err) => {
 
-               res.redirect('/jobs')
+               res.redirect('/profile')
            }) 
         })
 
