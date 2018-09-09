@@ -14,7 +14,7 @@
 
  }
  .card-content-jobs{
-     height: 170px;
+     height: 190px;
  }
  
 .salary{
@@ -27,3 +27,18 @@
     padding-bottom: 5px;
 }
 
+///job detail image
+.job_detail_image{
+    width:100%;
+    height: 157px;
+}
+.job_detail_employer_img{
+    padding: 10px 10px 10px 0px;
+    width: 100px;
+    height: 100px;
+    border-radius: 20% ;
+}
+
+.job_details_description {
+    word-break: break-all;
+}

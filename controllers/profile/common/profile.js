@@ -1,4 +1,4 @@
-const db = require('../.././config/database.js');
+const db = require('../../../config/database.js');
 const fs = require('fs')
 const sharp = require('sharp')
 
@@ -19,19 +19,13 @@ module.exports.getProfile =  (req, res, next) => {
 };
 
 module.exports.getProfileAvatarEdit = (req,res,next) => {
-    // if(req.user.type === 'employer'){
         db.query('select id, avatar from users where id = ? ', [req.user.id], (err, results) => {
-            res.render('profile/employer/profile_avatar_edit',{
+            res.render('profile/common/profile_avatar_edit',{
                 'result':results[0]
             })
         })
    
-    // } else if( req.user.type === "jobseeker") {
-    //     //res.render('profile/jobseeker/jobseeker_profile')
-   
-    // } else{
-    //     res.redirect('/login')
-    // }
+    
 }
 
 module.exports.postProfileAvatarEdit = (req,res,next) => {

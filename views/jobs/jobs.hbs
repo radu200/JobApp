@@ -124,29 +124,33 @@
                     <div class="card hoverable">
                         <div class="card-image small"> 
                             <img src="{{this.image}}" alt="">
-                            <span class="card-title yellow-text text-lighten-1 ">{{immediate_start}}</span>
+                         
                         </div>
                        
                         <div class="card-content card-content-jobs">
                                <p >
-                                    <b> <span class="salary-card">{{salary}} {{currency}}</span>
+                                    <b>  
+                                        {{#if salary}}
+                                        <span class="salary-card">{{salary}} LEI | </span>
+                                        {{/if}}
                                         <span>{{employment_type}}</span>
                                     </b>
                                 </p>
                                
+                                {{#if start_time}}
+                                <span class="font_weight_bold yellow-backgr ">{{start_time}}</span>
+                                {{/if}}
                             
                                 <p class="card-position"> <b>{{position}}</b> </p>
-                                <p><b>company name</b></p>
                                 <p class="truncate description text-opacity" >{{description}}</p>
 
 
-                                <p class="text-opacity">{{city}}</p>
+                                <p class="text-opacity"><i class="material-icons">place</i>{{city}}</p>
 
                          </div>
-                   
                     
                             <div class="card-action">
-                                <a href="#" class=" btn white-text text-lighten-1 waves-effect waves-light"> Vezi Mai mult</a>
+                                <a href="/job/details/{{id}}" class=" btn white-text text-lighten-1 waves-effect waves-light"> Vezi Mai mult</a>
 
                             </div>
                    </div>

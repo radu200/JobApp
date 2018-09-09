@@ -35,7 +35,7 @@ module.exports.postAddJobs = (req, res, next) => {
      const description = req.body.job_description;
      const city = req.body.city; 
      const employment_type = req.body.employment_type;
-     const immediate_start  = req.body.immediate_start
+     const start_time  = req.body.immediate_start
      const salary = req.body.salary;
      const experience = req.body.experience;
      const language = req.body.language;
@@ -127,12 +127,7 @@ module.exports.postAddJobs = (req, res, next) => {
        var lang = language.toString();
     }
 
-    if(salary != ''){
-        var wage = `${salary}  LEI | `
-     }else{
-         wage = salary;
-     };
-    
+  
         let jobs = {
                 employer_id:req.user.id,
                 category:category,
@@ -140,8 +135,8 @@ module.exports.postAddJobs = (req, res, next) => {
                 description:description,
                 city:city,
                 employment_type:employment_type,
-                immediate_start:immediate_start,
-                salary:wage,
+                start_time:start_time,
+                salary:salary,
                 experience:experience,
                 language:lang,
                 currency:currency,
@@ -195,7 +190,7 @@ module.exports.postJobImageEdit = (req, res, next) => {
 
 
                 if (req.file) {
-                    var job_image_edit = './uploads/' + req.file.filename;
+                    var job_image_edit = '/uploads/' + req.file.filename;
                     // resize image
                     sharp(req.file.path)
                         .resize(600, 157)
@@ -310,7 +305,7 @@ module.exports.postEmployerJobEdit = (req,res, next) => {
     const description = req.body.job_description;
     const city = req.body.city; 
     const employment_type = req.body.employment_type;
-    const immediate_start  = req.body.immediate_start
+    const start_time  = req.body.immediate_start
     const salary = req.body.salary;
     const experience = req.body.experience;
     const language = req.body.language;
@@ -360,11 +355,7 @@ module.exports.postEmployerJobEdit = (req,res, next) => {
        var lang = language.toString();
     }
 
-    if(salary != ''){
-        var wage = `${salary}  LEI | `
-     }else{
-         wage = salary;
-     };
+   
     
         let job = {
                 category:category,
@@ -372,8 +363,8 @@ module.exports.postEmployerJobEdit = (req,res, next) => {
                 description:description,
                 city:city,
                 employment_type:employment_type,
-                immediate_start:immediate_start,
-                salary:wage,
+                start_time:start_time,
+                salary:salary,
                 experience:experience,
                 language:lang,
                 currency:currency,
@@ -421,3 +412,16 @@ module.exports.deleteJob = function (req, res, next) {
      })
 
 };
+
+
+//job detail page
+module.exports.getJobDetail = (req,res, next) => {
+    db.query('select jobs.*, users.id as userId,users.first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type, users.avatar from jobs LEFT JOIN users ON  jobs.employer_id = users.id where jobs.id = ?', [req.params.id], (err, results) => {
+      if(err) throw err;
+      res.render('jobs/job_details', {
+         "result":results[0]
+      })
+
+      console.log(results)
+    })
+}

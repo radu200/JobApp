@@ -10,7 +10,7 @@
                 <div class="card hoverable">
                     <div class="card-image small">
                         <img src="{{this.image}}" alt="">
-                        <span class="card-title yellow-text text-lighten-1 ">{{immediate_start}}</span>
+                        <span class="card-title yellow-text text-lighten-1 ">{{start_time}}</span>
                         <a href="/job_image/edit/{{id}}" class="btn-floating btn-large halfway-fab  waves-effect waves-light blue tooltipped "
                             data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">edit</i></a>
 
@@ -43,23 +43,27 @@
                             </a>
                         </li>
 
-                        <li>
+                   
                             <ul id="card-dropdown" class="dropdown-content">
 
                                 <li>
                                     <a href="/job/edit/{{id}}" class="black-text  text-lighten-1 waves-effect waves-light">Editeaza</a>
                                 </li>
+                                
                                 <li>
                                     <form method="POST" action="/job/delete/{{id}}?_method=DELETE">
                                         <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                         <button class="btn red btn_full_width " type='submit' value='delete'>Sterge</button>
                                     </form>
                                 </li>
-                        </li>
+                     
 
                         <li class="divider"></li>
 
                         </ul>
+                         <li>
+                                    <a href="/job/details/{{id}}" class="btn ">info</a>
+                                </li>
                     </div>
                 </div>
             </div>

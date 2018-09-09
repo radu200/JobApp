@@ -4,7 +4,7 @@ module.exports = function (app){
   const jobsController = require('../controllers/jobs/jobs');
   const signupEmployerController = require('../controllers/authentication/employer/signup');
   const signupJobSeekerController = require('../controllers/authentication/job_seeker/signup');
-  const profileController = require('../controllers/profile/profile');
+  const profileController = require('../controllers/profile/common/profile');
 
   const loginController = require('../controllers/authentication/common/login');
   const homeController = require('../controllers/home');
@@ -27,14 +27,13 @@ module.exports = function (app){
   app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
   app.get('/change/password', accessController.ensureAuthenticated, profileController.getChangePassword)
   
+//profile common
+  app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
+  app.post('/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)  
+
   //employer profile
   app.get('/profile/info/edit', accessController.ensureAuthenticated, profileController.getEmployerProfileInfoEdit)
   app.post('/profile/info/edit', accessController.ensureAuthenticated, profileController.postEmployerProfileInfoEdit)
-  app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
-  app.post('/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)
-
-  
-  //company
   app.get('/company/info/edit', accessController.ensureAuthenticated, profileController.getCompanyInfoEdit)
   app.post('/company/info/edit/:id', accessController.ensureAuthenticated, profileController.postCompanyInfoEdit)
 
@@ -51,12 +50,12 @@ module.exports = function (app){
   app.post('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, filesController.editJobImage, jobsController.postJobImageEdit)
   app.get('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.getEmployerJobEdit)
   app.post('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.postEmployerJobEdit)
-
+  app.get('/job/details/:id', jobsController.getJobDetail)
 
   //employer jobs
   app.get('/my_jobs', jobsController.getEmployerJobs)
   app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
-
+  
 }
 
 
