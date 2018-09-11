@@ -26,10 +26,15 @@
               <div class="card ">
                 <div class="card-content">
                   <h4 class="card-title center-align">Editeaza Informatia despre companie</h4>
-                  <form method="post" action="/company/info/edit/{{result.id}}">
+                  <form method="post" action="/company/info/edit">
                       <div class="row">
                         <div class="input-field col s12">
                             <input type="text"   placeholder="Numele " name="company_name" value="{{result.company_name}}" />
+                        </div>
+                     </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text"   placeholder="Tipul comapniei " name="company_type" value="{{result.company_type}}" />
                         </div>
                      </div>
                         <div class="row">
@@ -41,6 +46,7 @@
                                 </div>
                             </div>
                         </div>
+
                 {{#if result.company_location}}
                 <div class="row">
                   <div class="input-field">

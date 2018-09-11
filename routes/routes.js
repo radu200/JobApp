@@ -35,7 +35,8 @@ module.exports = function (app){
   app.get('/profile/info/edit', accessController.ensureAuthenticated, profileController.getEmployerProfileInfoEdit)
   app.post('/profile/info/edit', accessController.ensureAuthenticated, profileController.postEmployerProfileInfoEdit)
   app.get('/company/info/edit', accessController.ensureAuthenticated, profileController.getCompanyInfoEdit)
-  app.post('/company/info/edit/:id', accessController.ensureAuthenticated, profileController.postCompanyInfoEdit)
+  app.post('/company/info/edit', accessController.ensureAuthenticated, profileController.postCompanyInfoEdit)
+  app.get('/company/:id', profileController.getCompanyProfile)
 
   //login
   app.get('/login',  loginController.getLogin)

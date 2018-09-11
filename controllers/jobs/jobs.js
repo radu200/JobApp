@@ -47,11 +47,9 @@ module.exports.postAddJobs = (req, res, next) => {
 
      req.checkBody('category', 'Alege Categoria').notEmpty();
      req.checkBody("position",   'Poziția  este necesară').notEmpty()
-     req.checkBody('job_description','Poszitia nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/);
      req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
      req.checkBody("job_description",   'Descriere este necesara').notEmpty().isString() ;
      req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
-     req.checkBody('job_description','Descrierea nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/)
      req.checkBody('city', "Locatia este necesara").notEmpty();
      req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
      req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 8 de cifre.').len(0,9);
@@ -104,7 +102,7 @@ module.exports.postAddJobs = (req, res, next) => {
 
 
         } else {
-            let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png']; 
+            let images = ['/images/no_job_image_a.png', '/images/no_job_image_b.png', '/images//no_job_image_c.png']; 
 
             let  random = images[Math.floor(Math.random() * images.length)];
             job_image = random;
@@ -317,16 +315,16 @@ module.exports.postEmployerJobEdit = (req,res, next) => {
 
     req.checkBody('category', 'Alege Categoria').notEmpty();
     req.checkBody("position",   'Poziția  este necesară').notEmpty()
-    req.checkBody('job_description','Poszitia nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/);
+    //req.checkBody('job_description','Poszitia nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/);
     req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
-    req.checkBody("job_description",   'Descriere este necesara').notEmpty().isString() ;
+   // req.checkBody("job_description",   'Descriere este necesara').notEmpty().isString() ;
     req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
-    req.checkBody('job_description','Descrierea nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/)
+    ///req.checkBody('job_description','Descrierea nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/)
     req.checkBody('city', "Locatia este necesara").notEmpty();
     req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
     req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 8 de cifre.').len(0,9);
     req.checkBody({'salary':{ optional: {  options: { checkFalsy: true }},isDecimal: {  errorMessage: 'Salariu trebuie sa fie decimal'} } });
-    req.checkBody('salary','Formatul salariului este incorect' ).matches(/^\d{0,8}(?:\.\d{0,2})?$/);
+    ///req.checkBody('salary','Formatul salariului este incorect' ).matches(/^\d{0,8}(?:\.\d{0,2})?$/);
     // req.checkBody('experience', 'Alege experienta').notEmpty();
 
 
@@ -335,7 +333,6 @@ module.exports.postEmployerJobEdit = (req,res, next) => {
     console.log('des',description)
     console.log(city)
     console.log('employement',employment_type)
-    console.log(immediate_start)
     console.log('salary',salary)
     console.log('experience',experience)
    // console.log(language.toString())
@@ -405,7 +402,7 @@ module.exports.deleteJob = function (req, res, next) {
             if (err) throw err;
 
             req.flash('success_msg', {
-                msg: "job deleted"
+                msg: "Jobul a fost sters cu success"
             });
             res.redirect('back');
         })
