@@ -17,11 +17,11 @@ module.exports = function (app){
 
 
   //authetication routes
-  app.get('/employer/signup',  signupEmployerController.getSignUpEmployer)
-  app.post('/employer/signup',  signupEmployerController.postSignUpEmployer)
+  app.get('/signup/employer',  signupEmployerController.getSignUpEmployer)
+  app.post('/signup/employer',  signupEmployerController.postSignUpEmployer)
   
-  app.get('/job_seeker/signup', signupJobSeekerController.getSignUpJobSeeker)
-  app.post('/job_seeker/signup', signupJobSeekerController.postSignUpJobSeeker)
+  app.get('/signup/jobseeker', signupJobSeekerController.getSignUpJobSeeker)
+  app.post('/signup/jobseeker', signupJobSeekerController.postSignUpJobSeeker)
   
   //profile
   app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
