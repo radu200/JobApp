@@ -1,0 +1,114 @@
+ {{#if isAuthenticated}}
+    <nav class="white">
+            <div class="nav-wrapper  lighten-4 ">
+              <a href="/my_jobs" class="brand-logo red-text text-lighten-1 logo-employer">Employee</a>
+              <div class="container">
+
+                 <ul id="nav-mobile" class=" right hide-on-med-and-down">
+                           <li>
+                             <a href="/jobs" class="grey-text text-darken-4">Exploreaza joburi</a>
+                            </li>
+                            <li>
+                                <a href="/application" class="grey-text text-darken-4">Joburi aplicate</a>
+                            </li>
+                            <li>
+                                <a href="/chats" class="grey-text text-darken-4">Chats</a>
+                            </li>
+                            
+                             <li>
+                                <a href="/profile" class="grey-text text-darken-4">Cv meu</a>
+                            </li>
+
+                            <ul id="nav-mobile" class=" right hide-on-med-and-down">
+                                    
+                                    <!--dropdown-->
+                                <li>
+                                    <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">  
+                                        <span class="black-text">Mai mult</span> 
+                                            <i class="material-icons right black-text">arrow_drop_down</i>
+                                        </a>
+                                </li>
+                                <ul id="moreNavBar" class="dropdown-content">
+                                    <li>
+                                        <a href="#!">Ajutor</a>
+                                    </li>
+                                    <li>
+                                        <a href="#!">Setari</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a  href="/logout">Iesire</a>
+                                    </li>
+                             </ul>
+                            </ul>
+                         </ul>
+                    </div>
+                                            <!-- hamburger -->
+                        <a href="#" data-target="slide-out" class="sidenav-trigger">
+                            <i class="material-icons grey-text text-darken-4">menu</i>
+                         </a>
+                         <!--right side-->
+            </div>
+       
+
+      
+                    <!-- side-nav -->
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <a href="#!">Salut numele</a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+           <li>
+                <a href="/my_jobs" class="grey-text text-darken-4">Joburile Mele</a>
+            </li>
+            <li>
+                <a href="/Chats" class="grey-text text-darken-4">Chats</a>
+            </li>
+            <li>
+                <a href="/candidates_search" class="grey-text text-darken-4">Cauta Candidati</a>
+            </li>
+            
+                <li>
+                <a href="/profile" class="grey-text text-darken-4">Compania mea</a>
+            </li>
+
+           
+
+
+          <!--dropdown-->
+            <li>
+                <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Mai Mult
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a>
+            </li>
+
+            <ul id="moreSideNav" class="dropdown-content">
+            <li>
+                <a href="/help">Ajutor</a>
+            </li>
+            <li>
+                <a href="/settings">Setari</a>
+            </li>
+             <li>
+                <a href="/logout"  class="waves-effect waves-light btn ">Iesire</a>
+            </li>
+            <li class="divider"></li>
+
+            
+        </ul>
+
+             <li>
+                <a href="/jobs/add" class="btn blue  lighten-1">Posteaza</a>
+            </li>
+           
+             <li>
+                <a href="/chat" class="btn yellow darken-2">Obtine Chei</a>
+            </li>
+
+      
+
+        
+    </nav>
+    {{/if}}

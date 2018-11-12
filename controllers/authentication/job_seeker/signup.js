@@ -6,7 +6,7 @@ const saltRounds = 10;
 
 
 module.exports.getSignUpJobSeeker = function(req, res, next) {
-    res.render('Authentication/JobSeeker/signup')
+    res.render('authentication/job_seeker/signup')
  };   
  
 
@@ -77,9 +77,9 @@ function CreatEmployer (res){
         //creat employer
         db.query('insert into users set ?', user, (error, results) => {
             if (error) throw error
-            req.login(user,(err) => {
-                res.redirect('/jobs')
-            }) 
+           
+                res.redirect('/login')
+        
         })
 
     })
