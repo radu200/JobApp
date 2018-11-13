@@ -5,6 +5,7 @@ module.exports = function (app){
   const signupEmployerController = require('../controllers/authentication/employer/signup');
   const signupJobSeekerController = require('../controllers/authentication/job_seeker/signup');
   const profileController = require('../controllers/profile/common/profile');
+  const JobSeekerProfileController = require('../controllers/profile/job_seeker/profile');
 
   const loginController = require('../controllers/authentication/common/login');
   const homeController = require('../controllers/home');
@@ -27,16 +28,23 @@ module.exports = function (app){
   app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
   app.get('/change/password', accessController.ensureAuthenticated, profileController.getChangePassword)
   
-//profile common
+  //profile common
   app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
   app.post('/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)  
-
+  
   //employer profile
   app.get('/profile/info/edit', accessController.ensureAuthenticated, profileController.getEmployerProfileInfoEdit)
   app.post('/profile/info/edit', accessController.ensureAuthenticated, profileController.postEmployerProfileInfoEdit)
   app.get('/company/info/edit', accessController.ensureAuthenticated, accessController.employer, profileController.getCompanyInfoEdit)
   app.post('/company/info/edit', accessController.ensureAuthenticated, accessController.employer,profileController.postCompanyInfoEdit)
   app.get('/company/:id', profileController.getCompanyProfile)
+  //employer jobs
+  app.get('/my_jobs', accessController.ensureAuthenticated,accessController.employer,jobsController.getEmployerJobs)
+  app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
+  
+
+  //jobseeker
+  app.get('/application', accessController.ensureAuthenticated,accessController.jobSeeker,JobSeekerProfileController.getApplication)
 
   //login
   app.get('/login',  loginController.getLogin)
@@ -53,9 +61,6 @@ module.exports = function (app){
   app.post('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.postEmployerJobEdit)
   app.get('/job/details/:id', jobsController.getJobDetail)
 
-  //employer jobs
-  app.get('/my_jobs', jobsController.getEmployerJobs)
-  app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
   
 }
 
