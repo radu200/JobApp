@@ -1,0 +1,81 @@
+
+
+
+.chat-mesages{
+    height:600px;
+    overflow-y: scroll;
+}
+
+#chat{
+    
+}
+@media (min-width:992px){
+    .chat_list_users{
+        height: 780px !important;
+        
+       overflow-y: scroll;
+       overflow-x: hidden;
+    }
+    
+    .card-chat{
+        margin-right: 10px !important;    
+        width: 300px;
+        height: 160px;
+        text-align: center;
+        .chat-image{
+            width: 100px;
+            height: 100px;
+        }
+        
+    }
+    .chat_form {
+        position: fixed;
+        bottom: 0;
+        width: 82%;
+    }
+  
+
+    .chat_btn{
+        float: right;
+        position: relative;
+        bottom:-30px;
+    }
+
+  
+}
+@media (max-width:992px){
+
+    .chat_list_users{
+        overflow-x: scroll;
+        //min-height: 100%;
+        height: 210px;
+        display: flex;
+    }
+    
+    .card-chat{
+        margin-right: 10px !important;    
+        width: 150px;
+        height: 160px;
+        text-align: center;
+        .chat-image{
+            width: 100px;
+            height: 100px;
+        }
+        
+    }
+    
+   
+    .chat_form {
+        position:absolute;
+        bottom: 10px;
+        width: 97%;
+    }
+  
+
+    .chat_btn{
+        float: right;
+        position: relative;
+        bottom:-30px;
+    }
+}
+

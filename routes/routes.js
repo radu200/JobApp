@@ -7,6 +7,8 @@ module.exports = function (app){
   const profileController = require('../controllers/profile/common/profile');
   const JobSeekerProfileController = require('../controllers/profile/job_seeker/profile');
 
+  const chatController = require('../controllers/chat/chat');
+
   const loginController = require('../controllers/authentication/common/login');
   const homeController = require('../controllers/home');
 
@@ -46,6 +48,8 @@ module.exports = function (app){
   //jobseeker
   app.get('/application', accessController.ensureAuthenticated,accessController.jobSeeker,JobSeekerProfileController.getApplication)
 
+   //chat 
+  app.get('/chats', accessController.ensureAuthenticated,chatController.getChat )
   //login
   app.get('/login',  loginController.getLogin)
   app.post('/login',  loginController.postLogin)
