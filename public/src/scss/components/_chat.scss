@@ -1,81 +1,106 @@
 
+.userImage {
+    width: 30px;
+    height: 30px;
+}
+   
+.onlinebox {
+    height: 600px;
+    overflow-y: scroll;
 
+}
 
-.chat-mesages{
-    height:600px;
+.chatbox{
+    height: 600px;
     overflow-y: scroll;
 }
 
-#chat{
+@media (max-width:600px){
+    .onlinebox {
+        height: 300px;
+        overflow-y: scroll;
     
+    }
+    
+    .chatbox{
+        height: 400px;
+        overflow-y: scroll;
+    }
 }
-@media (min-width:992px){
-    .chat_list_users{
-        height: 780px !important;
-        
-       overflow-y: scroll;
-       overflow-x: hidden;
-    }
+// .chat-mesages{
+//     height:600px;
+//     overflow-y: scroll;
+// }
+
+// #chat{
     
-    .card-chat{
-        margin-right: 10px !important;    
-        width: 300px;
-        height: 160px;
-        text-align: center;
-        .chat-image{
-            width: 100px;
-            height: 100px;
-        }
+// }
+// @media (min-width:992px){
+//     .chat_list_users{
+//         height: 780px !important;
         
-    }
-    .chat_form {
-        position: fixed;
-        bottom: 0;
-        width: 82%;
-    }
+//        overflow-y: scroll;
+//        overflow-x: hidden;
+//     }
+    
+//     .card-chat{
+//         margin-right: 10px !important;    
+//         width: 300px;
+//         height: 160px;
+//         text-align: center;
+//         .chat-image{
+//             width: 100px;
+//             height: 100px;
+//         }
+        
+//     }
+//     .chat_form {
+//         position: fixed;
+//         bottom: 0;
+//         width: 82%;
+//     }
   
 
-    .chat_btn{
-        float: right;
-        position: relative;
-        bottom:-30px;
-    }
+//     .chat_btn{
+//         float: right;
+//         position: relative;
+//         bottom:-30px;
+//     }
 
   
-}
-@media (max-width:992px){
+// }
+// @media (max-width:992px){
 
-    .chat_list_users{
-        overflow-x: scroll;
-        //min-height: 100%;
-        height: 210px;
-        display: flex;
-    }
+//     .chat_list_users{
+//         overflow-x: scroll;
+//         //min-height: 100%;
+//         height: 210px;
+//         display: flex;
+//     }
     
-    .card-chat{
-        margin-right: 10px !important;    
-        width: 150px;
-        height: 160px;
-        text-align: center;
-        .chat-image{
-            width: 100px;
-            height: 100px;
-        }
+//     .card-chat{
+//         margin-right: 10px !important;    
+//         width: 150px;
+//         height: 160px;
+//         text-align: center;
+//         .chat-image{
+//             width: 100px;
+//             height: 100px;
+//         }
         
-    }
+//     }
     
    
-    .chat_form {
-        position:absolute;
-        bottom: 10px;
-        width: 97%;
-    }
+//     .chat_form {
+//         position:absolute;
+//         bottom: 10px;
+//         width: 97%;
+//     }
   
 
-    .chat_btn{
-        float: right;
-        position: relative;
-        bottom:-30px;
-    }
-}
-
+//     .chat_btn{
+//         float: right;
+//         position: relative;
+//         bottom:-30px;
+//     }
+// }

@@ -1,90 +1,269 @@
-{{>NavBar}}
-<div class="row #chat">
-    <div class="col s12 m12 l2 chat_list_users">
-        <div class="card-panel grey lighten-5 z-depth-1  card-chat">
-            <div class="chat-image">
-              <img src="https://fr.mailjet.com/wp-content/uploads/Pauline_DONORE-copy.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-            <div class="card-chat-name ">
-              <span class="black-text truncate ">
-                  Ana Zirnohsdfghsgdfjsdlkmfffffffffffffffff      nsjdfjknjksdnkfjnjskd
-              </span>
+    {{>NavBar}}
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+              <h5><i class="material-icons">chat_bubble_outline</i>  realtime chat</h5>
+              <hr>
             </div>
-          </div>
-        </div>
-
-        <div class="card-panel grey lighten-5 z-depth-1  card-chat">
-            <div class="chat-image">
-              <img src="https://fr.mailjet.com/wp-content/uploads/Pauline_DONORE-copy.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-            <div class="card-chat-name ">
-              <span class="black-text truncate ">
-                  Radu Prodan     
-              </span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card-panel grey lighten-5 z-depth-1  card-chat">
-            <div class="chat-image">
-              <img src="https://fr.mailjet.com/wp-content/uploads/Pauline_DONORE-copy.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-            <div class="card-chat-name ">
-              <span class="black-text truncate ">
-                  Ana Zirnohsdfghsgdfjsdlkmfffffffffffffffff      nsjdfjknjksdnkfjnjskd
-              </span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card-panel grey lighten-5 z-depth-1  card-chat">
-            <div class="chat-image">
-              <img src="https://fr.mailjet.com/wp-content/uploads/Pauline_DONORE-copy.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-            <div class="card-chat-name ">
-              <span class="black-text truncate ">
-                  Ana Zirnohsdfghsgdfjsdlkmfffffffffffffffff      nsjdfjknjksdnkfjnjskd
-              </span>
-            </div>
-          </div>
-        </div>
-         <div class="card-panel grey lighten-5 z-depth-1  card-chat">
-            <div class="chat-image">
-              <img src="https://fr.mailjet.com/wp-content/uploads/Pauline_DONORE-copy.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-            <div class="card-chat-name ">
-              <span class="black-text truncate ">
-                  Ana Zirnohsdfghsgdfjsdlkmfffffffffffffffff      nsjdfjknjksdnkfjnjskd
-              </span>
-            </div>
-          </div>
-        </div>
-         <div class="card-panel grey lighten-5 z-depth-1  card-chat">
-            <div class="chat-image">
-              <img src="https://fr.mailjet.com/wp-content/uploads/Pauline_DONORE-copy.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-            <div class="card-chat-name ">
-              <span class="black-text truncate ">
-                  Ana Zirnohsdfghsgdfjsdlkmfffffffffffffffff      nsjdfjknjksdnkfjnjskd
-              </span>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-       
-     
-      <div class="col s12 m12 l10 ">
-
-        {{!-- <div class="card-panel white lighten-5 z-depth-1 center">
-           <p>Esti in chat cu Ana Zirnov</p>
-           <p>Active acum</p>
-        </div> --}}
-        <div class="chat-messages"></div>
-      
-         <form class="chat_form  ">
-                <div class="input-field    ">
-                
-                 <button class="btn blue chat_btn"type='submit'>
-                     <i class="material-icons">send</i>
-                   </button>
-                {{!-- <i class="material-icons prefix">textsms</i> --}}
-                <textarea id="icon_prefix2" class="materialize-textarea" placeholder="Trimite mesaj"></textarea>
+           
+            <div class="chat-container">
+                <div class="col l4  m4 s12">
+    
+                    <div class="onlinebox ">
+                      <ul class="collection chatmessage">
+                        <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                           <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                           <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                         <li class="collection-item">
+                            <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                          radu prodan
+                            <i class="status offline"></i>
+                          <i class="status online"></i>
+                        </li>
+                      </ul>
+                    </div>
                 </div>
-          </form>
+                <div class="col s12 m8 l8">
+                    
+                    <div class="chatbox">
+                        <ul class="collection chatmessage">
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                           <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                          <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                           <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                         <li class="collection-item chatmsg" name="Hanna" status="offline">
+                           <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                            <i class="status offline"></i>
+                            <i class="when secondary-content">4 months ago</i>
+                            <b class="who">Hanna</b>
+                            <span class="what">Hi chat with me :D</span>
+                         </li>
+                        </ul>
+                    </div>
+                    <form id="chat">
+                        <input placeholder="Message" class="msg" required>
+                        <button class="waves-effect waves-light btn"><i class="material-icons right">send</i>send</button>
+                    </form>
+                </div>
+            </div>
         </div>
-</div>
+    </div>
+    <div class="model">
+        <li>
+            <img class="userImage circle" src="#">
+            <i class="status"></i>
+            <i class="when secondary-content">0</i>
+            <b class="who"></b>:
+            <span class="what"></span>
+        </li>
+    </div>
