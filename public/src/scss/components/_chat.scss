@@ -20,6 +20,8 @@ $gray: #92959E;
 .chatbox{
     height: 600px;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
 .online{
@@ -36,34 +38,35 @@ $gray: #92959E;
 
 
 .user-one{
+    justify-content: flex-start;
     width: 70%;
     word-break: break-all;
     background-color: #94C2ED;
     color: white;
     border-radius:7px;
     padding: 18px 20px;
-    margin: 5px 0 10px 10px ;
+    margin: 5px 0 10px 0px ;
     font-size: 16px;
     margin-bottom: 30px;
     line-height: 26px;
 
 }
 .message-data-user-one{
-    margin: 10px 0px 0px 20px;
+    margin: 10px 0px 0px 0px;
     .message-data-time {
         color: lighten($gray, 8%);
         padding-left: 6px;
       }
 }
 .user-two{
-    float: right;
+    align-self: flex-end;
     width: 70%;
     word-break: break-all;
     background-color: #86BB71;
     color: white;
     border-radius:7px;
     padding: 18px 20px;
-    margin: 5px 10px 10px 0px ;
+    margin: 5px 10px 0 0px ;
     font-size: 16px;
     margin-bottom: 30px;
     line-height: 26px;  
@@ -71,8 +74,8 @@ $gray: #92959E;
 
 
 .message-data-user-two{
-    float: right;
-    margin: 10px 20px 0px 0;
+    align-self: flex-end;
+    margin: 10px 10px 0px 0;
     .message-data-time {
         color: lighten($gray, 8%);
         padding-left: 6px;
