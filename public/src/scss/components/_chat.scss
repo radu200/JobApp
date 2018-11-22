@@ -7,33 +7,61 @@ $gray: #92959E;
 
 
 .userImage {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
+    border: 3px solid $gray;
 }
    
 .onlinebox {
     height: 600px;
     overflow-y: scroll;
-     
+    background-color: #454953;
+    border-radius: 10px 10px;
 }
+.chat-header{
+    text-align: center;
+    width: 100%;
+    padding: 15px 0 15px 0;
+    border-radius: 10px;
+    background-color: #f1f5f7;
+}
+
+
+.chat-user{
+    display: flex;
+    padding-bottom: 20px;
+    margin-left: 15px;
+  .about{
+      margin-left: 10px;
+      margin-top: 5px;
+      .name{
+          color: #f4f4f4;
+      }
+  }
+
+  .status {
+    color: $gray;
+  }
+  .online, .offline, .me {
+    margin-right: 3px;
+    font-size: 10px;
+  }
+  
+.online {
+  color: $green;
+}
+  
+.offline {
+  color: $orange;
+ }
+}
+
 
 .chatbox{
     height: 600px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-}
-
-.online{
-    color:green;
-    width: 50px;
-    height:50px;
-}
-
-
-.collection-item{
-    word-break: break-all;
-
 }
 
 
@@ -81,7 +109,7 @@ $gray: #92959E;
         padding-left: 6px;
       }
 }
-@media (max-width:600px){
+@media (max-width:992px){
     .onlinebox {
         height: 300px;
         overflow-y: scroll;
