@@ -6,17 +6,18 @@ $orange: #E38968;
 $gray: #92959E;
 
 
-.userImage {
-    width: 50px;
-    height: 50px;
-    border: 3px solid $gray;
-}
+
    
 .onlinebox {
     height: 600px;
     overflow-y: scroll;
     background-color: #454953;
     border-radius: 10px 10px;
+    .userImage {
+        width: 50px;
+        height: 50px;
+        border: 3px solid $gray;
+    }
 }
 .chat-header{
     text-align: center;
@@ -111,10 +112,22 @@ $gray: #92959E;
 }
 @media (max-width:992px){
     .onlinebox {
-        height: 300px;
-        overflow-y: scroll;
+        height: 200px;
+        overflow-x: scroll;
+        overflow-y:hidden;
         display:flex;
-        
+        .chat-user-list{
+            display: flex;
+          .chat-user{
+              width: 90px;
+              flex-direction: column;
+               padding: 0 5px;
+             &:hover{
+                font-weight: bold;
+                 font-size:16px;
+             }
+          }
+        }
     }
     
     .chatbox{
