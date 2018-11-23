@@ -1,13 +1,7 @@
 @import "./body";
 @import "./authentication/login";
 @import "./authentication/signup";
-@import "./components/footer";
-@import "./components/alerts";
-@import "./components/card";
-@import "./components/profile_card";
-@import "./components/buttons";
-@import "./components/navbar_employer";
-@import "./components/common";
-@import "./components/chat";
-@import "./job_seeker/all";
+@import './components//main';
+@import "./job_seeker/main";
 @import "./employer/main";
+@import "./pages/main"
