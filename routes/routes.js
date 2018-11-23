@@ -6,7 +6,7 @@ module.exports = function (app){
   const signupJobSeekerController = require('../controllers/authentication/job_seeker/signup');
   const profileController = require('../controllers/profile/common/profile');
   const JobSeekerProfileController = require('../controllers/profile/job_seeker/profile');
-
+  const EmployerProfileController = require('../controllers/profile/employer/profile');
   const chatController = require('../controllers/chat/chat');
 
   const loginController = require('../controllers/authentication/common/login');
@@ -43,7 +43,8 @@ module.exports = function (app){
   //employer jobs
   app.get('/my_jobs', accessController.ensureAuthenticated,accessController.employer,jobsController.getEmployerJobs)
   app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
-  
+  app.get('/candidate_search', accessController.ensureAuthenticated, accessController.employer,EmployerProfileController.getCandidate )
+  app.get('/candidate_details', accessController.ensureAuthenticated, accessController.employer,EmployerProfileController.getCandidateDetails)
 
   //jobseeker
   app.get('/application', accessController.ensureAuthenticated,accessController.jobSeeker,JobSeekerProfileController.getApplication)
