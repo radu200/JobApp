@@ -1,23 +1,22 @@
-$green: #86BB71;
-$blue: #94C2ED;
-$orange: #E38968;
-$gray: #92959E;
+
 .search_candidates_form {
     padding: 10px 15px 10px 15px;
+
 }
 
 .search-cadidate-input {
     width: 100%;
     height: 48px;
     padding: 10px;
-    border: none;
-    box-shadow: 1px 1px 6px rgba(165, 173, 177, 0.75);
+    border: 1px solid $input-border-color;
+    border-radius: 20px;
+  //  box-shadow: 1px 1px 6px rgba(165, 173, 177, 0.75);
     outline: none;
     width: 100%;
     padding-left: 45px;
     font-size: 16px;
     &:hover {
-        box-shadow: 2px 4px 8px rgba(165, 173, 177, 0.75);
+        box-shadow: 2px 2px 2px rgba(165, 173, 177, 0.75);
     }
 }
 
@@ -41,11 +40,11 @@ $gray: #92959E;
 .candidates-list-item {
     display: flex;
     color: black;
-
+   
     padding: 15px 10px 0px 10px;
     border-bottom: 1px solid grey;
     &:hover {
-       border: solid 2px $blue;
+       box-shadow: 2px 2px 2px rgba(165, 173, 177, 0.75);
     }
 }
 .candidate-search-avatar{
