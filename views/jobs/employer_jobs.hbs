@@ -1,4 +1,5 @@
 {{>NavBarEmployer}}
+  <body id="  </body>">
     {{#if error_msg}} 
           <div class="row" id="alert_box">
             <div class="container">
@@ -39,79 +40,18 @@
             </div>
           </div>
       {{/if}}
-<!-- Section: jobs -->
-<section  class="section section-popular scrollspy">
-    <div class="container">
-        <div class="row">
-            {{#if results}}
 
-            {{#each results}}
-            <div class="col s12 m6 l4">
-                <div class="card hoverable">
-                    <div class="card-image small">
-                        <img src="{{this.image}}" alt="">
-                        <span class="card-title yellow-text text-lighten-1 ">{{start_time}}</span>
-                        <a href="/job_image/edit/{{id}}" class="btn-floating btn-large halfway-fab  waves-effect waves-light blue tooltipped "
-                            data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">edit</i></a>
-
-                    </div>
-
-                    <div class="card-content card-content-jobs">
-                        <p>
-                            <b> <span class="salary-card">{{salary}} {{currency}}</span>
-                                <span>{{employment_type}}</span>
-                            </b>
-                        </p>
-
-
-                        <p class="card-position"> <b>{{position}}</b> </p>
-                        <p><b>company name</b></p>
-                        <p class="truncate description text-opacity">{{description}}</p>
-
-
-                        <p class="text-opacity">{{city}}</p>
-
-                    </div>
-
-
-                    <div class="card-action">
-
-
-                        <li>
-                            <a class="dropdown-trigger btn blue " href="#!" data-target="card-dropdown">Editeaza
-                                <i class="material-icons right">arrow_drop_down</i>
-                            </a>
-                        </li>
-
-                   
-                            <ul id="card-dropdown" class="dropdown-content">
-
-                                <li>
-                                    <a href="/job/edit/{{id}}" class="black-text  text-lighten-1 waves-effect waves-light">Editeaza</a>
-                                </li>
-                                
-                                <li>
-                                    <form method="POST" action="/job/delete/{{id}}?_method=DELETE">
-                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                        <button class="btn red btn_full_width " type='submit' value='delete'>Sterge</button>
-                                    </form>
-                                </li>
-                     
-
-                        <li class="divider"></li>
-
-                        </ul>
-                         <li>
-                                    <a href="/job/details/{{id}}" class="btn ">info</a>
-                                </li>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-          
-            {{else}}
-            <h4 class="center">Nici un job nu este disponibil la moment</h4>
-            {{/if}}
+   <div class="container">
+      <div class="row">
+        
+        <div class="col lg-2 md-2 sm-12">
+            <button class="btn blue post-job-btn">Posteaza job</button>
         </div>
-    </div>
-</section>
+         <div class="col lg-10 md-10 sm-12 2 mt-1">
+            <div class="card-panel teal white">
+                  sdjfnjsdnjksssssssssssssssssssss
+            </div>
+         </div>
+      </div>
+   </div>
+    </body>
