@@ -7,16 +7,20 @@ const sharp = require('sharp')
 
 
 module.exports.getJobsPage = (req, res, next) => {
-    db.query("select * from jobs", function (err, results) {
-        if (err) {
-            console.log("[mysql error],", err)
-        } else {
-            res.render('jobs/jobs', {
-                'results': results
+       if(req.headers['jobs-list'] !== 'true'){
+           res.redirect('/jobs.html')
+        } else{
+            db.query(`select * from jobs `, function (err, results) {
+                if (err) {
+                    console.log("[mysql error],", err)
+                } else {
+                    res.json(results)
+                }
+         
             })
-        }
-
-    })
+       }
+    
+ 
 
 };
 

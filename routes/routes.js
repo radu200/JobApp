@@ -52,12 +52,12 @@ module.exports = function (app){
    //chat 
   app.get('/chats', accessController.ensureAuthenticated,chatController.getChat )
   //login
-  app.get('/login',  loginController.getLogin)
-  app.post('/login',  loginController.postLogin)
+  app.get('/login', loginController.getLogin)
+  app.post('/login', loginController.postLogin)
   app.get('/logout',  loginController.getLogout)
 
   //jobs controller 
-  app.get('/jobs',jobsController.getJobsPage)
+  app.get('/jobs', accessController.ensureAuthenticatedJsonRes,accessController.employerJsonRes, jobsController.getJobsPage)
   app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)

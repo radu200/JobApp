@@ -1,63 +1,65 @@
-.text-opacity{
+.text-opacity {
     opacity: 0.5;
 }
 
-
-.card-position{
+.card-position {
     font-size: 20px;
-    padding:4px 0px 4px 0px;
+    padding: 4px 0px 4px 0px;
     word-break: break-all;
 }
 
-.card-image, img{
+.card-image,
+img {
     height: 169px;
+}
 
- }
- .card-content-jobs{
-     height: 190px;
- }
- 
-.salary{
+.card-content-jobs {
+    height: 190px;
+}
+
+.salary {
     padding: 0px 0px 5px 0px;
     word-break: break-all;
- 
 }
 
-.description{
+.description {
     padding-bottom: 5px;
 }
 
 ///job detail image
-.job_detail_image{
-    width:100%;
+.job_detail_image {
+    width: 100%;
     height: 157px;
 }
-.job_detail_employer_img{
+
+.job_detail_employer_img {
     padding: 10px 10px 10px 0px;
     width: 100px;
     height: 100px;
-    border-radius: 20% ;
+    border-radius: 20%;
 }
 
 .job_details_description {
     word-break: break-all;
 }
 
-.start_time_back{
+.start_time_back {
     position: relative;
-    top:-25px;
+    top: -25px;
     margin-left: 5px;
     background-color: #ffa94e;
     color: #f4f4f4;
     padding: 3px;
     border-radius: 3px;
 }
-.yellow-backgr{
+
+.yellow-backgr {
     background-color: #ffa94e;
     color: #f4f4f4;
     padding: 3px;
     border-radius: 3px;
 }
+
 // .no_experience{
 //     position: relative;
 //     top:-25px;
@@ -67,4 +69,3 @@
 //     padding: 3px;
 //     border-radius: 3px;
 // }
-
