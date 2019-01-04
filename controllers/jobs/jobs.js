@@ -11,11 +11,13 @@ module.exports.getJobsPage = (req, res, next) => {
                     if (err) {
                         console.log("[mysql error],", err)
                     } else {
-                        res.render('./jobs/jobs')
+                        res.render('./jobs/jobs',{
+                             results:results
+                        })
                     }
              
                 })
-     
+
     //    if(req.headers['jobs-list'] !== 'true'){
     //        res.redirect('/jobs.html')
     //     } else{
@@ -283,7 +285,7 @@ module.exports.getEmployerJobs = (req,res, next) => {
         if (err) {
             console.log("[mysql error],", err)
         } else {
-              res.render('jobs/employer_jobs', {
+              res.render('profile/employer/employer_jobs', {
                         'results': results
                     })
                 }

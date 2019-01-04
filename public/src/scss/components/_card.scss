@@ -26,11 +26,11 @@ img {
     padding-bottom: 5px;
 }
 
-///job detail image
-.job_detail_image {
-    width: 100%;
-    height: 157px;
-}
+// ///job detail image
+// .job_detail_image {
+//     width: 100%;
+//     height: 157px;
+// }
 
 .job_detail_employer_img {
     padding: 10px 10px 10px 0px;
@@ -69,3 +69,19 @@ img {
 //     padding: 3px;
 //     border-radius: 3px;
 // }
+@media (min-width:992px){
+    .job_detail_image {
+     width: 267px;
+     height: 115px;
+     border-radius:10px 10px;
+     //padding-bottom: 18px;
+  } 
+ }
+@media (max-width:992px){
+   .job_detail_image {
+    width: 100%;
+    height: 202px;
+    border-radius:10px 10px;
+    padding-bottom: 18px;
+ } 
+}

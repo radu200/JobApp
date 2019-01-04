@@ -1,8 +1,8 @@
 @import "./body";
-@import './modules/colors';
+@import './modules/all_modules';
 @import "./authentication/login";
 @import "./authentication/signup";
-@import './components//main';
+@import './components/main';
 @import "./job_seeker/main";
 @import "./employer/main";
 @import "./pages/main"

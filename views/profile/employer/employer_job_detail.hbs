@@ -1,20 +1,8 @@
-{{>NavBar}}
-{{!-- <div class="container">
-  <div class="row">
-    <div class=" card-panel col s12 m12 l12 center">
-      <div class="col s12 m12 l6 center">
-        <div class="card-image job_detail_image ">
-          <img class="responsive-img" src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350"
-            class="avatar">
-        </div>
-      </div>
-
-
-    </div> --}}
-    <div class="container">
+{{>NavBarEmployer}}
+  <div class="container">
       <div class="card-panel">
         <div class="row">
-          <div class="col s12 m12 l6">
+          <div class="col s12 m6">
 
             <div class="card-image">
               {{#if this.result.image}}
@@ -50,14 +38,14 @@
             </div>
           </div>
       
-          <div class="col s12 m12 l6">
+          <div class="col s12 m6 ">
             <h4>{{result.company_name}}</h4>
             <div class="card-content">
               <p class="text-opacity">{{result.company_type}}</p>
               <p class="job_details_description">{{result.company_description}}</p>
             </div>
             <div class="divider"></div>
-               <p><a href="/company/{{result.employer_id}}" target="_blank" class="right" href="">mai mult informatie</a></p>
+               <p><a href="/company/{{result.employer_id}}" class="right" href="">mai mult informatie</a></p>
               {{#if result.avatar}}
               <img class="job_detail_employer_img" src="{{result.avatar}}" >
                {{else}}
