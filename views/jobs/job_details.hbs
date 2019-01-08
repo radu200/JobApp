@@ -1,32 +1,18 @@
 {{>NavBar}}
-{{!-- <div class="container">
-  <div class="row">
-    <div class=" card-panel col s12 m12 l12 center">
-      <div class="col s12 m12 l6 center">
-        <div class="card-image job_detail_image ">
-          <img class="responsive-img" src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350"
-            class="avatar">
-        </div>
-      </div>
 
-
-    </div> --}}
     <div class="container">
       <div class="card-panel">
         <div class="row">
           <div class="col s12 m12 l6">
-
-            <div class="card-image">
               {{#if this.result.image}}
               <img class="job_detail_image" src="{{result.image}}">
               {{else}}
                <img  src="/images/no_job_image_a.png">
-
               {{/if}}
 
-            </div>
+            
             <div class="card-content">
-              <h4>{{result.position}}</h4>
+              <h4 class="break_text">{{result.position}}</h4>
               <p class="text-opacity">{{result.category}}</p>
               <p>{{result.description}}</p>
                {{#if result.experience}}
