@@ -1,0 +1,17 @@
+.section-search-home-page {
+    background-image:$evening-sunshine;
+    height: 400px;
+}
+ 
+.navbar-home-page{
+    background-image:linear-gradient(-90deg, #b92b27,#1565C0);
+     color: white;
+}
+
+
+@media (max-width:600px){
+
+    .welcome-title{
+      font-size: 45px;
+    }
+}
