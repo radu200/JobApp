@@ -1,61 +1,60 @@
-{{>NavBarEmployer}}
-  <div class="container">
+ {{>NavBar}}
+
+    <div class="container">
       <div class="card-panel">
         <div class="row">
-          <div class="col s12 m6">
-
-            <div class="card-image">
+          <div class="col s12 m12 l6">
               {{#if this.result.image}}
-              <img class="job_detail_image" src="{{result.image}}">
+              <img class="job_detail_image" src="https://erinewart.com/wp-content/uploads/2016/06/summer-01.jpg">
               {{else}}
-               <img  src="/images/no_job_image_a.png">
-
+               <img class="job_detail_image" src="https://erinewart.com/wp-content/uploads/2016/06/summer-01.jpg">
               {{/if}}
 
-            </div>
+            
             <div class="card-content">
-              <h4>{{result.position}}</h4>
-              <p class="text-opacity">{{result.category}}</p>
+              <h4 class="break_text">{{result.position}} Bartender</h4>
+              <p class="text-opacity">{{result.category}} hospitality</p>
               <p>{{result.description}}</p>
                {{#if result.experience}}
-              <p>Experienta: <span class="font_weight_bold">{{result.experience}}</span></p>
+              <p>Experienta: <span class="font_weight_bold">{{result.experience}} 2 ani</span></p>
               {{/if}}
+
               {{#if result.language}}
-              <p>Limbi: <span class="font_weight_bold"> {{result.language}}</span></p>
+              <p>Limbi: <span class="font_weight_bold"> {{result.language}} engleza</span></p>
               {{/if}}
                {{#if result.employment_type}}
-              <p>Tipul de angajare: <span class="font_weight_bold">{{result.employment_type}}</span></p>
+              <p>Tipul de angajare: <span class="font_weight_bold">{{result.employment_type}} part time</span></p>
               {{/if}}
                {{#if result.salary}}
-              <p>Salariu: <span class="font_weight_bold">{{result.salary}}LEI </span></p>
+              <p>Salariu: <span class="font_weight_bold">{{result.salary}} 200 LEI </span></p>
               {{/if}}
                {{#if result.start_time}}
-              <p>Timpul de începere: <span class="font_weight_bold yellow-backgr ">{{result.start_time}}</span></p>
+              <p>Timpul de începere: <span class="font_weight_bold yellow-backgr ">{{result.start_time}} imediat</span></p>
               {{/if}}
               <div class="divider"></div>
-              <p> <i class="material-icons">place</i> <span class="font_weight_bold">{{result.city}}</span></p>
+              <p> <i class="material-icons">place</i> <span class="font_weight_bold">{{result.city}} chisinau</span></p>
               <div class="divider"></div>
             </div>
           </div>
       
-          <div class="col s12 m6 ">
-            <h4>{{result.company_name}}</h4>
-            <div class="card-content">
-              <p class="text-opacity">{{result.company_type}}</p>
-              <p class="job_details_description">{{result.company_description}}</p>
-            </div>
-            <div class="divider"></div>
-               <p><a href="/company/{{result.employer_id}}" class="right" href="">mai mult informatie</a></p>
-              {{#if result.avatar}}
-              <img class="job_detail_employer_img" src="{{result.avatar}}" >
-               {{else}}
-                 <img class="job_detail_employer_img" src="/images/no_user.png" >
-              {{/if}}
-              {{#if result.first_name}}
-              <p> <span class="text-opacity">Angajeza</span><br> <span class="font_weight_bold">{{result.first_name}} {{result.last_name}}</span></p>
-             {{/if}}
-            <div class="divider"></div>
+          <div class="col s12 m12 l6">
+                  
+        <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><span> 1</span> Aplicat</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+              <div class="collapsible-header"> <span>2 </span> lista scurta</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+              <div class="collapsible-header"><span>2</span> Respins</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+             <li>
+              <div class="collapsible-header"><span>1</span> Expirat</div>
+              <div class="collapsible-body"><span>Lorem ips</span></div>
+            </li>
+          </ul>
           </div>
-        </div>
-      </div>
-    </div>

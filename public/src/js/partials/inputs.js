@@ -24,7 +24,9 @@ $(document).ready(function(){
     $(".hidden-category").toggle();
   })
 
-
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
 
 //  $(document).ready(function() {
 //   $('select').material_select();
