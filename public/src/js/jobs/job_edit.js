@@ -68,10 +68,7 @@ $('#job_edit_form').on('submit', function (event) {
     } 
     
     
-    //   else if (!/^[a-zA-Z]*$/g.test(description) ){
-    //     $('.description-error').text('Te rog nu include cifre,mail sau url ')
-    //     return false;
-    // }
+
     
     else {
         return true;

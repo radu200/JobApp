@@ -94,7 +94,7 @@ module.exports.postAddJobs = (req, res, next) => {
            
            
             sharp(req.file.path)
-                .resize(500, 281)
+                .resize(600, 337)
                 .toFile('./public/uploads/' + req.file.filename, (err, info) => {
                     console.log(info)
 
@@ -206,7 +206,7 @@ module.exports.postJobImageEdit = (req, res, next) => {
                     var job_image_edit = '/uploads/' + req.file.filename;
                     // resize image
                     sharp(req.file.path)
-                        .resize(600, 157)
+                        .resize(600, 337)
                         .toFile('./public/uploads/' + req.file.filename, (err, info) => {
                             if (err) {
                                 console.log('sharp err', err)

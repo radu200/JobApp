@@ -36,13 +36,12 @@ $("#job_image_edit_form").on("submit",function(event){
 	 
 	
 	let xhr = new XMLHttpRequest();
+	xhr.open("POST",` /job_image/edit/${jobId}`, true);
 	xhr.upload.addEventListener("progress", progressHandlerImageEdit, false)
 	xhr.addEventListener("load", completeHandlerImageEdit, false);
 	xhr.addEventListener("error", errorHandlerImageEdit, false);
 	xhr.addEventListener("abort", abortHandlerImageEdit, false);
-	xhr.open("POST",` /job_image/edit/${jobId}`);
-	//var contentType = "multipart/form-data";
-    //xhr.setRequestHeader("Content-Type", contentType);
+    xhr.setRequestHeader("Content-Type", multipart/form-data);
 
 	xhr.send(formdata);
 	

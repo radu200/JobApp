@@ -1,0 +1,58 @@
+.text-opacity {
+    opacity: 0.5;
+}
+
+.card-position {
+    font-size: 20px;
+    padding: 4px 0px 4px 0px;
+    word-break: break-all;
+}
+
+.card img {
+    max-height: 200px;
+    object-fit: cover;
+}
+.card img.materialized.active {
+    max-height: none;
+    object-fit: none;
+}
+
+.card-content-jobs {
+    height: 190px;
+}
+
+.salary {
+    padding: 0px 0px 5px 0px;
+    word-break: break-all;
+}
+
+.description {
+   // padding-bottom: 5px;
+}
+
+
+
+
+
+.job_details_description {
+    word-break: break-all;
+}
+
+.start_time_back {
+    position: absolute;
+    top: 155px;
+    margin-left: 5px;
+    background-color: #ffa94e;
+    color: #f4f4f4;
+    padding: 2px 6px 2px 6px;
+    border-radius: 7px;
+}
+
+.yellow-backgr {
+    background-color: #ffa94e;
+    color: #f4f4f4;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+
