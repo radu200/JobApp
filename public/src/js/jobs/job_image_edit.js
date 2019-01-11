@@ -41,7 +41,6 @@ $("#job_image_edit_form").on("submit",function(event){
 	xhr.addEventListener("load", completeHandlerImageEdit, false);
 	xhr.addEventListener("error", errorHandlerImageEdit, false);
 	xhr.addEventListener("abort", abortHandlerImageEdit, false);
-    xhr.setRequestHeader("Content-Type", multipart/form-data);
 
 	xhr.send(formdata);
 	
