@@ -3,41 +3,42 @@
     <div class="container">
       <div class="card-panel">
         <div class="row">
-          <div class="col s12 m12 l6">
-              {{#if this.result.image}}
-              <img class="job_detail_image" src="https://erinewart.com/wp-content/uploads/2016/06/summer-01.jpg">
+          <div class="col s12 m12 l4">
+          <div class="card">
+             <div class="card-image waves-effect waves-block waves-light">
+              {{#if this.result.image}}       
+              <img  src="{{result.image}}">
               {{else}}
-               <img class="job_detail_image" src="https://erinewart.com/wp-content/uploads/2016/06/summer-01.jpg">
+              <img  src="https://image.ibb.co/hbEMux/resort1.jpg">
+              
               {{/if}}
-
-            
-            <div class="card-content">
-              <h4 class="break_text">{{result.position}} Bartender</h4>
-              <p class="text-opacity">{{result.category}} hospitality</p>
-              <p>{{result.description}}</p>
-               {{#if result.experience}}
-              <p>Experienta: <span class="font_weight_bold">{{result.experience}} 2 ani</span></p>
-              {{/if}}
-
-              {{#if result.language}}
-              <p>Limbi: <span class="font_weight_bold"> {{result.language}} engleza</span></p>
-              {{/if}}
-               {{#if result.employment_type}}
-              <p>Tipul de angajare: <span class="font_weight_bold">{{result.employment_type}} part time</span></p>
-              {{/if}}
-               {{#if result.salary}}
-              <p>Salariu: <span class="font_weight_bold">{{result.salary}} 200 LEI </span></p>
-              {{/if}}
-               {{#if result.start_time}}
-              <p>Timpul de începere: <span class="font_weight_bold yellow-backgr ">{{result.start_time}} imediat</span></p>
-              {{/if}}
-              <div class="divider"></div>
-              <p> <i class="material-icons">place</i> <span class="font_weight_bold">{{result.city}} chisinau</span></p>
-              <div class="divider"></div>
             </div>
           </div>
       
-          <div class="col s12 m12 l6">
+        <div class="card-content">
+          <h4 class="break_text">{{result.position}}</h4>
+          <p class="text-opacity">{{result.category}}</p>
+          <p>{{result.description}}</p>
+          {{#if result.experience}}
+          <p>Experienta: <span class="font_weight_bold">{{result.experience}}</span></p>
+          {{/if}}
+          {{#if result.language}}
+          <p>Limbi: <span class="font_weight_bold"> {{result.language}}</span></p>
+          {{/if}}
+          {{#if result.employment_type}}
+          <p>Tipul de angajare: <span class="font_weight_bold">{{result.employment_type}}</span></p>
+          {{/if}}
+          {{#if result.salary}}
+          <p>Salariu: <span class="font_weight_bold">{{result.salary}}LEI </span></p>
+          {{/if}}
+          {{#if result.start_time}}
+          <p>Timpul de începere: <span class="font_weight_bold yellow-backgr ">{{result.start_time}}</span></p>
+          {{/if}}
+          <p> <i class="material-icons">place</i> <span class="font_weight_bold">{{result.city}}</span></p>
+          <div class="divider"></div>
+        </div>
+     </div>
+          <div class="col s12 m12 l8">
                   
         <ul class="collapsible">
             <li>
