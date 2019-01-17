@@ -58,7 +58,7 @@ module.exports = function (app){
   app.get('/logout',  loginController.getLogout)
 
   //jobs controller 
-  app.get('/jobs', accessController.ensureAuthenticatedJsonRes,accessController.employerJsonRes, jobsController.getJobsPage)
+  app.get('/jobs', accessController.ensureAuthenticatedJsonRes, jobsController.getJobsPage)
   app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)

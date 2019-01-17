@@ -1,11 +1,15 @@
 
 .card-profile-image{
+    width: 200px;
     height: 200px;
-    width: 170px;
     margin: 0 auto;
     padding: 20px 0 10px 0;  
     .avatar{
+        border:10px solid #f8f8f8;
+        
         border-radius: 50% !important;
+        height: 100%;
+        width:100%;
     }
 }
 
