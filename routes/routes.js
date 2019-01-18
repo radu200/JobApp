@@ -26,13 +26,12 @@ module.exports = function (app){
   app.get('/signup/jobseeker', signupJobSeekerController.getSignUpJobSeeker)
   app.post('/signup/jobseeker', signupJobSeekerController.postSignUpJobSeeker)
   
-  //profile
-  app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
-  app.get('/change/password', accessController.ensureAuthenticated, profileController.getChangePassword)
-  
   //profile common
+  app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
   app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
   app.post('/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)  
+  app.get('/password/reset', accessController.ensureAuthenticated, profileController.getChangePassword)
+  app.post('/password/reset', accessController.ensureAuthenticated, profileController.postChangePassword)
   
   //employer profile
   app.get('/profile/info/edit', accessController.ensureAuthenticated, profileController.getEmployerProfileInfoEdit)

@@ -140,7 +140,7 @@ module.exports.postAddJobs = (req, res, next) => {
        var lang = language.toString();
     }
 
-  
+   
         let jobs = {
                 employer_id:req.user.id,
                 category:category,
