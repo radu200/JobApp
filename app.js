@@ -27,6 +27,7 @@ require('dotenv').config({ path: '.env' })
 require('./config/passport')(passport);
 //view engine setup
 const hbs = exphbs.create({
+    viewPath:__dirname+'/views/emails/',
     defaultLayout: 'main',
     extname: '.hbs',
     partialsDir: [
