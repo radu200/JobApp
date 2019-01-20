@@ -35,8 +35,10 @@ module.exports = function (app){
   app.post('/password/reset', accessController.ensureAuthenticated, profileController.postChangePassword)
 
   //forgot password
- 
-  
+  app.get('/forgot/password',profileController.getForgotPassword);
+  app.post('/forgot/password',profileController.postForgotPassword);
+  app.get('/forgot/password/reset/:token', profileController.getForgotPasswordReset)
+  app.post('/forgot/password/reset/:token', profileController.postForgotPasswordReset)
   //employer profile
   app.get('/profile/info/edit', accessController.ensureAuthenticated,accessController.employer, employerProfileController.getEmployerProfileInfoEdit)
   app.post('/profile/info/edit', accessController.ensureAuthenticated,accessController.employer, employerProfileController.postEmployerProfileInfoEdit)
