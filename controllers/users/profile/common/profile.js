@@ -327,7 +327,7 @@ module.exports.postChangePassword =  (req, res, next) => {
                     });
 
 
-                    //send email that password was updated
+                    
                
                     const mailOptions = {
                         to: rows[0].email,
@@ -597,11 +597,7 @@ function sendTokenResetPassword(req, res, next) {
       </table>
     </div>
   </center>
-                    
-                    
-                    
-                    
-                    `,
+  </body> `,
 
                 };
 
