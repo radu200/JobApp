@@ -1,41 +1,44 @@
 const db = require('../../../.././config/database.js');
 const fs = require('fs')
 const sharp = require('sharp')
-const { check, validationResult } = require('express-validator/check');
+const {
+    check,
+    validationResult
+} = require('express-validator/check');
 const nodemailer = require("nodemailer");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const saltRounds = 10;
 
-module.exports.getProfile =  (req, res, next) => {
-    if(req.user.type === 'employer'){
+module.exports.getProfile = (req, res, next) => {
+    if (req.user.type === 'employer') {
         db.query('select * from users where id = ? ', [req.user.id], (err, results) => {
-            res.render('profile/employer/employer_profile',{
-                'result':results[0]
+            res.render('profile/employer/employer_profile', {
+                'result': results[0]
             })
         })
-   
-    } else if( req.user.type === "jobseeker") {
+
+    } else if (req.user.type === "jobseeker") {
         res.render('profile/jobseeker/jobseeker_profile')
-   
-    } else{
+
+    } else {
         res.redirect('/login')
     }
 };
 
-module.exports.getProfileAvatarEdit = (req,res,next) => {
-        db.query('select id, avatar from users where id = ? ', [req.user.id], (err, results) => {
-            res.render('profile/common/profile_avatar_edit',{
-                'result':results[0]
-            })
+module.exports.getProfileAvatarEdit = (req, res, next) => {
+    db.query('select id, avatar from users where id = ? ', [req.user.id], (err, results) => {
+        res.render('profile/common/profile_avatar_edit', {
+            'result': results[0]
         })
-   
-    
+    })
+
+
 }
 
-module.exports.postProfileAvatarEdit = (req,res,next) => {
+module.exports.postProfileAvatarEdit = (req, res, next) => {
     db.query(`select id, avatar from users where id=${req.user.id}`, (err, results) => {
- 
+
         fs.unlink('./public/' + results[0].avatar, function (err) {
             if (err) {
                 console.log("failed to delete file:" + err);
@@ -45,216 +48,221 @@ module.exports.postProfileAvatarEdit = (req,res,next) => {
         })
 
 
-            const errors = req.validationErrors();
+        const errors = req.validationErrors();
 
-            if (errors) {
-                req.flash('error_msg', errors);
-                return res.redirect('back')
+        if (errors) {
+            req.flash('error_msg', errors);
+            return res.redirect('back')
+        }
+
+
+        if (req.file) {
+            var avatar = './uploads/' + req.file.filename;
+            // resize image
+            sharp(req.file.path)
+                .resize(200, 157)
+                .toFile('./public/uploads/' + req.file.filename, (err, info) => {
+                    if (err) {
+                        console.log('sharp err', err)
+                    } else {
+
+                        //delete old image that was just resized
+                        fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
+                            if (err) {
+                                console.log("failed to delete file:" + err);
+                            } else {
+                                console.log('successfully deleted ');
+                            }
+                        })
+
+                        console.log('resized success')
+
+
+
+
+
+                    }
+                });
+
+
+        } else {
+
+            let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png'];
+
+            let random = images[Math.floor(Math.random() * images.length)];
+
+            avatar = random;
+
+        }
+
+        let image = {
+            avatar: avatar
+        }
+
+
+
+        //creat employer
+        db.query(`update users set ? where id =${req.user.id}`, image, (error, results) => {
+
+            if (err) {
+                // console.log('[mysql error]', error)
+                res.status(500).json({
+                    error: err
+                });
+            } else {
+                res.status(200).json({
+                    message: "image succefully edited"
+                })
+                // console.log(req.file.path)
+
+
+                //res.redirect('/my_jobs')
             }
 
-
-                if (req.file) {
-                    var avatar = './uploads/' + req.file.filename;
-                    // resize image
-                    sharp(req.file.path)
-                        .resize(200, 157)
-                        .toFile('./public/uploads/' + req.file.filename, (err, info) => {
-                            if (err) {
-                                console.log('sharp err', err)
-                            } else {
-
-                                //delete old image that was just resized
-                                fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
-                                    if (err) {
-                                        console.log("failed to delete file:" + err);
-                                    } else {
-                                        console.log('successfully deleted ');
-                                    }
-                                })
-
-                                console.log('resized success')
+        })
 
 
 
 
-                              
-                            }
-                        });
 
-
-                } else {
-
-                    let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png']; 
-
-                    let  random = images[Math.floor(Math.random() * images.length)];
-
-                    avatar = random;
-                  
-}
-
-                    let image = {
-                        avatar: avatar
-                    }
-
-
-
-                //creat employer
-                db.query(`update users set ? where id =${req.user.id}`, image, (error, results) => {
-
-                    if (err) {
-                        // console.log('[mysql error]', error)
-                        res.status(500).json({
-                            error: err
-                        });
-                    } else {
-                        res.status(200).json({
-                            message: "image succefully edited"
-                        })
-                        // console.log(req.file.path)
-                      
-
-                        //res.redirect('/my_jobs')
-                    }
-
-                })
-           
-
-
-        
-         
     }) //db select query ends
 
 }
 
 ///employer
-module.exports.getCompanyInfoEdit =  (req, res, next) => {
-   db.query('select id, company_description,company_name, company_location, company_type from users where id = ?', [req.user.id], (err, results) => {
-       if (err) throw err
-      console.log(results)
-       res.render('profile/employer/company_info_edit',{
-            'result':results[0]
-       })
-       console.log(results)
-   })
+module.exports.getCompanyInfoEdit = (req, res, next) => {
+    db.query('select id, company_description,company_name, company_location, company_type from users where id = ?', [req.user.id], (err, results) => {
+        if (err) throw err
+        console.log(results)
+        res.render('profile/employer/company_info_edit', {
+            'result': results[0]
+        })
+        console.log(results)
+    })
 
 };
 
 
 //employer
 
-module.exports.getEmployerProfileInfoEdit =  (req, res, next) => {
+module.exports.getEmployerProfileInfoEdit = (req, res, next) => {
     db.query('select id, first_name, last_name from users where id = ?', [req.user.id], (err, results) => {
         if (err) throw err
         console.log(results)
-        res.render('profile/employer/employer_profile_edit',{
-                'result':results[0]
-            })
+        res.render('profile/employer/employer_profile_edit', {
+            'result': results[0]
+        })
     })
- 
- };
+
+};
 
 
- //employer
- module.exports.postEmployerProfileInfoEdit =  (req, res, next) => {
-    let  first_name = req.body.first_name_edit;
+//employer
+module.exports.postEmployerProfileInfoEdit = (req, res, next) => {
+    let first_name = req.body.first_name_edit;
     let last_name = req.body.last_name_edit;
-    // req.checkBody('first_name', 'Prenumele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
-    // req.checkBody('last_name ', 'Numele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
+    req.checkBody('first_name', 'Prenumele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
+    req.checkBody('last_name ', 'Numele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
 
     const errors = req.validationErrors();
 
     if (errors) {
         req.flash('error_msg', errors);
-         return  res.redirect('back')
+        return res.redirect('back')
     }
 
 
     let user = {
-        first_name:first_name,
-         last_name:last_name
+        first_name: first_name,
+        last_name: last_name
     }
-    db.query('update users  set ? where id = ?', [user,req.user.id], (err, results) => {
+    db.query('update users  set ? where id = ?', [user, req.user.id], (err, results) => {
         if (err) throw err
         console.log(results)
         res.redirect('/profile')
     })
- 
- };
- 
- //employer
-module.exports.postCompanyInfoEdit =  (req, res, next) => {
+
+};
+
+//employer
+module.exports.postCompanyInfoEdit = (req, res, next) => {
 
     const name = req.body.company_name;
     const description = req.body.company_description
     const location = req.body.company_location;
     const type = req.body.company_type;
-    
-    
-    // req.checkBody('company_name ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').len(70);
-    // req.checkBody('company_location ', 'Locatia companiei trebuie să fie din litere numai').isString();
-    // req.checkBody('company_type ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').len(70);
-    // req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({ min: 1, max:250 });
-    
-    
 
- 
+
+    req.checkBody('company_name ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').len(70);
+    req.checkBody('company_location ', 'Locatia companiei trebuie să fie din litere numai').isString();
+    req.checkBody('company_type ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').len(70);
+    req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({
+        min: 1,
+        max: 250
+    });
+
+
+
+
 
     const errors = req.validationErrors();
 
     if (errors) {
-       req.flash('error_msg', errors);
-        return  res.redirect('back')
+        req.flash('error_msg', errors);
+        return res.redirect('back')
     }
 
     let company = {
-         company_name:name,
-         company_description:description,
-         company_location:location,
-         company_type:type
+        company_name: name,
+        company_description: description,
+        company_location: location,
+        company_type: type
     }
-    db.query('update   users set ?  where id = ?', [company,req.user.id], (err, results) => {
+    db.query('update   users set ?  where id = ?', [company, req.user.id], (err, results) => {
         if (err) throw err
-       console.log(results)
+        console.log(results)
         res.redirect('/profile')
     })
- 
- };
+
+};
 //employer company profile
-module.exports.getCompanyProfile = (req,res, next) => {
-    
- getCompany (req, res,next);
+module.exports.getCompanyProfile = (req, res, next) => {
+
+    getCompany(req, res, next);
 }
-async function getCompany (req, res,next){
+async function getCompany(req, res, next) {
     let userId = req.user.id;
-    function awaitGetCompany(userId){
-        return new Promise(function(resolve, reject){
-            db.query("SELECT  avatar,first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type  FROM  users WHERE users.id = ?" ,[userId] ,function(err, result_employer, fields) {
+
+    function awaitGetCompany(userId) {
+        return new Promise(function (resolve, reject) {
+            db.query("SELECT  avatar,first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type  FROM  users WHERE users.id = ?", [userId], function (err, result_employer, fields) {
                 if (err) {
                     console.log(err);
                     resolve([]);
                 }
-                resolve(result_employer); 
-                 console.log(result_employer)              
+                resolve(result_employer);
+                console.log(result_employer)
 
             });
         });
     }
-function awaitGetjobs(userId) {
-        return new Promise(function(resolve, reject){
-            db.query("SELECT * FROM  jobs WHERE jobs.employer_id = ?  ", [userId], function(err, results, fields){
-                if(err){
+
+    function awaitGetjobs(userId) {
+        return new Promise(function (resolve, reject) {
+            db.query("SELECT * FROM  jobs WHERE jobs.employer_id = ?  ", [userId], function (err, results, fields) {
+                if (err) {
                     console.log(err);
                     resolve([]);
                 }
-         
-                resolve(!err && results ? results : []); 
+
+                resolve(!err && results ? results : []);
                 console.log('jobs', results)
             });
         });
     }
-    let users_result = await awaitGetCompany(userId); 
-    let  jobs = await awaitGetjobs(userId);
- 
+    let users_result = await awaitGetCompany(userId);
+    let jobs = await awaitGetjobs(userId);
+
     res.render('profile/employer/company_profile', {
         "job": jobs,
         "employer": users_result[0]
@@ -265,13 +273,13 @@ function awaitGetjobs(userId) {
 
 
 ///change password within profile
-module.exports.getChangePassword =  (req, res, next) => {
+module.exports.getChangePassword = (req, res, next) => {
     res.render('profile/common/password_reset')
 
 };
 
-module.exports.postChangePassword =  (req, res, next) => {
-  
+module.exports.postChangePassword = (req, res, next) => {
+
     let oldPassword = req.body.oldPassword;
     let newPassword = req.body.newPassword;
     let confirmPassword = req.body.confirmPassword;
@@ -298,7 +306,7 @@ module.exports.postChangePassword =  (req, res, next) => {
         } else {
 
             let hash = rows[0].password;
-           
+
             bcrypt.compare(oldPassword, hash, function (error, result) {
 
                 if (result === false) {
@@ -327,8 +335,8 @@ module.exports.postChangePassword =  (req, res, next) => {
                     });
 
 
-                    
-               
+
+
                     const mailOptions = {
                         to: rows[0].email,
                         from: 'JOB APP',
@@ -450,16 +458,16 @@ module.exports.postChangePassword =  (req, res, next) => {
 
 //forgot password
 
-module.exports.getForgotPassword = (req,res,next) => {
+module.exports.getForgotPassword = (req, res, next) => {
     res.render('./profile/common/forgot_password');
-   
-    
+
+
 }
 
 //forgot password
 module.exports.postForgotPassword = (req, res, next) => {
     req.checkBody('forgotPswEmail', ' Te rog introdu o adresa de email valida.').isEmail();
-    
+
     const errors = req.validationErrors();
 
     if (errors) {
@@ -480,14 +488,14 @@ function sendTokenResetPassword(req, res, next) {
             });
             res.redirect('/forgot/password')
 
-           
+
         } else {
             //create random token
             crypto.randomBytes(16, function (err, buffer) {
                 let token = buffer.toString('hex');
                 // console.log('token',token)
                 let updateToken = {
-                    forgotPasswordToken:token
+                    forgotPasswordToken: token
                 }
                 db.query('UPDATE users SET ?, forgotPasswordTokenExpires = TIMESTAMPADD(HOUR, 1, NOW())  WHERE email = ? ', [updateToken, email], function (error, result) {
                     if (error) throw error
@@ -624,15 +632,15 @@ function sendTokenResetPassword(req, res, next) {
 
 
 //forgot password reset 
- module.exports.getForgotPasswordReset = (req, res,next ) => {
-        db.query('SELECT users.password, users.forgotPasswordtoken , users.forgotPasswordTokenExpires FROM  users WHERE forgotPasswordtoken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token], function (err, rows, fields) {
+module.exports.getForgotPasswordReset = (req, res, next) => {
+    db.query('SELECT users.password, users.forgotPasswordtoken , users.forgotPasswordTokenExpires FROM  users WHERE forgotPasswordtoken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token], function (err, rows, fields) {
         if (err) throw err;
 
         if (!rows.length) {
             req.flash('error_msg', {
                 msg: 'Password reset token is invalid or has expired.'
             })
-             res.render('./profile/common/forgot_password_reset');
+            res.render('./profile/common/forgot_password_reset');
         } else {
 
             res.render('./profile/common/forgot_password_reset', {
@@ -641,9 +649,9 @@ function sendTokenResetPassword(req, res, next) {
             })
         }
     })
- }
+}
 
- module.exports.postForgotPasswordReset = (req, res,next ) => {
+module.exports.postForgotPasswordReset = (req, res, next) => {
     let password = req.body.newPassword;
     let confirm = req.body.confirmNewPassword
     // req.checkBody('password', 'Password must be between 6-100 characters long.').len(6, 100);
@@ -664,7 +672,7 @@ function sendTokenResetPassword(req, res, next) {
         }
 
         let email = rows[0].email
-          let user = rows[0]
+        let user = rows[0]
 
         console.log('user', user)
 
@@ -675,7 +683,7 @@ function sendTokenResetPassword(req, res, next) {
             res.redirect('/forgot/password')
 
         }
-           
+
         //hash and update password
         bcrypt.hash(password, saltRounds, function (err, hash) {
             db.query('UPDATE  users SET password = ? WHERE forgotPasswordToken = ? AND forgotPasswordTokenExpires > NOW()', [hash, req.params.token], function (error, result) {
@@ -687,7 +695,7 @@ function sendTokenResetPassword(req, res, next) {
                     service: 'GMAIL',
                     auth: {
                         user: process.env.MAIL_USER,
-                       pass: process.env.MAIL_PASSWORD
+                        pass: process.env.MAIL_PASSWORD
                     }
                 });
 
@@ -695,7 +703,7 @@ function sendTokenResetPassword(req, res, next) {
                     to: email,
                     from: 'JOB APP',
                     subject: 'Parola dvs. a fost resetata cu success',
-                     html: `<body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">                         
+                    html: `<body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">                         
                     <center style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#e1e5e8;">
                       <div style="max-width:600px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;">
                         <table align="center" cellpadding="0" style="border-spacing:0;font-family:'Muli',Arial,sans-serif;color:#333333;Margin:0 auto;width:100%;max-width:600px;">
@@ -782,9 +790,9 @@ function sendTokenResetPassword(req, res, next) {
                     </center>
                   </body>`
 
-                    
-                    
-                  
+
+
+
 
 
                 };
@@ -806,6 +814,37 @@ function sendTokenResetPassword(req, res, next) {
             })
 
         })
+
+    })
+}
+
+
+
+
+///verify email after signup
+module.exports.getCheckEmail = function (req, res, next) {
+    let token = req.params.token
+    db.query('SELECT * FROM users where email_confirmation_token = ? AND email_token_expire > NOW()', [token], function (err, rows) {
+        if (err) {
+            console.log(err)
+        } else if (rows.length) {
+            // let verified = 'verified';
+            db.query('UPDATE users SET user_status = ? WHERE email_confirmation_token = ? AND email_token_expire > NOW()', ['verified', token], function (err, rows) {
+                if (err) throw err
+            })
+            db.query("UPDATE users SET email_confirmation_token = ? WHERE id = ? ", [null, rows[0].id])
+            req.login(rows[0], function (err) {
+                req.flash('success_msg', {
+                    msg: "Success! Your email has been verified"
+                });
+                res.redirect('/profile')
+            });
+        } else {
+            req.flash('error_msg', {
+                msg: "Sorry we wasn't able to verify your email"
+            });
+            res.redirect('/login')
+        }
 
     })
 }

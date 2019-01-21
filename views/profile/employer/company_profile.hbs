@@ -1,18 +1,18 @@
 {{>NavBar}}
 <!-- Section: jobs -->
 
-<section>
-    <div class="container">
-        <div class="row">
-       <div class="col s12 m6 ">
-        <h1>{{employer.company_name}}</h1>
-         <div class="card-content">
-            <p class="text-opacity">{{employer.company_type}}</p>
-            <p class="job_details_description">{{employer.company_description}}</p>
-            <p><i class="material-icons">place</i> {{employer.company_location}}</p>
-          </div>
-            
-          <div class="divider"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 ">
+            <h1>{{employer.company_name}}</h1>
+            <div class="card-content">
+                <p class="text-opacity">{{employer.company_type}}</p>
+                <p class="job_details_description">{{employer.company_description}}</p>
+                <p><i class="material-icons">place</i> {{employer.company_location}}</p>
+            </div>
+
+            <div class="divider"></div>
             {{#if employer.avatar}}
             <img class="job_detail_employer_img" src="{{employer.avatar}}">
             {{else}}
@@ -22,59 +22,56 @@
             <p> <span class="text-opacity">Angajeza</span><br> <span class="font_weight_bold">{{employer.first_name}}
                     {{employer.last_name}}</span></p>
             {{/if}}
-             <div class="divider"></div>
-            </div>
-        </div>
-             <h4>Joburi Acitve</h4>
-            <div class="row">
-            {{#if job}}
-            {{#each job}}
-            <div class="col s12 m6 l4">
-                <div class="card hoverable">
-                    <div class="card-image small">
-                        {{#if this.image}}
-                        <img src="{{this.image}}" alt="">
-                        {{else}}
-                        <img src="/images/no_job_image_a.png" alt="">
-                        {{/if}}
-                        {{#if start_time}}
-                        <span class=" start_time_back font_weight_bold  ">{{start_time}}</span>
-                        {{/if}}
-
-                    </div>
-
-                    <div class="card-content card-content-jobs">
-                        <p>
-                            <b>
-                                {{#if salary}}
-                                <span class="salary-card blue-text">{{salary}} LEI </span>|
-                                {{/if}}
-                                <span>{{employment_type}}</span>
-                            </b>
-                        </p>
-
-                        <p class="card-position"> <b>{{position}}</b> </p>
-                        <p class="truncate description text-opacity">{{description}}</p>
-
-
-                        <p class="text-opacity"><i class="material-icons">place</i>{{city}}</p>
-
-                    </div>
-
-                    <div class="card-action">
-                        <a href="/job/details/{{id}}" class=" btn white-text text-lighten-1 waves-effect waves-light">
-                            Vezi Mai mult</a>
-
-                    </div>
-                </div>
-            </div>
-             {{/each}}
-            {{else}}
-            <h4 class="center">Nici un job nu este disponibil la moment</h4>
-            {{/if}}
+            <div class="divider"></div>
         </div>
     </div>
-</section>
+    <h4>Joburi Acitve</h4>
+    <div class="row">
+        {{#if job}}
+        {{#each job}}
+        <div class="col s12 m6 l4">
+            <div class="card hoverable">
+                <div class="card-image small">
+                    {{#if this.image}}
+                    <img src="{{this.image}}" alt="">
+                    {{else}}
+                    <img src="/images/no_job_image_a.png" alt="">
+                    {{/if}}
+                    {{#if start_time}}
+                    <span class=" start_time_back font_weight_bold  ">{{start_time}}</span>
+                    {{/if}}
+
+                </div>
+
+                <div class="card-content card-content-jobs">
+                    <p>
+                        <b>
+                            {{#if salary}}
+                            <span class="salary-card blue-text">{{salary}} LEI </span>|
+                            {{/if}}
+                            <span>{{employment_type}}</span>
+                        </b>
+                    </p>
+
+                    <p class="card-position"> <b>{{position}}</b> </p>
+                    <p class="truncate description text-opacity">{{description}}</p>
 
 
+                    <p class="text-opacity"><i class="material-icons">place</i>{{city}}</p>
+
+                </div>
+
+                <div class="card-action">
+                    <a href="/job/details/{{id}}" class=" btn white-text text-lighten-1 waves-effect waves-light">
+                        Vezi Mai mult</a>
+
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{else}}
+        <h4 class="center">Nici un job nu este disponibil la moment</h4>
+        {{/if}}
+    </div>
+</div>
 {{>Footer}}

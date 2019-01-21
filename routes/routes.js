@@ -27,6 +27,12 @@ module.exports = function (app){
   app.get('/signup/jobseeker', signupJobSeekerController.getSignUpJobSeeker)
   app.post('/signup/jobseeker', signupJobSeekerController.postSignUpJobSeeker)
   
+
+  //verify email after signup
+  app.get('/email/verify/:token',profileController.getCheckEmail);
+
+
+
   //profile common
   app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
   app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
