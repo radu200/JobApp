@@ -9,7 +9,6 @@ module.exports = function (app){
   const JobSeekerProfileController = require('../controllers/users/profile/job_seeker/profile');
   const EmployerProfileController = require('../controllers/users/profile/employer/profile');
   const chatController = require('../controllers/chat/chat');
-
   const loginController = require('../controllers/authentication/common/login');
   const homeController = require('../controllers/home');
 
