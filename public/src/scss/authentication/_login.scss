@@ -12,4 +12,15 @@
 
 .login-forgot-password {
     float: right;
+    margin-bottom: 10px;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+
+.register-now{
+    &:hover{
+        text-decoration: underline;
+    }
 }

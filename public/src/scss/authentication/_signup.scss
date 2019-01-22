@@ -1,14 +1,14 @@
 .signup{
     margin-top: 50px;
+    .signup-btn {
+        width: 100%;
+       &:hover{
+        opacity: 0.8;
+
+       }
+    }
+    
 }
 
 
-.signup-btn {
-    width: 100%;
-
-}
-
-.signup-btn:hover {
-    opacity: 0.8;
-}
 

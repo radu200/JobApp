@@ -1,26 +1,7 @@
 
 {{>NavBar}}
       <section  class="signup">
-         {{#if error_msg}} 
-              <div class="row" id="alert_box">
-                <div class="container">
-                  <div class="card red darken-1">
-                    <div class="row">
-                      <div class="col s12 m10">
-                        <div class="card-content white-text ">
-                        {{#each error_msg}}
-                                <p>{{msg}}</p>
-                        {{/each}}
-                      </div>
-                     </div>
-                     <div class="col s12 m2">
-                       <i class="material-icons close_icon_style " id="alert_close">close</i>                            
-                    </div>
-                  </div>
-                </div>
-                </div>
-              </div>
-          {{/if}}
+          {{>alerts}}
            <div class="row">
             <div class="col s12  m12 l6 offset-l3">
               <div class="card ">
@@ -30,13 +11,13 @@
                     <div class="row">
                       <div class="input-field col s12">
                         <i class="material-icons prefix">email</i>
-                        <input type="email" id="email" class="validate" placeholder="Email"  name="email"/>
+                        <input type="email" id="email"  placeholder="Email"  name="email"  />
                       </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12 m6">
                         <i class="material-icons prefix">person</i>
-                        <input type="text" id="firstname" class="validate" placeholder="Nume" name="first_name" />
+                        <input type="text" id="firstname"  placeholder="Nume" name="first_name"  />
                     </div>
                         <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">person</i>
@@ -53,13 +34,13 @@
                     <div class="row">
                             <div class="input-field col s12">
                               <i class="material-icons prefix">lock</i>
-                              <input type="password" id="password" class="validate" placeholder=" Confirma Parola" name="confirm_password"/>
+                              <input type="password" id="password" class="validate" placeholder="Confirma Parola" name="confirm_password"/>
                             </div>
                           </div>
                             <p>
                             <label>
-                                <input type="checkbox" />
-                                <span>Am facut cunostinta si sunt deacord cu <a>regulile site-ului</a></span>
+                                <input type="checkbox" name="terms_conditions"  value="agreed" checked="agreed"  />
+                                <span>Am facut cunostinta si sunt deacord cu <a href="#">termenii și condițiile site-ului</a></span>
                             </label>
                         </p>
                         <br>

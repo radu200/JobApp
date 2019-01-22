@@ -1,10 +1,7 @@
 const db = require('../../../.././config/database.js');
 const fs = require('fs')
 const sharp = require('sharp')
-const {
-    check,
-    validationResult
-} = require('express-validator/check');
+const {check,validationResult} = require('express-validator/check');
 const nodemailer = require("nodemailer");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -76,10 +73,6 @@ module.exports.postProfileAvatarEdit = (req, res, next) => {
                         })
 
                         console.log('resized success')
-
-
-
-
 
                     }
                 });
@@ -835,13 +828,13 @@ module.exports.getCheckEmail = function (req, res, next) {
             db.query("UPDATE users SET email_confirmation_token = ? WHERE id = ? ", [null, rows[0].id])
             req.login(rows[0], function (err) {
                 req.flash('success_msg', {
-                    msg: "Success! Your email has been verified"
+                    msg: "Emailul dvs. a fost verificat cu succes"
                 });
                 res.redirect('/profile')
             });
         } else {
             req.flash('error_msg', {
-                msg: "Sorry we wasn't able to verify your email"
+                msg: "Ne pare rau din pacate nu am putu sa va verificam emailul sau tokenul a expirat"
             });
             res.redirect('/login')
         }

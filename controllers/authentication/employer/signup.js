@@ -19,23 +19,19 @@ module.exports.postSignUpEmployer = function (req, res, next) {
     const confirm_password = req.body.confirm_password;
     const first_name = req.body.first_name;
     const last_name = req.body.last_name
-
-    // console.log('email',email)
-    // console.log('username',username)
-    // console.log('password',password)
-    // console.log('confirmpass',confirm_password)
-    // console.log('lastmame',last_name)
-    // console.log('firstname',first_name)
+    const siteRules = req.body.terms_conditions
+      
+  
 
      //validation
-     req.checkBody('email', 'Email is not valid').isEmail();
-     req.checkBody('first_name', 'first name is required').notEmpty();
-     req.checkBody('first_name', 'first name must be between 3 and  50 characters long.').len(3, 50);
-     req.checkBody('last_name', 'last name is required').notEmpty();
-     req.checkBody('last_name', 'last name must be between 3 and  50 characters long.').len(3, 50);
-     req.checkBody('password', 'Password must be between 6-100 characters long.').len(6,100);
-     req.checkBody('confirm_password', 'Passwords do not match').equals(req.body.password);
-     
+     req.checkBody('email', 'E-mailul nu este valid').isEmail();
+     req.checkBody('first_name', 'Prenumele este necesar ').notEmpty();
+     req.checkBody('first_name', 'Prenumele trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
+     req.checkBody('last_name', 'Numele de familie este necesar').notEmpty();
+     req.checkBody('last_name', 'Numele de familie trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
+     req.checkBody('password', 'Parola trebuie să aibă între 6-100 de caractere').len(6,100);
+     req.checkBody('confirm_password', 'Parolele nu se potrivesc').equals(req.body.password);
+     req.checkBody('terms_conditions', 'Termenii și condițiile sunt necesare').notEmpty();
      
      
     let errors = req.validationErrors();
@@ -47,7 +43,7 @@ module.exports.postSignUpEmployer = function (req, res, next) {
  
 
 //check if email exist
-db.query("SELECT email FROM users WHERE email = ?",[email], (err, results)  =>{
+db.query("SELECT email FROM users WHERE email = ?",[email], (err, results)  => {
     if (err) throw err
         if (results.length ){
              console.log('results',results)
@@ -104,6 +100,7 @@ function CreatEmployer (res,req,next){
             type: 'employer',
             avatar:'/images/no_user_image.png',
             email_confirmation_token:token,
+            terms_conditions:siteRules
         }
 
         //creat employer
@@ -215,11 +212,7 @@ function CreatEmployer (res,req,next){
         </table>
       </div>
     </center>
- </body>
-
-
-                 
-                 `
+ </body>`
 
             };
 
