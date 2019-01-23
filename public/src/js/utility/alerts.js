@@ -1,3 +1,5 @@
+$(document).ready(function(){
+  
 $('#alert_close').click(function(){
     $( "#alert_box" ).hide();
   });
@@ -7,7 +9,6 @@ $('#alert_close').click(function(){
   });
 
 
-  $(document).ready(function(){
     $('.tooltipped').tooltip();
   });
         

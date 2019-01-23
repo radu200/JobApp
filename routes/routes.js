@@ -4,6 +4,7 @@ module.exports = function (app){
   const jobsController = require('../controllers/jobs/jobs');
   const signupEmployerController = require('../controllers/authentication/employer/signup');
   const signupJobSeekerController = require('../controllers/authentication/job_seeker/signup');
+  const settingsController = require('../controllers/users/settings/settings');
   const profileController = require('../controllers/users/profile/common/profile');
   const employerProfileController = require ('../controllers/users/profile/employer/profile')
   const JobSeekerProfileController = require('../controllers/users/profile/job_seeker/profile');
@@ -26,9 +27,18 @@ module.exports = function (app){
   app.get('/signup/jobseeker', signupJobSeekerController.getSignUpJobSeeker)
   app.post('/signup/jobseeker', signupJobSeekerController.postSignUpJobSeeker)
   
+   //user settings 
 
-  //verify email after signup
-  app.get('/email/verify/:token',profileController.getCheckEmail);
+   //verify email after signup
+   app.get('/email/verify/:token',settingsController.getCheckEmail);
+   //forgot password
+   app.get('/forgot/password',settingsController.getForgotPassword);
+   app.post('/forgot/password',settingsController.postForgotPassword);
+   app.get('/forgot/password/reset/:token', settingsController.getForgotPasswordReset)
+   app.post('/forgot/password/reset/:token', settingsController.postForgotPasswordReset)
+   //change pasword within profile
+   app.get('/password/reset', accessController.ensureAuthenticated, settingsController.getChangePassword)
+   app.post('/password/reset', accessController.ensureAuthenticated, settingsController.postChangePassword)
 
 
 
@@ -36,20 +46,12 @@ module.exports = function (app){
   app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
   app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
   app.post('/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)  
-  app.get('/password/reset', accessController.ensureAuthenticated, profileController.getChangePassword)
-  app.post('/password/reset', accessController.ensureAuthenticated, profileController.postChangePassword)
-
-  //forgot password
-  app.get('/forgot/password',profileController.getForgotPassword);
-  app.post('/forgot/password',profileController.postForgotPassword);
-  app.get('/forgot/password/reset/:token', profileController.getForgotPasswordReset)
-  app.post('/forgot/password/reset/:token', profileController.postForgotPasswordReset)
   //employer profile
   app.get('/profile/info/edit', accessController.ensureAuthenticated,accessController.employer, employerProfileController.getEmployerProfileInfoEdit)
   app.post('/profile/info/edit', accessController.ensureAuthenticated,accessController.employer, employerProfileController.postEmployerProfileInfoEdit)
   app.get('/company/info/edit', accessController.ensureAuthenticated, accessController.employer, employerProfileController.getCompanyInfoEdit)
   app.post('/company/info/edit', accessController.ensureAuthenticated, accessController.employer,employerProfileController.postCompanyInfoEdit)
-  app.get('/company/:id', profileController.getCompanyProfile)
+  app.get('/company/:id', employerProfileController.getCompanyProfile)
   //employer jobs
   app.get('/my_jobs', accessController.ensureAuthenticated,accessController.employer,jobsController.getEmployerJobs)
   app.get('/candidate_search', accessController.ensureAuthenticated, accessController.employer,EmployerProfileController.getCandidate )

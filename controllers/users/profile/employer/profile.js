@@ -14,18 +14,7 @@ module.exports.getCandidateDetails = (req,res,next) => {
  }
 
 
- ///employer
-module.exports.getCompanyInfoEdit =  (req, res, next) => {
-   db.query('select id, company_description,company_name, company_location, company_type from users where id = ?', [req.user.id], (err, results) => {
-       if (err) throw err
-      console.log(results)
-       res.render('profile/employer/company_info_edit',{
-            'result':results[0]
-       })
-       console.log(results)
-   })
 
-};
 
 
 //employer
@@ -46,8 +35,8 @@ module.exports.getEmployerProfileInfoEdit =  (req, res, next) => {
  module.exports.postEmployerProfileInfoEdit =  (req, res, next) => {
     let  first_name = req.body.first_name_edit;
     let last_name = req.body.last_name_edit;
-    // req.checkBody('first_name', 'Prenumele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
-    // req.checkBody('last_name ', 'Numele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
+    req.checkBody('first_name', 'Prenumele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
+    req.checkBody('last_name ', 'Numele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
 
     const errors = req.validationErrors();
 
@@ -68,6 +57,19 @@ module.exports.getEmployerProfileInfoEdit =  (req, res, next) => {
     })
  
  };
+  ///employer
+module.exports.getCompanyInfoEdit =  (req, res, next) => {
+    db.query('select id, company_description,company_name, company_location, company_type from users where id = ?', [req.user.id], (err, results) => {
+        if (err) throw err
+       console.log(results)
+        res.render('profile/employer/company_info_edit',{
+             'result':results[0]
+        })
+        console.log(results)
+    })
+ 
+ };
+
  
  //employer
 module.exports.postCompanyInfoEdit =  (req, res, next) => {
@@ -78,10 +80,10 @@ module.exports.postCompanyInfoEdit =  (req, res, next) => {
     const type = req.body.company_type;
     
     
-    // req.checkBody('company_name ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').len(70);
-    // req.checkBody('company_location ', 'Locatia companiei trebuie să fie din litere numai').isString();
-    // req.checkBody('company_type ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').len(70);
-    // req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({ min: 1, max:250 });
+    req.checkBody('company_name ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').len(70);
+    req.checkBody('company_location ', 'Locatia companiei trebuie să fie din litere numai').isString();
+    req.checkBody('company_type ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').len(70);
+    req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({ min: 1, max:250 });
     
     
 
@@ -108,11 +110,7 @@ module.exports.postCompanyInfoEdit =  (req, res, next) => {
  
  };
 //employer company profile
-module.exports.getCompanyProfile = (req,res, next) => {
-    
- getCompany (req, res,next);
-}
-async function getCompany (req, res,next){
+module.exports.getCompanyProfile =  async (req,res, next) => {
     let userId = req.user.id;
     function awaitGetCompany(userId){
         return new Promise(function(resolve, reject){
