@@ -1,12 +1,16 @@
 const db = require('../../../././config/database.js');
+const request = require('request');
 const nodemailer = require("nodemailer");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const saltRounds = 10;
-const send_emails = require('.././send_emails/send_emails')
+const send_emails = require('../../send_emails/send_emails');
+const recaptcha = require('../../../middleware/recaptcha')
+
+
 ///change password within profile
 module.exports.getChangePassword = (req, res, next) => {
-    res.render('profile/common/password_reset')
+    res.render('users/settings/change_password')
 
 };
 
@@ -73,7 +77,9 @@ module.exports.postChangePassword = (req, res, next) => {
 //forgot password
 
 module.exports.getForgotPassword = (req, res, next) => {
-    res.render('./profile/common/forgot_password');
+    res.render('./users/settings/forgot_password',{
+        RECAPTCHA_DSKEY:process.env.RECAPTCHA_DSKEY
+    });
 
 
 }
@@ -93,6 +99,9 @@ module.exports.postForgotPassword = (req, res, next) => {
 
 
 function sendTokenResetPassword(req, res, next) {
+
+    recaptcha.GoogleCAPTCHA(req, res, next, request);
+
     let email = req.body.forgotPswEmail;
     db.query('SELECT email FROM users WHERE email = ?', [email], function (err, results) {
         if (err) throw err;
@@ -142,10 +151,10 @@ module.exports.getForgotPasswordReset = (req, res, next) => {
             req.flash('error_msg', {
                 msg: 'Password reset token is invalid or has expired.'
             })
-            res.render('./profile/common/forgot_password_reset');
+            res.render('./users/settins/forgot_password_reset');
         } else {
 
-            res.render('./profile/common/forgot_password_reset', {
+            res.render('./users/settings/forgot_password_reset', {
                 'result': rows[0],
 
             })

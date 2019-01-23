@@ -37,8 +37,8 @@ module.exports = function (app){
    app.get('/forgot/password/reset/:token', settingsController.getForgotPasswordReset)
    app.post('/forgot/password/reset/:token', settingsController.postForgotPasswordReset)
    //change pasword within profile
-   app.get('/password/reset', accessController.ensureAuthenticated, settingsController.getChangePassword)
-   app.post('/password/reset', accessController.ensureAuthenticated, settingsController.postChangePassword)
+   app.get('/change/password', accessController.ensureAuthenticated, settingsController.getChangePassword)
+   app.post('/chnage/password', accessController.ensureAuthenticated, settingsController.postChangePassword)
 
 
 

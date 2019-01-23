@@ -4,6 +4,7 @@ const saltRounds = 10;
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const request = require('request');
+const recaptcha  = require('../../../middleware/recaptcha')
 
 
 
@@ -63,38 +64,15 @@ db.query("SELECT email FROM users WHERE email = ?",[email], (err, results)  =>{
 
 function CreatEmployer (res,req,next){
 
-       //   ///recapcha
-       if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        req.flash("error_msg", {
-            msg: "Please select captcha "
-        })
-        return res.redirect('back')
-
-    }
-    const secretKey = process.env.RECAPTCHA_SKEY;
-
-    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-
-    request(verificationURL, function (error, response, body) {
-        body = JSON.parse(body);
-
-        if (body.success !== undefined && !body.success) {
-            req.flash("error_msg", {
-                msg: "Failed captcha verification"
-            })
-            return res.redirect('back')
-        } else {
-
-            console.log('recapcha success')
-        }
-    })
+  recaptcha.GoogleCAPTCHA (req,res,next,request);
 
 
     //hashing
     bcrypt.hash(password, saltRounds, function (err, hash) {
         crypto.randomBytes(16, function (err, buffer) {
             let token = buffer.toString('hex');
-        let user = {
+      
+            let user = {
             password: hash,
             email: email,
             first_name: first_name,
