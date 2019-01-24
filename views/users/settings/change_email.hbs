@@ -1,0 +1,32 @@
+{{>SimpleNavBar}}
+  {{>alerts}}
+  <!--password reset in account-->
+      <div class="row">
+            <div class="col s12 l4 offset-l4">
+              <div class="card ">
+                <div class="card-content">
+                  <h4 class="card-title center-align">Schimba Email</h4>
+                  <form method="post" action="/change/email">
+                      <div class="row">
+                        <div class="input-field col s12">
+                            <label for="">Introduce-ti email-ul nou</label>
+                          <input type="email"  placeholder="Introduce-ti email-ul nou" name="newEmail" />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                            <label for="">Introduce-ti parola</label>
+                            <input type="password"   placeholder="Introduce-ti parola" name="password"  />
+                        </div>
+                      </div>
+                      
+                    <div class="row">
+                      <button class="btn full-width-btn blue btn-large waves-effect waves-light " type="submit" >Schimba Parola
+                      </button>
+                    </div>
+                  </form> 
+             
+              </div>
+            </div>
+          </div> 
+      </div>

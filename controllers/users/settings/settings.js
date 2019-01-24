@@ -51,7 +51,7 @@ module.exports.postChangePassword = (req, res, next) => {
                     })
                     return res.redirect('back')
                 } else if (result === true) {
-                    
+
                     bcrypt.hash(newPassword, saltRounds, function (err, hash) {
                         db.query('UPDATE users SET password = ? WHERE id = ? ', [hash, req.user.id], function (err, result) {
                             if (err) throw err
@@ -59,8 +59,8 @@ module.exports.postChangePassword = (req, res, next) => {
                         })
 
                     })
-                         send_emails.changePasswordProfile(req,res,next,nodemailer,rows[0].email);
-                     
+                    send_emails.changePasswordProfile(req, res, next, nodemailer, rows[0].email);
+
                     req.flash('success_msg', {
                         msg: 'Parola dvs. a fost schimbată.'
                     });
@@ -77,8 +77,8 @@ module.exports.postChangePassword = (req, res, next) => {
 //forgot password
 
 module.exports.getForgotPassword = (req, res, next) => {
-    res.render('./users/settings/forgot_password',{
-        
+    res.render('./users/settings/forgot_password', {
+
     });
 
 
@@ -87,27 +87,27 @@ module.exports.getForgotPassword = (req, res, next) => {
 //forgot password
 module.exports.postForgotPassword = (req, res, next) => {
     req.checkBody('forgotPswEmail', ' Te rog introdu o adresa de email valida.').isEmail();
-    
-    
+
+
     const errors = req.validationErrors();
 
     if (errors) {
         req.flash('error_msg', errors);
         return res.redirect('/forgot/password');
-    }else {
+    } else {
         let email = req.body.forgotPswEmail;
         db.query('SELECT email FROM users WHERE email = ?', [email], function (err, results) {
             if (err) throw err;
-            
+
             if (!results.length) {
                 req.flash('error_msg', {
                     msg: 'Contul cu adresa de e-mail respectivă nu există.'
                 });
                 res.redirect('/forgot/password')
-    
-    
+
+
             } else {
-                
+
                 //create random token
                 crypto.randomBytes(16, function (err, buffer) {
                     let token = buffer.toString('hex');
@@ -117,20 +117,20 @@ module.exports.postForgotPassword = (req, res, next) => {
                     }
                     db.query('UPDATE users SET ?, forgotPasswordTokenExpires = TIMESTAMPADD(HOUR, 1, NOW())  WHERE email = ? ', [updateToken, email], function (error, result) {
                         if (error) throw error
-    
+
                     })
-    
-    
-                      send_emails.forgotPassword(req,res,next,nodemailer,email,token)
-            
+
+
+                    send_emails.forgotPassword(req, res, next, nodemailer, email, token)
+
                 });
                 req.flash('success_msg', {
                     msg: `A fost trimis un e-mail la
                      ${email} cu instrucțiuni suplimentare.`
                 });
                 res.redirect('/forgot/password');
-    
-    
+
+
             }
         });
     }
@@ -164,8 +164,8 @@ module.exports.getForgotPasswordReset = (req, res, next) => {
 module.exports.postForgotPasswordReset = (req, res, next) => {
     let password = req.body.newPassword;
     let confirm = req.body.confirmNewPassword
-    // req.checkBody('password', 'Password must be between 6-100 characters long.').len(6, 100);
-    // req.checkBody('confirm', 'Passwords do not match').equals(req.body.password);
+    req.checkBody('password', 'Password must be between 6-100 characters long.').len(6, 100);
+    req.checkBody('confirm', 'Passwords do not match').equals(req.body.password);
 
 
     const errors = req.validationErrors();
@@ -200,7 +200,7 @@ module.exports.postForgotPasswordReset = (req, res, next) => {
                 if (error) throw error
                 console.log('updated')
 
-                send_emails.forgotPasswordSucess(req,res,next,nodemailer,email)
+                send_emails.forgotPasswordSucess(req, res, next, nodemailer, email)
 
                 req.login(user, function (err) {
                     req.flash('success_msg', {
@@ -225,9 +225,9 @@ module.exports.getCheckEmail = function (req, res, next) {
     db.query('SELECT * FROM users where email_confirmation_token = ? AND email_token_expire > NOW()', [token], function (err, rows) {
         if (err) {
             console.log(err)
-        } 
-        
-        if (rows.length ) {
+        }
+
+        if (rows.length) {
             // let verified = 'verified';
             db.query('UPDATE users SET email_status = ? WHERE email_confirmation_token = ? AND email_token_expire > NOW()', ['verified', token], function (err, rows) {
                 if (err) throw err
@@ -235,7 +235,7 @@ module.exports.getCheckEmail = function (req, res, next) {
             db.query("UPDATE users SET email_confirmation_token = ? WHERE id = ? ", [null, rows[0].id])
             req.login(rows[0], function (err) {
                 req.flash('success_msg', {
-                    msg: "Emailul dvs. a fost verificat cu succes"
+                    msg: "Emailul dvs. a fost verificat cu succes.Va multumim!"
                 });
                 res.redirect('/profile')
             });
@@ -249,39 +249,113 @@ module.exports.getCheckEmail = function (req, res, next) {
     })
 }
 
-module.exports.getResendEmailCheck = (req,res,nexr) => {
-    db.query('select id,email from users where id = ?' ,[req.user.id],(err,results) =>{
-       if (err) throw err;
-        res.render('./users/settings/resend_email_check_form',{
-            'results':results[0]
-        })
+module.exports.getResendEmailCheck = (req, res, nexr) => {
+    db.query('select id,email,email_status from users where id = ?', [req.user.id], (err, results) => {
+        if (err) throw err;
+        if (results[0].email_status === 'unverified' || results[0].email_status === null) {
+
+            res.render('./users/settings/resend_email_check_form', {
+                'results': results[0]
+            })
+        } else {
+            res.redirect('/profile')
+        }
     })
 }
-module.exports.postResendEmailCheck = (req,res,next) => {
-        db.query('select id,email from users where id = ?',[req.user.id], (err,results) => {
-            if (err) throw err;
+module.exports.postResendEmailCheck = (req, res, next) => {
+    db.query('select id,email from users where id = ?', [req.user.id], (err, results) => {
+        if (err) throw err;
         let email = results[0].email;
         //create random token
         crypto.randomBytes(16, function (err, buffer) {
             let token = buffer.toString('hex');
-            db.query('UPDATE users SET email_token_expire = TIMESTAMPADD(HOUR, 1, NOW()),email_confirmation_token = ? WHERE  id = ? ', [token,req.user.id], function (error, result) {
+            db.query('UPDATE users SET email_token_expire = TIMESTAMPADD(HOUR, 1, NOW()),email_confirmation_token = ? WHERE  id = ? ', [token, req.user.id], function (error, result) {
                 if (error) throw error
-            
-                    send_emails.checkEmailAfterSignUp(req,res,nodemailer,email,token)
-         
+
+                send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token)
+
             })
 
         });
-        req.flash('success_msg', {
+        req.flash('info_msg', {
             msg: `A fost trimis un e-mail la
                 ${email} cu instrucțiuni suplimentare.`
         });
         res.redirect('back');
     });
-        
+}
 
 
+module.exports.getChangeEmail = (req,res,next) => {
+    res.render('./users/settings/change_email')
+}
+
+module.exports.postChangeEmail = (req,res,next) => {
+    let email = req.body.newEmail;
+    let password = req.body.password;
+    console.log(email)
+    console.log(password)
+    req.checkBody('password', 'Password must be between 6-100 characters long').len(1, 100)
+    req.checkBody('newEmail', 'Email nu este valid.').isEmail();
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('error_msg', errors);
+        res.redirect('back')
     }
 
-    
-  
+    db.query("SELECT users.email FROM users WHERE email  = ? ", [email], function (err, rows) {
+
+        if (err) {
+            console.log("[mysql error]", err)
+        }
+
+        if (rows.length) {
+            req.flash('error_msg', {
+                msg: "E-mailul este deja în uz.Utilizați un alt e-mail."
+            })
+            return res.redirect('back')
+
+        } else {
+            db.query("SELECT users.password ,users.id FROM users WHERE id  = ? ", [req.user.id], function (err, rows) {
+                let hash = rows[0].password;
+                if (err) {
+                    throw (err)
+                }
+
+                bcrypt.compare(password, hash, function (error, result) {
+                    if (result === false) {
+                        req.flash('error_msg', {
+                            msg: "Parola e gresita.Incerca-ti din nou."
+                        });
+                        return res.redirect('back')
+                    } else if (result === true) {
+                        crypto.randomBytes(16, function (err, buffer) {
+                            let token = buffer.toString('hex');
+                            db.query('UPDATE users SET email = ?, email_status = ?,email_confirmation_token = ? , email_token_expire = TIMESTAMPADD(HOUR, 2, NOW()) WHERE id = ? ', [email, 'unverified', token, rows[0].id], function (err, result) {
+                                if (err) throw err
+                              
+                               
+                           send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token)
+
+                            })
+                        })
+
+                    }
+                    req.flash('info_msg', {
+                        msg: `A fost trimis un e-mail la
+                        ${email} cu instrucțiuni suplimentare.`
+                    });
+                    req.logout();
+                    res.redirect('/login')
+                })
+
+            })
+
+        }
+
+    })
+
+}
+
