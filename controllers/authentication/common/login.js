@@ -19,21 +19,13 @@ module.exports.getLogin = (req, res, next) => {
         req.flash('error_msg', errors);
         return res.redirect('/login')
     } else {
-     db.query('select  email,email_status from users where email = ? ',[email], (err,results) => {
-     
-         if (err) throw err;
+  
 
-         if(results[0].email_status === "unverified" || results[0].email_status === null ){
-             res.render('./users/settings/resend_email_check')
-         } else {
-             passport.authenticate('local-login', {
-                 successRedirect: '/profile', // redirect to the secure profile section
-                 failureRedirect: '/login', // redirect back to the signup page if there is an error
-                 failureFlash: true // allow flash messages
-             })(req, res);
-    
-        }
-      })
+      passport.authenticate('local-login', {
+        successRedirect: '/profile', // redirect to the secure profile section
+        failureRedirect: '/login', // redirect back to the signup page if there is an error
+        failureFlash: true // allow flash messages
+    })(req, res);
                 
     }
 

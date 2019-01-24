@@ -31,6 +31,8 @@ module.exports = function (app){
 
    //verify email after signup
    app.get('/email/verify/:token',settingsController.getCheckEmail);
+   app.get('/resend/email/check',  settingsController.getResendEmailCheck )
+   app.post('/resend/email/check', settingsController.postResendEmailCheck)
    //forgot password
    app.get('/forgot/password',settingsController.getForgotPassword);
    app.post('/forgot/password',settingsController.postForgotPassword);
@@ -39,19 +41,17 @@ module.exports = function (app){
    //change pasword within profile
    app.get('/change/password', accessController.ensureAuthenticated, settingsController.getChangePassword)
    app.post('/change/password', accessController.ensureAuthenticated, settingsController.postChangePassword)
-   app.get('/resend/email/check',  settingsController.getResendEmailCheck )
-   app.post('/resend/email/check', settingsController.postResendEmailCheck)
 
   //profile common
-  app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
+  app.get('/profile', accessController.ensureAuthenticated, accessController.ensureEmailChecked, profileController.getProfile)
   app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
   app.post('/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)  
   //employer profile
-  app.get('/profile/info/edit', accessController.ensureAuthenticated,accessController.employer, employerProfileController.getEmployerProfileInfoEdit)
+  app.get('/profile/info/edit', accessController.ensureAuthenticated,accessController.ensureEmailChecked,accessController.employer, employerProfileController.getEmployerProfileInfoEdit)
   app.post('/profile/info/edit', accessController.ensureAuthenticated,accessController.employer, employerProfileController.postEmployerProfileInfoEdit)
   app.get('/company/info/edit', accessController.ensureAuthenticated, accessController.employer, employerProfileController.getCompanyInfoEdit)
   app.post('/company/info/edit', accessController.ensureAuthenticated, accessController.employer,employerProfileController.postCompanyInfoEdit)
-  app.get('/company/:id', employerProfileController.getCompanyProfile)
+  app.get('/company/:id', accessController.ensureAuthenticated,accessController.employer,accessController.employer, employerProfileController.getCompanyProfile,)
   //employer jobs
   app.get('/my_jobs', accessController.ensureAuthenticated,accessController.employer,jobsController.getEmployerJobs)
   app.get('/candidate_search', accessController.ensureAuthenticated, accessController.employer,EmployerProfileController.getCandidate )
@@ -70,7 +70,7 @@ module.exports = function (app){
   
   //jobs controller 
   app.get('/jobs', accessController.ensureAuthenticatedJsonRes, jobsController.getJobsPage)
-  app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer, jobsController.getAddJobs)
+  app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer,accessController.ensureEmailChecked, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)
   app.post('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, filesController.editJobImage, jobsController.postJobImageEdit)

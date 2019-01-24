@@ -4,18 +4,20 @@
             <div class="col s12 l4 offset-l4">
               <div class="card ">
                 <div class="card-content">
-                  <h4 class="card-title center-align">Introduceți adresa de e-mail </h4>
+                  <h4 class="card-title red-text center-align">Email-lul dvs. nu a fost verificat.Va rog sa face-ti clic pe button de mai jos pentru a verifca si urma-ti intructiunile.<br/>Va multumin! </h4>
                   <form method="post" action="/resend/email/check">
                     {{!-- <input type="hidden" name="_csrf" value="{{csrfToken}}"> --}}
                       <div class="row">
                         <div class="input-field col s12">
-                            <input type="email"   placeholder="Introduceți adresa de e-mail " name="resendEmailCheck"  required/>
+                          {{#if results}}
+                           <h5 class="card-title center-align">{{results.email}}</h5>
+                           {{/if}}
                         </div>
                       </div>
                     
                    
                     <div class="row">
-                      <button class="btn full-width-btn blue btn-large waves-effect waves-light " type="submit" >Găsiți contul
+                      <button class="btn full-width-btn blue btn-large waves-effect waves-light " type="submit" >Verifica-ti Email
                       </button>
                     </div>
                   </form> 

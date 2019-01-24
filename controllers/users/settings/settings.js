@@ -250,53 +250,38 @@ module.exports.getCheckEmail = function (req, res, next) {
 }
 
 module.exports.getResendEmailCheck = (req,res,nexr) => {
-    res.render('./users/settings/resend_email_check_form')
+    db.query('select id,email from users where id = ?' ,[req.user.id],(err,results) =>{
+       if (err) throw err;
+        res.render('./users/settings/resend_email_check_form',{
+            'results':results[0]
+        })
+    })
 }
 module.exports.postResendEmailCheck = (req,res,next) => {
-    req.checkBody('resendEmailCheck', ' Te rog introdu o adresa de email valida.').isEmail();
-    
-    
-    const errors = req.validationErrors();
-
-    if (errors) {
-        req.flash('error_msg', errors);
-        return res.redirect('/resend/email/check');
-    }else {
-        let email = req.body.resendEmailCheck;
-        db.query('SELECT email FROM users WHERE email = ?', [email], function (err, results) {
+        db.query('select id,email from users where id = ?',[req.user.id], (err,results) => {
             if (err) throw err;
+        let email = results[0].email;
+        //create random token
+        crypto.randomBytes(16, function (err, buffer) {
+            let token = buffer.toString('hex');
+            db.query('UPDATE users SET email_token_expire = TIMESTAMPADD(HOUR, 1, NOW()),email_confirmation_token = ? WHERE  id = ? ', [token,req.user.id], function (error, result) {
+                if (error) throw error
             
-            if (!results.length) {
-                req.flash('error_msg', {
-                    msg: 'Contul cu adresa de e-mail respectivă nu există.'
-                });
-                res.redirect('back')
-    
-    
-            } else {
-                
-                //create random token
-                crypto.randomBytes(16, function (err, buffer) {
-                    let token = buffer.toString('hex');
-                   
-                  
-                    db.query('UPDATE users SET email_token_expire = TIMESTAMPADD(HOUR, 1, NOW()),email_confirmation_token = ? WHERE  email = ? ', [token,email], function (error, result) {
-                        if (error) throw error
-                   
-                            send_emails.checkEmailAfterSignUp(req,res,nodemailer,email,token)
-                       
-                    })
+                    send_emails.checkEmailAfterSignUp(req,res,nodemailer,email,token)
+         
+            })
 
-                });
-                req.flash('success_msg', {
-                    msg: `A fost trimis un e-mail la
-                     ${email} cu instrucțiuni suplimentare.`
-                });
-                res.redirect('back');
-    
-    
-            }
         });
+        req.flash('success_msg', {
+            msg: `A fost trimis un e-mail la
+                ${email} cu instrucțiuni suplimentare.`
+        });
+        res.redirect('back');
+    });
+        
+
+
     }
+
+    
   
-}
