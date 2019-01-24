@@ -49,7 +49,7 @@ module.exports.postChangePassword = (req, res, next) => {
                     req.flash('error_msg', {
                         msg: "Parola veche este greșită. Încearcă din nou."
                     })
-                    return res.redirect('/password/reset')
+                    return res.redirect('back')
                 } else if (result === true) {
                     
                     bcrypt.hash(newPassword, saltRounds, function (err, hash) {
@@ -64,7 +64,7 @@ module.exports.postChangePassword = (req, res, next) => {
                     req.flash('success_msg', {
                         msg: 'Parola dvs. a fost schimbată.'
                     });
-                    res.redirect('/password/reset')
+                    res.redirect('back')
                 }
             })
 
