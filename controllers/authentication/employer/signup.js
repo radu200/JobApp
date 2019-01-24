@@ -81,7 +81,8 @@ module.exports.postSignUpEmployer = function (req, res, next) {
                     type: 'employer',
                     avatar: '/images/no_user_image.png',
                     email_confirmation_token: token,
-                    terms_conditions: siteRules
+                    terms_conditions: siteRules,
+                    email_status:'unverified'
                 }
 
                 //creat employer
@@ -97,6 +98,7 @@ module.exports.postSignUpEmployer = function (req, res, next) {
                         });
 
                     })
+                    //cchecl email if valid
                      send_emails.checkEmailAfterSignUp(req,res,nodemailer,email,token)
 
                 });

@@ -10,7 +10,8 @@
           <img  src="{{this.result.avatar}}" class="avatar">
         </div>
         <div class="card-content center">
-          <h4>{{result.first_name}} {{result.last_name}}</h4>
+          <h5 class="break_text">{{result.first_name}}</h5>
+          <h5 class="break_text">{{result.last_name}}</h5>
           <p>{{result.email}}</p>
           <a class="btn grey" href="/password/reset">Schimba Parola</a>
         </div>
@@ -24,7 +25,7 @@
       <div class="card">
         <div class="card-title">Informatie despre companie</div>
         <div class="card-content center">
-          <h4>{{result.company_name}}</h4>
+          <h4 class="break_text">{{result.company_name}}</h4>
            <p class="break_text text-opacity"> {{result.company_type}}</p>
           <p class="break_text"> {{result.company_description}}</p>
           <p>{{result.company_location}}</p>

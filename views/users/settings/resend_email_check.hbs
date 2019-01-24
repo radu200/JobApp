@@ -4,6 +4,24 @@
    {{>alerts}}
       <div class="row">
             <div class="col s12  m12 l4 offset-l4">
+                  <div id="alert_box">
+                  <div class="card blue darken-1">
+                    <div class="row">
+                      <div class="col s12 m10">
+                        <div class="card-content white-text ">
+                        <p>Emailul dvs. nu a fost verificat.Va rog sa face-ti click pe button de mai jos pentru a verifica emailul. Multumin!</p>
+                      </div>
+                     </div>
+                     <div class="col s12 m2">
+                       <i class="material-icons close_icon_style " id="alert_close">close</i>                            
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <p class=""></p>
+                  <form action=""> 
+                    <a href="/resend/email/check" class="btn btn-large full-width-btn"> Verificati Email</a>
+                  </form>
               <div class="card ">
                 <div class="card-content">
                   <h4 class="card-title center-align">Intra</h4>
@@ -49,5 +67,3 @@
           </div> 
       </div>
     </section>
-
-{{>Footer}}

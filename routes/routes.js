@@ -39,8 +39,8 @@ module.exports = function (app){
    //change pasword within profile
    app.get('/change/password', accessController.ensureAuthenticated, settingsController.getChangePassword)
    app.post('/chnage/password', accessController.ensureAuthenticated, settingsController.postChangePassword)
-
-
+   app.get('/resend/email/check',  settingsController.getResendEmailCheck )
+   app.post('/resend/email/check', settingsController.postResendEmailCheck)
 
   //profile common
   app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)

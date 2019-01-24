@@ -1,9 +1,9 @@
 const db = require('../../../././config/database.js');
-const request = require('request');
 const nodemailer = require("nodemailer");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const saltRounds = 10;
+const request = require('request');
 const send_emails = require('../../send_emails/send_emails');
 const recaptcha = require('../../../middleware/recaptcha')
 
@@ -78,7 +78,7 @@ module.exports.postChangePassword = (req, res, next) => {
 
 module.exports.getForgotPassword = (req, res, next) => {
     res.render('./users/settings/forgot_password',{
-        RECAPTCHA_DSKEY:process.env.RECAPTCHA_DSKEY
+        
     });
 
 
@@ -87,58 +87,57 @@ module.exports.getForgotPassword = (req, res, next) => {
 //forgot password
 module.exports.postForgotPassword = (req, res, next) => {
     req.checkBody('forgotPswEmail', ' Te rog introdu o adresa de email valida.').isEmail();
-
+    
+    
     const errors = req.validationErrors();
 
     if (errors) {
         req.flash('error_msg', errors);
         return res.redirect('/forgot/password');
+    }else {
+        let email = req.body.forgotPswEmail;
+        db.query('SELECT email FROM users WHERE email = ?', [email], function (err, results) {
+            if (err) throw err;
+            
+            if (!results.length) {
+                req.flash('error_msg', {
+                    msg: 'Contul cu adresa de e-mail respectivă nu există.'
+                });
+                res.redirect('/forgot/password')
+    
+    
+            } else {
+                
+                //create random token
+                crypto.randomBytes(16, function (err, buffer) {
+                    let token = buffer.toString('hex');
+                    // console.log('token',token)
+                    let updateToken = {
+                        forgotPasswordToken: token
+                    }
+                    db.query('UPDATE users SET ?, forgotPasswordTokenExpires = TIMESTAMPADD(HOUR, 1, NOW())  WHERE email = ? ', [updateToken, email], function (error, result) {
+                        if (error) throw error
+    
+                    })
+    
+    
+                      send_emails.forgotPassword(req,res,next,nodemailer,email,token)
+            
+                });
+                req.flash('success_msg', {
+                    msg: `A fost trimis un e-mail la
+                     ${email} cu instrucțiuni suplimentare.`
+                });
+                res.redirect('/forgot/password');
+    
+    
+            }
+        });
     }
-    sendTokenResetPassword(req, res, next);
 }
 
 
-function sendTokenResetPassword(req, res, next) {
 
-    recaptcha.GoogleCAPTCHA(req, res, next, request);
-
-    let email = req.body.forgotPswEmail;
-    db.query('SELECT email FROM users WHERE email = ?', [email], function (err, results) {
-        if (err) throw err;
-        if (!results.length) {
-            req.flash('error_msg', {
-                msg: 'Contul cu adresa de e-mail respectivă nu există.'
-            });
-            res.redirect('/forgot/password')
-
-
-        } else {
-            //create random token
-            crypto.randomBytes(16, function (err, buffer) {
-                let token = buffer.toString('hex');
-                // console.log('token',token)
-                let updateToken = {
-                    forgotPasswordToken: token
-                }
-                db.query('UPDATE users SET ?, forgotPasswordTokenExpires = TIMESTAMPADD(HOUR, 1, NOW())  WHERE email = ? ', [updateToken, email], function (error, result) {
-                    if (error) throw error
-
-                })
-
-
-                  send_emails.forgotPassword(req,res,next,nodemailer,email,token)
-        
-            });
-            req.flash('success_msg', {
-                msg: `A fost trimis un e-mail la
-                 ${email} cu instrucțiuni suplimentare.`
-            });
-            res.redirect('/forgot/password');
-
-
-        }
-    });
-}
 
 
 
@@ -226,9 +225,11 @@ module.exports.getCheckEmail = function (req, res, next) {
     db.query('SELECT * FROM users where email_confirmation_token = ? AND email_token_expire > NOW()', [token], function (err, rows) {
         if (err) {
             console.log(err)
-        } else if (rows.length) {
+        } 
+        
+        if (rows.length ) {
             // let verified = 'verified';
-            db.query('UPDATE users SET user_status = ? WHERE email_confirmation_token = ? AND email_token_expire > NOW()', ['verified', token], function (err, rows) {
+            db.query('UPDATE users SET email_status = ? WHERE email_confirmation_token = ? AND email_token_expire > NOW()', ['verified', token], function (err, rows) {
                 if (err) throw err
             })
             db.query("UPDATE users SET email_confirmation_token = ? WHERE id = ? ", [null, rows[0].id])
@@ -240,10 +241,62 @@ module.exports.getCheckEmail = function (req, res, next) {
             });
         } else {
             req.flash('error_msg', {
-                msg: "Ne pare rau din pacate nu am putu sa va verificam emailul sau tokenul a expirat"
+                msg: "Ne pare rau din pacate nu am putut sa va verificam emailul sau tokenul a expirat"
             });
             res.redirect('/login')
         }
 
     })
+}
+
+module.exports.getResendEmailCheck = (req,res,nexr) => {
+    res.render('./users/settings/resend_email_check_form')
+}
+module.exports.postResendEmailCheck = (req,res,next) => {
+    req.checkBody('resendEmailCheck', ' Te rog introdu o adresa de email valida.').isEmail();
+    
+    
+    const errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('error_msg', errors);
+        return res.redirect('/resend/email/check');
+    }else {
+        let email = req.body.resendEmailCheck;
+        db.query('SELECT email FROM users WHERE email = ?', [email], function (err, results) {
+            if (err) throw err;
+            
+            if (!results.length) {
+                req.flash('error_msg', {
+                    msg: 'Contul cu adresa de e-mail respectivă nu există.'
+                });
+                res.redirect('back')
+    
+    
+            } else {
+                
+                //create random token
+                crypto.randomBytes(16, function (err, buffer) {
+                    let token = buffer.toString('hex');
+                   
+                  
+                    db.query('UPDATE users SET email_token_expire = TIMESTAMPADD(HOUR, 1, NOW()),email_confirmation_token = ? WHERE  email = ? ', [token,email], function (error, result) {
+                        if (error) throw error
+                   
+                            send_emails.checkEmailAfterSignUp(req,res,nodemailer,email,token)
+                       
+                    })
+
+                });
+                req.flash('success_msg', {
+                    msg: `A fost trimis un e-mail la
+                     ${email} cu instrucțiuni suplimentare.`
+                });
+                res.redirect('back');
+    
+    
+            }
+        });
+    }
+  
 }

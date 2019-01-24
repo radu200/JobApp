@@ -1,4 +1,5 @@
 
+const db = require('../../../config/database.js');
 const passport = require('passport');
 
 module.exports.getLogin = (req, res, next) => {
@@ -10,42 +11,30 @@ module.exports.getLogin = (req, res, next) => {
     req.checkBody('username', 'Email is not valid').isEmail();
     req.checkBody('password', 'Password cannot be blank').notEmpty();
     req.checkBody('password', 'Password must be between 6-100 characters long.').len(6, 100);
-
+    
+    const email = req.body.username;
     const errors = req.validationErrors();
-
+    
     if (errors) {
         req.flash('error_msg', errors);
         return res.redirect('/login')
     } else {
+     db.query('select  email,email_status from users where email = ? ',[email], (err,results) => {
+     
+         if (err) throw err;
 
-        passport.authenticate('local-login', {
-            successRedirect: '/profile', // redirect to the secure profile section
-            failureRedirect: '/login', // redirect back to the signup page if there is an error
-            failureFlash: true // allow flash messages
-        })(req, res);
-        // if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)
-        // {
-        //     req.flash("error_msg", {msg:"Please select captcha "})
-        //     return res.redirect('/login')
-
-        // }
-        // const secretKey = process.env.RECAPTCHA_SKEY
-
-        // const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-
-        // request(verificationURL,function(error,response,body) {
-        //   body = JSON.parse(body);
-
-        //   if(body.success !== undefined && !body.success) {
-        //       req.flash("error_msg", {msg:"Failed captcha verification"})
-        //     return res.redirect('/login')
-        //   }else{
-
-        //   console.log('recapcha success')
-
-        // }
-        // });
-
+         if(results[0].email_status === "unverified" || results[0].email_status === null ){
+             res.render('./users/settings/resend_email_check')
+         } else {
+             passport.authenticate('local-login', {
+                 successRedirect: '/profile', // redirect to the secure profile section
+                 failureRedirect: '/login', // redirect back to the signup page if there is an error
+                 failureFlash: true // allow flash messages
+             })(req, res);
+    
+        }
+      })
+                
     }
 
 };

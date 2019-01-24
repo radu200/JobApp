@@ -29,7 +29,7 @@ module.exports = function (passport) {
             //check if email is correct
             else if (!results.length) {
                 return done(null, false, req.flash('error_msg', {
-                    msg: 'Your email or password is incorrect. Please try again. '
+                    msg: 'E-mailul sau parola dvs. sunt incorecte. Vă rugăm să încercați din nou '
                 }));
 
             } 
@@ -42,7 +42,7 @@ module.exports = function (passport) {
                         return done(null, results[0]);
                     } else {
                         return done(null, false, req.flash('error_msg', {
-                            msg: 'Your email or password is incorrect. Please try again '
+                            msg: 'E-mailul sau parola dvs. sunt incorecte. Vă rugăm să încercați din nou '
                         }));
 
                     }
