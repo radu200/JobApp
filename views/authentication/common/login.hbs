@@ -7,17 +7,19 @@
               <div class="card ">
                 <div class="card-content">
                   <h4 class="card-title center-align">Intra</h4>
-                  <form method="post" action="/login">
+                  <form method="post" action="/login" id="login-form">
                       <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">email</i>
-                            <input type="email" id="email" class="validate" placeholder="Email" name="username"  required="true"/>
+                            <input type="email" id="email-login" class="validate " placeholder="Email" name="username"  />
+                           <p class="errorEmailLogin error"></p>
                         </div>
                         </div>
                     <div class="row">
                       <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input type="password" id="password" class="validate" placeholder="Parola" name="password" required="true"/>
+                        <input type="password" id="password-login" class="validate" placeholder="Parola" name="password" min="1" max="2"/>
+                         <p class="errorPasswordLogin error"></p>
                       </div>
                     </div>
                     

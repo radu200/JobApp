@@ -66,7 +66,6 @@ module.exports.employerJsonRes = function (req,res,next){
 }
 
 module.exports.ensureEmailChecked = (req,res,next) => {
-
     db.query('select id, email,email_status from users where id = ? ',[req.user.id], (err,results) => {
          
         if (err) throw err;
@@ -78,4 +77,14 @@ module.exports.ensureEmailChecked = (req,res,next) => {
             
        }
      })
+}
+
+
+module.exports.userAuthenticated = (req,res,next) => {
+    if (req.isAuthenticated()) {
+        res.redirect('/profile');
+     }else{
+         
+      res.redirect('/login')
+     }
 }

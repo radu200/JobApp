@@ -12,14 +12,14 @@ module.exports = function (app){
   const chatController = require('../controllers/chat/chat');
   const loginController = require('../controllers/authentication/common/login');
   const homeController = require('../controllers/home');
-
+  
   const accessController = require('../middleware/access_control_middleware');
   const filesController = require('../middleware/files_control_middleware');
   
-
+  
   app.get('/',  homeController.getHomePage)
-
-
+  
+  
   //authetication routes
   app.get('/signup/employer',  signupEmployerController.getSignUpEmployer)
   app.post('/signup/employer',  signupEmployerController.postSignUpEmployer)
@@ -27,8 +27,15 @@ module.exports = function (app){
   app.get('/signup/jobseeker', signupJobSeekerController.getSignUpJobSeeker)
   app.post('/signup/jobseeker', signupJobSeekerController.postSignUpJobSeeker)
   
-   //user settings 
-    //change email
+  //login
+  app.get('/login', loginController.getLogin)
+  app.post('/login', loginController.postLogin)
+  app.get('/logout',  loginController.getLogout)
+
+
+  //user settings 
+
+  //change email
   app.get('/change/email', accessController.ensureAuthenticated,settingsController.getChangeEmail)
   app.post('/change/email', accessController.ensureAuthenticated,settingsController.postChangeEmail)
    //verify email after signup
@@ -65,10 +72,6 @@ module.exports = function (app){
 
   //chat 
   app.get('/chats', accessController.ensureAuthenticated,chatController.getChat )
-  //login
-  app.get('/login', loginController.getLogin)
-  app.post('/login', loginController.postLogin)
-  app.get('/logout',  loginController.getLogout)
   
   //jobs controller 
   app.get('/jobs', accessController.ensureAuthenticatedJsonRes, jobsController.getJobsPage)

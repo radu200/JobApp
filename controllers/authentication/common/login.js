@@ -3,7 +3,11 @@ const db = require('../../../config/database.js');
 const passport = require('passport');
 
 module.exports.getLogin = (req, res, next) => {
-    res.render('authentication/common/login')
+    if(req.isAuthenticated()){
+        res.redirect('/profile')
+    }else {
+        res.render('authentication/common/login')
+    }
  };
 
 

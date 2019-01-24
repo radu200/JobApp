@@ -10,9 +10,16 @@ const send_emails = require('../../send_emails/send_emails')
 
 
 module.exports.getSignUpEmployer = function (req, res, next) {
-    res.render('authentication/employer/signup', {
-        RECAPTCHA_DSKEY: process.env.RECAPTCHA_DSKEY
-    })
+    if (req.isAuthenticated()) {
+        res.redirect('/profile');
+        req.flash('info_msg', {
+            msg:"Pentru a va inregistra trebuie sa iesiti din cont."
+        })
+    } else {
+        res.render('authentication/employer/signup', {
+            RECAPTCHA_DSKEY: process.env.RECAPTCHA_DSKEY
+        })
+    }
 };
 
 module.exports.postSignUpEmployer = function (req, res, next) {
@@ -49,12 +56,13 @@ module.exports.postSignUpEmployer = function (req, res, next) {
     //check if email exist
     db.query("SELECT email FROM users WHERE email = ?", [email], (err, results) => {
         if (err) throw err
+
         if (results.length) {
             console.log('results', results)
             req.flash('error_msg', {
-                msg: 'This email is already taken.'
+                msg: 'Această adresă de e-mail este deja luată.'
             });
-            res.redirect('/signup/employer')
+            res.redirect('back')
 
         } else {
 
@@ -67,8 +75,8 @@ module.exports.postSignUpEmployer = function (req, res, next) {
 
     function CreatEmployer(res, req, next) {
 
-        recaptcha.GoogleCAPTCHA(req, res, next, request);
 
+         recaptcha.GoogleCAPTCHA(req, res);
         //hashing
         bcrypt.hash(password, saltRounds, function (err, hash) {
             crypto.randomBytes(16, function (err, buffer) {
@@ -82,7 +90,7 @@ module.exports.postSignUpEmployer = function (req, res, next) {
                     avatar: '/images/no_user_image.png',
                     email_confirmation_token: token,
                     terms_conditions: siteRules,
-                    email_status:'unverified'
+                    email_status: 'unverified'
                 }
 
                 //creat employer
@@ -99,16 +107,16 @@ module.exports.postSignUpEmployer = function (req, res, next) {
 
                     })
                     //cchecl email if valid
-                     send_emails.checkEmailAfterSignUp(req,res,nodemailer,email,token)
+                    send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token)
 
+                    req.flash('warning_msg', {
+                        msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul"
+                    });
+    
+                    res.redirect('back')
                 });
 
 
-                req.flash('warning_msg', {
-                    msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul"
-                });
-
-                res.redirect('back')
 
             })
 

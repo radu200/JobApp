@@ -6,42 +6,55 @@
       <div class="card ">
         <div class="card-content">
           <h4 class="card-title center-align">Înregistrare</h4>
-          <form method="post" action="/signup/employer">
+          <form method="post" action="/signup/employer" id="signup-employer">
             <div class="row">
               <div class="input-field col s12">
                 <i class="material-icons prefix">email</i>
-                <input type="email" id="email" placeholder="Email" name="email" />
+                <input type="email" placeholder="Email" name="email" oninvalid="this.setCustomValidity('Emailul nu este valid')"
+                  oninput="setCustomValidity('')" required />
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
-                <input type="text" id="firstname" placeholder="Nume" name="first_name" />
+                <input type="text"  placeholder="Prenumele" name="first_name" oninvalid="this.setCustomValidity('Prenumele este necesar')"
+                 oninput="setCustomValidity('')"  minlength="0" maxlength="50" title="Prenumele trebuie să aibă între 1 și 50 de caractere." required="true"
+                />
               </div>
-              <div class="input-field col s12 m6">
+                <div class="input-field col s12 m6">
                 <i class="material-icons prefix">person</i>
-                <input type="text" id="lastname" class="validate" placeholder="Numele de familie" name="last_name" />
+                <input type="text"  placeholder="Numele de familie" name="last_name" oninvalid="this.setCustomValidity('Numele de familie este necesar')"
+                 oninput="setCustomValidity('')"  minlength="0" maxlength="50"  required="true"
+                />
               </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">lock</i>
+                <input type="password"  class="password" id="psw-employer-signup"  placeholder="Parola" name="password" oninvalid="this.setCustomValidity('Parola este necesara.Parola trebuie să aibă între 6 și 50 de caractere')" 
+                oninput="setCustomValidity('')"  minlength="6" maxlength="50"  required="true"
+                />
+                <p class="errorPassword"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">lock</i>
+                  <input type="password" class="password" id="confirm-psw-employer"  placeholder="Parola" name="confirm_password" oninvalid="this.setCustomValidity('Confirmati parola .Parola trebuie să aibă între 6 și 50 de caractere')" 
+                oninput="setCustomValidity('')"  minlength="6" maxlength="50"  required
+                />
+              </div>
+              <p class="center"id="cmd-employer"></p>
+            </div>
 
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">lock</i>
-                <input type="password" id="password" class="validate" placeholder="Parola" name="password" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">lock</i>
-                <input type="password" id="password" class="validate" placeholder="Confirma Parola" name="confirm_password" />
-              </div>
-            </div>
             <p>
               <label>
-                <input type="checkbox" name="terms_conditions" value="agreed" checked="agreed" />
-                <span>Am facut cunostinta si sunt deacord cu <a href="#" class="hover-underline">termenii și condițiile site-ului</a></span>
+                <input type="checkbox" name="terms_conditions" value="agreed" checked="agreed" oninvalid="this.setCustomValidity('Va rog accepta-ti terminii si conditiile saitului')" oninput="setCustomValidity('')" required="true"/>
+                <span>Am facut cunostinta si sunt deacord cu <a href="#" class="hover-underline">termenii și condițiile
+                    site-ului</a></span>
               </label>
             </p>
+            <p class="captchError error"></p>
             <div class="g-recaptcha" data-sitekey="{{RECAPTCHA_DSKEY}}"></div>
             <div class="row">
               <button class="btn  signup-btn btn-large waves-effect waves-light " type="submit" name="action">CONTINUA

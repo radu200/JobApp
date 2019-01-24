@@ -1,11 +1,11 @@
+const request = require('request');
 
-
-module.exports.GoogleCAPTCHA = (req,res,next,request) => {
+module.exports.GoogleCAPTCHA = (req,res) => {
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
         req.flash("error_msg", {
-            msg: "Please select captcha "
+            msg: "Te rog selecteaza captcha "
         })
-        return res.redirect('back')
+         res.redirect('back')
 
     }
     const secretKey = process.env.RECAPTCHA_SKEY;
@@ -17,9 +17,9 @@ module.exports.GoogleCAPTCHA = (req,res,next,request) => {
 
         if (body.success !== undefined && !body.success) {
             req.flash("error_msg", {
-                msg: "Failed captcha verification"
+                msg: "Verificarea captcha  a eșuat"
             })
-            return res.redirect('back')
+            res.redirect('back')
         } else {
 
             console.log('recapcha success')
