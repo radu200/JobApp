@@ -359,3 +359,6 @@ module.exports.postChangeEmail = (req,res,next) => {
 
 }
 
+module.exports.getSettings = (req,res,next) => {
+    res.render('./users/settings/settings')
+}

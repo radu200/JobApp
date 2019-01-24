@@ -34,7 +34,7 @@ module.exports = function (app){
 
 
   //user settings 
-
+   app.get('/settings', settingsController.getSettings);
   //change email
   app.get('/change/email', accessController.ensureAuthenticated,settingsController.getChangeEmail)
   app.post('/change/email', accessController.ensureAuthenticated,settingsController.postChangeEmail)
@@ -74,7 +74,7 @@ module.exports = function (app){
   app.get('/chats', accessController.ensureAuthenticated,chatController.getChat )
   
   //jobs controller 
-  app.get('/jobs', accessController.ensureAuthenticatedJsonRes, jobsController.getJobsPage)
+  app.get('/jobs', jobsController.getJobsPage)
   app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer,accessController.ensureEmailChecked, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)
