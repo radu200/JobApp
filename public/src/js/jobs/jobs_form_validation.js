@@ -44,10 +44,7 @@ $('#job_add_form').on('submit', function (event) {
         $('.position-error').text('Te rog  compleateaza inputul pozitie')
         return false
     } 
-    // else if (!/^[a-zA-Z]*$/g.test(position) ){
-    //     $('.position-error').text('Te rog nu include cifre,mail sau url')
-    //      return false;
-    // } 
+   
     
     else {
         return true;
@@ -67,13 +64,10 @@ $('#job_add_form').on('submit', function (event) {
     if (description === "") {
         $('.description-error').text('Te rog  compleateaza descrierea')
         return false;
-        ///validation no numbers
+        
     } 
     
-    // else if (!/^[a-zA-Z]*$/g.test(description) ){
-    //     $('.description-error').text('Te rog nu include cifre,mail sau url ')
-    //     return false;
-    // } 
+ 
     
     else {
         return true;

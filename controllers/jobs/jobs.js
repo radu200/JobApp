@@ -63,7 +63,7 @@ module.exports.postAddJobs = (req, res, next) => {
     req.checkBody('category', 'Alege Categoria').notEmpty();
     req.checkBody("position", 'Poziția  este necesară').notEmpty()
     req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
-    req.checkBody("job_description", 'Descriere este necesara').notEmpty().isString();
+    // req.checkBody("job_description", 'Descriere este necesara').notEmpty().isString();
     req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
     req.checkBody('city', "Locatia este necesara").notEmpty();
     req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
@@ -118,15 +118,17 @@ module.exports.postAddJobs = (req, res, next) => {
 
 
     } else {
-        let images = ['/images/no_job_image_a.png', '/images/no_job_image_b.png', '/images//no_job_image_c.png'];
 
-        let random = images[Math.floor(Math.random() * images.length)];
-        job_image = random;
+        //pick up random image
+        // let images = ['/images/no_job_image_a.png', '/images/no_job_image_b.png', '/images//no_job_image_c.png'];
 
+        // let random = images[Math.floor(Math.random() * images.length)];
+        // job_image = random;
+        job_image = null;
 
     }
 
-    //   console.log('job_image',job_image)
+
 
 
 
@@ -186,7 +188,7 @@ module.exports.getJobImageEdit = (req, res, next) => {
 module.exports.postJobImageEdit = (req, res, next) => {
     db.query(`select id, image from jobs where id=${req.params.id}`, (err, results) => {
 
-        fs.unlink('./public/' + results[0].image, function (err) {
+        fs.unlink(`./public/${results[0].image}`, function (err) {
             if (err) {
                 console.log("failed to delete file:" + err);
             } else {
@@ -204,7 +206,7 @@ module.exports.postJobImageEdit = (req, res, next) => {
 
 
         if (req.file) {
-            var job_image_edit = '/uploads/' + req.file.filename;
+            var job_image_edit = 'uploads/' + req.file.filename;
             // resize image
             sharp(req.file.path)
                 .resize(820, 461)
@@ -228,15 +230,17 @@ module.exports.postJobImageEdit = (req, res, next) => {
                 });
 
 
-        } else {
+         }
+        // else {
 
-            let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png'];
+        //     // let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png'];
 
-            let random = images[Math.floor(Math.random() * images.length)];
+        //     // let random = images[Math.floor(Math.random() * images.length)];
 
-            job_image_edit = random;
+        //     // job_image_edit = random;
+        //     // job_image_edit = '/images/no_job_image.png'
 
-        }
+        // }
 
         let image = {
             image: job_image_edit
@@ -244,7 +248,7 @@ module.exports.postJobImageEdit = (req, res, next) => {
 
 
 
-        //creat employer
+      
         db.query(`update jobs set ? where id =${req.params.id}`, image, (error, results) => {
 
             if (err) {
@@ -411,7 +415,7 @@ module.exports.deleteJob = function (req, res, next) {
     db.query(`SELECT id,image FROM jobs  WHERE id =${id}`, function (err, results) {
         if (err) throw err;
         if (results[0].image) {
-            fs.unlink("./public" + results[0].image, function (err) {
+            fs.unlink("./public/" + results[0].image, function (err) {
 
                 if (err) {
                     console.log("failed to delete local image:" + err);

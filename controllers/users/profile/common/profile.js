@@ -76,11 +76,7 @@ module.exports.postProfileAvatarEdit = (req, res, next) => {
 
         } else {
 
-            let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png'];
-
-            let random = images[Math.floor(Math.random() * images.length)];
-
-            avatar = random;
+            avatar = null;
 
         }
 

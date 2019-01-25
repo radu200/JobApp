@@ -87,7 +87,7 @@ module.exports.postSignUpEmployer = function (req, res, next) {
                     first_name: first_name,
                     last_name: last_name,
                     type: 'employer',
-                    avatar: '/images/no_user_image.png',
+                    avatar:null,
                     email_confirmation_token: token,
                     terms_conditions: siteRules,
                     email_status: 'unverified'

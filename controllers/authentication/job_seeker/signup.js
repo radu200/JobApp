@@ -86,7 +86,7 @@ module.exports.postSignUpJobSeeker = function (req, res, next) {
                     first_name: first_name,
                     last_name: last_name,
                     type: 'jobseeker',
-                    avatar: '/images/no_user_image.png',
+                    avatar: null,
                     email_confirmation_token: token,
                     terms_conditions: siteRules,
                     email_status: 'unverified'

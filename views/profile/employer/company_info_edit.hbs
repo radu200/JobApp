@@ -8,19 +8,19 @@
                   <form method="post" action="/company/info/edit">
                       <div class="row">
                         <div class="input-field col s12">
-                            <input type="text"   placeholder="Numele " name="company_name" value="{{result.company_name}}" />
+                            <input type="text"   placeholder="Numele " name="company_name" value="{{result.company_name}}"  />
                         </div>
                      </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text"   placeholder="Tipul comapniei " name="company_type" value="{{result.company_type}}" />
+                            <input type="text"   placeholder="Tipul comapniei " name="company_type" value="{{result.company_type}}"  />
                         </div>
                      </div>
                         <div class="row">
                             <div class="col s12 m12">
                                 <p class="company_description_error error"></p>
                                 <div class="input-field">
-                                <textarea id="company_description" class="materialize-textarea"  data-length="250" placeholder="ex.Descriere.Te rog nu inlude numere" name="company_description"  maxlength="250" pattern="[a-zA-Z]*" >{{result.company_description}}</textarea>
+                                <textarea id="company_description" class="materialize-textarea"  data-length="250" placeholder="ex.Descriere.Te rog nu inlude numere" name="company_description"  maxlength="250"  >{{result.company_description}}</textarea>
                                     <span for="company_description"></span>
                                 </div>
                             </div>

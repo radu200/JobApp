@@ -72,9 +72,11 @@ module.exports.ensureEmailChecked = (req,res,next) => {
     
         if(results[0].email_status === "unverified" || results[0].email_status === null ){
             res.redirect('/resend/email/check')
-        } else {
-            return next();
+        } else if (results[0].email_status === undefined ){
+            res.redirect('/logout')
             
+       } else {
+        return next();
        }
      })
 }

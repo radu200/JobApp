@@ -1,5 +1,5 @@
  const db = require('../../../.././config/database.js');
-
+ const { check, validationResult } = require('express-validator/check');
 module.exports.getCandidate = (req,res,next) => {
    res.render('profile/employer/candidate_search')
 }
@@ -22,7 +22,7 @@ module.exports.getCandidateDetails = (req,res,next) => {
 module.exports.getEmployerProfileInfoEdit =  (req, res, next) => {
     db.query('select id, first_name, last_name from users where id = ?', [req.user.id], (err, results) => {
         if (err) throw err
-        console.log(results)
+       
         res.render('profile/employer/employer_profile_edit',{
                 'result':results[0]
             })
@@ -35,8 +35,8 @@ module.exports.getEmployerProfileInfoEdit =  (req, res, next) => {
  module.exports.postEmployerProfileInfoEdit =  (req, res, next) => {
     let  first_name = req.body.first_name_edit;
     let last_name = req.body.last_name_edit;
-    req.checkBody('first_name', 'Prenumele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
-    req.checkBody('last_name ', 'Numele trebuie să aibă o lungime între 1 și 250 de caractere').len(0, 250);
+    req.checkBody('first_name', 'Prenumele trebuie să aibă o lungime între 1 și 250 de caractere').len(1, 250);
+    req.checkBody('last_name ', 'Numele trebuie să aibă o lungime între 1 și 250 de caractere').len(1, 250);
 
     const errors = req.validationErrors();
 
@@ -78,12 +78,16 @@ module.exports.postCompanyInfoEdit =  (req, res, next) => {
     const description = req.body.company_description
     const location = req.body.company_location;
     const type = req.body.company_type;
+    console.log(name)
+    console.log(type)
+
+    req.checkBody('companyName ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').notEmpty();
+    req.checkBody('companyType ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').notEmpty()
+    // req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({ min: 1, max:250 });
+    //  req.checkBody('companyName ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').isLength({ min: 1, max:70 });
+    // req.checkBody('companyType ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').isLength({ min: 1, max:70 });
+    // req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({ min: 1, max:250 });
     
-    
-    req.checkBody('company_name ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').len(70);
-    req.checkBody('company_location ', 'Locatia companiei trebuie să fie din litere numai').isString();
-    req.checkBody('company_type ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').len(70);
-    req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({ min: 1, max:250 });
     
     
 
@@ -93,7 +97,7 @@ module.exports.postCompanyInfoEdit =  (req, res, next) => {
 
     if (errors) {
        req.flash('error_msg', errors);
-        return  res.redirect('back')
+        return  res.redirect('/company/info/edit')
     }
 
     let company = {
