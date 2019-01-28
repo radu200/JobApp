@@ -107,7 +107,7 @@ module.exports.postSignUpJobSeeker = function (req, res, next) {
                     msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul"
                 });
 
-                res.redirect('back')
+                res.redirect('/login')
 
             })
 

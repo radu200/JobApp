@@ -33,10 +33,10 @@ module.exports.getEmployerProfileInfoEdit =  (req, res, next) => {
 
  //employer
  module.exports.postEmployerProfileInfoEdit =  (req, res, next) => {
-    let  first_name = req.body.first_name_edit;
-    let last_name = req.body.last_name_edit;
-    req.checkBody('first_name', 'Prenumele trebuie să aibă o lungime între 1 și 250 de caractere').len(1, 250);
-    req.checkBody('last_name ', 'Numele trebuie să aibă o lungime între 1 și 250 de caractere').len(1, 250);
+    let  first_name = req.body.firstName
+    let last_name = req.body.lastName;
+    req.checkBody('firstName', 'Prenumele trebuie să aibă o lungime între 1 și 250 de caractere').len(1, 250);
+    req.checkBody('lastName', 'Numele de familie trebuie să aibă o lungime între 1 și 250 de caractere').len(1, 250);
 
     const errors = req.validationErrors();
 
@@ -74,24 +74,18 @@ module.exports.getCompanyInfoEdit =  (req, res, next) => {
  //employer
 module.exports.postCompanyInfoEdit =  (req, res, next) => {
 
-    const name = req.body.company_name;
+    const name = req.body.companyName;
     const description = req.body.company_description
     const location = req.body.company_location;
-    const type = req.body.company_type;
+    const type = req.body.companyType;
     console.log(name)
     console.log(type)
-
-    req.checkBody('companyName ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').notEmpty();
-    req.checkBody('companyType ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').notEmpty()
-    // req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({ min: 1, max:250 });
-    //  req.checkBody('companyName ', 'Numele trebuie să aibă o lungime pina la 70 de caractere').isLength({ min: 1, max:70 });
-    // req.checkBody('companyType ', 'Tipul companiei trebuie să aibă o lungime pina la 70 de caractere').isLength({ min: 1, max:70 });
-    // req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime pina la 250 de caractere').isLength({ min: 1, max:250 });
-    
-    
-    
-
+    //asta e solutia validarii
+    req.checkBody('companyName', 'Numele trebuie să aibă o lungime intre 1 si 70 de caractere.').len(1, 70);
+    req.checkBody('companyType', 'Tipul companiei trebuie să aibă o lungime intre 1 si 70 de caractere').len(1, 70);
+    req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime intre 1 si 250 de caractere').len(1, 70);
  
+    
 
     const errors = req.validationErrors();
 

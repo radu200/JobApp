@@ -33,7 +33,7 @@ module.exports.postChangePassword = (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('/password/reset')
+        return res.redirect('back')
     }
 
     db.query("SELECT users.password,users.email, users.first_name FROM users WHERE id = ?", [req.user.id], function (err, rows) {

@@ -17,14 +17,14 @@
           <h5 class="break_text">{{result.first_name}}</h5>
           <h5 class="break_text">{{result.last_name}}</h5>
           <p>{{result.email}}</p>
-          <a class="btn grey" href="/password/reset">Schimba Parola</a>
+          <a class="btn grey" href="/change/password">Schimba Parola</a>
         </div>
         <div class="card-action">
           <a class="btn grey center" href="/profile/info/edit">Editeaza Profilul</a>
         </div>
       </div>
     </div>
-     {{#if result.company_name}}
+    {{#if result.company_name }}
      <div class="col s12 m6 l4 center">
       <div class="card">
         <div class="card-title">Informatie despre companie</div>
@@ -43,15 +43,13 @@
      <div class="col s12 m6 l4 center">
       <div class="card">
         <div class="card-title">Informatie despre companie</div>
-        <div class="card-content center">
-         <p>Adauga informatie despre companie pentru ca oamenii sa afle mai mult.</p>
-        </div>
+        <h6>Adauga mai multa informatie despre companie.</h6>
         <div class="card-action">
           <a class="btn grey center" href="/company/info/edit" >Adauga</a>
         </div>
       </div>
     </div>
-  {{/if}}
+    {{/if}}
   </div>
  </div>   
 
