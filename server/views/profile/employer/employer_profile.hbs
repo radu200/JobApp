@@ -1,0 +1,55 @@
+{{>NavBarEmployer}}
+  {{>alerts}}
+
+<div class="container">
+ <div class="row">
+    <div class="col s12 m6 l4 center">
+      <div class="card">
+        <a class="btn grey right tooltipped" href="/profile/avatar " data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">create</i></a>
+        <div class="card-image card-profile-image">
+          {{#if this.result.avatar }}
+          <img  src="{{this.result.avatar}}" class="avatar">
+          {{else}}
+          <img  src="/images/no_user.png" class="avatar">
+          {{/if}}
+        </div>
+        <div class="card-content center">
+          <h5 class="break_text">{{result.first_name}}</h5>
+          <h5 class="break_text">{{result.last_name}}</h5>
+          <p>{{result.email}}</p>
+          <a class="btn grey" href="/change/password">Schimba Parola</a>
+        </div>
+        <div class="card-action">
+          <a class="btn grey center" href="/profile/edit/employer">Editeaza Profilul</a>
+        </div>
+      </div>
+    </div>
+    {{#if result.company_name }}
+     <div class="col s12 m6 l4 center">
+      <div class="card">
+        <div class="card-title">Informatie despre companie</div>
+        <div class="card-content center">
+          <h4 class="break_text">{{result.company_name}}</h4>
+           <p class="break_text text-opacity"> {{result.company_type}}</p>
+          <p class="break_text"> {{result.company_description}}</p>
+          <p>{{result.company_location}}</p>
+        </div>
+        <div class="card-action">
+          <a class="btn grey center" href="/company/info/edit" > Editeaza</a>
+        </div>
+      </div>
+    </div>
+    {{else}}
+     <div class="col s12 m6 l4 center">
+      <div class="card">
+        <div class="card-title">Informatie despre companie</div>
+        <h6>Adauga mai multa informatie despre companie.</h6>
+        <div class="card-action">
+          <a class="btn grey center" href="/company/info/edit" >Adauga</a>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+ </div>   
+
