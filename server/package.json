@@ -11,6 +11,7 @@
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-es2015": "^6.24.1",
+    "concurrently": "^4.1.0",
     "css-loader": "0.28.11",
     "eslint": "5.0.1",
     "expose-loader": "0.7.5",
@@ -30,8 +31,10 @@
   "scripts": {
     "test": "npx jest",
     "test:coverage": "npx jest --coverage --bail",
-    "start": "node server.js",
-    "dev": " webpack --mode development --open --watch",
+    "server": "nodemon server.js",
+    "client": "cd ../client && yarn start ",
+    "webpack-dev": "webpack --mode development --open --watch",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run webpack-dev\"",
     "build": "webpack --mode production",
     "lint:js": "npx eslint",
     "stylelint": "npx stylelint 'src/**/*.scss'"
