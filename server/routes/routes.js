@@ -69,8 +69,10 @@ module.exports = function (app){
   
   //jobseeker
   app.get('/application', accessController.ensureAuthenticated,accessController.jobSeeker,JobSeekerProfileController.getApplication)
-  //app.get('/profile/edit/jobseeker', accessController.ensureAuthenticated,accessController.jobseeker, JobSeekerProfileController.getJobSeekerProfileInfoEdit)
-  //app.post('/profile/edit/jobseeker', accessController.ensureAuthenticated,accessController.jobseeker, JobSeekerProfileController.postJobSeekerProfileInfoEdit)
+  app.get('/profile-edit/jobseeker', accessController.ensureAuthenticated, accessController.jobSeeker, JobSeekerProfileController.getJobSeekerProfileInfoEdit)
+  app.post('/profile-edit/jobseeker', accessController.ensureAuthenticated,accessController.jobSeeker, JobSeekerProfileController.postJobSeekerProfileInfoEdit)
+  app.get('/profile-edit/jobseeker/experience', accessController.ensureAuthenticated,accessController.jobSeeker, JobSeekerProfileController.getJobSeekerProfileEditExperience)
+  app.post('/profile-edit/jobseeker/experience', accessController.ensureAuthenticated,accessController.jobSeeker, JobSeekerProfileController.postJobSeekerProfileEditExperience)
 
   //chat 
   app.get('/chats', accessController.ensureAuthenticated,chatController.getChat )
