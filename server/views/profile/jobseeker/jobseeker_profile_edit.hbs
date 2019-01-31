@@ -5,7 +5,7 @@
         <form id="employee_info_form" method="POST" action="/profile-edit/jobseeker">
 
             <!--employee personal info --->
-            <h5 class="center"><b>Informatia personala</b> <span class="red-text text-darken-2">*</span></h5>
+            <h5 class="center"><b>Informatia personala</b> </h5>
 
             <div class="col s12 m6 l6">
                 <div class="input-field">
@@ -19,10 +19,10 @@
             </div>
 
             <div class="col s12 m12 l12">
-                <h6> <b>Care este disponibilitatea dvs. actuală ? </b><span class="red-text text-darken-2">*</span></h6>
+                <h6> <b>Care este disponibilitatea dvs. actuală ? </h6>
                 <p class="city-error error"></p>
                 <div class="input-field">
-                    <select name="availability-employee" id="availability-employee">
+                    <select name="availabilityJobseeker">
                         <option value="Sunt disponibil pentru începerea imediată" selected>Sunt disponibil pentru începerea imediată</option>
                         <option value="Sunt disponibil, dar nu imediat">Sunt disponibil, dar nu imediat</option>
                         <option value="Nu sunt disponibil pentru oferte"> Nu sunt disponibil pentru oferte</option>
@@ -30,10 +30,10 @@
                 </div>
             </div>
             <div class="col s12 m12 l12">
-                <h6 class="text-opacity">Tipuri de angajare <span class="red-text text-darken-2"></span></h6>
+                <h6 class="text-opacity">Tipuri de angajare </h6>
                 <p class="city-error error"></p>
                 <div class="input-field">
-                    <select name="employement-type">
+                    <select name="employementType">
                         <option value="Timp deplin" selected>Timp deplin</option>
                         <option value="Cu jumătate de normă">Cu jumătate de normă</option>
                         <option value="Temporar"> Temporar</option>
@@ -43,17 +43,17 @@
                 </div>
             </div>
               <div class="col s12 m12 l12">
-                <h6> <b>Unde este locatia  dvs. la moment ? </b><span class="red-text text-darken-2"></span></h6>
+                <h6> <b>Unde este locatia  dvs. la moment ? </b></h6>
                 <div class="input-field">
-                    <input type="text" placeholder="Locatia dvs." maxlength="70" name="employee_location">
+                    <input type="text" placeholder="Locatia dvs." maxlength="70" name="jobseekerLocation">
                 </div>
             </div>
 
             <!--employee contact info  -->
-            <h5 class="center"><b>Informatia de contact</b> <span class="red-text text-darken-2">*</span></h5>
+            <h5 class="center"><b>Informatia de contact</b> </h5>
              <div class="col s12 m6 l6">
                 <div class="input-field">
-                    <input type="email" placeholder="Email" maxlength="100" name="employeeEmail">
+                    <input type="email" placeholder="Email" maxlength="100" name="jobseekerEmail">
                 </div>
             </div>
             <div class="col s12 m6 l6">
@@ -62,11 +62,11 @@
                 </div>
             </div>
                <!--about me -->
-            <h5 class="center"><b>Despre Mine</b> <span class="red-text text-darken-2">*</span></h5>
+            <h5 class="center"><b>Despre Mine</b> </h5>
             <div class="col s12 m12">
                 <div class="input-field">
-                    <textarea id="description" class="materialize-textarea" data-length="240" placeholder="Despre mine."
-                        name="employee_description" maxlength="240"></textarea>
+                    <textarea class="materialize-textarea" data-length="240" placeholder="Despre mine."
+                        name="jobseekerDescription" maxlength="240"></textarea>
                     <span for="description"></span>
                 </div>
             </div>
@@ -84,11 +84,11 @@
                 </div>
             </div>
             
-            <h5 class="center"><b>Educatie</b> <span class="red-text text-darken-2">*</span></h5>
+            <h5 class="center"><b>Educatie</b> </h5>
             <div class="col s12 m12">
                 <div class="input-field">
                     <textarea id="education" class="materialize-textarea" data-length="240" placeholder="Educatie."
-                        name="employee_education" maxlength="240"></textarea>
+                        name="education" maxlength="240"></textarea>
                     <span for="description"></span>
                 </div>
             </div>
