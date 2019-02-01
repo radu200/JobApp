@@ -62,7 +62,7 @@ module.exports.postSignUpEmployer = function (req, res, next) {
             req.flash('error_msg', {
                 msg: 'Această adresă de e-mail este deja luată.'
             });
-            res.redirect('back')
+            res.redirect('/signup/employer')
 
         } else {
 

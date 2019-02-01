@@ -43,14 +43,14 @@ module.exports.getJobSeekerProfileEditExperience = (req,res,next) => {
 
 module.exports.postJobSeekerProfileEditExperience = (req,res,next) => {
   
-   const experience = req.body.categoryExperience;
+   const categoryExperience = req.body.categoryExperience;
    const position = req.body.position;
    const companyName = req.body.companyName
    const startDate = req.body.startDate;
    const endDate = req.body.endDate;
    const mainResposibilities =  req.body.mainResposibilities;
 
-   console.log(experience);
+   console.log(categoryExperience);
    console.log(position)
    console.log(companyName)
    console.log('start',startDate)
