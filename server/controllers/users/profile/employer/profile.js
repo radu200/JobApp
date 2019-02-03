@@ -74,7 +74,7 @@ module.exports.getCompanyInfoEdit =  (req, res, next) => {
 module.exports.postCompanyInfoEdit =  (req, res, next) => {
 
     const name = req.body.companyName;
-    const description = req.body.company_description
+    const description = req.body.companyDescription
     const location = req.body.company_location;
     const type = req.body.companyType;
     console.log(name)
@@ -82,7 +82,7 @@ module.exports.postCompanyInfoEdit =  (req, res, next) => {
     //asta e solutia validarii
     req.checkBody('companyName', 'Numele trebuie să aibă o lungime intre 1 si 70 de caractere.').len(1, 70);
     req.checkBody('companyType', 'Tipul companiei trebuie să aibă o lungime intre 1 si 70 de caractere').len(1, 70);
-    req.checkBody('company_description', 'Descrierea trebuie să aibă o lungime intre 1 si 250 de caractere').len(1, 70);
+    req.checkBody('companyDescription', 'Descrierea trebuie să aibă o lungime intre 1 si 250 de caractere').len(1, 250);
  
     
 
