@@ -291,8 +291,8 @@ module.exports.getChangeEmail = (req,res,next) => {
 }
 
 module.exports.postChangeEmail = (req,res,next) => {
-    let email = req.body.newEmail;
-    let password = req.body.password;
+     const email = req.body.newEmail;
+    const  password = req.body.password;
     console.log(email)
     console.log(password)
     req.checkBody('password', 'Password must be between 6-100 characters long').len(1, 100)
@@ -302,7 +302,8 @@ module.exports.postChangeEmail = (req,res,next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        res.redirect('back')
+        res.redirect('/change/email')
+        
     }
 
     db.query("SELECT users.email FROM users WHERE email  = ? ", [email], function (err, rows) {
@@ -310,14 +311,13 @@ module.exports.postChangeEmail = (req,res,next) => {
         if (err) {
             console.log("[mysql error]", err)
         }
-
         if (rows.length) {
             req.flash('error_msg', {
                 msg: "E-mailul este deja în uz.Utilizați un alt e-mail."
             })
-            return res.redirect('back')
-
+      
         } else {
+            
             db.query("SELECT users.password ,users.id FROM users WHERE id  = ? ", [req.user.id], function (err, rows) {
                 let hash = rows[0].password;
                 if (err) {
@@ -326,11 +326,13 @@ module.exports.postChangeEmail = (req,res,next) => {
 
                 bcrypt.compare(password, hash, function (error, result) {
                     if (result === false) {
+                        // res.redirect('/change/email')
                         req.flash('error_msg', {
                             msg: "Parola e gresita.Incerca-ti din nou."
                         });
-                        return res.redirect('back')
-                    } else if (result === true) {
+                    } else {
+                    
+                   if (result === true) {
                         crypto.randomBytes(16, function (err, buffer) {
                             let token = buffer.toString('hex');
                             db.query('UPDATE users SET email = ?, email_status = ?,email_confirmation_token = ? , email_token_expire = TIMESTAMPADD(HOUR, 2, NOW()) WHERE id = ? ', [email, 'unverified', token, rows[0].id], function (err, result) {
@@ -342,13 +344,14 @@ module.exports.postChangeEmail = (req,res,next) => {
                             })
                         })
 
+                        req.flash('info_msg', {
+                            msg: `A fost trimis un e-mail la
+                            ${email} cu instrucțiuni suplimentare.`
+                        });
+                        req.logout();
+                        res.redirect('/login')
                     }
-                    req.flash('info_msg', {
-                        msg: `A fost trimis un e-mail la
-                        ${email} cu instrucțiuni suplimentare.`
-                    });
-                    req.logout();
-                    res.redirect('/login')
+                   }
                 })
 
             })
