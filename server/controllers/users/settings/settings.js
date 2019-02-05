@@ -286,16 +286,21 @@ module.exports.postResendEmailCheck = (req, res, next) => {
 }
 
 
-module.exports.getChangeEmail = (req,res,next) => {
+module.exports.getChangeEmail = (req, res, next) => {
     res.render('./users/settings/change_email')
 }
 
-module.exports.postChangeEmail = (req,res,next) => {
-     const email = req.body.newEmail;
-    const  password = req.body.password;
-    console.log(email)
-    console.log(password)
-    req.checkBody('password', 'Password must be between 6-100 characters long').len(1, 100)
+module.exports.postChangeEmail = async (req, res, next) => {
+
+
+
+
+
+    const email = req.body.newEmail;
+    const password = req.body.password;
+    // // console.log(email)
+    // // console.log(password)
+    req.checkBody('password', 'Parola este necesara.').len(1, 100)
     req.checkBody('newEmail', 'Email nu este valid.').isEmail();
 
     const errors = req.validationErrors();
@@ -303,65 +308,216 @@ module.exports.postChangeEmail = (req,res,next) => {
     if (errors) {
         req.flash('error_msg', errors);
         res.redirect('/change/email')
-        
+
     }
 
-    db.query("SELECT users.email FROM users WHERE email  = ? ", [email], function (err, rows) {
 
-        if (err) {
-            console.log("[mysql error]", err)
-        }
-        if (rows.length) {
-            req.flash('error_msg', {
-                msg: "E-mailul este deja în uz.Utilizați un alt e-mail."
-            })
-      
-        } else {
-            
-            db.query("SELECT users.password ,users.id FROM users WHERE id  = ? ", [req.user.id], function (err, rows) {
-                let hash = rows[0].password;
-                if (err) {
-                    throw (err)
-                }
 
-                bcrypt.compare(password, hash, function (error, result) {
-                    if (result === false) {
-                        // res.redirect('/change/email')
-                        req.flash('error_msg', {
-                            msg: "Parola e gresita.Incerca-ti din nou."
-                        });
-                    } else {
-                    
-                   if (result === true) {
-                        crypto.randomBytes(16, function (err, buffer) {
-                            let token = buffer.toString('hex');
-                            db.query('UPDATE users SET email = ?, email_status = ?,email_confirmation_token = ? , email_token_expire = TIMESTAMPADD(HOUR, 2, NOW()) WHERE id = ? ', [email, 'unverified', token, rows[0].id], function (err, result) {
-                                if (err) throw err
-                              
-                               
-                           send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token)
+    const CompareEmail = new Promise((resolve, reject) => {
+        db.query("SELECT users.email FROM users WHER email  = ? ", [email], function (err, result) {
+            if (err) {
+                reject(err)
+            }else {
 
-                            })
-                        })
+                resolve(result[0].email)
+            }
 
-                        req.flash('info_msg', {
-                            msg: `A fost trimis un e-mail la
-                            ${email} cu instrucțiuni suplimentare.`
-                        });
-                        req.logout();
-                        res.redirect('/login')
-                    }
-                   }
-                })
 
-            })
-
-        }
-
+        })
     })
+
+    const getPasswordCheck = new Promise((resolve, reject) => {
+        db.query("SELECT users.password ,users.id FROM users WHERE id  = ? ", [req.user.id], function (err, result) {
+
+            if (err) {
+                reject(err)
+            }
+            resolve(result[0].password)
+        })
+    })
+
+
+    const CompareEmailRes = await CompareEmail;
+    console.log(CompareEmailRes)
+    const hash = await getPasswordCheck;
+    console.log(hash)
+    // try {
+
+         
+    //     // if (CompareEmailRes.length) {
+    //     //     res.redirect('/change/email')
+    //     //     console.log('E-mailul este deja în uz.Utilizați un alt e-mail')
+    //     //     //  req.flash('error_msg', {
+    //     //     //     msg: "E-mailul este deja în uz.Utilizați un alt e-mail."
+    //     //     // })     
+    //     // } else {
+    //     //     return next();
+    //     // }
+
+
+
+
+    // } catch (err) {
+    //     // console.log(err)
+    // }
+
+
+
+    // console.log(CompareEmailRes);
+
+    //     console.log('promise meu',getEmail)
+    //     res.redirect('/change/email')
+    // db.query("SELECT users.email FROM users WHERE email  = ? ", [email], function (err, rows) {
+
+    //     if (err) {
+    //         console.log("[mysql error]", err)
+    //     }
+    //     if (rows.length) {
+    //         res.redirect('/change/ema
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    //         req.flash('error_msg', {
+    //             msg: "E-mailul este deja în uz.Utilizați un alt e-mail."
+    //         })
+
+    //     } else {
+
+    //         db.query("SELECT users.password ,users.id FROM users WHERE id  = ? ", [req.user.id], function (err, rows) {
+    //             let hash = rows[0].password;
+    //             if (err) {
+    //                 throw (err)
+    //             }
+
+    //             bcrypt.compare(password, hash, function (error, result) {
+    //                 if (result === false) {
+    //                     // res.redirect('/change/email')
+    //                     req.flash('error_msg', {
+    //                         msg: "Parola e gresita.Incerca-ti din nou."
+    //                     });
+    //                 } else {
+
+    //                if (result === true) {
+    //                     crypto.randomBytes(16, function (err, buffer) {
+    //                         let token = buffer.toString('hex');
+    //                         db.query('UPDATE users SET email = ?, email_status = ?,email_confirmation_token = ? , email_token_expire = TIMESTAMPADD(HOUR, 2, NOW()) WHERE id = ? ', [email, 'unverified', token, rows[0].id], function (err, result) {
+    //                             if (err) throw err
+
+
+    //                        send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token)
+
+    //                         })
+    //                     })
+
+    //                     req.flash('info_msg', {
+    //                         msg: `A fost trimis un e-mail la
+    //                         ${email} cu instrucțiuni suplimentare.`
+    //                     });
+    //                     req.logout();
+    //                     res.redirect('/login')
+    //                 }
+    //                }
+    //             })
+
+    //         })
+
+    //     }
+
+    // })
 
 }
 
-module.exports.getSettings = (req,res,next) => {
+module.exports.getSettings = (req, res, next) => {
     res.render('./users/settings/settings')
 }

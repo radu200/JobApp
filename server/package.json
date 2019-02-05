@@ -42,6 +42,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "2.0.1",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "compression": "1.7.2",
     "connect-flash": "0.1.1",

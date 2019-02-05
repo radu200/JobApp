@@ -1,9 +1,10 @@
 
 
 
-const mysql = require('mysql2')
 
-const connection = mysql.createPool({
+const mysql = require('mysql2/promise');
+
+const connection =  mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -12,15 +13,12 @@ const connection = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
 
-})
-
-
-// connection.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// });
+ })
 
 
 
 
-module.exports = connection;
+
+
+
+ module.exports  = connection;

@@ -1,4 +1,4 @@
-const db = require('../.././config/database.js');
+const connection = require('../.././config/database.js');
 const fs = require('fs')
 const sharp = require('sharp')
 
@@ -6,19 +6,30 @@ const sharp = require('sharp')
 
 
 
-module.exports.getJobsPage =  async (req, res, next) => {
+module.exports.getJobsPage = async (req, res, next) => {
+     //await conection
+    const db = await connection
 
 
-    db.query(`select * from jobs `, function (err, results) {
-        if (err) {
-            console.log("[mysql error],", err)
-        } else {
-            res.render('./jobs/jobs', {
-                results: results
-                })
-        }
+    try {
+        const [jobs] = await db.execute('select * from jobs');
+        res.render('./jobs/jobs', {results: jobs })
+    } catch (err) {
+        console.log(err)
+    }
 
-    })
+
+
+    // db.query(`select * from jobs `, function (err, results) {
+    //     if (err) {
+    //         console.log("[mysql error],", err)
+    //     } else {
+    //         res.render('./jobs/jobs', {
+    //             results: results
+    //             })
+    //     }
+
+    // })
 
 
     // })
@@ -91,7 +102,7 @@ module.exports.postAddJobs = (req, res, next) => {
 
 
 
-  
+
 
 
     if (req.file) {
@@ -234,7 +245,7 @@ module.exports.postJobImageEdit = (req, res, next) => {
                 });
 
 
-         }
+        }
         // else {
 
         //     // let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png'];
@@ -252,7 +263,7 @@ module.exports.postJobImageEdit = (req, res, next) => {
 
 
 
-      
+
         db.query(`update jobs set ? where id =${req.params.id}`, image, (error, results) => {
 
             if (err) {
