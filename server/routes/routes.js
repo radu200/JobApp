@@ -34,7 +34,7 @@ module.exports = function (app){
 
 
   //user settings 
-   app.get('/settings', settingsController.getSettings);
+   app.get('/settings', accessController.ensureAuthenticated, settingsController.getSettings);
   //change email
   app.get('/change/email', accessController.ensureAuthenticated,settingsController.getChangeEmail)
   app.post('/change/email', accessController.ensureAuthenticated,settingsController.postChangeEmail)
@@ -48,7 +48,7 @@ module.exports = function (app){
    app.get('/forgot/password/reset/:token', settingsController.getForgotPasswordReset)
    app.post('/forgot/password/reset/:token', settingsController.postForgotPasswordReset)
    //change pasword within profile
-   app.get('/change/password', accessController.ensureAuthenticated, settingsController.getChangePassword)
+   app.get('/change/password', accessController.ensureAuthenticated, accessController.ensureEmailChecked, settingsController.getChangePassword)
    app.post('/change/password', accessController.ensureAuthenticated, settingsController.postChangePassword)
 
   //profile common
