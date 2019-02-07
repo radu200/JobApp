@@ -1,4 +1,9 @@
-const db = require('../../../././config/database.js');
+const {
+    db
+} = require('../../../././config/database.js');
+const {
+    dbPromise
+} = require('../../../././config/database.js');
 const nodemailer = require("nodemailer");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -311,210 +316,63 @@ module.exports.postChangeEmail = async (req, res, next) => {
 
     }
 
-
-
-    const CompareEmail = new Promise((resolve, reject) => {
-        db.query("SELECT users.email FROM users WHER email  = ? ", [email], function (err, result) {
-            if (err) {
-                reject(err)
-            }else {
-
-                resolve(result[0].email)
-            }
-
-
-        })
-    })
-
-    const getPasswordCheck = new Promise((resolve, reject) => {
-        db.query("SELECT users.password ,users.id FROM users WHERE id  = ? ", [req.user.id], function (err, result) {
-
+    const CryptoToken = new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buffer) => {
             if (err) {
                 reject(err)
             }
-            resolve(result[0].password)
+            resolve(buffer.toString('hex'));
         })
     })
 
 
-    const CompareEmailRes = await CompareEmail;
-    console.log(CompareEmailRes)
-    const hash = await getPasswordCheck;
-    console.log(hash)
-    // try {
 
-         
-    //     // if (CompareEmailRes.length) {
-    //     //     res.redirect('/change/email')
-    //     //     console.log('E-mailul este deja în uz.Utilizați un alt e-mail')
-    //     //     //  req.flash('error_msg', {
-    //     //     //     msg: "E-mailul este deja în uz.Utilizați un alt e-mail."
-    //     //     // })     
-    //     // } else {
-    //     //     return next();
-    //     // }
+    try {
 
+        const conn = await dbPromise;
 
+     
+        const [userDetails] = await conn.execute("SELECT users.id,users.email, users.password  FROM users WHERE id  = ? ", [req.user.id]);
+       
 
+        if (userDetails[0].email === email) {
+            req.flash('error_msg', {
+                msg: 'E-mailul este deja în uz.Utilizați un alt e-mail'
+            });
+            res.redirect('/change/email')
+            return false;
 
-    // } catch (err) {
-    //     // console.log(err)
-    // }
+        }
 
+        const match = await bcrypt.compare(password, userDetails[0].password);
 
+        if (!match) {
+            req.flash('error_msg', { msg: 'Parola e gresita.Incerca-ti din nou.'});
+            
+            res.redirect('/change/email')
+           
+            return false;
 
-    // console.log(CompareEmailRes);
+        } else {
+             
+            const token = await CryptoToken;
 
-    //     console.log('promise meu',getEmail)
-    //     res.redirect('/change/email')
-    // db.query("SELECT users.email FROM users WHERE email  = ? ", [email], function (err, rows) {
+            await conn.execute('UPDATE users SET email = ?, email_status = ?,email_confirmation_token = ? , email_token_expire = TIMESTAMPADD(HOUR, 2, NOW()) WHERE id = ? ', [email, 'unverified', token, req.user.id]);
+            
+            ///send token to email
+            await send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token)
 
-    //     if (err) {
-    //         console.log("[mysql error]", err)
-    //     }
-    //     if (rows.length) {
-    //         res.redirect('/change/ema
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+            await req.logout();
+            
+            req.flash('info_msg', { msg: `A fost trimis un e-mail la ${email} cu instrucțiuni suplimentare.`});
+           
+            res.redirect('/login')
 
-    //         req.flash('error_msg', {
-    //             msg: "E-mailul este deja în uz.Utilizați un alt e-mail."
-    //         })
+        }
 
-    //     } else {
-
-    //         db.query("SELECT users.password ,users.id FROM users WHERE id  = ? ", [req.user.id], function (err, rows) {
-    //             let hash = rows[0].password;
-    //             if (err) {
-    //                 throw (err)
-    //             }
-
-    //             bcrypt.compare(password, hash, function (error, result) {
-    //                 if (result === false) {
-    //                     // res.redirect('/change/email')
-    //                     req.flash('error_msg', {
-    //                         msg: "Parola e gresita.Incerca-ti din nou."
-    //                     });
-    //                 } else {
-
-    //                if (result === true) {
-    //                     crypto.randomBytes(16, function (err, buffer) {
-    //                         let token = buffer.toString('hex');
-    //                         db.query('UPDATE users SET email = ?, email_status = ?,email_confirmation_token = ? , email_token_expire = TIMESTAMPADD(HOUR, 2, NOW()) WHERE id = ? ', [email, 'unverified', token, rows[0].id], function (err, result) {
-    //                             if (err) throw err
-
-
-    //                        send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token)
-
-    //                         })
-    //                     })
-
-    //                     req.flash('info_msg', {
-    //                         msg: `A fost trimis un e-mail la
-    //                         ${email} cu instrucțiuni suplimentare.`
-    //                     });
-    //                     req.logout();
-    //                     res.redirect('/login')
-    //                 }
-    //                }
-    //             })
-
-    //         })
-
-    //     }
-
-    // })
+    } catch (err) {
+        console.log(err)
+    }
 
 }
 

@@ -1,4 +1,4 @@
-const db = require('.././config/database.js');
+const {db} = require('.././config/database.js');
 module.exports.loggedIn = (req, res, next) => {
     if (req.user) {
         next();

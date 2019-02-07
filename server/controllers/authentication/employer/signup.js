@@ -1,9 +1,9 @@
-const db = require('../../../config/database.js');
+const {db }= require('../../../config/database.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const request = require('request');
+
 const recaptcha = require('../../../middleware/recaptcha')
 const send_emails = require('../../send_emails/send_emails')
 

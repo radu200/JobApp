@@ -1,4 +1,5 @@
-const connection = require('../.././config/database.js');
+const {db} = require('../.././config/database.js');
+const {dbPromise} = require('../.././config/database.js');
 const fs = require('fs')
 const sharp = require('sharp')
 
@@ -8,11 +9,10 @@ const sharp = require('sharp')
 
 module.exports.getJobsPage = async (req, res, next) => {
      //await conection
-    const db = await connection
+     try {
+        const conn = await dbPromise
 
-
-    try {
-        const [jobs] = await db.execute('select * from jobs');
+        const jobs = await conn.execute('select * from jobs');
         res.render('./jobs/jobs', {results: jobs })
     } catch (err) {
         console.log(err)
@@ -20,16 +20,6 @@ module.exports.getJobsPage = async (req, res, next) => {
 
 
 
-    // db.query(`select * from jobs `, function (err, results) {
-    //     if (err) {
-    //         console.log("[mysql error],", err)
-    //     } else {
-    //         res.render('./jobs/jobs', {
-    //             results: results
-    //             })
-    //     }
-
-    // })
 
 
     // })

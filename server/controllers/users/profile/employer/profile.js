@@ -1,4 +1,4 @@
- const db = require('../../../.././config/database.js');
+ const {db} = require('../../../.././config/database.js');
  const { check, validationResult } = require('express-validator/check');
 module.exports.getCandidate = (req,res,next) => {
    res.render('profile/employer/candidate_search')

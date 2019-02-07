@@ -1,4 +1,4 @@
-const db = require('../../../.././config/database.js');
+const {db} = require('../../../.././config/database.js');
 const fs = require('fs')
 const sharp = require('sharp')
 

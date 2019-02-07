@@ -1,5 +1,5 @@
 
-const db = require('../../../config/database.js');
+const {db} = require('../../../config/database.js');
 const passport = require('passport');
 
 module.exports.getLogin = (req, res, next) => {

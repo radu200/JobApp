@@ -1,4 +1,4 @@
-const db = require('../../../config/database.js');
+const {db} = require('../../../config/database.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const crypto = require('crypto');
