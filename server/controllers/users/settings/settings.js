@@ -19,7 +19,7 @@ module.exports.getChangePassword = (req, res, next) => {
 
 };
 
-module.exports.postChangePassword =  async (req, res, next) => {
+module.exports.postChangePassword = async (req, res, next) => {
 
     let oldPassword = req.body.oldPassword;
     let newPassword = req.body.newPassword;
@@ -46,27 +46,27 @@ module.exports.postChangePassword =  async (req, res, next) => {
 
     try {
         const db = await dbPromise;
-         
+
         const [userDetails] = await db.execute("SELECT users.id, users.email, users.password  FROM users WHERE id = ?", [req.user.id]);
-        
+
         const match = await bcrypt.compare(oldPassword, userDetails[0].password);
-          
-        
+
+
         if (!match) {
             req.flash('error_msg', {
                 msg: "Parola veche este greșită. Încearcă din nou."
             })
             return res.redirect('back')
 
-         } else {
-        
-            const hashPassword =  await bcrypt.hash(newPassword, saltRounds);
+        } else {
 
-            
-            await Promise.all ([
+            const hashPassword = await bcrypt.hash(newPassword, saltRounds);
+
+
+            await Promise.all([
 
                 db.execute('UPDATE users SET password = ? WHERE id = ? ', [hashPassword, req.user.id]),
-                
+
                 send_emails.changePasswordProfile(req, res, next, nodemailer, userDetails[0].email)
             ])
 
@@ -76,7 +76,7 @@ module.exports.postChangePassword =  async (req, res, next) => {
             res.redirect('back')
         }
 
-     } catch (err){
+    } catch (err) {
         console.log(err)
     }
 
@@ -96,8 +96,11 @@ module.exports.getForgotPassword = (req, res, next) => {
 }
 
 //forgot password
-module.exports.postForgotPassword = (req, res, next) => {
+module.exports.postForgotPassword = async (req, res, next) => {
+
     req.checkBody('forgotPswEmail', ' Te rog introdu o adresa de email valida.').isEmail();
+
+    const email = req.body.forgotPswEmail;
 
 
     const errors = req.validationErrors();
@@ -105,187 +108,7 @@ module.exports.postForgotPassword = (req, res, next) => {
     if (errors) {
         req.flash('error_msg', errors);
         return res.redirect('/forgot/password');
-    } else {
-        let email = req.body.forgotPswEmail;
-        db.query('SELECT email FROM users WHERE email = ?', [email], function (err, results) {
-            if (err) throw err;
-
-            if (!results.length) {
-                req.flash('error_msg', {
-                    msg: 'Contul cu adresa de e-mail respectivă nu există.'
-                });
-                res.redirect('/forgot/password')
-
-
-            } else {
-
-                //create random token
-                crypto.randomBytes(16, function (err, buffer) {
-                    let token = buffer.toString('hex');
-                    // console.log('token',token)
-                    let updateToken = {
-                        forgotPasswordToken: token
-                    }
-                    db.query('UPDATE users SET ?, forgotPasswordTokenExpires = TIMESTAMPADD(HOUR, 1, NOW())  WHERE email = ? ', [updateToken, email], function (error, result) {
-                        if (error) throw error
-
-                    })
-
-
-                    send_emails.forgotPassword(req, res, next, nodemailer, email, token)
-
-                });
-                req.flash('success_msg', {
-                    msg: `A fost trimis un e-mail la
-                     ${email} cu instrucțiuni suplimentare.`
-                });
-                res.redirect('/forgot/password');
-
-
-            }
-        });
     }
-}
-
-
-
-
-
-
-//forgot password reset 
-module.exports.getForgotPasswordReset = (req, res, next) => {
-    db.query('SELECT users.password, users.forgotPasswordtoken , users.forgotPasswordTokenExpires FROM  users WHERE forgotPasswordtoken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token], function (err, rows, fields) {
-        if (err) throw err;
-
-        if (!rows.length) {
-            req.flash('error_msg', {
-                msg: 'Password reset token is invalid or has expired.'
-            })
-            res.render('./users/settins/forgot_password_reset');
-        } else {
-
-            res.render('./users/settings/forgot_password_reset', {
-                'result': rows[0],
-
-            })
-        }
-    })
-}
-
-module.exports.postForgotPasswordReset = (req, res, next) => {
-    let password = req.body.newPassword;
-    let confirm = req.body.confirmNewPassword
-    req.checkBody('password', 'Password must be between 6-100 characters long.').len(6, 100);
-    req.checkBody('confirm', 'Passwords do not match').equals(req.body.password);
-
-
-    const errors = req.validationErrors();
-
-    if (errors) {
-        req.flash('error_msg', errors);
-        return res.redirect('back');
-    }
-    /// check for valid token
-
-    db.query('SELECT users.id, users.email,users.first_name,users.password, users.forgotPasswordtoken,users.forgotPasswordTokenExpires,users.type  FROM  users WHERE forgotPasswordToken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token], function (err, rows, fields) {
-        if (err) {
-            console.log('[mysql error]', err)
-        }
-
-        let email = rows[0].email
-        let user = rows[0]
-
-        console.log('user', user)
-
-        if (!rows.length) {
-            req.flash('error_msg', {
-                msg: 'Resetarea parolei nu este validă sau a expirat.'
-            })
-            res.redirect('/forgot/password')
-
-        }
-
-        //hash and update password
-        bcrypt.hash(password, saltRounds, function (err, hash) {
-            db.query('UPDATE  users SET password = ? WHERE forgotPasswordToken = ? AND forgotPasswordTokenExpires > NOW()', [hash, req.params.token], function (error, result) {
-                if (error) throw error
-                console.log('updated')
-
-                send_emails.forgotPasswordSucess(req, res, next, nodemailer, email)
-
-                req.login(user, function (err) {
-                    req.flash('success_msg', {
-                        msg: 'Parola dvs. a fost schimbată.'
-                    });
-                    res.redirect('/profile')
-                });
-
-            })
-
-        })
-
-    })
-}
-
-
-
-
-///verify email after signup
-module.exports.getCheckEmail = function (req, res, next) {
-    let token = req.params.token
-    db.query('SELECT * FROM users where email_confirmation_token = ? AND email_token_expire > NOW()', [token], function (err, rows) {
-        if (err) {
-            console.log(err)
-        }
-
-        if (rows.length) {
-            // let verified = 'verified';
-            db.query('UPDATE users SET email_status = ? WHERE email_confirmation_token = ? AND email_token_expire > NOW()', ['verified', token], function (err, rows) {
-                if (err) throw err
-            })
-            db.query("UPDATE users SET email_confirmation_token = ? WHERE id = ? ", [null, rows[0].id])
-            req.login(rows[0], function (err) {
-                req.flash('success_msg', {
-                    msg: "Emailul dvs. a fost verificat cu succes.Va multumim!"
-                });
-                res.redirect('/profile')
-            });
-        } else {
-            req.flash('error_msg', {
-                msg: "Ne pare rau din pacate nu am putut sa va verificam emailul sau tokenul a expirat"
-            });
-            res.redirect('/login')
-        }
-
-    })
-}
-
-module.exports.getResendEmailCheck =  async (req, res, nexr) => {
-
-
-    try {
-        const db = await dbPromise;
-       
-        const [results] = await db.execute('select id,email,email_status from users where id = ?', [req.user.id]);
-      
-        if (results[0].email_status === 'unverified' || results[0].email_status === null) {
-           
-            res.render('./users/settings/resend_email_check_form', {
-                'results': results[0]
-            })
-
-        } else {
-
-            res.redirect('/profile')
-        }
-
-        } catch (err) {
-          console.log(err)
-      }
-
-
-}
-module.exports.postResendEmailCheck = async (req, res, next) => {
 
     const CryptoToken = new Promise((resolve, reject) => {
         crypto.randomBytes(16, (err, buffer) => {
@@ -299,10 +122,233 @@ module.exports.postResendEmailCheck = async (req, res, next) => {
 
     try {
         const db = await dbPromise;
+
+        const [userDetails] = await db.execute('SELECT email FROM users WHERE email = ?', [email]);
+         
+        if (userDetails.length === 0) {
+            req.flash('error_msg', {
+                msg: 'Contul cu adresa de e-mail respectivă nu există.'
+            });
+            return res.redirect('/forgot/password')
+
+        } else {
+
+            let token = await CryptoToken;
+
+           
+            await Promise.all([
+
+                db.execute('UPDATE users SET forgotPasswordToken = ? , forgotPasswordTokenExpires = TIMESTAMPADD(HOUR, 1, NOW())  WHERE email = ?', [token, email]),
+
+                send_emails.forgotPassword(req, res, next, nodemailer, email, token)
+            ])
+
+            req.flash('success_msg', {
+                msg: `A fost trimis un e-mail la
+                ${email} cu instrucțiuni suplimentare.`
+            });
+            res.redirect('/forgot/password');
+
+        }
+
+
+
+    } catch (err) {
+        console.log(err)
+
+    }
+
+
+}
+
+
+
+
+
+
+//forgot password reset 
+module.exports.getForgotPasswordReset = async (req, res, next) => {
+    
+    try {
+        const db = await dbPromise;
+        const [userDetails] = await db.execute('SELECT users.forgotPasswordtoken , users.forgotPasswordTokenExpires FROM  users WHERE forgotPasswordtoken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token]);
+
+        if (userDetails.length === 0) {
+         req.flash('error_msg', {
+             msg: 'Resetarea parolei nu este validă sau a expirat.'
+         })
+         res.render('./users/settings/forgot_password_reset');
+       } else {
+ 
+         res.render('./users/settings/forgot_password_reset', {
+             'result': userDetails[0]
+ 
+         })
+     }
+ 
+ 
+     } catch(err){
+         console.log(err)
+     }
+    
+    
+}
+
+module.exports.postForgotPasswordReset = async (req, res, next) => {
+  
+    let password = req.body.newPassword;
+    let confirm = req.body.confirmNewPassword
+    req.checkBody('newPassword', 'Password must be between 6-100 characters long.').len(6, 100);
+    req.checkBody('confirmNewPassword', 'Passwords do not match').equals(req.body.newPassword);
+
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('error_msg', errors);
+        return res.redirect('back');
+    }
+
+
+
+     try {
+
+        const db = await dbPromise;
+     
+        const [userDetails] =  await db.execute('SELECT users.id, users.email,users.first_name,users.password, users.forgotPasswordtoken,users.forgotPasswordTokenExpires,users.type  FROM  users WHERE forgotPasswordToken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token]);
+ 
+          if (userDetails.length === 0) {
+            req.flash('error_msg', {
+                msg: 'Resetarea parolei nu este validă sau a expirat.'
+            })
+            res.redirect('/forgot/password')
+
+        } 
+
+         const hashPassword = await bcrypt.hash(password, saltRounds);
+      
+
+      
+         await Promise.all ([
+            db.query('UPDATE  users SET password = ? WHERE forgotPasswordToken = ? AND forgotPasswordTokenExpires > NOW()', [hashPassword, req.params.token]),
+            
+            send_emails.forgotPasswordSucess(req, res, next, nodemailer, userDetails[0].email)
+        
+        ])
+         
+        await new Promise(function(resolve, reject) {
+            req.login(userDetails[0], function(err, data) {
+              if (err) reject(err);
+              else resolve(data);
+            });
+          })
+          
+     
+
+          req.flash('success_msg', {
+                msg: 'Parola dvs. a fost schimbată.'
+            });
+          res.redirect('/profile')
        
+        
+
+     } catch(err){
+         console.log(err)
+     }
+    
+
+   
+}
+
+
+
+
+///verify email after signup
+module.exports.getCheckEmail = async (req, res, next) => {
+  
+    const token = req.params.token
+
+
+
+     try {
+         const db = await dbPromise;
+        
+         const [userDetails] = await db.execute('SELECT id, password,type, email,first_name, last_name FROM users where email_confirmation_token = ? AND email_token_expire > NOW()', [token]);
+         
+          if(userDetails.length > 0){
+              await db.execute('UPDATE users SET email_status = ? WHERE email_confirmation_token = ? AND email_token_expire > NOW()', ['verified', token]);
+              
+              await db.execute('UPDATE users SET email_confirmation_token = ? WHERE id = ? ', [null, userDetails[0].id])
+              
+              await new Promise(function(resolve, reject) {
+                req.login(userDetails[0], function(err, data) {
+                  if (err) reject(err);
+                  else resolve(data);
+                });
+              })
+
+              req.flash('success_msg', {
+                msg: "Emailul dvs. a fost verificat cu succes.Va multumim!"
+            });
+              res.redirect('/profile')
+           
+            } else {
+                req.flash('error_msg', {
+                    msg: "Ne pare rau din pacate nu am putut sa va verificam emailul sau tokenul a expirat"
+                });
+                res.redirect('/login')
+            }
+
+     } catch (err){
+         console.log(err)
+     }
+    
+ 
+}
+
+module.exports.getResendEmailCheck = async (req, res, nexr) => {
+
+
+    try {
+        const db = await dbPromise;
+
+        const [results] = await db.execute('select id,email,email_status from users where id = ?', [req.user.id]);
+
+        if (results[0].email_status === 'unverified' || results[0].email_status === null) {
+
+            res.render('./users/settings/resend_email_check_form', {
+                'results': results[0]
+            })
+
+        } else {
+
+            res.redirect('/profile')
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
+
+
+}
+module.exports.postResendEmailCheck = async (req, res, next) => {
+
+ 
+
+
+    try {
+        const db = await dbPromise;
+
         const [userDetails] = await db.execute('select id,email from users where id = ?', [req.user.id]);
-       
-        const token = await CryptoToken;
+
+        const token = await new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buffer) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(buffer.toString('hex'));
+            })
+        })
 
         await Promise.all([
 
@@ -342,8 +388,7 @@ module.exports.postChangeEmail = async (req, res, next) => {
 
     const email = req.body.newEmail;
     const password = req.body.password;
-    // // console.log(email)
-    // // console.log(password)
+
     req.checkBody('password', 'Parola este necesara.').len(1, 100)
     req.checkBody('newEmail', 'Email nu este valid.').isEmail();
 
@@ -355,15 +400,7 @@ module.exports.postChangeEmail = async (req, res, next) => {
 
     }
 
-    const CryptoToken = new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buffer) => {
-            if (err) {
-                reject(err)
-            }
-            resolve(buffer.toString('hex'));
-        })
-    })
-
+  
 
 
     try {
@@ -394,7 +431,15 @@ module.exports.postChangeEmail = async (req, res, next) => {
 
         } else {
 
-            const token = await CryptoToken;
+            const token = await new Promise((resolve, reject) => {
+                crypto.randomBytes(16, (err, buffer) => {
+                    if (err) {
+                        reject(err)
+                    }
+                    resolve(buffer.toString('hex'));
+                })
+            })
+        
 
             await Promise.all([
 

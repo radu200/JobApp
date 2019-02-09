@@ -52,7 +52,7 @@ module.exports = function (app){
    app.post('/change/password', accessController.ensureAuthenticated, settingsController.postChangePassword)
 
   //profile common
-  app.get('/profile', accessController.ensureAuthenticated,accessController.ensureEmailChecked, profileController.getProfile)
+  app.get('/profile', accessController.ensureAuthenticated, profileController.getProfile)
   app.get('/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
   app.post('/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)  
   //employer profile

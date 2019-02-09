@@ -1,4 +1,6 @@
-const {db} = require('.././config/database.js');
+const {
+    db
+} = require('.././config/database.js');
 module.exports.loggedIn = (req, res, next) => {
     if (req.user) {
         next();
@@ -8,31 +10,31 @@ module.exports.loggedIn = (req, res, next) => {
 }
 
 //Login required middleware
-module.exports.ensureAuthenticated = function  (req, res, next) {  
+module.exports.ensureAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
-       return next();
-    }else{
-        
-     res.redirect('/login')
+        return next();
+    } else {
+
+        res.redirect('/login')
     }
-    
+
 };
 
 
 
 /// middleware for user access controll
-module.exports.employer = function (req,res,next){
-    if(req.user.type === 'employer'){
+module.exports.employer = function (req, res, next) {
+    if (req.user.type === 'employer') {
         return next();
-    }else{
+    } else {
         res.redirect('/login')
     }
 }
 
-module.exports.jobSeeker = function (req,res,next){
-    if(req.user.type === 'jobseeker'){
+module.exports.jobSeeker = function (req, res, next) {
+    if (req.user.type === 'jobseeker') {
         return next();
-    }else{
+    } else {
         res.redirect('/login')
     }
 }
@@ -41,52 +43,50 @@ module.exports.jobSeeker = function (req,res,next){
 
 //json format
 //Login required middleware
-module.exports.ensureAuthenticatedJsonRes = function  (req, res, next) {  
+module.exports.ensureAuthenticatedJsonRes = function (req, res, next) {
     if (req.isAuthenticated()) {
-       return next();
-    }else{    
-     res.json(
-         {
-          'message':'Te rog logheazate',
-           'code':99
-         }
-         )
+        return next();
+    } else {
+        res.json({
+            'message': 'Te rog logheazate',
+            'code': 99
+        })
     }
-    
+
 };
 
-module.exports.employerJsonRes = function (req,res,next){
+module.exports.employerJsonRes = function (req, res, next) {
 
     if (req.user.type === 'employer') {
         return next();
 
-    }else{      
+    } else {
         res.json('Te rog logheazate cu alt statut')
     }
 }
 
-module.exports.ensureEmailChecked = (req,res,next) => {
-    db.query('select id, email,email_status from users where id = ? ',[req.user.id], (err,results) => {
-         
+module.exports.ensureEmailChecked = (req, res, next) => {
+    db.query('select id, email,email_status from users where id = ? ', [req.user.id], (err, results) => {
+
         if (err) throw err;
-    
-        if(results[0].email_status === "unverified" || results[0].email_status === null ){
+
+        if (results[0].email_status === "unverified" || results[0].email_status === null) {
             res.redirect('/resend/email/check')
-        } else if (results[0].email_status === undefined ){
+        } else if (results[0].email_status === undefined) {
             res.redirect('/logout')
-            
-       } else {
-        return next();
-       }
-     })
+
+        } else {
+            return next();
+        }
+    })
 }
 
 
-module.exports.userAuthenticated = (req,res,next) => {
+module.exports.userAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         res.redirect('/profile');
-     }else{
-         
-      res.redirect('/login')
-     }
+    } else {
+
+        res.redirect('/login')
+    }
 }
