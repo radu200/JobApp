@@ -1,5 +1,9 @@
 const {db} = require('../../../.././config/database.js');
+const {
+dbPromise
+} = require('../../../.././config/database.js');
 const fs = require('fs')
+const fsPromises = fs.promises;
 const sharp = require('sharp')
 
 
@@ -34,84 +38,124 @@ module.exports.getProfileAvatarEdit = (req, res, next) => {
 
 }
 
-module.exports.postProfileAvatarEdit = (req, res, next) => {
-    db.query(`select id, avatar from users where id=${req.user.id}`, (err, results) => {
-
-        fs.unlink('./public/' + results[0].avatar, function (err) {
-            if (err) {
-                console.log("failed to delete file:" + err);
-            } else {
-                console.log('successfully deleted ');
-            }
-        })
+module.exports.postProfileAvatarEdit = async (req, res, next) => {
 
 
-        const errors = req.validationErrors();
-
-        if (errors) {
-            req.flash('error_msg', errors);
-            return res.redirect('back')
-        }
-
-
-        if (req.file) {
+    try {
+        const db =  await dbPromise;
+        const [userDetails] = await db.execute(`select id, avatar from users where id=${req.user.id}`);
+      
+       
+           
+        if (req.file){
             var avatar = './uploads/' + req.file.filename;
-            // resize image
-            sharp(req.file.path)
-                .resize(200, 157)
-                .toFile('./public/uploads/' + req.file.filename, (err, info) => {
-                    if (err) {
-                        console.log('sharp err', err)
-                    } else {
+           await  sharp(req.file.path)
+                        .resize(200, 157)
+                        .toFile('./public/uploads/' + req.file.filename);
+            ///remove image from temp folder
+           await  fsPromises.unlink('./public/tmp_folder/' + req.file.filename);
 
-                        //delete old image that was just resized
-                        fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
-                            if (err) {
-                                console.log("failed to delete file:" + err);
-                            } else {
-                                console.log('successfully deleted ');
-                            }
-                        })
-
-                        console.log('resized success')
-
-                    }
-                });
+         } else {
+             avatar = null;
+         }
 
 
-        } else {
-
-            avatar = null;
-
-        }
-
-        let image = {
-            avatar: avatar
-        }
+         await  db.execute(`update users set  avatar = ? where id=${req.user.id}`, [avatar]);
 
 
+         
+         if(userDetails[0].avatar !== null){
+             //remove old image if exists
+            const removeImage = await fsPromises.unlink('./public/' + userDetails[0].avatar)
+      
+           
+         }
+        
+         res.redirect('back')
 
-        //creat employer
-        db.query(`update users set ? where id =${req.user.id}`, image, (error, results) => {
+    } catch(err){
+        console.log(err)
 
-            if (err) {
-                // console.log('[mysql error]', error)
-                res.status(500).json({
-                    error: err
-                });
-            } else {
-                res.status(200).json({
-                    message: "image succefully edited"
-                })
-                // console.log(req.file.path)
+       
+    }
+
+    // db.query(`select id, avatar from users where id=${req.user.id}`, (err, results) => {
+
+    //     fs.unlink('./public/' + results[0].avatar, function (err) {
+    //         if (err) {
+    //             console.log("failed to delete file:" + err);
+    //         } else {
+    //             console.log('successfully deleted ');
+    //         }
+    //     })
 
 
-                //res.redirect('/my_jobs')
-            }
+    //     const errors = req.validationErrors();
 
-        })
+    //     if (errors) {
+    //         req.flash('error_msg', errors);
+    //         return res.redirect('back')
+    //     }
 
-    }) //db select query ends
+
+    //     if (req.file) {
+    //         var avatar = './uploads/' + req.file.filename;
+    //         // resize image
+    //         sharp(req.file.path)
+    //             .resize(200, 157)
+    //             .toFile('./public/uploads/' + req.file.filename, (err, info) => {
+    //                 if (err) {
+    //                     console.log('sharp err', err)
+    //                 } else {
+
+    //                     //delete old image that was just resized
+    //                     fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
+    //                         if (err) {
+    //                             console.log("failed to delete file:" + err);
+    //                         } else {
+    //                             console.log('successfully deleted ');
+    //                         }
+    //                     })
+
+    //                     console.log('resized success')
+
+    //                 }
+    //             });
+
+
+    //     } else {
+
+    //         avatar = null;
+
+    //     }
+
+    //     let image = {
+    //         avatar: avatar
+    //     }
+
+
+
+    //     //creat employer
+    //     db.query(`update users set ? where id =${req.user.id}`, image, (error, results) => {
+
+    //         if (err) {
+    //             // console.log('[mysql error]', error)
+    //             res.status(500).json({
+    //                 error: err
+    //             });
+    //         } else {
+    //             res.status(200).json({
+    //                 message: "image succefully edited"
+    //             })
+    //             // console.log(req.file.path)
+
+
+    //             //res.redirect('/my_jobs')
+    //         }
+
+    //     })
+
+    // }) //db select query ends
 
 }
 

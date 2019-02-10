@@ -110,21 +110,14 @@ module.exports.postForgotPassword = async (req, res, next) => {
         return res.redirect('/forgot/password');
     }
 
-    const CryptoToken = new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buffer) => {
-            if (err) {
-                reject(err)
-            }
-            resolve(buffer.toString('hex'));
-        })
-    })
+  
 
 
     try {
         const db = await dbPromise;
 
         const [userDetails] = await db.execute('SELECT email FROM users WHERE email = ?', [email]);
-         
+
         if (userDetails.length === 0) {
             req.flash('error_msg', {
                 msg: 'Contul cu adresa de e-mail respectivă nu există.'
@@ -133,9 +126,16 @@ module.exports.postForgotPassword = async (req, res, next) => {
 
         } else {
 
-            let token = await CryptoToken;
+            let token = await new Promise((resolve, reject) => {
+                crypto.randomBytes(16, (err, buffer) => {
+                    if (err) {
+                        reject(err)
+                    }
+                    resolve(buffer.toString('hex'));
+                })
+            })
 
-           
+
             await Promise.all([
 
                 db.execute('UPDATE users SET forgotPasswordToken = ? , forgotPasswordTokenExpires = TIMESTAMPADD(HOUR, 1, NOW())  WHERE email = ?', [token, email]),
@@ -168,34 +168,34 @@ module.exports.postForgotPassword = async (req, res, next) => {
 
 //forgot password reset 
 module.exports.getForgotPasswordReset = async (req, res, next) => {
-    
+
     try {
         const db = await dbPromise;
         const [userDetails] = await db.execute('SELECT users.forgotPasswordtoken , users.forgotPasswordTokenExpires FROM  users WHERE forgotPasswordtoken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token]);
 
         if (userDetails.length === 0) {
-         req.flash('error_msg', {
-             msg: 'Resetarea parolei nu este validă sau a expirat.'
-         })
-         res.render('./users/settings/forgot_password_reset');
-       } else {
- 
-         res.render('./users/settings/forgot_password_reset', {
-             'result': userDetails[0]
- 
-         })
-     }
- 
- 
-     } catch(err){
-         console.log(err)
-     }
-    
-    
+            req.flash('error_msg', {
+                msg: 'Resetarea parolei nu este validă sau a expirat.'
+            })
+            res.render('./users/settings/forgot_password_reset');
+        } else {
+
+            res.render('./users/settings/forgot_password_reset', {
+                'result': userDetails[0]
+
+            })
+        }
+
+
+    } catch (err) {
+        console.log(err)
+    }
+
+
 }
 
 module.exports.postForgotPasswordReset = async (req, res, next) => {
-  
+
     let password = req.body.newPassword;
     let confirm = req.body.confirmNewPassword
     req.checkBody('newPassword', 'Password must be between 6-100 characters long.').len(6, 100);
@@ -211,53 +211,53 @@ module.exports.postForgotPasswordReset = async (req, res, next) => {
 
 
 
-     try {
+    try {
 
         const db = await dbPromise;
-     
-        const [userDetails] =  await db.execute('SELECT users.id, users.email,users.first_name,users.password, users.forgotPasswordtoken,users.forgotPasswordTokenExpires,users.type  FROM  users WHERE forgotPasswordToken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token]);
- 
-          if (userDetails.length === 0) {
+
+        const [userDetails] = await db.execute('SELECT users.id, users.email,users.first_name,users.password, users.forgotPasswordtoken,users.forgotPasswordTokenExpires,users.type  FROM  users WHERE forgotPasswordToken = ? AND forgotPasswordTokenExpires > NOW()', [req.params.token]);
+
+        if (userDetails.length === 0) {
             req.flash('error_msg', {
                 msg: 'Resetarea parolei nu este validă sau a expirat.'
             })
             res.redirect('/forgot/password')
 
-        } 
+        }
 
-         const hashPassword = await bcrypt.hash(password, saltRounds);
-      
+        const hashPassword = await bcrypt.hash(password, saltRounds);
 
-      
-         await Promise.all ([
+
+
+        await Promise.all([
             db.query('UPDATE  users SET password = ? WHERE forgotPasswordToken = ? AND forgotPasswordTokenExpires > NOW()', [hashPassword, req.params.token]),
-            
+
             send_emails.forgotPasswordSucess(req, res, next, nodemailer, userDetails[0].email)
-        
+
         ])
-         
-        await new Promise(function(resolve, reject) {
-            req.login(userDetails[0], function(err, data) {
-              if (err) reject(err);
-              else resolve(data);
+
+        await new Promise(function (resolve, reject) {
+            req.login(userDetails[0], function (err, data) {
+                if (err) reject(err);
+                else resolve(data);
             });
-          })
-          
-     
+        })
 
-          req.flash('success_msg', {
-                msg: 'Parola dvs. a fost schimbată.'
-            });
-          res.redirect('/profile')
-       
-        
 
-     } catch(err){
-         console.log(err)
-     }
-    
 
-   
+        req.flash('success_msg', {
+            msg: 'Parola dvs. a fost schimbată.'
+        });
+        res.redirect('/profile')
+
+
+
+    } catch (err) {
+        console.log(err)
+    }
+
+
+
 }
 
 
@@ -265,45 +265,45 @@ module.exports.postForgotPasswordReset = async (req, res, next) => {
 
 ///verify email after signup
 module.exports.getCheckEmail = async (req, res, next) => {
-  
+
     const token = req.params.token
 
 
 
-     try {
-         const db = await dbPromise;
-        
-         const [userDetails] = await db.execute('SELECT id, password,type, email,first_name, last_name FROM users where email_confirmation_token = ? AND email_token_expire > NOW()', [token]);
-         
-          if(userDetails.length > 0){
-              await db.execute('UPDATE users SET email_status = ? WHERE email_confirmation_token = ? AND email_token_expire > NOW()', ['verified', token]);
-              
-              await db.execute('UPDATE users SET email_confirmation_token = ? WHERE id = ? ', [null, userDetails[0].id])
-              
-              await new Promise(function(resolve, reject) {
-                req.login(userDetails[0], function(err, data) {
-                  if (err) reject(err);
-                  else resolve(data);
-                });
-              })
+    try {
+        const db = await dbPromise;
 
-              req.flash('success_msg', {
+        const [userDetails] = await db.execute('SELECT id, password,type, email,first_name, last_name FROM users where email_confirmation_token = ? AND email_token_expire > NOW()', [token]);
+
+        if (userDetails.length > 0) {
+            await db.execute('UPDATE users SET email_status = ? WHERE email_confirmation_token = ? AND email_token_expire > NOW()', ['verified', token]);
+
+            await db.execute('UPDATE users SET email_confirmation_token = ? WHERE id = ? ', [null, userDetails[0].id])
+
+            await new Promise(function (resolve, reject) {
+                req.login(userDetails[0], function (err, data) {
+                    if (err) reject(err);
+                    else resolve(data);
+                });
+            })
+
+            req.flash('success_msg', {
                 msg: "Emailul dvs. a fost verificat cu succes.Va multumim!"
             });
-              res.redirect('/profile')
-           
-            } else {
-                req.flash('error_msg', {
-                    msg: "Ne pare rau din pacate nu am putut sa va verificam emailul sau tokenul a expirat"
-                });
-                res.redirect('/login')
-            }
+            res.redirect('/profile')
 
-     } catch (err){
-         console.log(err)
-     }
-    
- 
+        } else {
+            req.flash('error_msg', {
+                msg: "Ne pare rau din pacate nu am putut sa va verificam emailul sau tokenul a expirat"
+            });
+            res.redirect('/login')
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
+
+
 }
 
 module.exports.getResendEmailCheck = async (req, res, nexr) => {
@@ -333,7 +333,7 @@ module.exports.getResendEmailCheck = async (req, res, nexr) => {
 }
 module.exports.postResendEmailCheck = async (req, res, next) => {
 
- 
+
 
 
     try {
@@ -400,7 +400,7 @@ module.exports.postChangeEmail = async (req, res, next) => {
 
     }
 
-  
+
 
 
     try {
@@ -439,7 +439,7 @@ module.exports.postChangeEmail = async (req, res, next) => {
                     resolve(buffer.toString('hex'));
                 })
             })
-        
+
 
             await Promise.all([
 
