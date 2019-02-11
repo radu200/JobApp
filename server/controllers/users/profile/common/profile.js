@@ -49,113 +49,45 @@ module.exports.postProfileAvatarEdit = async (req, res, next) => {
            
         if (req.file){
             var avatar = './uploads/' + req.file.filename;
+            var filename = req.file.filename;
            await  sharp(req.file.path)
                         .resize(200, 157)
                         .toFile('./public/uploads/' + req.file.filename);
-            ///remove image from temp folder
-           await  fsPromises.unlink('./public/tmp_folder/' + req.file.filename);
+    
 
          } else {
              avatar = null;
          }
 
 
-         await  db.execute(`update users set  avatar = ? where id=${req.user.id}`, [avatar]);
+         await Promise.all([
 
-
-         
-         if(userDetails[0].avatar !== null){
-             //remove old image if exists
-            const removeImage = await fsPromises.unlink('./public/' + userDetails[0].avatar)
-      
-           
-         }
+             db.execute(`update users set  avatar = ? where id=${req.user.id}`, [avatar]),
+   
+           ///remove image from temp folder
+            fsPromises.unlink('./public/tmp_folder/' + req.file.filename),
+        ])
+            
+           if(userDetails[0].avatar !== null){
+                //remove old image if exists
+               await  fsPromises.unlink('./public/' + userDetails[0].avatar)
+                
+            }
+    
         
-         res.redirect('back')
+          res.json({
+              msg:'Image uploaded succefully'
+          })
 
     } catch(err){
         console.log(err)
-
+        res.json({
+            msg:'An error occurred'
+        })
        
     }
 
-    // db.query(`select id, avatar from users where id=${req.user.id}`, (err, results) => {
-
-    //     fs.unlink('./public/' + results[0].avatar, function (err) {
-    //         if (err) {
-    //             console.log("failed to delete file:" + err);
-    //         } else {
-    //             console.log('successfully deleted ');
-    //         }
-    //     })
-
-
-    //     const errors = req.validationErrors();
-
-    //     if (errors) {
-    //         req.flash('error_msg', errors);
-    //         return res.redirect('back')
-    //     }
-
-
-    //     if (req.file) {
-    //         var avatar = './uploads/' + req.file.filename;
-    //         // resize image
-    //         sharp(req.file.path)
-    //             .resize(200, 157)
-    //             .toFile('./public/uploads/' + req.file.filename, (err, info) => {
-    //                 if (err) {
-    //                     console.log('sharp err', err)
-    //                 } else {
-
-    //                     //delete old image that was just resized
-    //                     fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
-    //                         if (err) {
-    //                             console.log("failed to delete file:" + err);
-    //                         } else {
-    //                             console.log('successfully deleted ');
-    //                         }
-    //                     })
-
-    //                     console.log('resized success')
-
-    //                 }
-    //             });
-
-
-    //     } else {
-
-    //         avatar = null;
-
-    //     }
-
-    //     let image = {
-    //         avatar: avatar
-    //     }
-
-
-
-    //     //creat employer
-    //     db.query(`update users set ? where id =${req.user.id}`, image, (error, results) => {
-
-    //         if (err) {
-    //             // console.log('[mysql error]', error)
-    //             res.status(500).json({
-    //                 error: err
-    //             });
-    //         } else {
-    //             res.status(200).json({
-    //                 message: "image succefully edited"
-    //             })
-    //             // console.log(req.file.path)
-
-
-    //             //res.redirect('/my_jobs')
-    //         }
-
-    //     })
-
-    // }) //db select query ends
+  
 
 }
 
