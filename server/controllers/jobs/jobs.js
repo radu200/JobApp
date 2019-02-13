@@ -1,6 +1,11 @@
-const {db} = require('../.././config/database.js');
-const {dbPromise} = require('../.././config/database.js');
+const {
+    db
+} = require('../.././config/database.js');
+const {
+    dbPromise
+} = require('../.././config/database.js');
 const fs = require('fs')
+const fsPromises = fs.promises;
 const sharp = require('sharp')
 
 
@@ -8,12 +13,15 @@ const sharp = require('sharp')
 
 
 module.exports.getJobsPage = async (req, res, next) => {
-     //await conection
-     try {
-        const conn = await dbPromise
+    //await conection
+    try {
+        const db = await dbPromise
 
-        const jobs = await conn.execute('select * from jobs');
-        res.render('./jobs/jobs', {results: jobs })
+        const [jobs] = await db.execute('select * from jobs');
+        res.render('./jobs/jobs', {
+            'results': jobs
+        })
+
     } catch (err) {
         console.log(err)
     }
@@ -42,11 +50,11 @@ module.exports.getJobsPage = async (req, res, next) => {
 
 
 module.exports.getAddJobs = (req, res, next) => {
-    res.render('jobs/add_job')
+    res.render('jobs/add_job', )
 };
 
 
-module.exports.postAddJobs = (req, res, next) => {
+module.exports.postAddJobs = async (req, res, next) => {
 
 
 
@@ -59,7 +67,7 @@ module.exports.postAddJobs = (req, res, next) => {
     const salary = req.body.salary;
     const experience = req.body.experience;
     const language = req.body.language;
-    const currency = req.body.currency
+
 
 
 
@@ -93,61 +101,37 @@ module.exports.postAddJobs = (req, res, next) => {
 
 
 
-
-
-    if (req.file) {
-        var job_image = '/uploads/' + req.file.filename;
-
-
-        sharp(req.file.path)
-            .resize(820, 461)
-            .toFile('./public/uploads/' + req.file.filename, (err, info) => {
-                console.log(info)
-
-                if (err) {
-                    console.log('err', err)
-                } else {
-                    //delete original image
-                    fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
-                        if (err) {
-                            console.log("failed to delete file:" + err);
-                        } else {
-                            console.log('successfully deleted ');
-                        }
-                    })
-
-                    console.log('resized success')
-                }
-
-            });
-
-
-    } else {
-
-        //pick up random image
-        // let images = ['/images/no_job_image_a.png', '/images/no_job_image_b.png', '/images//no_job_image_c.png'];
-
-        // let random = images[Math.floor(Math.random() * images.length)];
-        // job_image = random;
-        job_image = null;
-
-    }
-
-
-
-
-
     const errors = req.validationErrors();
 
     if (errors) {
         req.flash('error_msg', errors);
         return res.redirect('/jobs/add')
-    } else {
+    }
+
+
+
+    try {
+
+        if (req.file) {
+            var job_image = '/uploads/' + req.file.filename;
+
+            await sharp(req.file.path)
+                .resize(200, 157)
+                .toFile('./public/uploads/' + req.file.filename);
+
+            await fsPromises.unlink('./public/tmp_folder/' + req.file.filename);
+
+        } else {
+            job_image = null;
+
+        }
+
+
+
 
         if (language) {
             var lang = language.toString();
         }
-
 
         let jobs = {
             employer_id: req.user.id,
@@ -160,164 +144,146 @@ module.exports.postAddJobs = (req, res, next) => {
             salary: salary,
             experience: experience,
             language: lang,
-            currency: currency,
             image: job_image
         }
 
+
+
         //     //creat employer
-        db.query('INSERT INTO jobs SET ?', jobs, (error, results) => {
+        await db.query("INSERT INTO jobs SET ?", jobs);
 
-            if (error) {
-                console.log('[mysql error]', error)
+        res.redirect('/my_jobs')
 
-            } else {
-                res.redirect('/my_jobs')
 
-            }
-        })
+
+    } catch (err) {
+        console.log(err)
+        req.flash('error_msg', {
+            msg: "O eroare a avut loc, incercati din nou."
+        });
+        res.redirect('back');
     }
+
+
+
 
 };
 
-module.exports.getJobImageEdit = (req, res, next) => {
-    db.query('select id, image from jobs  where id= ?', [req.params.id], (err, results) => {
+module.exports.getJobImageEdit = async (req, res, next) => {
+
+    try {
+        const db = await dbPromise;
+
+        const [userDetails] = await db.execute('select id, image from jobs  where id= ?', [req.params.id]);
 
         res.render('./jobs/job_edit_image', {
-            'results': results
+            'results': userDetails
         })
-    })
+
+    } catch (err) {
+        console.log(err)
+    }
+
 }
 
 
 
-module.exports.postJobImageEdit = (req, res, next) => {
-    db.query(`select id, image from jobs where id=${req.params.id}`, (err, results) => {
+module.exports.postJobImageEdit = async (req, res, next) => {
 
-        fs.unlink(`./public/${results[0].image}`, function (err) {
-            if (err) {
-                console.log("failed to delete file:" + err);
-            } else {
-                console.log('successfully deleted ');
-            }
-        })
+    try {
+        const db = await dbPromise;
 
-
-        const errors = req.validationErrors();
-
-        if (errors) {
-            req.flash('error_msg', errors);
-            return res.redirect('back')
-        }
-
+        const [userDetails] = await db.execute(`select id, image from jobs where id = ?`, [req.params.id]);
 
         if (req.file) {
-            var job_image_edit = 'uploads/' + req.file.filename;
-            // resize image
-            sharp(req.file.path)
+            var image = 'uploads/' + req.file.filename;
+            var filename = req.file.filename;
+            await sharp(req.file.path)
                 .resize(820, 461)
-                .toFile('./public/uploads/' + req.file.filename, (err, info) => {
-                    if (err) {
-                        console.log('sharp err', err)
-                    } else {
-
-                        //delete old image that was just resized
-                        fs.unlink('./public/tmp_folder/' + req.file.filename, function (err) {
-                            if (err) {
-                                console.log("failed to delete file:" + err);
-                            } else {
-                                console.log('successfully deleted ');
-                            }
-                        })
-
-                        console.log('resized success')
-
-                    }
-                });
+                .toFile(`./public/uploads/${req.file.filename}`);
 
 
-        }
-        // else {
-
-        //     // let images = ['/no_job_image_a.png', '/no_job_image_b.png', '/no_job_image_c.png'];
-
-        //     // let random = images[Math.floor(Math.random() * images.length)];
-
-        //     // job_image_edit = random;
-        //     // job_image_edit = '/images/no_job_image.png'
-
-        // }
-
-        let image = {
-            image: job_image_edit
+        } else {
+            image = null;
         }
 
 
+        await Promise.all([
+
+            db.execute(`update jobs set image = ? where id = ?`, [image, req.params.id]),
+
+            ///remove image from temp folder
+            fsPromises.unlink(`./public/tmp_folder/${filename}`),
+        ])
 
 
-        db.query(`update jobs set ? where id =${req.params.id}`, image, (error, results) => {
+        if (userDetails[0].image !== null) {
+            //remove old image if exists
+            await fsPromises.unlink(`./public/${userDetails[0].image}`)
 
-            if (err) {
-                // console.log('[mysql error]', error)
-                res.status(500).json({
-                    error: err
-                });
-            } else {
-                res.status(200).json({
-                    message: "image succefully edited"
-                })
-                // console.log(req.file.path)
+        }
 
-
-                //res.redirect('/my_jobs')
-            }
-
+        res.json({
+            msg: 'Image uploaded succefully'
         })
 
-
-
-
-
-    }) //db select query ends
-
-
-}; //module ends
+    } catch (err) {
+        console.log('jobimageEdit', err)
+        req.flash('error_msg', {
+            msg: "O eroare a avut loc, incercati din nou."
+        });
+        res.redirect('back');
+    }
+};
 
 
 
 //employer jobs
-module.exports.getEmployerJobs = (req, res, next) => {
-
-    db.query("select * from jobs where employer_id = ? ", [req.user.id], function (err, results) {
-        if (err) {
-            console.log("[mysql error],", err)
-        } else {
-            res.render('profile/employer/employer_jobs', {
-                'results': results
-            })
-        }
+module.exports.getEmployerJobs = async (req, res, next) => {
 
 
-    })
+    try {
+        const db = await dbPromise;
+
+        const [jobs] = await db.execute("select * from jobs where employer_id = ? ", [req.user.id])
+
+        res.render('profile/employer/employer_jobs', {
+            'results': jobs
+        })
+
+    } catch (err) {
+        console.log(err)
+    }
+
 }
 
 //employer jobs
-module.exports.getEmployerJobEdit = (req, res, next) => {
-    db.query("select * from jobs where id = ? ", [req.params.id], function (err, results) {
-        if (err) {
-            console.log("[mysql error],", err)
-        } else {
-            res.render('jobs/jobs_edit_info', {
-                'result': results[0]
-            })
-        }
-        console.log(results)
+module.exports.getEmployerJobEdit = async (req, res, next) => {
 
-    })
+    try {
+        const db = await dbPromise;
+
+        const [jobs] = await db.execute("select * from jobs where id = ? ", [req.params.id])
+
+        res.render('jobs/jobs_edit_info', {
+            'result': jobs[0]
+        })
+
+    } catch (err) {
+        req.flash('error_msg', {
+            msg: "O eroare a avut loc, incercati din nou."
+        });
+        res.redirect('back');
+        console.log(err)
+    }
+
+
+
 }
 
 
 //employer jobs
-module.exports.postEmployerJobEdit = (req, res, next) => {
+module.exports.postEmployerJobEdit = async (req, res, next) => {
 
     const category = req.body.category;
     const position = req.body.position;
@@ -336,11 +302,8 @@ module.exports.postEmployerJobEdit = (req, res, next) => {
 
     req.checkBody('category', 'Alege Categoria').notEmpty();
     req.checkBody("position", 'Poziția  este necesară').notEmpty()
-    //req.checkBody('job_description','Poszitia nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/);
     req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
-    // req.checkBody("job_description",   'Descriere este necesara').notEmpty().isString() ;
     req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
-    ///req.checkBody('job_description','Descrierea nu trebuie sa contina cifre' ).matches(/^[a-zA-Z]*$/)
     req.checkBody('city', "Locatia este necesara").notEmpty();
     req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
     req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 8 de cifre.').len(0, 9);
@@ -356,21 +319,6 @@ module.exports.postEmployerJobEdit = (req, res, next) => {
             }
         }
     });
-    ///req.checkBody('salary','Formatul salariului este incorect' ).matches(/^\d{0,8}(?:\.\d{0,2})?$/);
-    // req.checkBody('experience', 'Alege experienta').notEmpty();
-
-
-    console.log('category', category)
-    console.log('position', position)
-    console.log('des', description)
-    console.log(city)
-    console.log('employement', employment_type)
-    console.log('salary', salary)
-    console.log('experience', experience)
-    // console.log(language.toString())
-    console.log(currency)
-    // console.log('user',req.user)
-
 
 
     const errors = req.validationErrors();
@@ -378,79 +326,101 @@ module.exports.postEmployerJobEdit = (req, res, next) => {
     if (errors) {
         req.flash('error_msg', errors);
         return res.redirect('back')
-    } else {
-
-        if (language) {
-            var lang = language.toString();
-        }
+    }
 
 
-
-        let job = {
-            category: category,
-            position: position,
-            description: description,
-            city: city,
-            employment_type: employment_type,
-            start_time: start_time,
-            salary: salary,
-            experience: experience,
-            language: lang,
-            currency: currency,
-
-        }
-
-        db.query(`UPDATE jobs SET  ? WHERE id =${req.params.id}`, job, function (err, results) {
-            if (err) {
-                console.log("[mysql error],", err)
-            } else {
-
-                res.redirect('/my_jobs')
-            }
-
-        })
+    if (language) {
+        var lang = language.toString();
 
     }
+
+    let job = {
+        category: category,
+        position: position,
+        description: description,
+        city: city,
+        employment_type: employment_type,
+        start_time: start_time,
+        salary: salary,
+        experience: experience,
+        language: lang,
+        currency: currency,
+
+    }
+
+
+    try {
+        const db = await dbPromise;
+
+        await db.query(`UPDATE jobs SET  ?  WHERE id = ?`, [job, req.params.id, ])
+
+        res.redirect('/my_jobs')
+
+    } catch (err) {
+        console.log(err)
+
+        req.flash('error_msg', {
+            msg: "O eroare a avut loc, incercati din nou."
+        });
+        res.redirect('back');
+    }
+
 }
 
 
 //delete product
-module.exports.deleteJob = function (req, res, next) {
+module.exports.deleteJob = async (req, res, next) => {
     let id = req.params.id;
-    db.query(`SELECT id,image FROM jobs  WHERE id =${id}`, function (err, results) {
-        if (err) throw err;
-        if (results[0].image) {
-            fs.unlink("./public/" + results[0].image, function (err) {
 
-                if (err) {
-                    console.log("failed to delete local image:" + err);
-                } else {
-                    console.log('successfully deleted local image');
-                }
-            });
+    try {
+        const db = await dbPromise;
+        const [userDetails] = await db.query(`SELECT id,image FROM jobs  WHERE id =${id}`);
+        console.log(userDetails[0].image)
+       
+
+        await db.execute(`DELETE FROM jobs  WHERE id =${id}`);
+
+        if (userDetails[0].image && userDetails[0].image !== null) {
+            await fsPromises.unlink(`./public/${userDetails[0].image}`)
         }
 
-        db.query(`DELETE FROM jobs  WHERE id =${id}`, function (err, result) {
-            if (err) throw err;
+        req.flash('success_msg', {
+            msg: "Jobul a fost sters cu success"
+        });
+        res.redirect('back');
+    
+    } catch (err) {
+        console.log(err)
+        
+        req.flash('error_msg', {
+            msg: "O eroare a avut loc, incercati din nou."
+        });
+        res.redirect('back');
+    }
 
-            req.flash('success_msg', {
-                msg: "Jobul a fost sters cu success"
-            });
-            res.redirect('back');
-        })
-    })
 
 };
 
 
 //job detail page
-module.exports.getJobDetail = (req, res, next) => {
-    db.query('select jobs.*, users.id as userId,users.first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type, users.avatar from jobs LEFT JOIN users ON  jobs.employer_id = users.id where jobs.id = ?', [req.params.id], (err, results) => {
-        if (err) throw err;
-        res.render('jobs/job_details', {
-            "result": results[0]
-        })
+module.exports.getJobDetail = async (req, res, next) => {
 
-        console.log(results)
-    })
+    try{
+        const db = await dbPromise;
+        const [userDetails] = await db.execute('select jobs.*, users.id as userId,users.first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type, users.avatar from jobs LEFT JOIN users ON  jobs.employer_id = users.id where jobs.id = ?', [req.params.id])
+        
+        res.render('jobs/job_details', {
+            "result": userDetails[0]
+        })
+        
+    }catch(err){
+        console.log(err)
+
+        req.flash('error_msg', {
+            msg: "O eroare a avut loc, incercati din nou."
+        });
+        res.redirect('back');
+
+    }
+   
 }

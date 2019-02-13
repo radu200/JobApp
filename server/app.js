@@ -13,11 +13,9 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MySQLStore = require('express-mysql-session')(session);
-const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 const helmet = require('helmet')
-const crypto = require('crypto');
-const nodemailer = require('nodemailer');
+
 
 const app = express();
 // Load environment variables from .env file
@@ -66,8 +64,14 @@ app.use((req, res, next) => {
     });
     
     
-   // app.use(helmet());
-   // app.use( helmet.hidePoweredBy() ) ;
+   app.use(helmet());
+   app.use( helmet.hidePoweredBy() ) ;
+   app.use(helmet.xssFilter());
+   app.use(helmet.xssFilter({ setOnOldIE: true }));
+   app.use(helmet.frameguard({ action: 'sameorigin' }))
+   app.use(helmet.dnsPrefetchControl({ allow: true }))
+
+
 
     const options = {
         host: process.env.DB_HOST,
@@ -78,7 +82,7 @@ app.use((req, res, next) => {
         // expiration: 864
     };
 const sessionStore = new MySQLStore(options);
-const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hou r
 
 
 app.use(session({ 

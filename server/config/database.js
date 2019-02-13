@@ -19,7 +19,7 @@ const db =  mysql.createPool({
 
  const mysqlPromise = require ('mysql2/promise')
 
- const dbPromise =  mysqlPromise.createConnection({
+ const dbPromise =  mysqlPromise.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
