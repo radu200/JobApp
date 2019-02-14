@@ -1,6 +1,6 @@
-const {
-    db
-} = require('../.././config/database.js');
+// const {db} = require('../.././config/database.js');
+
+
 const {
     dbPromise
 } = require('../.././config/database.js');

@@ -11,22 +11,23 @@ const sharp = require('sharp')
 
 module.exports.getProfile = async (req, res, next) => {
 
+
     try {
         const db = await dbPromise;
 
         if (req.user.type === 'employer') {
-            const [userDetails] = await db.execute('select * from users where id = ? ', [req.user.id]);
+            const [employer] = await db.execute('select * from users where id = ? ', [req.user.id]);
 
             res.render('profile/employer/employer_profile', {
-                'result': userDetails[0]
+                'result': employer[0]
             })
 
         } else if (req.user.type === "jobseeker") {
 
-            const [userDetails] = db.execute('select * from users where id = ? ', [req.user.id]);
+            const [jobseeker] = await db.execute('select * from users where id = ? ', [req.user.id]);
 
             res.render('profile/jobseeker/jobseeker_profile', {
-                'result': userDetails[0]
+                'result': jobseeker[0]
             })
 
 
