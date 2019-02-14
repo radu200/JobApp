@@ -38,6 +38,10 @@ module.exports.getProfile = async (req, res, next) => {
 
 
     } catch (err) {
+        req.flash('error_msg',{msg:'O eroare a avut loc.Incercati din nou.'})
+       
+        res.redirect('back')
+
         console.log(err)
     }
 
@@ -71,12 +75,12 @@ module.exports.postProfileAvatarEdit = async (req, res, next) => {
         const [userDetails] = await db.execute(`select id, avatar from users where id=${req.user.id}`);
 
         if (req.file) {
-            var avatar = `./uploads/${req.file.filename}`;
+            var avatar = `./uploads/users/${req.file.filename}`;
             var filename = req.file.filename;
 
             await sharp(req.file.path)
                 .resize(200, 157)
-                .toFile(`./public/uploads/${req.file.filename}`);
+                .toFile(`./public/uploads/users/${req.file.filename}`);
 
 
         } else {
@@ -105,12 +109,10 @@ module.exports.postProfileAvatarEdit = async (req, res, next) => {
 
     } catch (err) {
         console.log(err)
-        res.json({
-            msg: 'An error occurred'
-        })
+
+        req.flash('error_msg',{msg:'O eroare a avut loc.Incercati din nou.'})
+       
+        res.redirect('back')
 
     }
-
-
-
 }

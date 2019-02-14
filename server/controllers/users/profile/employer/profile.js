@@ -55,7 +55,9 @@ module.exports.getEmployerProfileInfoEdit =  async (req, res, next) => {
 
     try {
          const db = await dbPromise;
+         
          await  db.execute('update users  set   first_name = ?, last_name = ?  where id = ?', [first_name, last_name,req.user.id]);
+         
          res.redirect('/profile')
      } catch(err){
        console.log(err)

@@ -1,5 +1,3 @@
-// const {db} = require('../.././config/database.js');
-
 
 const {
     dbPromise
@@ -76,7 +74,6 @@ module.exports.postAddJobs = async (req, res, next) => {
     req.checkBody('category', 'Alege Categoria').notEmpty();
     req.checkBody("position", 'Poziția  este necesară').notEmpty()
     req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
-    // req.checkBody("job_description", 'Descriere este necesara').notEmpty().isString();
     req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
     req.checkBody('city', "Locatia este necesara").notEmpty();
     req.checkBody('employment_type', 'Alege tipul de angajare').notEmpty();
@@ -111,13 +108,13 @@ module.exports.postAddJobs = async (req, res, next) => {
 
 
     try {
-
+        const db = await dbPromise;
         if (req.file) {
-            var job_image = '/uploads/' + req.file.filename;
+            var job_image = '/uploads/jobs/' + req.file.filename;
 
             await sharp(req.file.path)
                 .resize(200, 157)
-                .toFile('./public/uploads/' + req.file.filename);
+                .toFile('./public/uploads/jobs/' + req.file.filename);
 
             await fsPromises.unlink('./public/tmp_folder/' + req.file.filename);
 
@@ -196,11 +193,11 @@ module.exports.postJobImageEdit = async (req, res, next) => {
         const [userDetails] = await db.execute(`select id, image from jobs where id = ?`, [req.params.id]);
 
         if (req.file) {
-            var image = 'uploads/' + req.file.filename;
+            var image = 'uploads/jobs/' + req.file.filename;
             var filename = req.file.filename;
             await sharp(req.file.path)
                 .resize(820, 461)
-                .toFile(`./public/uploads/${req.file.filename}`);
+                .toFile(`./public/uploads/jobs/${req.file.filename}`);
 
 
         } else {
