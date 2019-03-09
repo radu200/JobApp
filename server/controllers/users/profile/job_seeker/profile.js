@@ -39,17 +39,15 @@ module.exports.postJobSeekerProfileInfoEdit = async (req, res, next) => {
    const language = req.body.language;
    const education = req.body.education;
 
-   console.log(firstName)
-   console.log(lastName);
-   console.log(availabilityJobseeker);
-   console.log(employmentType);
-   console.log(location)
-   console.log(jobseekerDescription);
-   console.log(language);
-   console.log(education)
+  
 
-
-
+   req.checkBody('firstName', 'Prenumele este necesar ').notEmpty();
+   req.checkBody('firstName', 'Prenumele trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
+   req.checkBody('lastName', 'Numele de familie este necesar').notEmpty();
+   req.checkBody('lastName', 'Numele de familie trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
+   req.checkBody('availabilityJobseeker', 'Disponibilitatea nu trebuie sa fie mai mult de 50 de caractere.').len(0, 50);
+   req.checkBody('employmentType', 'Tipul de angajare nu trebuie sa fie mai mult de 50 de caractere.').len(0, 50);
+   
    // req.checkBody('firstName', 'Prenumele este necesar ').notEmpty();
    // req.checkBody('firstName', 'Prenumele trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
    // req.checkBody('lastName', 'Numele de familie este necesar').notEmpty();
@@ -73,12 +71,12 @@ module.exports.postJobSeekerProfileInfoEdit = async (req, res, next) => {
 
 
 
-   //  const errors = req.validationErrors();
+    const errors = req.validationErrors();
 
-   //  if (errors) {
-   //      req.flash('error_msg', errors);
-   //      return res.redirect('back')
-   //  }
+    if (errors) {
+        req.flash('error_msg', errors);
+        return res.redirect('back')
+    }
 
    if (language) {
       var lang = language.toString();
@@ -97,16 +95,9 @@ module.exports.postJobSeekerProfileInfoEdit = async (req, res, next) => {
 
    try {
       const db = await dbPromise;
-
-      await db.query('UPDATE users SET   first_name = ?,last_name = ?, job_seeker_employment_type = ?,   job_seeker_about_me = ?, job_seeker_languages = ?,job_seeker_education = ?,  job_seeker_location = ?, job_seeker_availability = ?  WHERE id = ?', [firstName,
-         lastName,
-         employmentType,
-         jobseekerDescription,
-         lang,
-         education,
-         location,
-         availabilityJobseeker, req.user.id
-      ])
+     
+       await db.query("UPDATE users SET ? WHERE id = ? ",[jobSeeker, req.user.id])
+  
       res.redirect('/profile')
 
    } catch (err) {
@@ -132,12 +123,7 @@ module.exports.postJobSeekerExperience = async (req, res, next) => {
    const endDate = req.body.endDate;
    const responsibilities = req.body.responsibilities;
 
-   console.log(categoryExperience);
-   console.log(position)
-   console.log(companyName)
-   console.log('start', startDate)
-   console.log('end', endDate)
-   console.log(responsibilities)
+   
 
 
    try {
@@ -174,7 +160,7 @@ module.exports.getJobSeekerEditExperience = async (req, res, next) => {
    try {
       const db = await dbPromise;
 
-      const [user] = await db.execute('select * from jobseeker_experience where jobseeker_id = ?', [req.user.id]);
+      const [user] = await db.execute('select * from jobseeker_experience where id = ?', [req.params.id]);
 
       res.render('profile/jobseeker/edit_experience', {
          'result': user[0]
@@ -197,18 +183,13 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
    const endDate = req.body.endDate;
    const responsibilities = req.body.responsibilities;
    
-   // console.log(categoryExperience);
-   // console.log(position)
-   // console.log(companyName)
-   // console.log('start', startDate)
-   // console.log('end', endDate)
-   // console.log(responsibilities)
+
 
 
    try {
       const db = await dbPromise;
 
-      await db.execute('UPDATE jobseeker_experience SET  category = ?, position = ?, company_name = ?,responsibilities = ?, start_date = ?, end_date = ? WHERE id = ? AND jobseeker_id = ? ', [categoryExperience,position,companyName,responsibilities,startDate,endDate, req.params.id,req.user.id])
+      await db.execute('UPDATE jobseeker_experience SET  category = ?, position = ?, company_name = ?,responsibilities = ?, start_date = ?, end_date = ? WHERE id = ?', [categoryExperience,position,companyName,responsibilities,startDate,endDate, req.params.id])
       
       req.flash('success_msg', {
          msg: 'Detaliile au fost schimbate cu success.'
