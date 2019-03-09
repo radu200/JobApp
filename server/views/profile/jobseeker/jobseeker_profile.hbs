@@ -1,58 +1,56 @@
 {{>NavBarEmployee}}
 <div class="container">
-    {{>alerts}}
+  {{>alerts}}
   <div class="row">
     <div class="col s12 m12 l8 offset-l2">
       <div class="card grey lighten-5 z-depth-1">
-        <a class="btn grey right tooltipped" href="/profile/avatar " data-position="top" data-tooltip="Schimba Imaginea"><i
-            class="material-icons">create</i></a>
+        <a class=" waves-effect waves-light btn blue right tooltipped " id="display-edit-buttons" href="#"
+          data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons left">create</i> Editeaza
+          Profilul</a>
         <div class="card-profile-image">
-           {{#if this.result.avatar}}
-          <img src="{{this.result.avatar}}"
-            class="avatar">
+          <a href="/profile/avatar">
+            {{#if this.result.avatar }}
+            <img src="{{this.result.avatar}}" class="avatar">
             {{else}}
-                <img src="/images/no_user.img.png"
-            class="avatar">
-           {{/if}}
+            <img src="/images/no_user.png" class="avatar">
+            {{/if}}
         </div>
+        </a>
+
         <div class="card-content center">
-          <h4>Radu Prodan</h4>
-          <h6><i class="material-icons">place</i> Chisinau</h6>
+          <a class="btn blue center edit-profile-button " href="/profile/avatar">Editeaza forografia </a>
+          <h4>{{result.first_name}} {{result.last_name}}</h4>
+          <h6><i class="material-icons">place</i>{{result.job_seeker_location}}</h6>
           <h6><i class="material-icons">schedule</i> Full-time</h6>
-          <h6 class=" green-text ">I’m available for immediate start</h6>
+          <h6 class=" green-text ">{{result.job_seeker_availability}}</h6>
           <div class="divider"></div>
           <h4>Despre Mine</h4>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-            ultricies nec, pellentesque eu, pretium.</p>
-
+          <p>{{result.job_seeker_about_me}}</p>
           <div class="divider"></div>
-          <h4>Informatia de contact</h4>
-          <h6><b>Email</b></h6>
-          <p>raduprodan@gmail.com</p>
-          <h6><b>Numarul de telefon</b></h6>
-          <p>+37369678966</p>
 
-          <div class="divider"></div>
           <h4>Experienta</h4>
-          <p>OCT 2017 — OCT 2018</p>
-          <h6><b>MlG London</b></h6>
-          <p>Bartender</p>
-          <p >Engage enthusiastically with the diverse clientele of a large and quirky bar.
-            Work with another bartender and used short-term memory to track customer orders.
-            Maintain a clean, attractive, and organized bar.
-            Mixing classic cocktails.</p>
+          <a class="btn blue edit-profile-button" href="/jobseeker/experience">Adauga Experienta</a>
+        
+          {{#if experience}}
+           {{#each experience}}
+            <div class="divider"></div>
+            <p><b>{{position}}</b></p>
+            <h6>{{company_name}}</h6>
+            <p>{{start_date}} — {{end_date}}</p>
+            <p>{{responsibilities}}</p>
+               <a href="/jobseeker/experience/edit/{{id}}" class="btn full-width-btn edit-profile-button">Editeaza experienta</a>
+           {{/each}}
+          {{/if}}
+
           <div class="divider"></div>
           <h4>Limbi</h4>
-          <p><b>Franceza, Spaniola, engleza</b></p>
+          <p><b>{{result.job_seeker_languages}}</b></p>
           <div class="divider"></div>
           <h4>Educatie</h4>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-            ultricies nec, pellentesque eu, pretium.</p>
+          <p>{{result.job_seeker_education}}</p>
         </div>
         <div class="card-action center">
-          <a class="btn blue center" href="/profile-edit/jobseeker">Editeaza Profilul</a>
+          <a class="btn blue center edit-profile-button " href="/profile-edit/jobseeker">Editeaza Informatia generala</a>
         </div>
       </div>
     </div>

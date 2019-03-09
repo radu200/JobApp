@@ -13,10 +13,6 @@ module.exports.getCandidateDetails = (req,res,next) => {
     res.render('profile/employer/employer_job_detail')
  }
 
-
-
-
-
 //employer
 module.exports.getEmployerProfileInfoEdit =  async (req, res, next) => {
 
@@ -49,9 +45,6 @@ module.exports.getEmployerProfileInfoEdit =  async (req, res, next) => {
         req.flash('error_msg', errors);
          return  res.redirect('back')
     }
-
-
- 
 
     try {
          const db = await dbPromise;
@@ -126,6 +119,7 @@ module.exports.getCompanyProfile =  async (req,res, next) => {
 
     try {
      const db = await dbPromise;
+    
      const [userDetails] = await  db.execute("SELECT  avatar,first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type  FROM  users WHERE users.id = ?" ,[req.user.id]);
      
      const [jobs] = await db.execute ('SELECT * FROM  jobs WHERE jobs.employer_id = ?  ', [req.user.id])

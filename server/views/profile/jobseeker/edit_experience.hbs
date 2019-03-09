@@ -1,0 +1,59 @@
+{{>NavBarEmployee}}
+{{>alerts}}
+<div class="container">
+    <div class="row">
+        <form id="employee_info_form" method="POST" action="/jobseeker/experience/edit/{{result.id}}">
+            <!--employee personal info --->
+            <h5 class="center"><b>Experienta</b></h5>
+            <div class="col s12 m12 l12">
+                <h6> <b>Categoria </b></h6>
+                <div class="input-field">
+                    <select name="categoryExperience" >
+                       <option value="" selected>Selecteaza Categoria</option>
+                        <option value="Barista Barman" >Barista Barman</option>
+                        <option value="sofer" >sofer</option>
+
+                    </select>
+                </div>
+            </div>
+
+              <div class="col s12 m12 l12">
+                <h6> <b>Pozitia dvs.</b></h6>
+                <div class="input-field">
+                    <input type="text" placeholder="Pozitia dvs." maxlength="70" name="position" value="{{result.position}}">
+                </div>
+            </div>
+             <div class="col s12 m12 l12">
+                <h6> <b>Numele Companiei</b></h6>
+                <div class="input-field">
+                    <input type="text" placeholder="Numele companiei" maxlength="70" name="companyName" value="{{result.company_name}}">
+                </div>
+            </div>
+             <div class="col s12 m6 l6">
+                 <p><b>De La</b></p>
+                <div class="input-field">
+                      <input type="text"  placeholder="Alege data" class="datepicker" name="startDate" value="{{result.start_date}}">
+                </div>
+            </div>
+            <div class="col s12 m6 l6">
+                 <p><b>Pina La</b></p>
+                   <div class="input-field">
+                    <input type="text"  placeholder="Alege data" class="datepicker" name="endDate" value="{{result.end_date}}">
+                </div>
+            </div>
+               <!--about me -->
+            <h5 class="center"><b>Principalele responsabilități</b><p class="text-opacity">(optional)</p></h5>
+            <div class="col s12 m12">
+                <div class="input-field">
+                    <textarea id="mainResponsibilities"  class="textarea-style" data-length="240" rows="5" cols="33"  placeholder= "De exemplu,am fost responsabil pentru deschiderea și închiderea barului, pentru a face cocktail-uri, pentru a servi clienții și pentru a opera"
+                        name="responsibilities" maxlength="240">{{result.responsibilities}}</textarea>
+                    <span for="description"></span>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn blue right full-width-btn">Posteaza<i class="material-icons right">send</i></button>
+
+        </form>
+    </div>
+    <!--row ends-->
+</div>

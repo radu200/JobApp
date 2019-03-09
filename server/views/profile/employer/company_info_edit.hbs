@@ -26,27 +26,21 @@
                             </div>
                         </div>
 
-                {{#if result.company_location}}
+              
                 <div class="row">
                   <div class="input-field">
                             <select  name="company_location" id="company_location">
+                              {{#if result.company_location}}
                                 <option value="{{result.location}}" selected>{{result.company_location}}</option>
+                                {{else}}
+                                 <option selected value="">Alege locatia unde se afla compania</option>
+                                {{/if}}
                                 <option value="Chisinau">Chisinau</option>
                                 <option value="Balti">Balti</option>
                             </select>
                         </div>
                     </div>
-                 {{else}}
-                <div class="row">
-                  <div class="input-field">
-                            <select  name="company_location" id="company_location">
-                                <option selected value="">Alege locatia unde se afla compania</option>
-                                <option  value="Chisinau">Chisinau</option>
-                                <option value="Balti">Balti</option>
-                            </select>
-                        </div>
-                    </div>
-                 {{/if}}
+              
                     <div class="row">
                         <button class="btn  full-width-btn blue btn-large waves-effect waves-light " type="submit" >Posteaza
                         </button>

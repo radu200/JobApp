@@ -10,5 +10,11 @@ $('#alert_close').click(function(){
 
 
     $('.tooltipped').tooltip();
+
+    $('#display-edit-buttons').click(function(){
+
+      $(".edit-profile-button").toggle().addClass('show-edit-buttons')
+    
+   });
   });
         

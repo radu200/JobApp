@@ -4,12 +4,15 @@
     height: 200px;
     margin: 0 auto;
     padding: 20px 0 10px 0;  
+    
     .avatar{
         border:10px solid #f8f8f8;
         
         border-radius: 50% !important;
         height: 100%;
         width:100%;
+        &:hover{
+           border:1px solid grey;
+        }
     }
 }
-

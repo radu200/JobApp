@@ -9,21 +9,25 @@
 
             <div class="col s12 m6 l6">
                 <div class="input-field">
-                    <input type="text" placeholder="Prenumele" maxlength="50" name="firstName">
+                    <input type="text" placeholder="Prenumele" maxlength="50" name="firstName" value="{{result.first_name}}">
                 </div>
             </div>
             <div class="col s12 m6 l6">
                 <div class="input-field">
-                    <input type="text" placeholder="Numele de familie" maxlength="50" name="lastName">
+                    <input type="text" placeholder="Numele de familie" maxlength="50" name="lastName" value="{{result.last_name}}">
                 </div>
             </div>
 
             <div class="col s12 m12 l12">
                 <h6> <b>Care este disponibilitatea dvs. actuală ? </h6>
-                <p class="city-error error"></p>
                 <div class="input-field">
                     <select name="availabilityJobseeker">
-                        <option value="Sunt disponibil pentru începerea imediată" selected>Sunt disponibil pentru începerea imediată</option>
+                        {{#if result.job_seeker_availability}}
+                         <option value="{{result.job_seeker_availability}}" selected>{{result.job_seeker_availability}} </option>
+                          {{else}}
+                          <option value="Sunt disponibil pentru începerea imediată"  selected >Sunt disponibil pentru începerea imediată</option>
+                        {{/if}}
+                        <option value="Sunt disponibil pentru începerea imediată">Sunt disponibil pentru începerea imediată</option>
                         <option value="Sunt disponibil, dar nu imediat">Sunt disponibil, dar nu imediat</option>
                         <option value="Nu sunt disponibil pentru oferte"> Nu sunt disponibil pentru oferte</option>
                     </select>
@@ -31,10 +35,14 @@
             </div>
             <div class="col s12 m12 l12">
                 <h6 class="text-opacity">Tipuri de angajare </h6>
-                <p class="city-error error"></p>
                 <div class="input-field">
                     <select name="employmentType">
-                        <option value="Timp deplin" selected>Timp deplin</option>
+                        {{#if result.job_seeker_employment_type}}
+                         <option value="{{result.job_seeker_employment_type}}" selected>{{result.job_seeker_employment_type}}</option>
+                         {{else}}
+                        <option  value="Timp deplin" selected>Timp deplin</option>
+                        {{/if}}
+                        <option value="Timp deplin">Timp deplin</option>
                         <option value="Cu jumătate de normă">Cu jumătate de normă</option>
                         <option value="Temporar"> Temporar</option>
                         <option value="Freelance">Freelance</option>
@@ -45,7 +53,7 @@
               <div class="col s12 m12 l12">
                 <h6> <b>Unde este locatia  dvs. la moment ? </b></h6>
                 <div class="input-field">
-                    <input type="text" placeholder="Locatia dvs." maxlength="70" name="jobseekerLocation">
+                    <input type="text" placeholder="Locatia dvs." maxlength="70" name="jobseekerLocation" value={{result.job_seeker_location}}>
                 </div>
             </div>
 
@@ -55,7 +63,7 @@
             <div class="col s12 m12">
                 <div class="input-field">
                     <textarea class="materialize-textarea" data-length="240" placeholder="Despre mine."
-                        name="jobseekerDescription" maxlength="240"></textarea>
+                        name="jobseekerDescription" maxlength="240">{{result.job_seeker_about_me}}</textarea>
                     <span for="description"></span>
                 </div>
             </div>
@@ -63,7 +71,11 @@
                 <h6><b>Limbi Vorbite</b></h6>
                 <div class="input-field">
                     <select id="language" name="language" multiple>
+                       {{#if result.job_seeker_languages}}
+                         <option value="{{result.job_seeker_languages}}" disabled selected >{{result.job_seeker_languages}}</option>
+                       {{else}}
                         <option value="" disabled select>Selecteaza Limba</option>
+                       {{/if}}
                          <option value="Romana">Romana</option>
                         <option value="Engleza">Engleza</option>
                         <option value="Spaniola">Spaniola</option>
@@ -77,7 +89,7 @@
             <div class="col s12 m12">
                 <div class="input-field">
                     <textarea id="education" class="materialize-textarea" data-length="240" placeholder="Educatie."
-                        name="education" maxlength="240"></textarea>
+                        name="education" maxlength="240">{{result.job_seeker_education}}</textarea>
                     <span for="description"></span>
                 </div>
             </div>

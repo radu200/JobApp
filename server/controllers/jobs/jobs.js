@@ -16,6 +16,7 @@ module.exports.getJobsPage = async (req, res, next) => {
         const db = await dbPromise
 
         const [jobs] = await db.execute('select * from jobs');
+        console.log(jobs)
         res.render('./jobs/jobs', {
             'results': jobs
         })
@@ -155,6 +156,7 @@ module.exports.postAddJobs = async (req, res, next) => {
 
     } catch (err) {
         console.log(err)
+        
         req.flash('error_msg', {
             msg: "O eroare a avut loc, incercati din nou."
         });
@@ -349,7 +351,7 @@ module.exports.postEmployerJobEdit = async (req, res, next) => {
     try {
         const db = await dbPromise;
 
-        await db.query(`UPDATE jobs SET  ?  WHERE id = ?`, [job, req.params.id, ])
+        await db.query(`UPDATE jobs SET  ?  WHERE id = ?`, [job, req.params.id])
 
         res.redirect('/my_jobs')
 

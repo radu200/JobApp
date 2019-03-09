@@ -61,7 +61,7 @@ module.exports.forgotPassword = (req, res, next, nodemailer, email, token) => {
 
     const mailOptions = {
         to: email,
-        from: 'JOB APP',
+        from: process.env.COMPANY_NAME,
         subject: 'Reseteaza parola',
         html: `
 <body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">
@@ -134,7 +134,7 @@ module.exports.forgotPasswordSucess = (req,res,nex,nodemailer,email) => {
 
           const mailOptions = {
               to: email,
-              from: 'JOB APP',
+              from: process.env.COMPANY_NAME,
               subject: 'Parola dvs. a fost resetata cu success',
               html: `<body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">                         
               <center style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#e1e5e8;">
@@ -212,7 +212,7 @@ module.exports.changePasswordProfile = (req, res, next, nodemailer, email) => {
 
     const mailOptions = {
         to: email,
-        from: 'JOB APP',
+        from: process.env.COMPANY_NAME,
         subject: 'Parola dvs. a fost schimbată',
         html: ` <body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">
       <center style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#e1e5e8;">
@@ -289,7 +289,7 @@ module.exports.checkEmailAfterSignUp = (req,res,nodemailer,email,token) => {
 
 const mailOptions = {
     to: email,
-    from: 'JOB APP',
+    from: process.env.COMPANY_NAME,
     subject: 'Verificare Email',
     html: `            
 <body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">                        
