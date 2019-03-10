@@ -75,6 +75,7 @@ module.exports = function (app){
   app.post('/jobseeker/add/experience', accessController.ensureAuthenticated,accessController.jobSeeker, JobSeekerProfileController.postJobSeekerExperience)
   app.get('/jobseeker/experience/edit/:id', accessController.ensureAuthenticated,accessController.jobSeeker, JobSeekerProfileController.getJobSeekerEditExperience)
   app.post('/jobseeker/experience/edit/:id', accessController.ensureAuthenticated,accessController.jobSeeker, JobSeekerProfileController.postJobSeekerEditExperience)
+  app.delete('/jobseeker/experience/delete/:id', accessController.ensureAuthenticated,accessController.jobSeeker, JobSeekerProfileController.deleteJobSeekerExperience)
 
   //chat 
   app.get('/chats', accessController.ensureAuthenticated,chatController.getChat )

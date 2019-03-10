@@ -28,6 +28,7 @@ module.exports.getProfile = async (req, res, next) => {
 
             const [experience] = await db.execute('select * from jobseeker_experience where jobseeker_id = ? ', [req.user.id]);
 
+
             res.render('profile/jobseeker/jobseeker_profile', {
                 'result': jobseeker[0],
                 "experience":experience

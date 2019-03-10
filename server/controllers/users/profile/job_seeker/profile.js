@@ -19,6 +19,7 @@ module.exports.getJobSeekerProfileInfoEdit = async (req, res, next) => {
       res.render('profile/jobseeker/jobseeker_profile_edit', {
          'result': user[0]
       })
+      
    } catch (err) {
       req.flash('error_msg', {
          msg: 'O eroare a avut loc.Incercati din nou.'
@@ -47,29 +48,9 @@ module.exports.postJobSeekerProfileInfoEdit = async (req, res, next) => {
    req.checkBody('lastName', 'Numele de familie trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
    req.checkBody('availabilityJobseeker', 'Disponibilitatea nu trebuie sa fie mai mult de 50 de caractere.').len(0, 50);
    req.checkBody('employmentType', 'Tipul de angajare nu trebuie sa fie mai mult de 50 de caractere.').len(0, 50);
-   
-   // req.checkBody('firstName', 'Prenumele este necesar ').notEmpty();
-   // req.checkBody('firstName', 'Prenumele trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
-   // req.checkBody('lastName', 'Numele de familie este necesar').notEmpty();
-   // req.checkBody('lastName', 'Numele de familie trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
-
-
-   // req.checkBody('category', 'Alege Categoria').notEmpty();
-   //  req.checkBody("position", 'Poziția  este necesară').notEmpty()
-   //  req.checkBody('position', ' Pozitia trebuie să aibă o lungime între 1 și 70 de caractere').len(1, 70);
-   //  // req.checkBody("job_description", 'Descriere este necesara').notEmpty().isString();
-   //  req.checkBody('job_description', ' Descrierea trebuie să aibă o lungime între 1 și 300 de caractere').len(1, 301);
-   //  req.checkBody('city', "Locatia este necesara").notEmpty();
-   //req.checkBody('employmentType', 'Alege tipul de angajare').notEmpty();
-   //  req.checkBody('salary', 'Salariu trebuie să aibă o lungime între 0 și 8 de cifre.').len(0, 9);
-
-   //  req.checkBody('salary', 'Formatul salariului este incorect').matches(/^\d{0,8}(?:\.\d{0,2})?$/);
-   //  req.checkBody('experience', 'Alege experienta').notEmpty();
-
-
-
-
-
+   req.checkBody('jobseekerDescription', 'Descrierea nu trebuie sa fie mai mult de 250 de caractere.').len(0, 250);
+   req.checkBody('language',  'Te rog alege mai putine limbi vorbite .').len(0, 100);
+   req.checkBody('education', 'Descrierea  educatiei nu trebuie sa fie mai mult de 250 de caractere.').len(0, 250);
 
     const errors = req.validationErrors();
 
@@ -78,16 +59,14 @@ module.exports.postJobSeekerProfileInfoEdit = async (req, res, next) => {
         return res.redirect('back')
     }
 
-   if (language) {
-      var lang = language.toString();
-   }
-
+  
+ 
    let jobSeeker = {
       first_name: firstName,
       last_name: lastName,
       job_seeker_employment_type: employmentType,
       job_seeker_about_me: jobseekerDescription,
-      job_seeker_languages: lang,
+      job_seeker_languages: language,
       job_seeker_education: education,
       job_seeker_location: location,
       job_seeker_availability: availabilityJobseeker
@@ -125,6 +104,23 @@ module.exports.postJobSeekerExperience = async (req, res, next) => {
 
    
 
+   req.checkBody('categoryExperience', 'Alege categoria').notEmpty();
+   req.checkBody('categoryExperience', 'Categoria trebuie să aibă între 1 și 100 de caractere.').len(1, 100);
+   req.checkBody('position', 'Pozitie  este necesara').notEmpty();
+   req.checkBody('position', 'Pozitia trebuie să aibă între 1 și 70 de caractere.').len(0, 70);
+   req.checkBody('companyName', 'Numele companiei  este necesara').notEmpty();
+   req.checkBody('companyName','Numele companiei trebuie să aibă între 1 și 70 de caractere.').len(1, 70);
+   req.checkBody('startDate','Data cind ai inceput trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
+   req.checkBody('endDate','Data cind ai finisat trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
+   req.checkBody('responsibilities', 'Descrierea  responsabilitatilor nu trebuie sa fie mai mult de 250 de caractere.').len(0, 250);
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('error_msg', errors);
+        return res.redirect('back')
+    }
+
 
    try {
       const db = await dbPromise;
@@ -141,7 +137,7 @@ module.exports.postJobSeekerExperience = async (req, res, next) => {
       }
       await db.query('insert into jobseeker_experience set ? ', jobSeekerExperience)
       req.flash('success_msg', {
-         msg: 'Jobul a fost adaugat cu success'
+         msg: 'Experienta a fost adaugata cu success'
       })
       res.redirect('/profile')
 
@@ -185,6 +181,23 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
    
 
 
+   req.checkBody('categoryExperience', 'Alege categoria').notEmpty();
+   req.checkBody('categoryExperience', 'Categoria trebuie să aibă între 1 și 100 de caractere.').len(1, 100);
+   req.checkBody('position', 'Pozitie  este necesara').notEmpty();
+   req.checkBody('position', 'Pozitia trebuie să aibă între 1 și 70 de caractere.').len(0, 70);
+   req.checkBody('companyName', 'Numele companiei  este necesara').notEmpty();
+   req.checkBody('companyName','Numele companiei trebuie să aibă între 1 și 70 de caractere.').len(1, 70);
+   req.checkBody('startDate','Data cind ai inceput trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
+   req.checkBody('endDate','Data cind ai finisat trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
+   req.checkBody('responsibilities', 'Descrierea  responsabilitatilor nu trebuie sa fie mai mult de 250 de caractere.').len(0, 250);
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('error_msg', errors);
+        return res.redirect('back')
+    }
+
 
    try {
       const db = await dbPromise;
@@ -204,5 +217,30 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
       })
       res.redirect('back')
    }
+
+}
+
+module.exports.deleteJobSeekerExperience = async (req,res) => {
+   let id = req.params.id;
+   try {
+      const db = await dbPromise;
+      console.log('id',id)
+
+       await db.execute(`DELETE FROM jobseeker_experience WHERE id =${id}`);
+
+       req.flash('success_msg', {
+           msg: "Experienta a fost sters cu success"
+       });
+       res.redirect('/profile');
+   
+   } catch (err) {
+       console.log(err)
+       
+       req.flash('error_msg', {
+           msg: "O eroare a avut loc, incercati din nou."
+       });
+       res.redirect('back');
+   }
+
 
 }

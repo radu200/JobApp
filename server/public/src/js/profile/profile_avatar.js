@@ -16,20 +16,20 @@ let avatarId =  avatarForm.attr('data_avatar_id');
    
 let formdata = new FormData();
 	
-	// let avatarInput =  $('#profile_avatar');
-	// if(imageInput.val() === ''){
-	// 	$('.avatar_image_error').text('Te rog alege imagine')
-	// 	return false;
-	// }
+	let avatarInput =  $('#profile_avatar');
+	if(avatarInput.val() === ''){
+		$('.avatar_image_error').text('Te rog alege imagine')
+		return false;
+	}
 	
 	// //size validation
 	  let file = _("profile_avatar").files[0];
-    //    if(file.size > 5e+6 ){
-	// 		//alert("image is too big")
-	//      $(".job_image_edit_error").text('Imagine nu trebuie sa fie mai mare de 5mb');
+       if(file.size > 5e+6 ){
+			//alert("image is too big")
+		$('.avatar_image_error').text('Imagine nu trebuie sa fie mai mare de 5mb');
 		
-	// 	return false;
-    //   }
+		return false;
+      }
 		
 		//append input
     formdata.append("avatar", file );

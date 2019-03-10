@@ -11247,7 +11247,31 @@ var _prototype_validation = __webpack_require__(/*! ./authentication/prototype_v
 
 var _prototype_validation2 = _interopRequireDefault(_prototype_validation);
 
+var _job_seeker = __webpack_require__(/*! ./profile/job_seeker */ "./public/src/js/front_end_validation/profile/job_seeker.js");
+
+var _job_seeker2 = _interopRequireDefault(_job_seeker);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
+/***/ "./public/src/js/front_end_validation/profile/job_seeker.js":
+/*!******************************************************************!*\
+  !*** ./public/src/js/front_end_validation/profile/job_seeker.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+$('#employee_info_form').on('submit', function (event) {
+    event.stopPropagation();
+    if ($('.categoryExperience').val() === '') {
+        $('.categoryExperience-error').text('Alegeti categoria jobului .');
+        return false;
+    }
+});
 
 /***/ }),
 
@@ -11570,6 +11594,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
+/***/ "./public/src/js/profile/job_seeker_profile.js":
+/*!*****************************************************!*\
+  !*** ./public/src/js/profile/job_seeker_profile.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
 /***/ "./public/src/js/profile/main.js":
 /*!***************************************!*\
   !*** ./public/src/js/profile/main.js ***!
@@ -11583,6 +11619,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _profile_avatar = __webpack_require__(/*! ./profile_avatar */ "./public/src/js/profile/profile_avatar.js");
 
 var _profile_avatar2 = _interopRequireDefault(_profile_avatar);
+
+var _job_seeker_profile = __webpack_require__(/*! ./job_seeker_profile */ "./public/src/js/profile/job_seeker_profile.js");
+
+var _job_seeker_profile2 = _interopRequireDefault(_job_seeker_profile);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11613,20 +11653,20 @@ $("#profile_avatar_form").on("submit", function (event) {
 
 	var formdata = new FormData();
 
-	// let avatarInput =  $('#profile_avatar');
-	// if(imageInput.val() === ''){
-	// 	$('.avatar_image_error').text('Te rog alege imagine')
-	// 	return false;
-	// }
+	var avatarInput = $('#profile_avatar');
+	if (avatarInput.val() === '') {
+		$('.avatar_image_error').text('Te rog alege imagine');
+		return false;
+	}
 
 	// //size validation
 	var file = _("profile_avatar").files[0];
-	//    if(file.size > 5e+6 ){
-	// 		//alert("image is too big")
-	//      $(".job_image_edit_error").text('Imagine nu trebuie sa fie mai mare de 5mb');
+	if (file.size > 5e+6) {
+		//alert("image is too big")
+		$('.avatar_image_error').text('Imagine nu trebuie sa fie mai mare de 5mb');
 
-	// 	return false;
-	//   }
+		return false;
+	}
 
 	//append input
 	formdata.append("avatar", file);
