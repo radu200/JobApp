@@ -46,7 +46,7 @@ app.use(expressValidator({}));
 app.use(methodOverride('_method'))
 app.use(cookieParser());
 app.use( express.static( 'uploads'));
-app.use('/client', express.static(path.join(__dirname, '../client/build')));
+app.use('/md', express.static(path.join(__dirname, '../client/build')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 

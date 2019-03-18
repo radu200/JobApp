@@ -11426,6 +11426,88 @@ function abortHandlerImageEdit(event) {
 
 /***/ }),
 
+/***/ "./public/src/js/jobs/jobs.js":
+/*!************************************!*\
+  !*** ./public/src/js/jobs/jobs.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+$.ajaxSetup({
+    beforeSend: function beforeSend(xhr) {
+        xhr.setRequestHeader("jobs-list", "true");
+    }
+});
+$(document).ready(function () {
+    $.ajax({
+        url: '/jobs',
+        type: "GET",
+        dataType: 'json',
+        success: function success(data) {
+
+            if (data.code === 99) {
+                console.log('loghezate');
+                $('.jobcontainer').html('Te rog logheazate  <a  href="/login">aici</a> ');
+            } else {
+                var $output = $('.jobcontainer');
+                // $('#status').html( JSON.stringify(data.description))
+
+                $.each(data, function (index, job) {
+
+                    if (job.image) {
+                        var jobImage = job.image;
+                    } else {
+                        var jobImage = '/images/no_job_image.png';
+                    }
+
+                    if (job.salary) {
+                        var salary = job.salary + " " + 'LEI' + " |";
+                    } else {
+                        var salary = '';
+                    }
+
+                    if (job.start_time) {
+                        var startTime = job.startTime;
+                    } else {
+                        var startTime = '';
+                    }
+
+                    console.log(job.salary);
+                    $output.append("\n                                <div class=\"col s12 m6 l4\">\n                                    <a href=\"/job/details/" + job.id + "\" target=\"_blank\" class=\"black-text\">\n                                        <div class=\"card hoverable \">\n                                            <div class=\"card-image  \">\n                                             \n                                                <img src=\"" + jobImage + "\" alt=\"\">\n        \n                                                 <span class=\"card-title yellow-text text-lighten-1 start-time\">" + startTime + "</span>\n                     \n                                            </div>\n\n                                            <div class=\"card-content card-content-jobs\">\n                                                <p>\n                                                    <b>\n                                                   \n                                                        <span class=\"salary-card blue-text\">" + salary + "  </span>\n                                                \n                                                        <span>" + job.employment_type + "</span>\n                                                    </b>\n                                                </p>\n\n                                                <p class=\"card-position\"> <b>" + job.position + "</b> </p>\n                                                <p class=\"truncate description text-opacity\">" + job.description + "</p>\n\n\n                                                <p class=\"text-opacity\"><i class=\"material-icons\">room</i>" + job.city + "</p>\n\n                                            </div>\n\n                                            <div class=\"card-action\">\n                                                <a href=\"/job/details/" + job.id + "\" class=\" btn blue white-text text-lighten-1 waves-effect waves-light full-width-btn\">\n                                                    Vezi Mai mult</a>\n\n                                            </div>\n                                        </div>\n                                 </div>\n                                </a>\n                           </div>\n                      ");
+                });
+            }
+        }
+    });
+
+    $("#loadMore").on('click', function () {
+        var loadMoreBtn = $('#loadMore');
+        var ajaxLimit = 2;
+        $.ajax({
+            url: '/jobs',
+            method: 'get',
+            dataType: 'application/json',
+            data: { ajaxLimit: ajaxLimit },
+            success: function success(response) {
+                console.log("limit changed");
+            }
+        });
+
+        var offsetValue = 0;
+        var loadmoreposts = function loadmoreposts() {
+            $.ajax('/jobs', { offset: offsetValue }).done(function (data) {
+                console.log(data);
+                //    $('#status').html( JSON.stringify(data))
+                offsetValue += 3;
+            });
+        };
+    });
+});
+
+/***/ }),
+
 /***/ "./public/src/js/jobs/jobs_form_validation.js":
 /*!****************************************************!*\
   !*** ./public/src/js/jobs/jobs_form_validation.js ***!
@@ -11545,6 +11627,10 @@ var _jobs_form_validation2 = _interopRequireDefault(_jobs_form_validation);
 var _job_edit = __webpack_require__(/*! ./job_edit */ "./public/src/js/jobs/job_edit.js");
 
 var _job_edit2 = _interopRequireDefault(_job_edit);
+
+var _jobs = __webpack_require__(/*! ./jobs */ "./public/src/js/jobs/jobs.js");
+
+var _jobs2 = _interopRequireDefault(_jobs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

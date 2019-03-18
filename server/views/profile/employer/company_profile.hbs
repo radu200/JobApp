@@ -29,17 +29,16 @@
         {{#each job}}
         <div class="col s12 m6 l4">
             <div class="card hoverable">
-                <div class="card-image small">
-                    {{#if this.image}}
-                    <img src="{{this.image}}" alt="">
-                    {{else}}
-                    <img src="/images/no_job_image_a.png" alt="">
-                    {{/if}}
-                    {{#if start_time}}
-                    <span class=" start_time_back font_weight_bold  ">{{start_time}}</span>
-                    {{/if}}
-
-                </div>
+                 <div class="card-image  ">
+                            {{#if this.image}}
+                            <img src="{{this.image}}" alt="">
+                            {{else}}
+                               <img  src="/images/no_job_image.png" alt="">
+                            {{/if}}
+                            {{#if start_time}}
+                           <span class="card-title yellow-text text-lighten-1 start-time">{{start_time}}</span>
+                            {{/if}}
+                        </div>
 
                 <div class="card-content card-content-jobs">
                     <p>

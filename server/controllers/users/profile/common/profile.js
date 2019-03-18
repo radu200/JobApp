@@ -79,7 +79,7 @@ module.exports.postProfileAvatarEdit = async (req, res, next) => {
         const [userDetails] = await db.execute(`select id, avatar from users where id=${req.user.id}`);
 
         if (req.file) {
-            var avatar = `./uploads/users/${req.file.filename}`;
+            var avatar = `/uploads/users/${req.file.filename}`;
             var filename = req.file.filename;
 
             await sharp(req.file.path)

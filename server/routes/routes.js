@@ -12,7 +12,7 @@ module.exports = function (app){
   const chatController = require('../controllers/chat/chat');
   const loginController = require('../controllers/authentication/common/login');
   const homeController = require('../controllers/home');
-  
+  const contactUs = require('../controllers/helpPages/contactUs')
   const accessController = require('../middleware/access_control_middleware');
   const filesController = require('../middleware/files_control_middleware');
   
@@ -92,6 +92,9 @@ module.exports = function (app){
   app.get('/job/details/:id', jobsController.getJobDetail)
   
   
+  ///contact us
+  app.get('/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
+  // app.post('/contact-us', accessController.ensureAuthenticated,contactUs.postContactUs)
 }
 
 

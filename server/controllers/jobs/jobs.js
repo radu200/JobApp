@@ -13,13 +13,18 @@ const sharp = require('sharp')
 module.exports.getJobsPage = async (req, res, next) => {
     //await conection
     try {
+        // var ajaxLimit = parseInt(req.body.ajaxLimit)
+        // var limit = 3  ;
+        //  console.log(ajaxLimit)
+        var offset = parseInt(req.body.offset)
         const db = await dbPromise
 
-        const [jobs] = await db.execute('select * from jobs');
-        console.log(jobs)
-        res.render('./jobs/jobs', {
-            'results': jobs
-        })
+        const [jobs] = await db.execute(`select * from jobs LIMIT  2  OFFSET ${offset} `);
+        // console.log(jobs)
+        res.json(jobs)
+        // res.render('./jobs/jobs', {
+        //     'results': jobs
+        // })
 
     } catch (err) {
         console.log(err)
@@ -195,7 +200,7 @@ module.exports.postJobImageEdit = async (req, res, next) => {
         const [userDetails] = await db.execute(`select id, image from jobs where id = ?`, [req.params.id]);
 
         if (req.file) {
-            var image = 'uploads/jobs/' + req.file.filename;
+            var image = '/uploads/jobs/' + req.file.filename;
             var filename = req.file.filename;
             await sharp(req.file.path)
                 .resize(820, 461)
@@ -407,11 +412,15 @@ module.exports.getJobDetail = async (req, res, next) => {
     try{
         const db = await dbPromise;
         const [userDetails] = await db.execute('select jobs.*, users.id as userId,users.first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type, users.avatar from jobs LEFT JOIN users ON  jobs.employer_id = users.id where jobs.id = ?', [req.params.id])
-        
+        console.log(userDetails)
         res.render('jobs/job_details', {
-            "result": userDetails[0]
+            "result": userDetails[0],
+
         })
-        
+
+
+
+     
     }catch(err){
         console.log(err)
 

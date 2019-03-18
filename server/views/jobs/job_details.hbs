@@ -6,7 +6,7 @@
           <div class="card">
              <div class="card-image waves-effect waves-block waves-light">
               {{#if this.result.image}}       
-              <img  src="{{result.image}}">
+              <img  src="{{this.result.image}}">
               {{else}}
               <img src="/images/no_job_image.png">
               {{/if}}
@@ -40,7 +40,6 @@
      </div>
 
       <!--employer details -->
-        
           <div class="col s12 m12 l4">
             <div class="card-panel">
               <h4>{{result.company_name}}</h4>
@@ -49,11 +48,12 @@
                 <p class="job_details_description">{{result.company_description}}</p>
               </div>
               <p><a href="/company/{{result.employer_id}}" target="_blank" class="right" href="">mai mult informatie</a></p>
-              {{#if result.avatar}}
-              <img class="job_detail_employer_img" src="{{result.avatar}}">
+              {{#if this.result.avatar}}
+              <img class="job_detail_employer_img" src="{{this.result.avatar}}">
               {{else}}
               <img class="job_detail_employer_img" src="/images/no_user.png">
               {{/if}}
+
               {{#if result.first_name}}
               <p> <span class="text-opacity">Angajeza</span><br> <span class="font_weight_bold">{{result.first_name}}
                   {{result.last_name}}</span></p>

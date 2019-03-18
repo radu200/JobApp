@@ -7,11 +7,13 @@
       <div class="card">
         <a class="btn grey right tooltipped" href="/profile/avatar " data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">create</i></a>
         <div class="card-image card-profile-image">
+            <a href="/profile/avatar">
           {{#if this.result.avatar }}
           <img  src="{{this.result.avatar}}" class="avatar">
           {{else}}
           <img  src="/images/no_user.png" class="avatar">
           {{/if}}
+        </a>
         </div>
         <div class="card-content center">
           <h5 class="break_text">{{result.first_name}}</h5>
