@@ -15,7 +15,7 @@ module.exports = function (app){
   const contactUs = require('../controllers/helpPages/contactUs')
   const accessController = require('../middleware/access_control_middleware');
   const filesController = require('../middleware/files_control_middleware');
-  
+  const searchJob =  require('../controllers/search/search');
   
   app.get('/',  homeController.getHomePage)
   
@@ -60,7 +60,7 @@ module.exports = function (app){
   app.post('/profile/edit/employer', accessController.ensureAuthenticated,accessController.employer, employerProfileController.postEmployerProfileInfoEdit)
   app.get('/company/info/edit', accessController.ensureAuthenticated, accessController.employer, employerProfileController.getCompanyInfoEdit)
   app.post('/company/info/edit', accessController.ensureAuthenticated, accessController.employer,employerProfileController.postCompanyInfoEdit)
-  app.get('/company/:id', accessController.ensureAuthenticated,accessController.employer,accessController.employer, employerProfileController.getCompanyProfile,)
+  app.get('/company/:id', accessController.ensureAuthenticated, employerProfileController.getCompanyProfile,)
   //employer jobs
   app.get('/my_jobs', accessController.ensureAuthenticated,accessController.employer,jobsController.getEmployerJobs)
   app.get('/candidate_search', accessController.ensureAuthenticated, accessController.employer,EmployerProfileController.getCandidate )
@@ -90,11 +90,12 @@ module.exports = function (app){
   app.post('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.postEmployerJobEdit)
   app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
   app.get('/job/details/:id', jobsController.getJobDetail)
-  
-  
+  app.post('/job/get-more', jobsController.getMoreJobs)
+
+ //search
+ app.get('/search', searchJob.searchJobs)
   ///contact us
   app.get('/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
-  // app.post('/contact-us', accessController.ensureAuthenticated,contactUs.postContactUs)
 }
 
 

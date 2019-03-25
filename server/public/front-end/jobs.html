@@ -65,18 +65,32 @@
 
         </ul>
     </nav>
-        <div class="container">
-                <div class="row">
-                <div class="jobcontainer"></div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <form id="searchJobForm">
+                <div class="col s12 m10">
+                    <div class="input-field">
+                        <i class="material-icons  search-jobs-icon">search</i>
+                        <input type="text" id="searchJobInput" class="browser-default search-jobs-input" placeholder="Cauta"></input>
+                    </div>
+                </div>
+
+                <div class="col s12 m2">
+                    <button type="submit"  class="btn  search-btn">Cauta </button>
+                </div>
+            </form>
         </div>
-        <button class="btn" id="loadMore">loadMore</button>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+        <div class="row">
+            <div class="jobcontainer"></div>
+        </div>
+        <button id="getMore" class="btn">Mai Mul</button>
+    </div>
+
+
     <script src="/dist/bundle.js"></script>
 
-    <script>
-      
-    </script>
+   
 
 </body>
 

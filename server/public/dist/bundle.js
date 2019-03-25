@@ -11436,27 +11436,76 @@ function abortHandlerImageEdit(event) {
 "use strict";
 
 
-$.ajaxSetup({
-    beforeSend: function beforeSend(xhr) {
-        xhr.setRequestHeader("jobs-list", "true");
-    }
-});
+// $.ajaxSetup({
+//     beforeSend: function (xhr) {
+//         xhr.setRequestHeader("jobs-list", "true");
+//     }
+// });
 $(document).ready(function () {
     $.ajax({
         url: '/jobs',
         type: "GET",
         dataType: 'json',
         success: function success(data) {
+            var $output = $('.jobcontainer');
+            // $('#status').html( JSON.stringify(data.description))
+            var jobsNum = data.length;
+            $.each(data, function (index, job) {
 
-            if (data.code === 99) {
-                console.log('loghezate');
-                $('.jobcontainer').html('Te rog logheazate  <a  href="/login">aici</a> ');
-            } else {
+                if (job.image) {
+                    var jobImage = job.image;
+                } else {
+                    var jobImage = '/images/no_job_image.png';
+                }
+
+                if (job.salary) {
+                    var salary = job.salary + ' ' + 'LEI' + ' |';
+                } else {
+                    var salary = '';
+                }
+
+                if (job.start_time) {
+                    var startTime = job.startTime;
+                } else {
+                    var startTime = '';
+                }
+
+                $output.append('\n                                <div class="col s12 m6 l4">\n                                    <a href="/job/details/' + job.id + '" target="_blank" class="black-text">\n                                        <div class="card hoverable ">\n                                            <div class="card-image  ">\n                                             \n                                                <img src="' + jobImage + '" alt="">\n        \n                                                 <span class="card-title yellow-text text-lighten-1 start-time">' + startTime + '</span>\n                     \n                                            </div>\n\n                                            <div class="card-content card-content-jobs">\n                                                <p>\n                                                    <b>\n                                                   \n                                                        <span class="salary-card blue-text">' + salary + '  </span>\n                                                \n                                                        <span>' + job.employment_type + '</span>\n                                                    </b>\n                                                </p>\n\n                                                <p class="card-position"> <b>' + job.position + '</b> </p>\n                                                <p class="truncate description text-opacity">' + job.description + '</p>\n\n\n                                                <p class="text-opacity"><i class="material-icons">room</i>' + job.city + '</p>\n\n                                            </div>\n\n                                            <div class="card-action">\n                                                <a href="/job/details/' + job.id + '" class=" btn blue white-text text-lighten-1 waves-effect waves-light full-width-btn">\n                                                    Vezi Mai mult</a>\n\n                                            </div>\n                                        </div>\n                                 </div>\n                                </a>\n                           </div>\n                      ');
+            });
+
+            var page = 2;
+            $('#getMore').click(function () {
+                page += 2;
+                console.log('page', page);
+                $.ajax({
+                    url: '/job/get-more',
+                    type: "POST",
+                    data: { limit: page },
+                    success: function success(data) {
+                        console.log(data);
+                        // page += 3;
+                    }
+                });
+            });
+        }
+    });
+
+    $("#searchJobForm").submit(function (event) {
+
+        /* stop form from submitting normally */
+        event.preventDefault();
+        var $searchVal = $('#searchJobInput').val();
+
+        $.ajax({
+            url: '/search?searchJob=' + $searchVal,
+            type: "GET",
+            success: function success(data) {
+
                 var $output = $('.jobcontainer');
-                // $('#status').html( JSON.stringify(data.description))
+                console.log('data', data.length);
 
                 $.each(data, function (index, job) {
-
+                    console.log('job', job);
                     if (job.image) {
                         var jobImage = job.image;
                     } else {
@@ -11464,7 +11513,7 @@ $(document).ready(function () {
                     }
 
                     if (job.salary) {
-                        var salary = job.salary + " " + 'LEI' + " |";
+                        var salary = job.salary + ' ' + 'LEI' + ' |';
                     } else {
                         var salary = '';
                     }
@@ -11475,34 +11524,11 @@ $(document).ready(function () {
                         var startTime = '';
                     }
 
-                    console.log(job.salary);
-                    $output.append("\n                                <div class=\"col s12 m6 l4\">\n                                    <a href=\"/job/details/" + job.id + "\" target=\"_blank\" class=\"black-text\">\n                                        <div class=\"card hoverable \">\n                                            <div class=\"card-image  \">\n                                             \n                                                <img src=\"" + jobImage + "\" alt=\"\">\n        \n                                                 <span class=\"card-title yellow-text text-lighten-1 start-time\">" + startTime + "</span>\n                     \n                                            </div>\n\n                                            <div class=\"card-content card-content-jobs\">\n                                                <p>\n                                                    <b>\n                                                   \n                                                        <span class=\"salary-card blue-text\">" + salary + "  </span>\n                                                \n                                                        <span>" + job.employment_type + "</span>\n                                                    </b>\n                                                </p>\n\n                                                <p class=\"card-position\"> <b>" + job.position + "</b> </p>\n                                                <p class=\"truncate description text-opacity\">" + job.description + "</p>\n\n\n                                                <p class=\"text-opacity\"><i class=\"material-icons\">room</i>" + job.city + "</p>\n\n                                            </div>\n\n                                            <div class=\"card-action\">\n                                                <a href=\"/job/details/" + job.id + "\" class=\" btn blue white-text text-lighten-1 waves-effect waves-light full-width-btn\">\n                                                    Vezi Mai mult</a>\n\n                                            </div>\n                                        </div>\n                                 </div>\n                                </a>\n                           </div>\n                      ");
+                    $output.append('\n                                <div class="col s12 m6 l4">\n                                    <a href="/job/details/' + job.id + '" target="_blank" class="black-text">\n                                        <div class="card hoverable ">\n                                            <div class="card-image  ">\n                                             \n                                                <img src="' + jobImage + '" alt="">\n        \n                                                 <span class="card-title yellow-text text-lighten-1 start-time">' + startTime + '</span>\n                     \n                                            </div>\n\n                                            <div class="card-content card-content-jobs">\n                                                <p>\n                                                    <b>\n                                                   \n                                                        <span class="salary-card blue-text">' + salary + '  </span>\n                                                \n                                                        <span>' + job.employment_type + '</span>\n                                                    </b>\n                                                </p>\n\n                                                <p class="card-position"> <b>' + job.position + '</b> </p>\n                                                <p class="truncate description text-opacity">' + job.description + '</p>\n\n\n                                                <p class="text-opacity"><i class="material-icons">room</i>' + job.city + '</p>\n\n                                            </div>\n\n                                            <div class="card-action">\n                                                <a href="/job/details/' + job.id + '" class=" btn blue white-text text-lighten-1 waves-effect waves-light full-width-btn">\n                                                    Vezi Mai mult</a>\n\n                                            </div>\n                                        </div>\n                                 </div>\n                                </a>\n                           </div>\n                      ');
                 });
             }
-        }
-    });
 
-    $("#loadMore").on('click', function () {
-        var loadMoreBtn = $('#loadMore');
-        var ajaxLimit = 2;
-        $.ajax({
-            url: '/jobs',
-            method: 'get',
-            dataType: 'application/json',
-            data: { ajaxLimit: ajaxLimit },
-            success: function success(response) {
-                console.log("limit changed");
-            }
         });
-
-        var offsetValue = 0;
-        var loadmoreposts = function loadmoreposts() {
-            $.ajax('/jobs', { offset: offsetValue }).done(function (data) {
-                console.log(data);
-                //    $('#status').html( JSON.stringify(data))
-                offsetValue += 3;
-            });
-        };
     });
 });
 

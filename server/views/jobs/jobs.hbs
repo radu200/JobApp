@@ -16,7 +16,7 @@
         </form>
     </div>
 
-</div>
+  </div>
 </div>
 
 <section>
@@ -165,7 +165,19 @@
             {{/each}}
             {{else}}
             <h4 class="center">Nici un job nu este disponibil la moment</h4>
-            {{/if}}
+          
+         {{/if}}
+              <ul class="pagination">
+         {{#if res}}
+               
+                <li class="waves-effect"><a href='/jobs/{{res}}'>next</a></li>
+             {{/if}}
+               {{#if prev}}
+               
+                <li class="waves-effect"><a href='/jobs/{{prev}}'>prev</a></li>
+             {{/if}}
+               
+             </ul>
         </div>
     </div>
 </section>

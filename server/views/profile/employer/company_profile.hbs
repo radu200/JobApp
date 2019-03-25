@@ -7,7 +7,9 @@
             <div class="card-content">
                 <p class="text-opacity">{{employer.company_type}}</p>
                 <p class="job_details_description">{{employer.company_description}}</p>
+                {{#if employer.company_location}}
                 <p><i class="material-icons">place</i> {{employer.company_location}}</p>
+                {{/if}}
             </div>
 
             <div class="divider"></div>

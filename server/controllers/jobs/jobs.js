@@ -8,23 +8,30 @@ const sharp = require('sharp')
 
 
 
+module.exports.getMoreJobs =  async(req,res) => {
+    console.log(req.body.limit)
+    const limit = req.body.limit;
+    try {
 
+        const db = await dbPromise
+        const [jobs] = await db.execute(`select * from jobs LIMIT ${limit} OFFSET 0 `);
+       
+       res.json(jobs)
+
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 module.exports.getJobsPage = async (req, res, next) => {
     //await conection
+    console.log(req.body)
     try {
-        // var ajaxLimit = parseInt(req.body.ajaxLimit)
-        // var limit = 3  ;
-        //  console.log(ajaxLimit)
-        var offset = parseInt(req.body.offset)
-        const db = await dbPromise
 
-        const [jobs] = await db.execute(`select * from jobs LIMIT  2  OFFSET ${offset} `);
-        // console.log(jobs)
-        res.json(jobs)
-        // res.render('./jobs/jobs', {
-        //     'results': jobs
-        // })
+        const db = await dbPromise
+        const [jobs] = await db.execute(`select * from jobs LIMIT 2 OFFSET 0 `);
+       
+       res.json(jobs)
 
     } catch (err) {
         console.log(err)
@@ -51,6 +58,8 @@ module.exports.getJobsPage = async (req, res, next) => {
 
 
 };
+
+
 
 
 module.exports.getAddJobs = (req, res, next) => {
