@@ -50,7 +50,6 @@ import SearchJobPosition from '../Search/SearchJobPosition'
           render() {
             return (
             <div>
-              <SearchJobPosition/>
               {this.state.jobs.map((job,index) => {
                 return (
                   <div key={index}>

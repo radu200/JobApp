@@ -1,22 +1,30 @@
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
-if(this.props.results){
-const SearchResults = ({results}) => {
 
-      return results.map((job,index)=> {
-        return(
-        <div key={index}>
-         <li>{job.id}</li>
-        </div>
-    
-        )
-      })
+
+class SearchResults extends Component {
+    constructor(props){
+        super(props)
+    }
+  render() {
+     console.log(this.props.jobs)
+    return (
+      <div >
+          
+          {/* {this.props.jobs.map((job,index) => {
+                return (
+                  <div key={index}>
+                    <li>{job.id}</li>
+                    <li>{job.position}</li>
+                    <li>{job.category}</li>
+                  </div> )})} */}
+      </div>
+    );
   }
-  
-
 }
+
+
 
 
 export default SearchResults;
