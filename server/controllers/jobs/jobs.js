@@ -9,12 +9,11 @@ const sharp = require('sharp')
 
 
 module.exports.getMoreJobs =  async(req,res) => {
-    console.log(req.body.limit)
-    const limit = req.body.limit;
+    const offset = req.body.offset;
     try {
 
         const db = await dbPromise
-        const [jobs] = await db.execute(`select * from jobs LIMIT ${limit} OFFSET 0 `);
+        const [jobs] = await db.execute(`select * from jobs LIMIT 2 OFFSET ${offset} `);
        
        res.json(jobs)
 
