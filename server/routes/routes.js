@@ -93,7 +93,7 @@ module.exports = function (app){
   app.post('/job/get-more', jobsController.getMoreJobs)
 
  //search
- app.post('/search', searchJob.searchJobs)
+ app.post('/search/job', searchJob.searchJobs)
   ///contact us
   app.get('/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
 }

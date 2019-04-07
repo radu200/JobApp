@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 // import JobCard from './card'
-import SearchJobPosition from '../Search/SearchJobPosition'
+import SearchForm from '../Search/SearchForm'
 
 
  class Joblist extends Component {
@@ -10,7 +10,7 @@ import SearchJobPosition from '../Search/SearchJobPosition'
         super(props) 
          this.state = {
             jobs:[],
-            JobNum:4 
+            offset:2
 
         }
     }
@@ -25,20 +25,21 @@ import SearchJobPosition from '../Search/SearchJobPosition'
                 console.error(error);
               }
             }
-
+  
             getJobs()
             
           }
           
           getMoreJobs() {
+            
             const getMoreJob =  async () => {
               try {
                 const response = await axios.post('/job/get-more',{
-                  limit: this.state.JobNum
+                   offset: this.state.offset 
                 });
                 
 
-                this.setState({jobs:[...response.data],JobNum:this.state.JobNum + 2})
+                this.setState({jobs:[...this.state.jobs, ...response.data], offset:this.state.offset + 2})
    
               } catch (error) {
                 console.error(error);
@@ -50,6 +51,7 @@ import SearchJobPosition from '../Search/SearchJobPosition'
           render() {
             return (
             <div>
+              <SearchForm/>
               {this.state.jobs.map((job,index) => {
                 return (
                   <div key={index}>

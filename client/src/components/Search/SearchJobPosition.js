@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearchResult from './SearchResult'
 import { withRouter } from "react-router-dom";
 
 
@@ -10,13 +9,31 @@ class SearchJobPosition extends Component {
    super(props);
    this.state = {
       query:'',
-      data:[],
-      limit:2
+      jobs:[],
+      offset:2
+    
    }
-   this.handleSearchValue = this.handleSearchValue.bind(this)
-   this.handleSubmit = this.handleSubmit.bind(this)
+   this.handleSearchValue = this.handleSearchValue.bind(this);
+   this.handleSubmit = this.handleSubmit.bind(this);
+   this.getMore =  this.getMore.bind(this);
  }
   
+
+
+ componentDidMount(){
+  const getJobs =  async () => {
+    try {
+      const response = await axios.post(`/search/job?search_query=${this.props.match.params.query}`,{
+        offset:0
+      })
+      this.setState({jobs:response.data, query:this.props.match.params.query})
+    } catch (error) {
+      console.error(error);
+    }
+  } 
+  
+  getJobs()
+ }
 
 
   handleSearchValue(event){
@@ -25,32 +42,32 @@ class SearchJobPosition extends Component {
   
   handleSubmit(event){
     event.preventDefault();
-     
+    
     const getSearchRes =  async () => {
       try {
-             const response = await axios.post(`/search?searchJob=${this.state.query}`,{
-              limit: this.state.limit
-             });
-             
-             this.setState({data:response.data})
-             
-
-            } catch (error) {
-              console.error(error);
-            }
-          }
-
-      getSearchRes()
-          
+        const response = await axios.post(`/search/job?search_query=${this.state.query}`,{
+          offset:0
+        })
+        this.setState({jobs:response.data, offset:2})
+      } catch (error) {
+        console.error(error);
+      }
+    } 
+    
+    getSearchRes()
+    
+    this.props.history.push(`/search/job?search_query=${this.state.query}`)
   }
 
+
   getMore() {
+   
     const getMoreJob =  async () => {
       try {
-        const response = await axios.post(`/search?searchJob=${this.state.query}`,{
-          limit: this.state.limit
+        const response = await axios.post(`/search/job?search_query=${this.state.query}`,{
+          offset: this.state.offset
         });
-         this.setState({data:[...response.data], limit:this.state.limit + 2})
+            this.setState({jobs:[...this.state.jobs,...response.data], offset:this.state.offset + 2})
       } catch (error) {
         console.error(error);
       }
@@ -58,25 +75,39 @@ class SearchJobPosition extends Component {
     
     getMoreJob();
   }
+  
 
     render() {
-      console.log('data',this.state.data)
+      const {jobs} = this.state
+
+      let button;
+      if( jobs.length > 0){
+        button = <button onClick={this.getMore}>GetMore</button>
+      } else {
+          button = null
+      }
+
       return (
         <div>
           <form onSubmit={this.handleSubmit}>
           <input type="text" placeholder="search" onChange={this.handleSearchValue} />
             <input type="submit" value="submit"  />
           </form>
-          {/* <SearchResult results={this.state.data}/> */}
-          <button onClick={this.getMore.bind(this)}>GetMore</button>
-          {this.state.data.map((job,index) =>{
-            return (
-              <div key={index}>{job.position}</div>
-            )
-          })}
+
+          {jobs.length > 0 ?
+            jobs.map((job,index) => {
+             return(
+               <div key={index}>
+                    <li>{job.id}</li>
+                    <li>{job.position}</li>
+                    <li>{job.category}</li>
+                  </div>
+                  )} ):( <h1>Nu am gasit nici un job</h1>)}
+            
+            {button}
         </div>
-      );
-    }
+        );
+   }
 }
 
 export default   withRouter(SearchJobPosition);

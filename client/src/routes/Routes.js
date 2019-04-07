@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter,Switch, Route } from 'react-router-dom';
 import Joblist from '../components/Jobs/JobsList';
-import SearchResults from '../components/Search/SearchResult'
 import SearchJobPosition from '../components/Search/SearchJobPosition';
 
 const Routes = () => (
@@ -9,7 +8,9 @@ const Routes = () => (
     <BrowserRouter>
     <Switch>
       <Route exact path='/' component={Joblist} />
-      <Route exact path='/search' component={SearchJobPosition} />
+      <Route  path='/search/job' component={SearchJobPosition} />
+      <Route exact path='/search/:query' component={SearchJobPosition} />
+
 
     </Switch>
   </BrowserRouter>
