@@ -9,7 +9,7 @@ const Routes = () => (
     <Switch>
       <Route exact path='/' component={Joblist} />
       <Route  path='/search/job' component={SearchJobPosition} />
-      <Route exact path='/search/:query' component={SearchJobPosition} />
+      <Route exact path='/search/:query/:location' component={SearchJobPosition} />
 
 
     </Switch>
