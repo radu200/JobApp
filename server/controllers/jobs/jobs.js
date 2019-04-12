@@ -8,27 +8,12 @@ const sharp = require('sharp')
 
 
 
-module.exports.getMoreJobs =  async(req,res) => {
+module.exports.getJobsPage = async (req, res, next) => {
     const offset = req.body.offset;
     try {
 
         const db = await dbPromise
         const [jobs] = await db.execute(`select * from jobs LIMIT 2 OFFSET ${offset} `);
-       
-       res.json(jobs)
-
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-module.exports.getJobsPage = async (req, res, next) => {
-    //await conection
-    console.log(req.body)
-    try {
-
-        const db = await dbPromise
-        const [jobs] = await db.execute(`select * from jobs LIMIT 2 OFFSET 0 `);
        
        res.json(jobs)
 

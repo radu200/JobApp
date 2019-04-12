@@ -17,13 +17,12 @@ class SearchJobPosition extends Component {
    this.handleSearchValue = this.handleSearchValue.bind(this);
    this.handleSelectChange = this.handleSelectChange.bind(this)
    this.handleSubmit = this.handleSubmit.bind(this);
-   this.getMore =  this.getMore.bind(this);
+   this.getMore = this.getMore.bind(this);
  }
   
 
 
  componentDidMount(){
-   console.log(this.props)
   const getJobs =  async () => {
     try {
       const response = await axios.post(`/search/job?search_query=${this.props.match.params.query}&location=${this.props.match.params.location}`,{
@@ -84,8 +83,6 @@ class SearchJobPosition extends Component {
   
 
     render() {
-
-
       const {jobs} = this.state
 
       let button;
@@ -103,8 +100,8 @@ class SearchJobPosition extends Component {
               <option value="Chisinau">Chisinau</option>
               <option value="Balti">Balti</option>
             </select>
-          <input type="text" placeholder="search" onChange={this.handleSearchValue} />
-            <input type="submit" value="submit"  />
+              <input type="text" placeholder="search" onChange={this.handleSearchValue} />
+                <input type="submit" value="submit"  />
           </form>
 
           {jobs.length > 0 ?

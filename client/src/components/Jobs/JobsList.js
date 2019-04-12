@@ -18,9 +18,10 @@ import SearchForm from '../Search/SearchForm'
     componentDidMount(){
       const getJobs =  async () => {
         try {
-               const response = await axios.get('/jobs');
+               const response = await axios.post('/jobs',{
+                offset:0
+               });
                this.setState({jobs:response.data})
-               //    console.log(response.data);
               } catch (error) {
                 console.error(error);
               }
@@ -34,11 +35,10 @@ import SearchForm from '../Search/SearchForm'
             
             const getMoreJob =  async () => {
               try {
-                const response = await axios.post('/job/get-more',{
+                const response = await axios.post('/jobs',{
                    offset: this.state.offset 
                 });
-                
-
+              
                 this.setState({jobs:[...this.state.jobs, ...response.data], offset:this.state.offset + 2})
    
               } catch (error) {

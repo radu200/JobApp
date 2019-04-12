@@ -81,7 +81,7 @@ module.exports = function (app){
   app.get('/chats', accessController.ensureAuthenticated,chatController.getChat )
   
   //jobs controller 
-  app.get('/jobs', jobsController.getJobsPage)
+  app.post('/jobs', jobsController.getJobsPage)
   app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer,accessController.ensureEmailChecked, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)
@@ -90,7 +90,6 @@ module.exports = function (app){
   app.post('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.postEmployerJobEdit)
   app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
   app.get('/job/details/:id', jobsController.getJobDetail)
-  app.post('/job/get-more', jobsController.getMoreJobs)
 
  //search
  app.post('/search/job', searchJob.searchJobs)
