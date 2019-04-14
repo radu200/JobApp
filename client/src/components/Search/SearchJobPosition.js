@@ -9,15 +9,17 @@ class SearchJobPosition extends Component {
    super(props);
    this.state = {
       query:'',
-      location:'Chisinau',
+      location:'Te rog alege orasul',
       jobs:[],
-      offset:2
+      offset:2,
+      searchError:'',
+      locationError:''
     
    }
-   this.handleSearchValue = this.handleSearchValue.bind(this);
-   this.handleSelectChange = this.handleSelectChange.bind(this)
-   this.handleSubmit = this.handleSubmit.bind(this);
-   this.getMore = this.getMore.bind(this);
+    this.handleSearchValue = this.handleSearchValue.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.getMore = this.getMore.bind(this);
  }
   
 
@@ -36,7 +38,23 @@ class SearchJobPosition extends Component {
   
   getJobs()
  }
+  
+  validate = () => {
+      let searchError = "";
+      let locationError = "";
+      if(!this.state.query){
+        searchError = "Nu poate fi gol"
+      }
 
+      if(!this.state.location){
+        locationError = "Te rog alege orasul"
+      }
+      if(searchError || locationError){
+        this.setState({searchError,locationError})
+        return false;
+      }
+        return true;
+  }
 
   handleSearchValue(event){
     this.setState({query:event.target.value})
@@ -47,21 +65,25 @@ class SearchJobPosition extends Component {
   }
   handleSubmit(event){
     event.preventDefault();
+    const isValid = this.validate();
     
-    const getSearchRes =  async () => {
-      try {
-        const response = await axios.post(`/search/job?search_query=${this.state.query}&location=${this.state.location}`,{
-          offset:0
-        })
-        this.setState({jobs:response.data, offset:2})
-      } catch (error) {
-        console.error(error);
+    if(isValid){
+      const getSearchRes =  async () => {
+        try {
+          const response = await axios.post(`/search/job?search_query=${this.state.query}&location=${this.state.location}`,{
+            offset:0
+          })
+          this.setState({jobs:response.data, offset:2})
+        } catch (error) {
+          console.error(error);
+        }
       }
+      getSearchRes();
+      this.setState({searchError:'', locationError:''})
+      this.props.history.push(`/search/job?search_query=${this.state.query}&location=${this.state.location}`)
     } 
     
-    getSearchRes()
     
-    this.props.history.push(`/search/job?search_query=${this.state.query}&location=${this.state.location}`)
   }
 
 
@@ -102,6 +124,10 @@ class SearchJobPosition extends Component {
             </select>
               <input type="text" placeholder="search" onChange={this.handleSearchValue} />
                 <input type="submit" value="submit"  />
+                <div style={{ fontSize: 12, color: "red" }}>
+                  {this.state.locationError}
+                  {this.state.searchError}
+                </div>
           </form>
 
           {jobs.length > 0 ?

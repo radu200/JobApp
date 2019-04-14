@@ -8,8 +8,9 @@ class SearchForm extends Component {
         super()
          this.state = {
           query:'',
-          location:'Chisinau',
-          searchError:''
+          location:'',
+          searchError:'',
+          locationError:''
          }
          this.handleSearchValue = this.handleSearchValue.bind(this);
          this.handleSelectChange = this.handleSelectChange.bind(this)
@@ -20,12 +21,16 @@ class SearchForm extends Component {
   
       validate = () => {
         let searchError = "";
+        let locationError = "";
         if(!this.state.query){
           searchError = "Nu poate fi gol"
         }
 
-        if(searchError){
-          this.setState({searchError:searchError})
+        if(!this.state.location){
+          locationError = "Te rog alege orasul"
+        }
+        if(searchError || locationError){
+          this.setState({searchError,locationError})
           return false;
         }
          return true;
@@ -45,7 +50,7 @@ class SearchForm extends Component {
 
         if(isValid){
           this.props.history.push(`/search/${this.state.query}/${this.state.location}`)
-          this.setState({searchError:''})
+          this.setState({searchError:'', locationError:''})
         }
       }
 
@@ -55,12 +60,15 @@ class SearchForm extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <select onChange={this.handleSelectChange} >
+             <option value="">Alege</option>
               <option value="Chisnau">Chisinau</option>
               <option value="Balti">Balti</option>
             </select>
+            
             <input type="text" placeholder="Cauta" onChange={this.handleSearchValue} value={this.state.query} />
             <input type="submit" value="submit"  />
             <div style={{ fontSize: 12, color: "red" }}>
+            {this.state.locationError}
             {this.state.searchError}
           </div>
           </form>
