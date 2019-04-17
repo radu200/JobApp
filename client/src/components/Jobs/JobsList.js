@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import JobCard from './card'
 import SearchForm from '../Search/SearchForm'
 
 
@@ -52,9 +51,9 @@ import SearchForm from '../Search/SearchForm'
             return (
             <div>
               <SearchForm/>
-              {this.state.jobs.map((job,index) => {
+              {this.state.jobs.map((job) => {
                 return (
-                  <div key={index}>
+                  <div key={job.id}>
                     <li>{job.id}</li>
                     <li>{job.position}</li>
                     <li>{job.category}</li>

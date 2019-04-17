@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
+import JobSearchres from './JobSearchRes'
+import SelectLocation from './SelectLocation'
+
+const errorStyle = {
+  fontSize: 12, 
+  color: "red"
+ }
 
 
-
-class SearchJobPosition extends Component {
+class SearchJob extends Component {
  constructor (props) {
    super(props);
    this.state = {
       query:'',
-      location:'Te rog alege orasul',
+      location:'Alege',
       jobs:[],
       offset:2,
       searchError:'',
       locationError:''
     
    }
+
     this.handleSearchValue = this.handleSearchValue.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,23 +33,27 @@ class SearchJobPosition extends Component {
 
 
  componentDidMount(){
-  const getJobs =  async () => {
-    try {
-      const response = await axios.post(`/search/job?search_query=${this.props.match.params.query}&location=${this.props.match.params.location}`,{
-        offset:0
-      })
-      this.setState({jobs:response.data, query:this.props.match.params.query, location:this.props.match.params.location})
-    } catch (error) {
-      console.error(error);
-    }
-  } 
-  
-  getJobs()
+   this.getJobs();
  }
   
+  
+
+  getJobs =  async () => {
+  
+   try {
+    const response = await axios.post(`/search/job?search_query=${this.props.match.params.query}&location=${this.props.match.params.location}`,{
+      offset:0
+    })
+    this.setState({jobs:response.data, query:this.props.match.params.query, location:this.props.match.params.location})
+  } catch (error) {
+    console.error(error);
+  }
+} 
+
   validate = () => {
       let searchError = "";
       let locationError = "";
+    
       if(!this.state.query){
         searchError = "Nu poate fi gol"
       }
@@ -63,6 +75,7 @@ class SearchJobPosition extends Component {
   handleSelectChange(event){
     this.setState({location:event.target.value})
   }
+ 
   handleSubmit(event){
     event.preventDefault();
     const isValid = this.validate();
@@ -87,9 +100,8 @@ class SearchJobPosition extends Component {
   }
 
 
-  getMore() {
+  getMore = async () =>  {
    
-    const getMoreJob =  async () => {
       try {
         const response = await axios.post(`/search/job?search_query=${this.state.query}&location=${this.state.location}`,{
           offset: this.state.offset
@@ -100,11 +112,11 @@ class SearchJobPosition extends Component {
       }
     }
     
-    getMoreJob();
-  }
   
-
+  
+    
     render() {
+
       const {jobs} = this.state
 
       let button;
@@ -119,30 +131,22 @@ class SearchJobPosition extends Component {
           <form onSubmit={this.handleSubmit}>
           <select onChange={this.handleSelectChange} >
               <option value={this.state.location}>{this.state.location}</option>
-              <option value="Chisinau">Chisinau</option>
-              <option value="Balti">Balti</option>
-            </select>
+               <SelectLocation/>
+             </select>
               <input type="text" placeholder="search" onChange={this.handleSearchValue} />
                 <input type="submit" value="submit"  />
-                <div style={{ fontSize: 12, color: "red" }}>
+                <div style={errorStyle}>
                   {this.state.locationError}
                   {this.state.searchError}
                 </div>
           </form>
 
-          {jobs.length > 0 ?
-            jobs.map((job,index) => {
-             return(
-               <div key={index}>
-                    <li>{job.id}</li>
-                    <li>{job.position}</li>
-                    <li>{job.category}</li>
-                  </div>
-                  )} ):( <h1>Nu am gasit nici un job</h1>)}
+           <JobSearchres jobs={jobs} />
             {button}
         </div>
         );
    }
 }
 
-export default   withRouter(SearchJobPosition);
+
+export default   withRouter(SearchJob);

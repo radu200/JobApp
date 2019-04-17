@@ -1,7 +1,12 @@
 
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
+import SelectLocation from './SelectLocation'
 
+const errorStyle = {
+  fontSize: 12, 
+  color: "red"
+ }
 
 class SearchForm extends Component {
     constructor(){
@@ -61,13 +66,12 @@ class SearchForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <select onChange={this.handleSelectChange} >
              <option value="">Alege</option>
-              <option value="Chisnau">Chisinau</option>
-              <option value="Balti">Balti</option>
+              <SelectLocation/>
             </select>
             
             <input type="text" placeholder="Cauta" onChange={this.handleSearchValue} value={this.state.query} />
             <input type="submit" value="submit"  />
-            <div style={{ fontSize: 12, color: "red" }}>
+            <div style={errorStyle}>
             {this.state.locationError}
             {this.state.searchError}
           </div>
