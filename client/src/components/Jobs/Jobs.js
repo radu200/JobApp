@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearchForm from '../Search/SearchForm'
+import SearchForm from '../Search/JobSearch/SearchForm'
 
 
  class Joblist extends Component {
@@ -17,14 +17,14 @@ import SearchForm from '../Search/SearchForm'
     componentDidMount(){
       const getJobs =  async () => {
         try {
-               const response = await axios.post('/jobs',{
-                offset:0
-               });
-               this.setState({jobs:response.data})
-              } catch (error) {
-                console.error(error);
-              }
-            }
+            const response = await axios.post('/jobs',{
+            offset:0
+            });
+            this.setState({jobs:response.data})
+          } catch (error) {
+            console.error(error);
+          }
+        }
   
             getJobs()
             

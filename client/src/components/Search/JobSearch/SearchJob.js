@@ -16,7 +16,7 @@ class SearchJob extends Component {
    super(props);
    this.state = {
       query:'',
-      location:'Alege',
+      location:'',
       jobs:[],
       offset:2,
       searchError:'',
@@ -129,10 +129,12 @@ class SearchJob extends Component {
       return (
         <div>
           <form onSubmit={this.handleSubmit}>
-          <select onChange={this.handleSelectChange} >
+
+            <select onChange={this.handleSelectChange} >
               <option value={this.state.location}>{this.state.location}</option>
                <SelectLocation/>
              </select>
+
               <input type="text" placeholder="search" onChange={this.handleSearchValue} />
                 <input type="submit" value="submit"  />
                 <div style={errorStyle}>

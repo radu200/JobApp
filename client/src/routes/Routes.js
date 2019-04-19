@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter,Switch, Route } from 'react-router-dom';
-import Joblist from '../components/Jobs/JobsList';
-import SearchJob from '../components/Search/SearchJob';
+import Joblist from '../components/Jobs/Jobs';
+import SearchJob from '../components/Search/JobSearch/SearchJob';
 
 const Routes = () => (
   <main>

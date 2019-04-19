@@ -68,7 +68,6 @@ class SearchForm extends Component {
              <option value="">Alege</option>
               <SelectLocation/>
             </select>
-            
             <input type="text" placeholder="Cauta" onChange={this.handleSearchValue} value={this.state.query} />
             <input type="submit" value="submit"  />
             <div style={errorStyle}>
