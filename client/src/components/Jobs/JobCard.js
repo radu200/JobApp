@@ -1,6 +1,6 @@
 import React from 'react'
 
-const JobSearchRes =  (props) => {
+const JobCard =  (props) => {
 
     if(props.jobs.length > 0){
       return props.jobs.map((job) => {
@@ -18,4 +18,4 @@ const JobSearchRes =  (props) => {
    
 }
 
-export default JobSearchRes;
+export default JobCard;

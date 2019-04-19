@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearchForm from '../Search/JobSearch/SearchForm'
+import Locations from './Locations'
+import JobCard from './JobCard'
+
+
+const errorStyle = {
+  fontSize: 12, 
+  color: "red"
+ }
 
 
  class Joblist extends Component {
@@ -9,32 +16,41 @@ import SearchForm from '../Search/JobSearch/SearchForm'
         super(props) 
          this.state = {
             jobs:[],
-            offset:2
+            offset:2,
+            query:'',
+            location:'',
+            url:'',
+            searchError:'',
+            locationError:''
 
         }
+
+        this.handleSearchValue = this.handleSearchValue.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
     
     componentDidMount(){
       const getJobs =  async () => {
+        const url = '/jobs'
         try {
-            const response = await axios.post('/jobs',{
+            const response = await axios.post(url,{
             offset:0
             });
-            this.setState({jobs:response.data})
+            this.setState({jobs:response.data,url})
           } catch (error) {
             console.error(error);
           }
         }
-  
             getJobs()
             
-          }
+    }
           
-          getMoreJobs() {
             
-            const getMoreJob =  async () => {
+             getMoreJobs =  async () => {
+               const { url } = this.state
               try {
-                const response = await axios.post('/jobs',{
+                const response = await axios.post(url,{
                    offset: this.state.offset 
                 });
               
@@ -45,20 +61,88 @@ import SearchForm from '../Search/JobSearch/SearchForm'
               }
             }
             
-            getMoreJob();
+         //form validation
+            validate = () => {
+              let searchError = "";
+              let locationError = "";
+            
+              if(!this.state.query){
+                searchError = "Nu poate fi gol"
+              }
+        
+              if(!this.state.location){
+                locationError = "Te rog alege orasul"
+              }
+              if(searchError || locationError){
+                this.setState({searchError,locationError})
+                return false;
+              }
+                return true;
           }
+        
+
+
+          handleSearchValue(event){
+            this.setState({query:event.target.value})
+            
+          }
+          
+          handleSelectChange(event){
+            this.setState({location:event.target.value})
+          }
+
+          handleSubmit(event) {
+            event.preventDefault();
+
+
+        const isValid = this.validate();
+
+         if(isValid){
+              const getSearchRes =  async () => {
+                const url = `/search/job?search_query=${this.state.query}&location=${this.state.location}`
+                const offset = 2;
+                try {
+                  const response = await axios.post(url,{
+                    offset:0
+                  })
+                  this.setState({jobs:[...response.data],url, offset})
+                } catch (error) {
+                  console.error(error);
+                }
+              }
+              getSearchRes();
+              this.setState({searchError:'', locationError:''})
+
+            }
+          }
+
+
+
+
           render() {
+            const {jobs } = this.state;
+            let button;
+            if( jobs.length > 0){
+              button = <button onClick={this.getMoreJobs}>GetMore</button>
+            } else {
+                button = null
+            }
+
             return (
-            <div>
-              <SearchForm/>
-              {this.state.jobs.map((job) => {
-                return (
-                  <div key={job.id}>
-                    <li>{job.id}</li>
-                    <li>{job.position}</li>
-                    <li>{job.category}</li>
-                  </div> )})}
-                  <button onClick={this.getMoreJobs.bind(this)}>GetMore</button>
+              <div>
+                <form onSubmit={this.handleSubmit}>
+                    <select onChange={this.handleSelectChange} >
+                      <option value="">Alege</option>
+                      <Locations/>
+                  </select>
+                  <input type="text" placeholder="Cauta" onChange={this.handleSearchValue} value={this.state.query} />
+                  <input type="submit" value="submit"  />
+                </form>
+                {this.state.locationError}
+                 {this.state.searchError}
+                <JobCard  jobs={this.state.jobs}/>
+                {button}
+
             </div>
            )
         }
