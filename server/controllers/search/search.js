@@ -8,7 +8,7 @@ module.exports.searchJobs = async (req, res, next) => {
     let searchVal = req.query.search_query
     let offset = req.body.offset
     let city = req.query.location
- 
+   console.log(offset)
 
     
     try {
