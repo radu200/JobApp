@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter,Switch, Route } from 'react-router-dom';
-import Jobs from '../components/Jobs/Jobs';
+import Jobs from '../containers/Jobs/JobsPage';
 
 const Routes = () => (
   <main>
     <BrowserRouter>
-    <Switch>
-      <Route exact path='/' component={Jobs} />
-    </Switch>
+      <Switch>
+        <Route exact path='/' component={Jobs} />
+      </Switch>
   </BrowserRouter>
   </main>
 )
