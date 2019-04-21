@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Locations from '../Locations'
+import Locations from '../Selects/Locations'
 
 const errorStyle = {
     fontSize: 12, 
@@ -12,34 +12,36 @@ const SearchJobForm = ({
     onSubmit,
     handleSelectChange, 
     handleSearchValue, 
-    QueryVal,
-    LocationErrors,
-    SearchErrors,
+    queryVal,
+    errors
    }) => {
     return(
     <div>
      <form onSubmit={onSubmit}>
-        <select onChange={handleSelectChange} >
-             <Locations/>
-         </select>
-            <input 
+       <Locations onChange={handleSelectChange} />
+       <input 
             type="text" 
             placeholder="Cauta"
             onChange={handleSearchValue} 
-            value={QueryVal} />
-            <input 
+            value={queryVal} />
+        <input 
             type="submit"
             value="submit"  
             />
-        </form>
-        <div>
-        {LocationErrors}
-        {SearchErrors}
+      </form>
+
+       <div style={errorStyle}>
+       {errors.locationError}
+       {errors.searchError}
       </div>
     </div>
     )
 }
 
-
-
+SearchJobForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  handleSelectChange:PropTypes.func.isRequired,
+  handleSearchValue:PropTypes.func.isRequired,
+  errors:PropTypes.object.isRequired
+}
 export default SearchJobForm;

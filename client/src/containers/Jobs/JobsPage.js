@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearJobForm from '../../components/Jobs/Search/SearchJobForm'
-import JobCard from '../../components/Jobs/Cards/JobCard'
+import SearJobForm from '../../components/Search/SearchJobForm'
+import JobCard from '../../components/Cards/JobCard'
+import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
 
 
 
@@ -71,7 +72,13 @@ import JobCard from '../../components/Jobs/Cards/JobCard'
             locationError = "Te rog alege orasul"
           }
           if(searchError || locationError){
-            this.setState( {...this.state.formErrors,searchError,locationError})
+            this.setState(prevState => ({
+              formErrors:{
+                ...prevState.formErrors,
+                locationError:locationError,
+                searchError:searchError
+              }
+            }))
             return false;
           }
             return true;
@@ -108,7 +115,13 @@ import JobCard from '../../components/Jobs/Cards/JobCard'
                 }
               }
               getSearchRes();
-              this.setState({...this.state.formErrors,searchError:'',locationError:''})
+              this.setState(prevState => ({
+                formErrors:{
+                  ...prevState.formErrors,
+                  locationError:'',
+                  searchError:''
+                }
+              }))
 
 
             }
@@ -117,10 +130,9 @@ import JobCard from '../../components/Jobs/Cards/JobCard'
           getMoreJobsButton(){
             const {jobs } = this.state;
   
-            if(jobs.length >= 0){
+            if(jobs.length > 0){
               return(
-                <button onClick={this.getMoreJobs}>GetMore</button>
-              )
+                <GetMoreJobsButton onclick={this.getMoreJobs}/>              )
             }else {
               return null;
             }
@@ -134,12 +146,12 @@ import JobCard from '../../components/Jobs/Cards/JobCard'
                     onSubmit={this.handleSubmit}
                     handleSelectChange={this.handleSelectChange}
                     handleSearchValue={this.handleSearchValue}
-                    QueryVal={this.state.query}
-                    LocationErrors={this.state.locationError}
-                    searchErrors={this.state.searchError}/>
+                    queryVal={this.state.query}
+                    errors={this.state.formErrors}
+                    />
                 
                  <JobCard  jobs={this.state.jobs}/>
-                 
+             
                   {this.getMoreJobsButton()}
             
             </div>

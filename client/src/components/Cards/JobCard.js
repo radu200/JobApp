@@ -1,6 +1,6 @@
 import React from 'react'
 
-const JobCard =  (props) => {
+const JobCard = (props) => {
 
     if(props.jobs.length > 0){
       return props.jobs.map((job) => {
