@@ -25,31 +25,32 @@ $(document).ready(function(){
 
   
   
+    var year = new Date("01, 01, 1980 00:00:00")
+    
     $('.datepicker').datepicker({
       closeOnSelect: true,
       firstDay: 1,
-      maxYear: new Date().getFullYear(),
-      maxMonth: new Date().getMonth(),
-      yearRange: 39,
-   
+      yearRange: 40,
+      minDate:new Date("01, 01, 1980 00:00:00"),
+      maxDate:new Date(),
       i18n: {
         cancel: 'Anuleaza',
         done: 'Ok',
         previousMonth: '‹',
         nextMonth: '›',
         months: [
-          'Ianuarie',
-          'Februarie',
-          'Martie',
-          'Aprilie',
+          'Ian',
+          'Feb',
+          'Mart',
+          'Apr',
           'Mai',
-          'Iunie',
-          'Iulie',
-          'August',
-          'Septembrie',
-          'Octombrie',
-          'Noiembrie',
-          'Decembrie'
+          'Iun',
+          'Iul',
+          'Aug',
+          'Sept',
+          'Oct',
+          'Nov',
+          'Dec'
         ],
         monthsShort: [
           'Ian',

@@ -124,9 +124,22 @@ module.exports.postJobSeekerExperience = async (req, res, next) => {
     }
 
 
-   try {
-      const db = await dbPromise;
+   
+     
 
+   try {
+      let start = moment(new Date(startDate))
+      let end = moment (new Date(endDate))
+    
+       let duration = moment.duration(end.diff(start));
+       experienceYears = duration.years()
+       experienceMonths = duration.months()
+       experienceDays = duration.days();
+       
+       let jobEndDate = moment(end).format('MM/DD/YYYY');
+       let jobStartDate = moment(start).format('MM/DD/YYYY');
+
+      const db = await dbPromise;
 
       let jobSeekerExperience = {
          jobseeker_id: req.user.id,
@@ -134,8 +147,11 @@ module.exports.postJobSeekerExperience = async (req, res, next) => {
          position: position,
          company_name: companyName,
          responsibilities: responsibilities,
-         start_date: startDate,
-         end_date: endDate
+         start_date:jobStartDate,
+         end_date:jobEndDate,
+         years:experienceYears,
+         months:experienceMonths,
+         days:experienceDays
       }
       await db.query('insert into jobseeker_experience set ? ', jobSeekerExperience)
       req.flash('success_msg', {
@@ -181,14 +197,6 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
    const endDate = req.body.endDate;
    const responsibilities = req.body.responsibilities;
 
-   // console.log(startDate)
-    let start = moment(new Date(startDate))
-    let end = moment (new Date(endDate))
-
-    let duration = moment.duration(end.diff(start));
-    experienceYears = duration.years()
-    experienceMonth = duration.months()
-   experienceDays = duration.days();
  
     
    req.checkBody('categoryExperience', 'Alege categoria').notEmpty();
@@ -211,9 +219,21 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
 
    try {
       
+      let start = moment(new Date(startDate))
+      let end = moment (new Date(endDate))
+    
+       let duration = moment.duration(end.diff(start));
+       experienceYears = duration.years()
+       experienceMonths = duration.months()
+       experienceDays = duration.days();
+       
+       let jobEndDate = moment(end).format('MM/DD/YYYY');
+       let jobStartDate = moment(start).format('MM/DD/YYYY');
+
+       
       const db = await dbPromise;
       const sql = 'UPDATE jobseeker_experience SET  category = ?, position = ?, company_name = ?,responsibilities = ?, start_date = ?, end_date = ?, years = ? , months = ?, days = ? WHERE id = ?';
-      const sqlParams = [categoryExperience,position,companyName,responsibilities,startDate,endDate,experienceYears, experienceMonth,experienceDays, req.params.id];
+      const sqlParams = [categoryExperience,position,companyName,responsibilities,jobStartDate,jobEndDate,experienceYears, experienceMonths,experienceDays, req.params.id];
       await db.execute(sql, sqlParams)
       
       req.flash('success_msg', {

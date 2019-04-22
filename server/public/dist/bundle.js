@@ -11290,6 +11290,31 @@ $('#employee_edit_experience').on('submit', function (event) {
     }
 });
 
+///Add experience validation form
+$('#employee_add_experience').on('submit', function (event) {
+    event.stopPropagation();
+    if ($('.startDate').val() === '') {
+        $('.startDateError').text('Va rugam sa alege-ti data');
+        return false;
+    }
+});
+
+$('#employee_add_experience').on('submit', function (event) {
+    event.stopPropagation();
+    if ($('.endDate').val() === '') {
+        $('.endDateError').text('Va rugam sa alege-ti data');
+        return false;
+    }
+});
+
+$('#employee_add_experience').on('submit', function (event) {
+    event.stopPropagation();
+    if ($('.startDate').val() > $('.startDate').val()) {
+        $('.endDateError').text('Va rugam sa alege-ti data corecta');
+        return false;
+    }
+});
+
 /***/ }),
 
 /***/ "./public/src/js/jobs/job_edit.js":
@@ -11918,19 +11943,20 @@ $(document).ready(function () {
 
   $('.sidenav').sidenav();
 
+  var year = new Date("01, 01, 1980 00:00:00");
+
   $('.datepicker').datepicker({
     closeOnSelect: true,
     firstDay: 1,
-    maxYear: new Date().getFullYear(),
-    maxMonth: new Date().getMonth(),
-    yearRange: 39,
-
+    yearRange: 40,
+    minDate: new Date("01, 01, 1980 00:00:00"),
+    maxDate: new Date(),
     i18n: {
       cancel: 'Anuleaza',
       done: 'Ok',
       previousMonth: '‹',
       nextMonth: '›',
-      months: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'],
+      months: ['Ian', 'Feb', 'Mart', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       monthsShort: ['Ian', 'Feb', 'Mart', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       weekdays: ['Duminica', 'Luni', 'Marti', 'Miercuri', 'JOi', 'Vineri', 'Sambata'],
       weekdaysShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sa'],

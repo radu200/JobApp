@@ -2,7 +2,7 @@
 {{>alerts}}
 <div class="container">
     <div class="row">
-        <form id="employee_info_form" method="POST" action="/jobseeker/add/experience">
+        <form id="employee_add_experience" method="POST" action="/jobseeker/add/experience">
             <!--employee personal info --->
             <h5 class="center"><b>Adauga Experienta</b></h5>
             <div class="col s12 m12 l12">
@@ -61,11 +61,10 @@
                 <div class="input-field">
                     <input type="text" 
                      placeholder="Alege data" 
-                     class="datepicker"
+                     class="datepicker startDate"
                      name="startDate"
-                    oninvalid="this.setCustomValidity('Câmpul este necesar')"
-                    oninput="setCustomValidity('')" 
-                    required>
+                    >
+                <p class="startDateError error"></p>
                 </div>
             </div>
 
@@ -74,11 +73,10 @@
                 <div class="input-field">
                     <input type="text"
                      placeholder="Alege data" 
-                     class="datepicker" 
+                     class="datepicker endDate" 
                      name="endDate"
-                     oninvalid="this.setCustomValidity('Câmpul este necesar')"
-                     oninput="setCustomValidity('')" 
-                     required>
+                    >
+                <p class="endDateError error"></p>
                 </div>
             </div>
             <!--about me -->
