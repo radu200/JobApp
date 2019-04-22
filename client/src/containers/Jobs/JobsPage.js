@@ -61,14 +61,16 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
     
       //form validation
         validate = () => {
+          const {location, query} = this.state;
+          
           let searchError = "";
           let locationError = "";
         
-          if(!this.state.query){
+          if(!query){
             searchError = "Nu poate fi gol"
           }
     
-          if(!this.state.location){
+          if(!location){
             locationError = "Te rog alege orasul"
           }
           if(searchError || locationError){
@@ -122,7 +124,6 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
                   searchError:''
                 }
               }))
-
 
             }
           }

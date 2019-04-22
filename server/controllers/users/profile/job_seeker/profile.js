@@ -1,6 +1,8 @@
 const {
    dbPromise
 } = require('../../../.././config/database.js');
+var moment = require('moment');
+
 
 module.exports.getApplication = (req, res, next) => {
    res.render('profile/jobseeker/application')
@@ -102,7 +104,7 @@ module.exports.postJobSeekerExperience = async (req, res, next) => {
    const endDate = req.body.endDate;
    const responsibilities = req.body.responsibilities;
 
-   
+
 
    req.checkBody('categoryExperience', 'Alege categoria').notEmpty();
    req.checkBody('categoryExperience', 'Categoria trebuie să aibă între 1 și 100 de caractere.').len(1, 100);
@@ -178,9 +180,17 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
    const startDate = req.body.startDate;
    const endDate = req.body.endDate;
    const responsibilities = req.body.responsibilities;
-   
 
+   // console.log(startDate)
+    let start = moment(new Date(startDate))
+    let end = moment (new Date(endDate))
 
+    let duration = moment.duration(end.diff(start));
+    experienceYears = duration.years()
+    experienceMonth = duration.months()
+   experienceDays = duration.days();
+ 
+    
    req.checkBody('categoryExperience', 'Alege categoria').notEmpty();
    req.checkBody('categoryExperience', 'Categoria trebuie să aibă între 1 și 100 de caractere.').len(1, 100);
    req.checkBody('position', 'Pozitie  este necesara').notEmpty();
@@ -197,12 +207,14 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
         req.flash('error_msg', errors);
         return res.redirect('back')
     }
-
+   
 
    try {
+      
       const db = await dbPromise;
-
-      await db.execute('UPDATE jobseeker_experience SET  category = ?, position = ?, company_name = ?,responsibilities = ?, start_date = ?, end_date = ? WHERE id = ?', [categoryExperience,position,companyName,responsibilities,startDate,endDate, req.params.id])
+      const sql = 'UPDATE jobseeker_experience SET  category = ?, position = ?, company_name = ?,responsibilities = ?, start_date = ?, end_date = ?, years = ? , months = ?, days = ? WHERE id = ?';
+      const sqlParams = [categoryExperience,position,companyName,responsibilities,startDate,endDate,experienceYears, experienceMonth,experienceDays, req.params.id];
+      await db.execute(sql, sqlParams)
       
       req.flash('success_msg', {
          msg: 'Detaliile au fost schimbate cu success.'

@@ -4,7 +4,7 @@
 {{>alerts}}
 <div class="container">
     <div class="row">
-        <form id="employee_info_form" method="POST" action="/jobseeker/experience/edit/{{result.id}}">
+        <form id="employee_edit_experience" method="POST" action="/jobseeker/experience/edit/{{result.id}}">
             <!--employee personal info --->
             <h5 class="center"><b>Editeaza Experienta</b></h5>
             <div class="col s12 m12 l12">
@@ -66,12 +66,11 @@
                     <input type="text" 
                      placeholder="Alege data"
                      value="{{result.start_date}}" 
-                     class="datepicker"
+                     class="datepicker startDate"
                      name="startDate"
-                    oninvalid="this.setCustomValidity('Câmpul este necesar')"
-                    oninput="setCustomValidity('')" 
-                    required>
+                      >
                 </div>
+                <p class="startDateError error"></p>
             </div>
 
             <div class="col s12 m6 l6">
@@ -80,12 +79,12 @@
                     <input type="text"
                      placeholder="Alege data"
                      value="{{result.end_date}}" 
-                     class="datepicker" 
+                     class="datepicker endDate" 
                      name="endDate"
-                     oninvalid="this.setCustomValidity('Câmpul este necesar')"
-                     oninput="setCustomValidity('')" 
-                     required>
+
+                     >
                 </div>
+                <p class="endDateError error"></p>
             </div>
             <!--about me -->
             <h5 class="center"><b>Principalele responsabilități</b>

@@ -51,8 +51,8 @@
           <div class="divider"></div>
           <p><b>{{position}}</b></p>
           <h6>{{company_name}}</h6>
-          <p>{{start_date}} — {{end_date}}</p>
-          <p>{{responsibilities}}</p>
+          <p>{{start_date}} — {{end_date}}  - {{years}} ani {{#if months}} {{months}} luni {{/if}} {{#if days}} {{days}} zile {{/if}} </p>
+          <p>{{responsibilities}}</p> 
           <a href="/jobseeker/experience/edit/{{id}}" class="btn full-width-btn edit-profile-button">Editeaza experienta</a>
           
           {{/each}}

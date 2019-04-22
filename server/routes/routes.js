@@ -15,7 +15,7 @@ module.exports = function (app){
   const contactUs = require('../controllers/helpPages/contactUs')
   const accessController = require('../middleware/access_control_middleware');
   const filesController = require('../middleware/files_control_middleware');
-  const searchJob =  require('../controllers/search/search');
+  const search =  require('../controllers/search/search');
   
   app.get('/',  homeController.getHomePage)
   
@@ -92,7 +92,8 @@ module.exports = function (app){
   app.get('/job/details/:id', jobsController.getJobDetail)
 
  //search
- app.post('/search/job', searchJob.searchJobs)
+ app.post('/search/job', search.searchJobs)
+ app.get('/search/candidates', search.searchCandidates )
   ///contact us
   app.get('/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
 }

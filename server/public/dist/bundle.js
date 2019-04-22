@@ -11273,6 +11273,23 @@ $('#employee_info_form').on('submit', function (event) {
     }
 });
 
+///edit experience validation form
+$('#employee_edit_experience').on('submit', function (event) {
+    event.stopPropagation();
+    if ($('.startDate').val() === '') {
+        $('.startDateError').text('Va rugam sa alege-ti data');
+        return false;
+    }
+});
+
+$('#employee_edit_experience').on('submit', function (event) {
+    event.stopPropagation();
+    if ($('.endDate').val() === '') {
+        $('.endDateError').text('Va rugam sa alege-ti data');
+        return false;
+    }
+});
+
 /***/ }),
 
 /***/ "./public/src/js/jobs/job_edit.js":
@@ -11903,9 +11920,9 @@ $(document).ready(function () {
 
   $('.datepicker').datepicker({
     closeOnSelect: true,
-    format: "dd/mm/yyyy",
     firstDay: 1,
     maxYear: new Date().getFullYear(),
+    maxMonth: new Date().getMonth(),
     yearRange: 39,
 
     i18n: {

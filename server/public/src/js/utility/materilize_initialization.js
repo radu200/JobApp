@@ -27,9 +27,9 @@ $(document).ready(function(){
   
     $('.datepicker').datepicker({
       closeOnSelect: true,
-      format: "dd/mm/yyyy",  
       firstDay: 1,
       maxYear: new Date().getFullYear(),
+      maxMonth: new Date().getMonth(),
       yearRange: 39,
    
       i18n: {
