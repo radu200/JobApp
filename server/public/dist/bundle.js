@@ -11943,8 +11943,6 @@ $(document).ready(function () {
 
   $('.sidenav').sidenav();
 
-  var year = new Date("01, 01, 1980 00:00:00");
-
   $('.datepicker').datepicker({
     closeOnSelect: true,
     firstDay: 1,

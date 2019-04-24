@@ -27,13 +27,15 @@ module.exports.searchJobs = async (req, res, next) => {
 
 module.exports.searchCandidates = async(req,res) => {
     const location = 'balti';
-    const  category = 'Bucatar'
+    const  category = 'Frumuseţe si Bunastare'
+    const experience = 8;
+
     try{
         const db = await dbPromise
         // const sql = `SELECT * FROM jobs  WHERE category LIKE '%${searchVal}%' AND city  LIKE '%${city}%' LIMIT 2 OFFSET ${offset}`
-         const sql1 =  `SELECT jobseeker_experience.*, users.*  from jobseeker_experience LEFT JOIN users ON jobseeker_experience.jobseeker_id = users.id WHERE jobseeker_experience.category LIKE '%${category}%'  AND users.job_seeker_location LIKE '%${location}%' LIMIT 5 OFFSET 0`
+         const sql1 =  `SELECT jobseeker_experience.*, users.*  from users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id WHERE jobseeker_experience.category LIKE '%${category}%'  AND users.job_seeker_location LIKE '%${location}%' AND jobseeker_experience.years BETWEEN 0 AND ${experience} LIMIT 5 OFFSET 0`
         const [results] = await db.query(sql1)
-        res.json(results)
+        res.json(results[0])
         console.log(results)
       
   }catch(err){
