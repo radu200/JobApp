@@ -11,7 +11,7 @@ module.exports.GoogleCAPTCHA = (req,res) => {
 
     } else {
 
-        const secretKey = process.env.RECAPTCHA_SKEY;
+        const secretKey = process.env.RECAPTCHA_SECRET_KEY;
     
         const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
     

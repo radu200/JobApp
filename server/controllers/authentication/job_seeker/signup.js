@@ -16,7 +16,7 @@ module.exports.getSignUpJobSeeker = function (req, res, next) {
         res.redirect('/profile')
     } else {
         res.render('authentication/job_seeker/signup', {
-            RECAPTCHA_DSKEY: process.env.RECAPTCHA_DSKEY
+            RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY
         })
     }
 };

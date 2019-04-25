@@ -127,17 +127,17 @@ module.exports.postJobSeekerExperience = async (req, res, next) => {
    
      
 
+    let start = moment(new Date(startDate))
+    let end = moment (new Date(endDate))
+  
+     let duration = moment.duration(end.diff(start));
+     experienceYears = duration.years()
+     experienceMonths = duration.months()
+     experienceDays = duration.days();
+     
+     let jobEndDate = moment(end).format('MM/DD/YYYY');
+     let jobStartDate = moment(start).format('MM/DD/YYYY');
    try {
-      let start = moment(new Date(startDate))
-      let end = moment (new Date(endDate))
-    
-       let duration = moment.duration(end.diff(start));
-       experienceYears = duration.years()
-       experienceMonths = duration.months()
-       experienceDays = duration.days();
-       
-       let jobEndDate = moment(end).format('MM/DD/YYYY');
-       let jobStartDate = moment(start).format('MM/DD/YYYY');
 
       const db = await dbPromise;
 
@@ -233,8 +233,8 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
        
       const db = await dbPromise;
       const sql = 'UPDATE jobseeker_experience SET  category = ?, position = ?, company_name = ?,responsibilities = ?, start_date = ?, end_date = ?, years = ? , months = ?, days = ? WHERE id = ?';
-      const sqlParams = [categoryExperience,position,companyName,responsibilities,jobStartDate,jobEndDate,experienceYears, experienceMonths,experienceDays, req.params.id];
-      await db.execute(sql, sqlParams)
+      const values = [categoryExperience,position,companyName,responsibilities,jobStartDate,jobEndDate,experienceYears, experienceMonths,experienceDays, req.params.id];
+      await db.execute(sql, values)
       
       req.flash('success_msg', {
          msg: 'Detaliile au fost schimbate cu success.'

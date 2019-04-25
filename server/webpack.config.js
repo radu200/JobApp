@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
   entry:'./public/src/js/main.js',
@@ -51,12 +50,6 @@ module.exports = {
      }
     ]
   },
-
-  plugins: [
-
-   
-  
-  ],
 
   watch: true,
   devtool: 'source-map',

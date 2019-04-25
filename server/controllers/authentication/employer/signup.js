@@ -19,7 +19,7 @@ module.exports.getSignUpEmployer = function (req, res, next) {
         res.redirect('/profile');
     } else {
         res.render('authentication/employer/signup', {
-            RECAPTCHA_DSKEY: process.env.RECAPTCHA_DSKEY
+            RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY
         })
     }
 };
