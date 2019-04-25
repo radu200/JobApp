@@ -4,10 +4,7 @@
   <div class="row">
     <div class="col s12 m12 l5 offset-l3">
       <div class="card  ">
-     <a   href="/profile-edit/jobseeker" data-position="top" data-tooltip="Editeaza Informatia generala" class="btn-floating blue btn-large waves-effect waves-light tooltipped  left edit-profile-button"><i class="material-icons left">create</i> </a>
-
-     <button id="display-edit-buttons" data-position="top" data-tooltip="Editeaza Profilul" class="btn-floating blue btn-large waves-effect waves-light tooltipped  right "><i class="material-icons">add</i></button>
-
+     <a   href="/profile-edit/jobseeker" data-position="top" data-tooltip="Editeaza informatia personala" class="btn-floating blue btn-large waves-effect waves-light tooltipped right "><i class="material-icons left">create</i> </a>
         <div class="card-profile-image">
           <a href="/profile/avatar">
             {{#if this.result.avatar }}
@@ -19,8 +16,10 @@
         </a>
 
         <div class="card-content center">
-          
-          <a class="btn blue center edit-profile-button " href="/profile/avatar">Editeaza forografia </a>
+          <div>
+           <a  href="/profile/avatar" data-position="top" data-tooltip="Editeaza forografia" class="btn-floating blue  waves-effect waves-light tooltipped "><i class="material-icons">create</i></a>
+             <span><b>Editeaza forografia</b></span>
+         </div>
           <h4>{{result.first_name}} {{result.last_name}}</h4>
 
           {{#if result.job_seeker_location}}
@@ -35,29 +34,34 @@
           {{/if}}
 
           <div class="divider"></div>
-          <h4>Despre Mine</h4>
+
           {{#if result.job_seeker_about_me}}
-          <p>{{result.job_seeker_about_me}}</p>
+           <a href="/profile-edit/jobseeker" class="text-black">
+              <div class="jb-profile-hover">
+                <h4>Despre Mine</h4>
+                <p>{{result.job_seeker_about_me}}</p>
+              </div>
+            </a>
           {{else}}
+           <h4>Despre Mine</h4>
           <p class="text-opacity">Spune anagajatorilor mai mult despre tine...</p>
           {{/if}}
          
          
           <div class="divider"></div>
-            <a  href="/jobseeker/experience" data-position="top" data-tooltip="Adauga Experienta" class="btn-floating blue btn-large waves-effect waves-light tooltipped  right edit-profile-button"><i class="material-icons">add</i></a>
-          <h4>Experienta</h4>
-
+          <h4>Experienta</h4>        
           {{#if experience}}
-
           {{#each experience}}
-          <div class="divider"></div>
-          <a href="/jobseeker/experience/edit/{{id}}" data-position="top" data-tooltip="Editeaza experienta" class="btn-floating blue btn-large waves-effect waves-light tooltipped  left edit-profile-button"><i class="material-icons left">create</i> </a>
-          <p>{{start_date}} — {{end_date}} </p>
-          <p class="blue-text">{{#if years }}{{years}} ani {{/if}} {{#if months}} {{months}} luni {{/if}} {{#if days}} {{days}} zile {{/if}}</p>
-          <h6><b>{{company_name}}</b></h6>
-          <p>{{position}}</p>
-          <p class="category"> {{category}}</p>
-          <p>{{responsibilities}}</p>           
+          <a href="/jobseeker/experience/edit/{{id}}" class="text-black">
+            <div class="jb-profile-hover">
+              <p class="category"> {{category}}</p>
+              <p>{{start_date}} — {{end_date}} </p>
+              <p class="blue-text">{{#if years }}{{years}} ani {{/if}} {{#if months}} {{months}} luni {{/if}} {{#if days}} {{days}} zile {{/if}}</p>
+              <h6><b>{{company_name}}</b></h6>
+              <p>{{position}}</p>
+              <p>{{responsibilities}}</p> 
+            </div>
+          </a>          
           {{/each}}
 
           {{else}}
@@ -65,19 +69,28 @@
           {{/if}}
 
           {{#if result.job_seeker_languages}}
-          <div class="divider"></div>
-          <h4>Limbi</h4>
-          <p><b>{{result.job_seeker_languages}}</b></p>
+          <a href="/profile-edit/jobseeker" class="text-black">
+            <div class="jb-profile-hover">
+                  <div class="divider"></div>
+                  <h4>Limbi</h4>
+                  <p><b>{{result.job_seeker_languages}}</b></p>
+              </div>
+           </a>
           {{/if}}
 
           {{#if result.job_seeker_education}}
-          <div class="divider"></div>
-          <h4>Educatie</h4>
-          <p>{{result.job_seeker_education}}</p>
-        </div>
+            <div class="divider"></div>
+            <a href="/profile-edit/jobseeker" class="text-black">
+              <div class="jb-profile-hover">
+                  <h4>Educatie</h4>
+                  <p>{{result.job_seeker_education}}</p>
+              </div>
+             </a>
+           </div>
         {{/if}}
         <div class="card-action center">
-
+            <a  href="/jobseeker/experience" data-position="top" data-tooltip="Adauga Experienta" class="btn-floating blue  waves-effect waves-light tooltipped"><i class="material-icons">add</i></a>
+             <span><b>Adauga experienta</b></span>
         </div>
       </div>
     </div>
