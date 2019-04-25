@@ -51,15 +51,13 @@
 
           {{#each experience}}
           <div class="divider"></div>
+          <a href="/jobseeker/experience/edit/{{id}}" data-position="top" data-tooltip="Editeaza experienta" class="btn-floating blue btn-large waves-effect waves-light tooltipped  left edit-profile-button"><i class="material-icons left">create</i> </a>
           <p>{{start_date}} — {{end_date}} </p>
           <p class="blue-text">{{#if years }}{{years}} ani {{/if}} {{#if months}} {{months}} luni {{/if}} {{#if days}} {{days}} zile {{/if}}</p>
           <h6><b>{{company_name}}</b></h6>
           <p>{{position}}</p>
           <p class="category"> {{category}}</p>
-          <p>{{responsibilities}}</p> 
-
-          <a href="/jobseeker/experience/edit/{{id}}" class="btn btn-small blue full-width-btn edit-profile-button">Editeaza experienta</a>
-          
+          <p>{{responsibilities}}</p>           
           {{/each}}
 
           {{else}}
