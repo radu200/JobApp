@@ -11813,7 +11813,7 @@ $("#profile_avatar_form").on("submit", function (event) {
 		return false;
 	}
 
-	// //size validation
+	// //size vappplidation
 	var file = _("profile_avatar").files[0];
 	if (file.size > 5e+6) {
 		//alert("image is too big")

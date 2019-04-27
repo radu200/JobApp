@@ -16,6 +16,7 @@ module.exports = function (app){
   const accessController = require('../middleware/access_control_middleware');
   const filesController = require('../middleware/files_control_middleware');
   const search =  require('../controllers/search/search');
+  const candidateController =  require('../controllers/candidates/candidates')
   
   app.get('/',  homeController.getHomePage)
   
@@ -90,10 +91,12 @@ module.exports = function (app){
   app.post('/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.postEmployerJobEdit)
   app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
   app.get('/job/details/:id', jobsController.getJobDetail)
-
+ 
+  ///candidate controller 
+  app.post('/candidates', candidateController.getCandidates)
  //search
  app.post('/search/job', search.searchJobs)
- app.get('/search/candidates', search.searchCandidates )
+ app.post('/candidate-search', search.searchCandidates )
   ///contact us
   app.get('/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
 }
