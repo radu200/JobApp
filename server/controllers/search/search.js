@@ -10,9 +10,7 @@ module.exports.searchJobs = async (req, res, next) => {
     let city = req.query.location
 
     
-    try {
-      
-        
+    try {  
         const db = await dbPromise
         const sql = `SELECT * FROM jobs  WHERE category LIKE '%${searchVal}%' AND city  LIKE '%${city}%' LIMIT 2 OFFSET ${offset}`
         const [results] = await db.query(sql)
@@ -30,10 +28,7 @@ module.exports.searchCandidates = async(req,res) => {
     const  category = req.query.category;
     const experienceMin = req.query.experience_min;
     const experienceMax = req.query.experience_max;
-    console.log(location)
-    console.log(category)
-    console.log(experienceMin)
-    console.log(experienceMax)
+ 
 
     try{
         const db = await dbPromise

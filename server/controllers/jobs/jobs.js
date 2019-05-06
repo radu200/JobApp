@@ -43,6 +43,22 @@ module.exports.getJobsPage = async (req, res, next) => {
 
 };
 
+module.exports.JobsPage = async (req, res, next) => {
+    try {
+
+        const db = await dbPromise
+        const [jobs] = await db.execute(`select * from jobs  `);
+       
+        res.render('./jobs/jobs',{
+            'results':jobs
+        })
+
+    } catch (err) {
+        console.log(err)
+    }
+
+};
+
 
 
 
@@ -110,12 +126,12 @@ module.exports.postAddJobs = async (req, res, next) => {
         const db = await dbPromise;
         if (req.file) {
             var job_image = '/uploads/jobs/' + req.file.filename;
-
+            //resize image
             await sharp(req.file.path)
                 .resize(200, 157)
-                .toFile('./public/uploads/jobs/' + req.file.filename);
+                .toFile('../files/uploads/jobs/' + req.file.filename);
 
-            await fsPromises.unlink('./public/tmp_folder/' + req.file.filename);
+            await fsPromises.unlink('../files/tmp_folder/' + req.file.filename);
 
         } else {
             job_image = null;
@@ -197,7 +213,7 @@ module.exports.postJobImageEdit = async (req, res, next) => {
             var filename = req.file.filename;
             await sharp(req.file.path)
                 .resize(820, 461)
-                .toFile(`./public/uploads/jobs/${req.file.filename}`);
+                .toFile(`../files/uploads/jobs/${req.file.filename}`);
 
 
         } else {
@@ -210,13 +226,13 @@ module.exports.postJobImageEdit = async (req, res, next) => {
             db.execute(`update jobs set image = ? where id = ?`, [image, req.params.id]),
 
             ///remove image from temp folder
-            fsPromises.unlink(`./public/tmp_folder/${filename}`),
+            fsPromises.unlink(`../files/tmp_folder/${filename}`),
         ])
 
 
         if (userDetails[0].image !== null) {
             //remove old image if exists
-            await fsPromises.unlink(`./public/${userDetails[0].image}`)
+            await fsPromises.unlink(`../files/${userDetails[0].image}`)
 
         }
 

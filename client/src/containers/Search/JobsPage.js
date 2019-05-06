@@ -36,6 +36,7 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
             offset:0
             });
             this.setState({jobs:response.data,url})
+            console.log(response.data)
           } catch (error) {
             console.error(error);
           }

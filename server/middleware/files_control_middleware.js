@@ -3,7 +3,7 @@ const path = require('path')
   
   // multer configuration for product image upload
   module.exports.uploadJobImage = multer({
-    dest: 'public/tmp_folder/',
+    dest: '../files/tmp_folder/',
     limits: {
         fileSize: 5e+6 // 5 mb
     },
@@ -23,7 +23,7 @@ const path = require('path')
 
   
   module.exports.editJobImage = multer({
-    dest: 'public/tmp_folder/',
+    dest: '../files/tmp_folder/',
     limits: {
         fileSize: 5e+6
     },
@@ -44,7 +44,7 @@ const path = require('path')
 
 
 module.exports.avatar = multer({
-    dest: 'public/tmp_folder/',
+    dest: '../files/tmp_folder/',
     limits: {
         fileSize: 5e+6
     },

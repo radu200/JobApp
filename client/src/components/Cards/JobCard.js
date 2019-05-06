@@ -9,6 +9,7 @@ const JobCard = (props) => {
                <li>{job.id}</li>
                <li>{job.position}</li>
                <li>{job.category}</li>
+                <img src={job.image}/>
            </div>
            )
       } )

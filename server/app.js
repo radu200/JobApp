@@ -48,7 +48,8 @@ app.use(cookieParser());
 app.use( express.static( 'uploads'));
 app.use('/md', express.static(path.join(__dirname, '../client/build')));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public/front-end')));
+app.use(express.static(path.join(__dirname, '../files')));
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

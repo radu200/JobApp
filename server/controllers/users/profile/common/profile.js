@@ -84,7 +84,7 @@ module.exports.postProfileAvatarEdit = async (req, res, next) => {
 
             await sharp(req.file.path)
                 .resize(200, 157)
-                .toFile(`./public/uploads/users/${req.file.filename}`);
+                .toFile(`../files/uploads/users/${req.file.filename}`);
 
 
         } else {
@@ -97,12 +97,12 @@ module.exports.postProfileAvatarEdit = async (req, res, next) => {
             db.execute(`update users set  avatar = ? where id=${req.user.id}`, [avatar]),
 
             ///remove image from temp folder
-            fsPromises.unlink(`./public/tmp_folder/${filename}`),
+            fsPromises.unlink(`../files/tmp_folder/${filename}`),
         ])
 
         if (userDetails[0].avatar !== null) {
             //remove old image if exists
-            await fsPromises.unlink(`./public/${userDetails[0].avatar}`)
+            await fsPromises.unlink(`../files/${userDetails[0].avatar}`)
 
         }
 
