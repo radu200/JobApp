@@ -1,6 +1,6 @@
 const { dbPromise } = require('../../config/database.js');
 const errMsg = 'O erroare a avut loc'
-
+///search candidates
 module.exports.getCandidates = async (req,res) => {
    const offset = req.body.offset;
   try{

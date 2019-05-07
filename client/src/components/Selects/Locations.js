@@ -9,7 +9,7 @@ const SelectLocation = ({onChange}) => {
 
   })
    return(
-     <select onChange={onChange} >
+     <select onChange={onChange} name="location" >
       <option value="">Alege</option>
       {locations}
     </select> 

@@ -3,4 +3,4 @@
 # misc
 .DS_Store
 .env
- uploads/
+ ./files/uploads/

@@ -32,11 +32,10 @@
     "test:coverage": "npx jest --coverage --bail",
     "server": "nodemon server.js",
     "client": "cd ../client && yarn start ",
-    "webpack-dev": "webpack --mode development --open --watch",
+    "webpack-dev": "  webpack --mode development --open --watch",
     "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run webpack-dev\"",
-    "build": "webpack --mode production",
-    "lint:js": "npx eslint",
-    "stylelint": "npx stylelint 'src/**/*.scss'"
+    "build": "webpack --mode production"
+     
   },
   "dependencies": {
     "axios": "^0.18.0",

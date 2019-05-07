@@ -11,38 +11,30 @@ const errorStyle = {
 
 const SearchJobForm = ({
     onSubmit,
-    handleSearchLocation, 
-    handleSearchCategory,
-    handleExperienceMax,
-    handleExperienceMin,
+    handleInputChange,
     errors
    }) => {
     return(
     <div>
      <form onSubmit={onSubmit}>
-       <Locations onChange={handleSearchLocation} />
-       <Categories onChange={handleSearchCategory} />
-       <input type="number" name="quantity" min="0" max="50"  onChange={handleExperienceMax}></input>
-       <input type="number" name="quantity" min="0" max="50" onChange={handleExperienceMin}></input>
+       <Locations onChange={handleInputChange} />
+       <Categories onChange={handleInputChange} />
+       <input type="number" name="experienceMin" min="0" max="50"  onChange={handleInputChange}></input>
+       <input type="number" name="experienceMax" min="0" max="50" onChange={handleInputChange}></input>
 
-        <input 
-            type="submit"
-            value="submit"  
-            />
-      </form>
+        <input type="submit"value="submit" />
+        
+       </form>
 
        <div style={errorStyle}>
        {errors.locationError}
-       {errors.searchError}
+       {errors.categoryError}
+       {errors.experienceMaxError}
+       {errors.experienceMinError}
       </div>
     </div>
     )
 }
 
-// SearchJobForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-//   handleSelectChange:PropTypes.func.isRequired,
-//   handleSearchValue:PropTypes.func.isRequired,
-//   errors:PropTypes.object.isRequired
-// }
+
 export default SearchJobForm;

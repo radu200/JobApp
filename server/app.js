@@ -45,8 +45,7 @@ app.use(bodyParser.json());
 app.use(expressValidator({}));
 app.use(methodOverride('_method'))
 app.use(cookieParser());
-app.use( express.static( 'uploads'));
-app.use('/md', express.static(path.join(__dirname, '../client/build')));
+// app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../files')));
 
@@ -55,7 +54,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
-            "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
     if (req.method === "OPTIONS") {
             res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
@@ -66,7 +65,7 @@ app.use((req, res, next) => {
     
     
    app.use(helmet());
-   app.use( helmet.hidePoweredBy() ) ;
+   app.use(helmet.hidePoweredBy() ) ;
    app.use(helmet.xssFilter());
    app.use(helmet.xssFilter({ setOnOldIE: true }));
    app.use(helmet.frameguard({ action: 'sameorigin' }))
@@ -122,7 +121,7 @@ app.use(function(req, res, next) {
         res.locals.Employer = function(){
             if(req.user.type === 'employer'){
                 return true;
-                nex()
+                next()
             }else{
                 return false;
                 res.redirect('/login');
@@ -148,10 +147,11 @@ app.use(function(req, res, next) {
 
 
 
-
-
 require('./routes/routes.js')(app);
 
+app.get('/client*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -169,6 +169,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
 
 
 app.listen(app.get('port'), function() {

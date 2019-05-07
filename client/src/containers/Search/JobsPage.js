@@ -23,9 +23,8 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
 
         }
 
-        this.handleSearchValue = this.handleSearchValue.bind(this);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
     }
     
     componentDidMount(){
@@ -89,13 +88,14 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
         
 
 
-          handleSearchValue(event){
-            this.setState({query:event.target.value})
-            
-          }
-          
-          handleSelectChange(event){
-            this.setState({location:event.target.value})
+          handleInputChange (event) {
+            const target = event.target;
+            const value = target.value.toLowerCase();
+            const name = target.name;
+
+            this.setState({
+              [name]: value
+            })
           }
 
           handleSubmit(event) {
@@ -146,14 +146,12 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
               <div>
                 <SearJobForm
                     onSubmit={this.handleSubmit}
-                    handleSelectChange={this.handleSelectChange}
-                    handleSearchValue={this.handleSearchValue}
+                    handleInputChange = {this.handleInputChange}
                     queryVal={this.state.query}
                     errors={this.state.formErrors}
                     />
                 
-                 <JobCard  jobs={this.state.jobs}/>
-             
+                 {this.state.jobs.length > 0 ? <JobCard  jobs={this.state.jobs}/>:<h1>Nu am gasit nici un job</h1> }
                   {this.getMoreJobsButton()}
             
             </div>

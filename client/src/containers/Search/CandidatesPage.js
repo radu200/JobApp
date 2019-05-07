@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import SearCandidateForm from '../../components/Search/SearchCandidateForm'
- import CandidateSearchCard from '../../components/Cards/CandidateSearchCard'
-// import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
+import CandidateSearchCard from '../../components/Cards/CandidateSearchCard'
+import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesButton'
 
 
 
@@ -19,159 +19,150 @@ import SearCandidateForm from '../../components/Search/SearchCandidateForm'
             experienceMax:'',
             url:'',
             formErrors:{
-              searchError:'',
-              locationError:''
+              categoryError:'',
+              locationError:'',
+              experienceMaxError:'',
+              experienceMinError:''
             }
 
         }
 
      
           this.handleSubmit = this.handleSubmit.bind(this)
-          this.handleExperienceMax = this.handleExperienceMax.bind(this)
-          this.handleExperienceMin = this.handleExperienceMin.bind(this)
-          this.handleSearchCategory = this.handleSearchCategory.bind(this)
-          this.handleSearchLocation = this.handleSearchLocation.bind(this)
+          this.handleInputChange = this.handleInputChange.bind(this)
         }
     
-          componentDidMount(){
-            const getCandidates =  async () => {
-              const url = '/candidates'
-              try {
-                  const response = await axios.post(url,{
-                  offset:0
-                  });
-                  
-                  this.setState({candidates:response.data,url})
-
-                } catch (error) {
-                  console.error(error);
-                }
-              }
-                  getCandidates()
-                  
-          }
-                
-     
-            
-    //   getMoreJobs =  async () => {
-    //     const { url } = this.state
-    //   try {
-    //     const response = await axios.post(url,{
-    //         offset: this.state.offset 
-    //     });
-      
-    //     this.setState({jobs:[...this.state.jobs, ...response.data], offset:this.state.offset + 2})
-
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
     
     //   //form validation
-    //     validate = () => {
-    //       const {location, query} = this.state;
+        validate = () => {
+          const {location, category ,experienceMax,experienceMin} = this.state;
           
-    //       let searchError = "";
-    //       let locationError = "";
+          let categoryError = "";
+          let locationError = "";
+          let experienceMaxError = "";
+          let experienceMinError = "";
         
-    //       if(!query){
-    //         searchError = "Nu poate fi gol"
-    //       }
+          if(!category){
+           categoryError = "Te rog alege categoria"
+          }
     
-    //       if(!location){
-    //         locationError = "Te rog alege orasul"
-    //       }
-    //       if(searchError || locationError){
-    //         this.setState(prevState => ({
-    //           formErrors:{
-    //             ...prevState.formErrors,
-    //             locationError:locationError,
-    //             searchError:searchError
-    //           }
-    //         }))
-    //         return false;
-    //       }
-    //         return true;
-    //   }
+          if(!location){
+            locationError = "Te rog alege orasul"
+          }
+
+          if(!experienceMax){
+            experienceMaxError = "Te rog alege experienta maxima"
+          }
+
+          if(!experienceMin){
+            experienceMinError = "Te rog alege experienta minima"
+          }
+
+          if(categoryError || locationError || experienceMinError || experienceMaxError){
+            this.setState(prevState => ({
+              formErrors:{
+                ...prevState.formErrors,
+                locationError,
+                categoryError,
+                experienceMinError,
+                experienceMaxError
+              }
+            }))
+            return false;
+          }
+            return true;
+      }
         
 
 
-           handleExperienceMax (){
-
-           };
-
-            handleExperienceMin(){
-
-            }
-
-            handleSearchCategory(){
-
-            }
-     
-            handleSearchLocation(){
-
-            }
+        handleInputChange(event){
+         const target = event.target;
+         const value = target.value.toLowerCase();
+         const name = target.name;
+         this.setState({
+           [name]:value
+         })
+       
+        }
 
 
            handleSubmit(event) {
+             
              event.preventDefault();
 
+             const isValid = this.validate();
+             const { location, category, experienceMax, experienceMin} = this.state;
+              if(isValid){
+                    const getCandidates=  async () => {
+                      const url = `/candidate-search?location=${location}&category=${category}&experience_min=${experienceMin}&experience_max=${experienceMax}`;
+                      const offset = 2;
+                      try {
 
-    //     const isValid = this.validate();
+                        const response = await axios.post(url,{
+                          offset:0
+                        })
 
-    //      if(isValid){
-    //           const getSearchRes =  async () => {
-    //             const url = `/search/job?search_query=${this.state.query}&location=${this.state.location}`
-    //             const offset = 2;
-    //             try {
-    //               const response = await axios.post(url,{
-    //                 offset:0
-    //               })
-    //               this.setState({jobs:[...response.data],url, offset})
-    //             } catch (error) {
-    //               console.error(error);
-    //             }
-    //           }
-    //           getSearchRes();
-    //           this.setState(prevState => ({
-    //             formErrors:{
-    //               ...prevState.formErrors,
-    //               locationError:'',
-    //               searchError:''
-    //             }
-    //           }))
+                        this.setState({candidates:[...response.data],url, offset})
+                      } catch (error) {
+                        console.error(error);
+                      }
+                    }
+                    getCandidates();
+                    
+                    this.setState(prevState => ({
+                      formErrors:{
+                        ...prevState.formErrors,
+                        locationError:'',
+                        categoryError:'',
+                        experienceMaxError:'',
+                        experienceMinError:''
+                      }
+                    }))
 
-    //         }
-    //       }
+                  }
+          }
 
-    //       getMoreJobsButton(){
-    //         const {jobs } = this.state;
+
+                    
+            getMoreCandidates =  async () => {
+              const { url } = this.state
+            try {
+              const response = await axios.post(url,{
+                  offset: this.state.offset 
+              });
+
+              this.setState({candidates:[...this.state.candidates, ...response.data], offset:this.state.offset + 2})
+            } catch (error) {
+              console.error(error);
+            }
+          }
+
+          getMoreCandidatesButton(){
+            const {candidates} = this.state;
   
-    //         if(jobs.length > 0){
-    //           return(
-    //             <GetMoreJobsButton onclick={this.getMoreJobs}/>              )
-    //         }else {
-    //           return null;
-    //         }
+            if(candidates.length > 0){
+              return(
+                <GetMoreCandidatesButton onclick={this.getMoreCandidates}/>              )
+            }else {
+              return null;
+            }
          }
-
+     
 
           render() {
-            console.log(this.state.candidates)
+            console.log(this.state)
             return (
               <div>
               <SearCandidateForm
                onSubmit={this.handleSubmit}
-               handleSearchCategory= {this.handleSearchCategory}
-               handleSearchLocation= {this.handleSearchLocation}
-               handleExperienceMax = {this.handleExperienceMax}
-               handleExperienceMin = {this.handleExperienceMin}
+               handleInputChange = {this.handleInputChange}
                errors={this.state.formErrors}
               />
-              <CandidateSearchCard candidates={this.state.candidates} />
+
+              {this.state.candidates.length > 0 ?  <CandidateSearchCard candidates={this.state.candidates} /> :  <h1>Nu am gasit nici un candidat</h1> }
               
              
-             {/* {this.getMoreJobsButton()} */}
+             {this.getMoreCandidatesButton()}
             
             </div>
            )

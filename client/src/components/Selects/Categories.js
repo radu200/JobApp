@@ -9,7 +9,7 @@ const Categories = ({onChange}) => {
 
   })
    return(
-     <select onChange={onChange} >
+     <select onChange={onChange} name='category' >
       <option value="">Alege</option>
       {Categories}
     </select> 

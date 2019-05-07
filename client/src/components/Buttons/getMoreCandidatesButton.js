@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const GetMoreJobsButton  = ({onclick}) => {
+const GetMoreCandidatesButton =  ({onclick}) => {
     return(
         <button onClick={onclick}>GetMore</button>
     )
 }
 
-GetMoreJobsButton.propTypes = {
+GetMoreCandidatesButton.propTypes = {
     onclick:PropTypes.func.isRequired
 }
-export default GetMoreJobsButton;
-
+export default GetMoreCandidatesButton;
 

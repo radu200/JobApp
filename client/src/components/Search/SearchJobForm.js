@@ -10,20 +10,21 @@ const errorStyle = {
 
 const SearchJobForm = ({
     onSubmit,
-    handleSelectChange, 
-    handleSearchValue, 
+    handleInputChange,
     queryVal,
     errors
    }) => {
     return(
     <div>
      <form onSubmit={onSubmit}>
-       <Locations onChange={handleSelectChange} />
+       <Locations onChange={handleInputChange} />
        <input 
             type="text" 
             placeholder="Cauta"
-            onChange={handleSearchValue} 
-            value={queryVal} />
+            onChange={handleInputChange} 
+            value={queryVal} 
+            name="query"
+            />
         <input 
             type="submit"
             value="submit"  
@@ -38,10 +39,5 @@ const SearchJobForm = ({
     )
 }
 
-SearchJobForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  handleSelectChange:PropTypes.func.isRequired,
-  handleSearchValue:PropTypes.func.isRequired,
-  errors:PropTypes.object.isRequired
-}
+
 export default SearchJobForm;
