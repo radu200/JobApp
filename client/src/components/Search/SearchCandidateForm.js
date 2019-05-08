@@ -12,16 +12,16 @@ const errorStyle = {
 const SearchJobForm = ({
     onSubmit,
     handleInputChange,
+    categoryVal,
     errors
    }) => {
     return(
     <div>
      <form onSubmit={onSubmit}>
        <Locations onChange={handleInputChange} />
-       <Categories onChange={handleInputChange} />
+       <Categories onChange={handleInputChange} categoryVal={categoryVal}/>
        <input type="number" name="experienceMin" min="0" max="50"  onChange={handleInputChange}></input>
        <input type="number" name="experienceMax" min="0" max="50" onChange={handleInputChange}></input>
-
         <input type="submit"value="submit" />
         
        </form>

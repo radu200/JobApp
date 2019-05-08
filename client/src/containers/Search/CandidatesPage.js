@@ -13,10 +13,10 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
          this.state = {
             candidates:[],
             offset:2,
-            category:'',
-            location:'',
-            experienceMin:'',
-            experienceMax:'',
+            category:'frumusete',
+            location:'chisinau',
+            experienceMin:'0',
+            experienceMax:'50',
             url:'',
             formErrors:{
               categoryError:'',
@@ -32,6 +32,27 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
           this.handleInputChange = this.handleInputChange.bind(this)
         }
     
+
+        componentDidMount () {
+          const {location, category ,experienceMax,experienceMin} = this.state;
+
+          const getCandidates=  async () => {
+            const url = `/candidate-search?location=${location}&category=${category}&experience_min=${experienceMin}&experience_max=${experienceMax}`;
+            const offset = 2;
+            try {
+
+              const response = await axios.post(url,{
+                offset:0
+              })
+
+              this.setState({candidates:[...response.data],url, offset})
+            } catch (error) {
+              console.error(error);
+            }
+          }
+          getCandidates();
+          
+        }
     
     //   //form validation
         validate = () => {
@@ -77,7 +98,7 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
 
         handleInputChange(event){
          const target = event.target;
-         const value = target.value.toLowerCase();
+         const value = target.value
          const name = target.name;
          this.setState({
            [name]:value
@@ -157,6 +178,7 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
                onSubmit={this.handleSubmit}
                handleInputChange = {this.handleInputChange}
                errors={this.state.formErrors}
+               categoryVal={this.state.category}
               />
 
               {this.state.candidates.length > 0 ?  <CandidateSearchCard candidates={this.state.candidates} /> :  <h1>Nu am gasit nici un candidat</h1> }
