@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Locations from '../Selects/Locations'
+import Locations from '../.././Selects/Locations'
 
 const errorStyle = {
     fontSize: 12, 

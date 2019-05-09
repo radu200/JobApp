@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearJobForm from '../../components/Search/SearchJobForm'
+import SearJobForm from '../../components/Search/Forms/SearchJobForm'
 import JobCard from '../../components/Cards/JobCard'
 import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
 

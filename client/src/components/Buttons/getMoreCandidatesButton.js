@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     button: {
-      margin: theme.spacing.unit,
+      width:"100%"
     },
     input: {
       display: 'none',
@@ -13,15 +13,15 @@ const styles = theme => ({
    
   });
 
-const GetMoreCandidatesButton =  ({onclick, classes}) => {
+const GetMoreCandidatesButton =  ({onClick, classes}) => {
       
         return(
-            <Button variant="outlined"  color="primary" className={classes.button} onClick={onclick}>Mai Mult</Button>
+            <Button variant="outlined"  color="primary" className={classes.button} onClick={onClick}>Mai Mult</Button>
             )
 }
 
 GetMoreCandidatesButton.propTypes = {
-    onclick:PropTypes.func.isRequired,
+    onClick:PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired
 }
 export default withStyles(styles) (GetMoreCandidatesButton);

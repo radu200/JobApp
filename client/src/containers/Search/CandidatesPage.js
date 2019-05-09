@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearCandidateForm from '../../components/Search/SearchCandidateForm'
-import CandidateSearchCard from '../../components/Cards/CandidateSearchCard'
-import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesButton'
+import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPage'
 
 
 
@@ -13,16 +11,15 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
          this.state = {
             candidates:[],
             offset:2,
-            category:'frumusete',
+            category:'frumusete si bunastare',
             location:'chisinau',
-            experienceMin:'0',
-            experienceMax:'50',
+            experienceMax:1,
             url:'',
             formErrors:{
               categoryError:'',
               locationError:'',
               experienceMaxError:'',
-              experienceMinError:''
+              
             }
 
         }
@@ -30,14 +27,17 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
      
           this.handleSubmit = this.handleSubmit.bind(this)
           this.handleInputChange = this.handleInputChange.bind(this)
+          this.handleExperienceValue =  this.handleExperienceValue.bind(this)
         }
     
 
         componentDidMount () {
-          const {location, category ,experienceMax,experienceMin} = this.state;
-
+          const searchVal = {location:'chisinau',category:'frumusete' ,experienceMax:10}
+         
+          const {location, category ,experienceMax} = searchVal;
+         
           const getCandidates=  async () => {
-            const url = `/candidate-search?location=${location}&category=${category}&experience_min=${experienceMin}&experience_max=${experienceMax}`;
+            const url = `/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
             const offset = 2;
             try {
 
@@ -61,7 +61,7 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
           let categoryError = "";
           let locationError = "";
           let experienceMaxError = "";
-          let experienceMinError = "";
+          
         
           if(!category){
            categoryError = "Te rog alege categoria"
@@ -75,17 +75,14 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
             experienceMaxError = "Te rog alege experienta maxima"
           }
 
-          if(!experienceMin){
-            experienceMinError = "Te rog alege experienta minima"
-          }
+         
 
-          if(categoryError || locationError || experienceMinError || experienceMaxError){
+          if(categoryError || locationError || experienceMaxError){
             this.setState(prevState => ({
               formErrors:{
                 ...prevState.formErrors,
                 locationError,
                 categoryError,
-                experienceMinError,
                 experienceMaxError
               }
             }))
@@ -94,7 +91,10 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
             return true;
       }
         
-
+      
+        handleExperienceValue (event,value) {
+          this.setState({experienceMax:event.target.value})
+        }    
 
         handleInputChange(event){
          const target = event.target;
@@ -112,10 +112,10 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
              event.preventDefault();
 
              const isValid = this.validate();
-             const { location, category, experienceMax, experienceMin} = this.state;
+             const { location, category, experienceMax, } = this.state;
               if(isValid){
                     const getCandidates=  async () => {
-                      const url = `/candidate-search?location=${location}&category=${category}&experience_min=${experienceMin}&experience_max=${experienceMax}`;
+                      const url = `/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
                       const offset = 2;
                       try {
 
@@ -145,8 +145,8 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
 
 
                     
-            getMoreCandidates =  async () => {
-              const { url } = this.state
+        getMoreCandidates =  async () => {
+          const { url } = this.state
             try {
               const response = await axios.post(url,{
                   offset: this.state.offset 
@@ -156,37 +156,24 @@ import GetMoreCandidatesButton from '../../components/Buttons/getMoreCandidatesB
             } catch (error) {
               console.error(error);
             }
-          }
-
-          getMoreCandidatesButton(){
-            const {candidates} = this.state;
-  
-            if(candidates.length > 0){
-              return(
-                <GetMoreCandidatesButton onclick={this.getMoreCandidates}/>              )
-            }else {
-              return null;
-            }
-         }
-     
+          }  
 
           render() {
             console.log(this.state)
             return (
               <div>
-              <SearCandidateForm
-               onSubmit={this.handleSubmit}
-               handleInputChange = {this.handleInputChange}
-               errors={this.state.formErrors}
-               categoryVal={this.state.category}
-              />
-
-              {this.state.candidates.length > 0 ?  <CandidateSearchCard candidates={this.state.candidates} /> :  <h1>Nu am gasit nici un candidat</h1> }
-              
-             
-             {this.getMoreCandidatesButton()}
-            
-            </div>
+                <CandidateSearchPage
+                  onSubmit={this.handleSubmit}
+                  handleInputChange = {this.handleInputChange}
+                  errors={this.state.formErrors}
+                  categoryVal={this.state.category}
+                  locationVal={this.state.location}
+                  candidates={this.state.candidates}
+                  onClick = {this.getMoreCandidates}
+                  experienceVal = {this.state.experienceMax}
+                  handleExperienceValue = {this.handleExperienceValue}
+                />
+              </div>
            )
         }
   }

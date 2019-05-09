@@ -9,9 +9,14 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
+  bigAvatar: {
+    margin: 10,
+    width: 80,
+    height: 80,
+  },
   root: {
     width: '100%',
-    maxWidth: 660,
+    //  maxWidth: 660,
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -28,16 +33,15 @@ const styles = theme => ({
   }
 });
 
-const JobCard = (props) => {
-    const { classes} = props;
-  
-    return props.candidates.map((candidate) => {
+const JobCard = ({classes, candidates}) => {
+   
+     return candidates.map((candidate) => {
            return(
                <div key={candidate.userID}>
                  <List className={classes.root}>
                    <Paper  >
                     <ListItem >
-                        <Avatar alt="Remy Sharp" src={candidate.avatar} />
+                        <Avatar className={classes.bigAvatar} alt={candidate.first_name} src={candidate.avatar} />
                         <ListItemText 
                              primary={
                                 <Typography>
@@ -56,10 +60,12 @@ const JobCard = (props) => {
                      </ListItem>
                     </Paper>
                 </List>
-           </div>
+           </div> 
            )
       } ) 
-}
+   }
+     
+
 
 JobCard.propTypes = {
   classes: PropTypes.object.isRequired,

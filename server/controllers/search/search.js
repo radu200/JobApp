@@ -26,7 +26,7 @@ module.exports.searchJobs = async (req, res, next) => {
 module.exports.searchCandidates = async(req,res) => {
     const location = req.query.location;
     const  category = req.query.category;
-    const experienceMin = req.query.experience_min;
+    const experienceMin = 0;
     const experienceMax = req.query.experience_max;
     const offset = req.body.offset;
     const limit = 2;
