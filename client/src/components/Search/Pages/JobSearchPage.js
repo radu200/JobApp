@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import CandidateSearchCard from '../../Cards/CandidateSearchCard';
-import SearchCandidateForm from '../Forms/SearchCandidateForm';
-import GetMoreCandidatesButton from '../../Buttons/getMoreCandidatesButton'
-import EmployerNavBar from '../../NavBars/Employer/EmployerNavBar'
+import JobPageNavBar from '../../NavBars/MainNavBars/JobPageNavBar'
+import SearchJobForm from '../Forms/SearchJobForm';
+import JobCard from '../../Cards/JobCard';
+import GetMoreJobsButton from '../../Buttons/getMoreJobsButton'
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -27,42 +28,39 @@ const styles = theme => ({
     classes,
     onSubmit,
     handleInputChange,
-    handleExperienceValue,
-    experienceVal,
-    categoryVal,
+    getMoreJobsBtn,
+    jobs,
     errors,
-    candidates,
-    onClick
+    queryVal
   }) => {
 
   return (
   <div>
     <div>
-      <EmployerNavBar/>
+      <JobPageNavBar/>
     </div>
     <div className={classes.root} >
       <Grid container spacing={24}>
         <Grid item xs={12} sm={12} md={6}>
-            <SearchCandidateForm
-              onSubmit={onSubmit}
-              handleInputChange={handleInputChange}
-              handleExperienceValue={handleExperienceValue}
-              categoryVal={categoryVal}
-              experienceVal={experienceVal}
-              errors={errors}
-            />
+          <SearchJobForm
+             onSubmit={onSubmit}
+             handleInputChange={handleInputChange}
+             queryVal={queryVal}
+             errors={errors}
+           />
+          
         </Grid>
       </Grid>
 
       <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={6}>
-          {candidates.length > 0 ? <CandidateSearchCard candidates={candidates} /> : <h1>Nu am gasit nici un candidat</h1> }
+        <Grid item xs={12} sm={12} md={4}>
+          {jobs.length > 0 ? <JobCard jobs={jobs} /> : <h1>Nu am gasit nici un post de munca</h1> }
         </Grid>
       </Grid>
 
       <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={6}>
-          {candidates.length > 0 ? <GetMoreCandidatesButton onClick={onClick}/> : null}
+        <Grid item xs={12} sm={12} md={4}>
+          {jobs.length > 0 ? <GetMoreJobsButton onClick={getMoreJobsBtn}/> : null}
        </Grid>
       </Grid>
     </div>

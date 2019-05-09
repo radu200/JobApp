@@ -22,7 +22,7 @@ const styles = {
   },
 };
 
-class TemporaryDrawer extends React.Component {
+class JobPageSideNav extends React.Component {
   state = {
     left: false,
   };
@@ -100,8 +100,8 @@ class TemporaryDrawer extends React.Component {
   }
 }
 
-TemporaryDrawer.propTypes = {
+JobPageSideNav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TemporaryDrawer);
+export default withStyles(styles)(JobPageSideNav);

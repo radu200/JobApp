@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearJobForm from '../../components/Search/Forms/SearchJobForm'
-import JobCard from '../../components/Cards/JobCard'
-import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
+import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
 
 
 
@@ -27,6 +25,35 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
         this.handleInputChange = this.handleInputChange.bind(this)
     }
     
+
+
+    //form validation
+        validate = () => {
+          const {location, query} = this.state;
+          
+          let searchError = "";
+          let locationError = "";
+        
+          if(!query){
+            searchError = "Nu poate fi gol"
+          }
+    
+          if(!location){
+            locationError = "Te rog alege orasul"
+          }
+          if(searchError || locationError){
+            this.setState(prevState => ({
+              formErrors:{
+                ...prevState.formErrors,
+                locationError:locationError,
+                searchError:searchError
+              }
+            }))
+            return false;
+          }
+            return true;
+      }
+        
     componentDidMount(){
       const getJobs =  async () => {
         const url = '/jobs'
@@ -59,33 +86,7 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
       }
     }
     
-      //form validation
-        validate = () => {
-          const {location, query} = this.state;
-          
-          let searchError = "";
-          let locationError = "";
-        
-          if(!query){
-            searchError = "Nu poate fi gol"
-          }
-    
-          if(!location){
-            locationError = "Te rog alege orasul"
-          }
-          if(searchError || locationError){
-            this.setState(prevState => ({
-              formErrors:{
-                ...prevState.formErrors,
-                locationError:locationError,
-                searchError:searchError
-              }
-            }))
-            return false;
-          }
-            return true;
-      }
-        
+      
 
 
           handleInputChange (event) {
@@ -129,30 +130,28 @@ import GetMoreJobsButton from '../../components/Buttons/getMoreJobButton'
             }
           }
 
-          getMoreJobsButton(){
-            const {jobs } = this.state;
-  
-            if(jobs.length > 0){
-              return(
-                <GetMoreJobsButton onclick={this.getMoreJobs}/>              )
-            }else {
-              return null;
-            }
-          }
+      
 
 
           render() {
             return (
               <div>
-                <SearJobForm
+                <JobsSearchPage
+                   onSubmit={this.handleSubmit}
+                   handleInputChange = {this.handleInputChange}
+                   queryVal={this.state.query}
+                   errors={this.state.formErrors}
+                   jobs={this.state.jobs}
+                   getMoreJobsBtn={this.getMoreJobs}
+                />
+                {/* <SearJobForm
                     onSubmit={this.handleSubmit}
                     handleInputChange = {this.handleInputChange}
                     queryVal={this.state.query}
                     errors={this.state.formErrors}
-                    />
+                    /> */}
                 
-                 {this.state.jobs.length > 0 ? <JobCard  jobs={this.state.jobs}/>:<h1>Nu am gasit nici un job</h1> }
-                  {this.getMoreJobsButton()}
+                 {/* {this.state.jobs.length > 0 ? <JobCard  jobs={this.state.jobs}/>:<h1>Nu am gasit nici un job</h1> } */}
             
             </div>
            )
