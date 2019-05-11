@@ -17,6 +17,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import EmployerSideNav from './EmployerSideNav'
+import BrandName from '../../Utils/BrandName'
 const styles = theme => ({
   root: {
     width: '100%',
@@ -168,7 +169,7 @@ class EmployerNavBar extends React.Component {
           <Toolbar>
             <EmployerSideNav />
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              Material-UI
+              {BrandName}
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>

@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
 import SearchJobForm from '../../components/Search/Forms/SearchJobForm'
+import { connect } from 'react-redux';
+import { simpleAction } from '../../redux/actions/simpleAction';
+
+import {withRouter} from 'react-router-dom';
+
+
 
 const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
  class JobsPage extends Component {
@@ -132,12 +138,16 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
           }
 
       
-
-
-          render() {
         
-            return (
-              <div>
+                     
+          simpleAction = (event) => {
+            this.props.simpleAction();
+           }
+        
+            render() {
+              
+              return (
+                <div>
                 <JobsSearchPage
                    onSubmit={this.handleSubmit}
                    handleInputChange = {this.handleInputChange}
@@ -149,11 +159,24 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
                    locations={cities}
                 />
             
-                
+            <button onClick={this.simpleAction}>Test redux action</button>
+            <pre>
+              {
+                JSON.stringify(this.props)
+              }
+              </pre>
             
             </div>
            )
+          }
         }
-  }
+        
+const mapStateToProps = state => ({
+ ...state
+})
 
-export default JobsPage;
+const mapDispatchToProps = dispatch => ({
+  simpleAction: () => dispatch(simpleAction())
+ })
+  
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(JobsPage));

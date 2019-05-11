@@ -7,6 +7,7 @@ import SearchJobForm from '../Forms/SearchJobForm';
 import JobCard from '../../Cards/JobCard';
 import GetMoreJobsButton from '../../Buttons/getMoreJobsButton'
 
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -73,5 +74,8 @@ const styles = theme => ({
 CandidateSearchPage.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+
+
 
 export default withStyles(styles)(CandidateSearchPage);
