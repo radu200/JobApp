@@ -16,11 +16,7 @@ const styles = theme => ({
     marginLeft: 'auto',
      
   },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+
 });
 
   const CandidateSearchPage = ({

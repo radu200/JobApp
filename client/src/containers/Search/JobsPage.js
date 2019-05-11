@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
+import SearchJobForm from '../../components/Search/Forms/SearchJobForm'
 
-
-
+const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
  class JobsPage extends Component {
   
     constructor(props){
@@ -91,7 +91,7 @@ import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
 
           handleInputChange (event) {
             const target = event.target;
-            const value = target.value.toLowerCase();
+            const value = target.value;
             const name = target.name;
 
             this.setState({
@@ -119,6 +119,7 @@ import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
                 }
               }
               getSearchRes();
+
               this.setState(prevState => ({
                 formErrors:{
                   ...prevState.formErrors,
@@ -134,6 +135,7 @@ import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
 
 
           render() {
+        
             return (
               <div>
                 <JobsSearchPage
@@ -143,15 +145,11 @@ import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
                    errors={this.state.formErrors}
                    jobs={this.state.jobs}
                    getMoreJobsBtn={this.getMoreJobs}
+                   locationVal={this.state.location}
+                   locations={cities}
                 />
-                {/* <SearJobForm
-                    onSubmit={this.handleSubmit}
-                    handleInputChange = {this.handleInputChange}
-                    queryVal={this.state.query}
-                    errors={this.state.formErrors}
-                    /> */}
+            
                 
-                 {/* {this.state.jobs.length > 0 ? <JobCard  jobs={this.state.jobs}/>:<h1>Nu am gasit nici un job</h1> } */}
             
             </div>
            )

@@ -15,13 +15,12 @@ const styles = theme => ({
     marginRight: 'auto',
     marginBottom: 0,
     marginLeft: 'auto',
-     
   },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+
+  gridCards:{
+    display:'flex'
+  }
+ 
 });
 
   const CandidateSearchPage = ({
@@ -30,6 +29,8 @@ const styles = theme => ({
     handleInputChange,
     getMoreJobsBtn,
     jobs,
+    locationVal,
+    locations,
     errors,
     queryVal
   }) => {
@@ -41,19 +42,20 @@ const styles = theme => ({
     </div>
     <div className={classes.root} >
       <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={6}>
+        <Grid item xs={12} sm={12} md={12}>
           <SearchJobForm
              onSubmit={onSubmit}
              handleInputChange={handleInputChange}
              queryVal={queryVal}
+             locationVal={locationVal}
              errors={errors}
+             locations={locations}
            />
           
         </Grid>
       </Grid>
-
-      <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={4}>
+      <Grid   container spacing={24}>
+        <Grid item xs={12} sm={6} md={4}>
           {jobs.length > 0 ? <JobCard jobs={jobs} /> : <h1>Nu am gasit nici un post de munca</h1> }
         </Grid>
       </Grid>

@@ -68,7 +68,6 @@ const SelectLocation = ({onChange,classes,locationVal}) => {
    return(
       <FormControl className={classes.margin}>
       <InputLabel className={classes.bootstrapFormLabel}>
-        Locatia
       </InputLabel>
         <NativeSelect
           value={locationVal}
