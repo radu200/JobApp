@@ -8,13 +8,20 @@ module.exports.searchJobs = async (req, res, next) => {
     const searchVal = req.query.search_query
     const offset = req.body.offset
     const city = req.query.location
-    const limit = 2
+    const limit = 12
     
     try {  
         const db = await dbPromise
         const sql = `SELECT * FROM jobs  WHERE category LIKE '%${searchVal}%' AND city  LIKE '%${city}%' LIMIT ${limit} OFFSET ${offset}`
         const [results] = await db.query(sql)
-        res.json(results)
+        if(!results){
+           res.json({
+               'msg':'Nu am gasit nici un lucru',
+               'code':88
+           })
+        }else {
+            res.json(results)
+        }
             
     } catch (err) {
         res.json('O errore a avut loc')
@@ -36,7 +43,16 @@ module.exports.searchCandidates = async(req,res) => {
         const user_details = ` users.email,users.first_name,users.last_name,users.type, users.avatar,users.email_status,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_languages,users.job_seeker_education,users.job_seeker_location ,users.job_seeker_availability`
         const sql =  `SELECT ${jobseeker_experience}, ${user_details}  from users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%'  AND lower(users.job_seeker_location) LIKE '%${location}%' AND jobseeker_experience.years BETWEEN ${experienceMin} AND ${experienceMax} GROUP BY category,userID  LIMIT ${limit} OFFSET ${offset}`
         const [results] = await db.query(sql)
-        res.json(results)
+       
+        if(!results){
+            res.json({
+                'msg':'Nu am gasit nici un candidat',
+                'code':88
+            })
+         }else {
+             res.json(results)
+         }
+            
         
       
   }catch(err){

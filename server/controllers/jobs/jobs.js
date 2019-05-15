@@ -13,34 +13,13 @@ module.exports.getJobsPage = async (req, res, next) => {
     try {
 
         const db = await dbPromise
-        const [jobs] = await db.execute(`select * from jobs LIMIT 2 OFFSET ${offset} `);
+        const [jobs] = await db.execute(`select * from jobs LIMIT 12 OFFSET ${offset} `);
        
        res.json(jobs)
 
     } catch (err) {
         console.log(err)
     }
-
-
-
-
-
-    // })
-    //    if(req.headers['jobs-list'] !== 'true'){
-    //        res.redirect('/jobs.html')
-    //     } else{
-    //         db.query(`select * from jobs `, function (err, results) {
-    //             if (err) {
-    //                 console.log("[mysql error],", err)
-    //             } else {
-    //                 res.json(results)
-    //             }
-
-    //         })
-    //    }
-
-
-
 };
 
 module.exports.JobsPage = async (req, res, next) => {
@@ -388,7 +367,6 @@ module.exports.deleteJob = async (req, res, next) => {
     try {
         const db = await dbPromise;
         const [userDetails] = await db.query(`SELECT id,image FROM jobs  WHERE id =${id}`);
-        console.log(userDetails[0].image)
        
 
         await db.execute(`DELETE FROM jobs  WHERE id =${id}`);
@@ -421,16 +399,12 @@ module.exports.getJobDetail = async (req, res, next) => {
     try{
         const db = await dbPromise;
         const [userDetails] = await db.execute('select jobs.*, users.id as userId,users.first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type, users.avatar from jobs LEFT JOIN users ON  jobs.employer_id = users.id where jobs.id = ?', [req.params.id])
-        console.log(userDetails)
         res.render('jobs/job_details', {
             "result": userDetails[0],
 
         })
-
-
-
-     
-    }catch(err){
+        
+        } catch(err){
         console.log(err)
 
         req.flash('error_msg', {

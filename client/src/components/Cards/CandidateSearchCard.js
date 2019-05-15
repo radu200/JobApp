@@ -7,7 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-
+import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 const styles = theme => ({
   bigAvatar: {
     margin: 10,
@@ -16,7 +17,6 @@ const styles = theme => ({
   },
   root: {
     width: '100%',
-    //  maxWidth: 660,
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -34,18 +34,20 @@ const styles = theme => ({
 });
 
 const JobCard = ({classes, candidates}) => {
-   
+  
+ 
      return candidates.map((candidate) => {
-           return(
+       const candidateDetailsUrl = `/candidate-details/${candidate.userID}`
+       return(
                <div key={candidate.userID}>
-                 <List className={classes.root}>
+                 <List className={classes.root} >
                    <Paper  >
                     <ListItem >
                         <Avatar className={classes.bigAvatar} alt={candidate.first_name} src={candidate.avatar} />
                         <ListItemText 
                              primary={
                                 <Typography>
-                                {candidate.first_name}{candidate.last_name}
+                                {candidate.first_name} {candidate.last_name}
                                </Typography>
                             }
                             secondary={
@@ -58,6 +60,9 @@ const JobCard = ({classes, candidates}) => {
                             }
                         />
                      </ListItem>
+                     <Button variant="contained" color="primary" className={classes.button}>
+                     <Link to={candidateDetailsUrl}>About</Link>
+                      </Button>
                     </Paper>
                 </List>
            </div> 

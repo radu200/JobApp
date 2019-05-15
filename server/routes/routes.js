@@ -64,7 +64,6 @@ module.exports = function (app){
   app.get('/company/:id', accessController.ensureAuthenticated, employerProfileController.getCompanyProfile,)
   //employer jobs
   app.get('/my_jobs', accessController.ensureAuthenticated,accessController.employer,jobsController.getEmployerJobs)
-  app.get('/candidate_search', accessController.ensureAuthenticated, accessController.employer,EmployerProfileController.getCandidate )
   app.get('/candidate_details', accessController.ensureAuthenticated, accessController.employer,EmployerProfileController.getCandidateDetails)
   app.get('/employer/job/detail', accessController.ensureAuthenticated, accessController.employer,EmployerProfileController.getEmployerJobDetail)
   
@@ -97,7 +96,7 @@ module.exports = function (app){
   app.post('/candidates', candidateController.getCandidates)
  //search
  app.post('/search/job', search.searchJobs)
- app.post('/candidate-search', search.searchCandidates )
+ app.post('/candidate-search', accessController.ensureAuthenticatedJsonRes, search.searchCandidates )
   ///contact us
   app.get('/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
 }

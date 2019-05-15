@@ -48,7 +48,7 @@ module.exports.ensureAuthenticatedJsonRes = function (req, res, next) {
         return next();
     } else {
         res.json({
-            'message': 'Te rog logheazate',
+            'msg': 'Te rog logheazate',
             'code': 99
         })
     }
@@ -61,7 +61,10 @@ module.exports.employerJsonRes = function (req, res, next) {
         return next();
 
     } else {
-        res.json('Te rog logheazate cu alt statut')
+        res.json({
+           'msg':'Te rog logheazate cu alt statut',
+            'code': 99
+        })
     }
 }
 

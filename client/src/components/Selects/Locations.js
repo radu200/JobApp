@@ -1,7 +1,6 @@
 import React from 'react';
 import PropType from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
@@ -53,13 +52,22 @@ const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
+  error:{
+    fontSize: 16, 
+    color: "red",
+    paddingTop:5,
+  },
+  label:{
+    fontSize:20,
+    paddingBottom:5,
+  }
 });
 
 
 
 const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
 
-const SelectLocation = ({onChange,classes,locationVal}) => {
+const SelectLocation = ({onChange,classes,locationVal,error}) => {
 
   const locations = cities.map((city,index ) => {
     return  <option key={index}>{city}</option>
@@ -67,8 +75,7 @@ const SelectLocation = ({onChange,classes,locationVal}) => {
   })
    return(
       <FormControl className={classes.margin}>
-      <InputLabel className={classes.bootstrapFormLabel}>
-      </InputLabel>
+        <div className={classes.label}>Locatie</div>
         <NativeSelect
           value={locationVal}
           onChange={onChange}
@@ -76,6 +83,8 @@ const SelectLocation = ({onChange,classes,locationVal}) => {
           >
         {locations}
       </NativeSelect>
+       
+      <div className={classes.error}>{error}</div>
     </FormControl>
    )
   

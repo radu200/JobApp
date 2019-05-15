@@ -1,7 +1,6 @@
 import React from 'react';
-import PropType, { object } from 'prop-types'
+import PropType  from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
@@ -53,13 +52,24 @@ const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
+  error:{
+    fontSize: 16, 
+    color: "red",
+    paddingTop:5,
+  },
+  label:{
+    fontSize:20,
+    paddingBottom:5,
+  
+  }
+  
 });
 
 
 
 const categories = ['Frumusete si Bunastare', 'Barman', 'Sofer',"Vinzari" ];
 
-const Categories = ({onChange,classes,categoryVal}) => {
+const Categories = ({onChange,classes,categoryVal,error}) => {
 
   const Categories = categories.map((categories,index ) => {
     return  <option key={index}>{categories}</option>
@@ -67,18 +77,17 @@ const Categories = ({onChange,classes,categoryVal}) => {
   })
     
    return(
-      <FormControl className={classes.margin}>
-        <InputLabel className={classes.bootstrapFormLabel}>
-          Categoria
-        </InputLabel>
-          <NativeSelect
-            value={categoryVal}
-            onChange={onChange}
-            input={<BootstrapInput name="category"  />}
-            >
-          {Categories}
-        </NativeSelect>
-      </FormControl>
+    <FormControl className={classes.margin}>
+    <div className={classes.label}>Categorie</div>
+      <NativeSelect
+        value={categoryVal}
+        onChange={onChange}
+        input={<BootstrapInput name="category"  />}
+        >
+      {Categories}
+    </NativeSelect>
+    <div className={classes.error}>{error}</div>
+  </FormControl>
    )
   
    

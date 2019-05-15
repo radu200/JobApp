@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
-import SearchJobForm from '../../components/Search/Forms/SearchJobForm'
-import { connect } from 'react-redux';
-import { simpleAction } from '../../redux/actions/simpleAction';
 
-import {withRouter} from 'react-router-dom';
 
 
 
@@ -16,7 +12,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
         super(props) 
          this.state = {
             jobs:[],
-            offset:2,
+            offset:12,
             query:'',
             location:'',
             url:'',
@@ -85,7 +81,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
             offset: this.state.offset 
         });
       
-        this.setState({jobs:[...this.state.jobs, ...response.data], offset:this.state.offset + 2})
+        this.setState({jobs:[...this.state.jobs, ...response.data], offset:this.state.offset + 12})
 
       } catch (error) {
         console.error(error);
@@ -114,7 +110,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
          if(isValid){
               const getSearchRes =  async () => {
                 const url = `/search/job?search_query=${this.state.query}&location=${this.state.location}`
-                const offset = 2;
+                const offset = 12;
                 try {
                   const response = await axios.post(url,{
                     offset:0
@@ -140,10 +136,6 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
       
         
                      
-          simpleAction = (event) => {
-            this.props.simpleAction();
-           }
-        
             render() {
               
               return (
@@ -159,24 +151,13 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
                    locations={cities}
                 />
             
-            <button onClick={this.simpleAction}>Test redux action</button>
-            <pre>
-              {
-                JSON.stringify(this.props)
-              }
-              </pre>
+        
             
             </div>
            )
           }
         }
         
-const mapStateToProps = state => ({
- ...state
-})
 
-const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction())
- })
   
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(JobsPage));
+export default JobsPage;

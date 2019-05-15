@@ -22,6 +22,11 @@ const styles = theme => ({
   },
 ExperienceLabel:{
   opacity:0.8
+},
+error:{
+  fontSize: 16, 
+  color: "red",
+  paddingBottom:5,
 }
 });
 
@@ -41,42 +46,32 @@ const SearchCandidateForm = ({
     
     return(
       <div>
-        
-        <div className={classes.snackbar}>
-           {errors.locationError}
-            {errors.categoryError}
-           {errors.experienceMaxError}
-           {errors.experienceMinError}
-       </div>
+        <form onSubmit={onSubmit}>
+            <Grid container spacing={24}>
+              <Grid item xs={12} sm={12} md={12}>
+                <Locations onChange={handleInputChange} locationVal={locationVal} error={errors.locationError} />
+                <Categories onChange={handleInputChange} categoryVal={categoryVal} error={errors.categoryError} />
+              </Grid>
 
-     <form onSubmit={onSubmit}>
-       <Grid container spacing={16}>
-          <Grid item xs={12} sm={12} md={12}>
-            <Locations onChange={handleInputChange} locationVal={locationVal}  />
-            <Categories onChange={handleInputChange} categoryVal={categoryVal}/>
-          </Grid>
+                <Grid item xs={12} sm={12} md={12}>
+                  <label className={classes.ExperienceLabel}>Experienta</label>
+                <div className={classes.slider}>
+                  <input 
+                    type="range" 
+                    min="0" max="50" 
+                    value={experienceVal} 
+                    onChange={handleExperienceValue}
+                    step="1"/>
+                    {experienceVal} Ani      
+                </div>
+              </Grid>
+                <Grid item xs={12} sm={12} md={12}>
+                  <Button size="medium" type="submit" variant="contained" color="primary" className={classes.button}>
+                    Cauta </Button>    
+              </Grid> 
 
-            <Grid item xs={12} sm={12} md={12}>
-              <label className={classes.ExperienceLabel}>Experienta</label>
-             <div className={classes.slider}>
-               <input 
-                type="range" 
-                min="0" max="50" 
-                value={experienceVal} 
-                onChange={handleExperienceValue}
-                step="1"/>
-                {experienceVal}      
-             </div>
-           </Grid>
-            <Grid item xs={12} sm={12} md={12}>
-              <Button size="medium" type="submit" variant="contained" color="primary" className={classes.button}>
-                Cauta </Button>    
-          </Grid> 
-
-      </Grid>   
-     </form>
-
-     
+            </Grid>   
+        </form>
     </div>
     )
 }

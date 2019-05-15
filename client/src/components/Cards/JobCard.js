@@ -8,52 +8,72 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import Grid from '@material-ui/core/Grid';
+import { JobDetailsUrl} from '../Utils/Paths/UrlPaths'
+import { Link } from 'react-router-dom'
 const styles = {
-  card: {
-  
-   
+  JobDetails:{
+    textDecoration:'none',
+    color:'blue'
   },
+
   media: {
     // ⚠️ object-fit is not supported by IE 11.
     objectFit: 'cover',
   },
-};
-const JobCard = ({jobs,classes}) => {
 
-      return jobs.map((job) => {
-           return(
-               <div key={job.id}>
-              
-          <Card className={classes.card}>
-          <CardActionArea>
-          <CardMedia
-               component="img"
-               alt={job.position}
-               className={classes.media}
-               height="140"
-               image={job.image}
-               title={job.category}
-               />
-             <CardContent>
-               <Typography gutterBottom variant="h5" component="h2">
-               {job.position}
-               </Typography>
-               <Typography component="p">
-                    {job.description}
-               </Typography>
-             </CardContent>
-           </CardActionArea>
-               <CardActions>
-               <Button size="small" color="primary">
-               Share
-               </Button>
-               <Button size="small" color="primary">
-               Learn More
-               </Button>
-            </CardActions>
-          </Card>
-      </div>
+  heading:{
+    opacity:0.7
+  }
+};
+ const salaryCurrency = 'Lei'
+
+  
+const JobCard = ({jobs,classes}) => {
+  
+  return jobs.map((job) => {
+
+     const jobDetailPath = `${JobDetailsUrl}${job.id}`
+
+      return(
+              <Grid key={job.id} item xs={12} sm={6} md={4}>
+                <Card className={classes.card} >
+                  <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    alt={job.category}
+                    className={classes.media}
+                    height="140"
+                    image={job.image}
+                    title={job.category}
+                    />
+                  <CardContent>
+                  <Typography    gutterBottom component="p" color="primary">
+                       {job.salary ? `${job.salary} ${salaryCurrency}` : null}
+                    </Typography>
+                    <Typography component="p">
+                       {job.employment_type}
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="h2">
+                    {job.position}
+                    </Typography>
+                    <Typography  noWrap className={classes.heading} component="p">
+                       {job.description}
+                    </Typography>
+                    <Typography component="p">
+                          {job.city}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                    <CardActions>
+                    <Button size="small" color="primary">
+                      <a className={classes.JobDetails} href={jobDetailPath}>Vezi Mai Mult</a>
+                    </Button>
+    
+                  </CardActions>
+                </Card>
+           </Grid>
+        
            )
       } )
 
