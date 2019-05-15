@@ -17,10 +17,6 @@ const styles = theme => ({
     marginBottom: 0,
     marginLeft: 'auto',
   },
-
-  gridCards:{
-    display:'flex'
-  }
  
 });
 
@@ -55,15 +51,13 @@ const styles = theme => ({
           
         </Grid>
       </Grid>
-      <Grid   container spacing={24}>
-        <Grid item xs={12} sm={6} md={4}>
+      <Grid container spacing={24}>
           {jobs.length > 0 ? <JobCard jobs={jobs} /> : <h1>Nu am gasit nici un post de munca</h1> }
-        </Grid>
       </Grid>
 
       <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={4}>
-          {jobs.length > 0 ? <GetMoreJobsButton onClick={getMoreJobsBtn}/> : null}
+        <Grid item xs={12} sm={12} md={12} >
+          {jobs.length > 0 ? <GetMoreJobsButton  onClick={getMoreJobsBtn}/> : null}
        </Grid>
       </Grid>
     </div>

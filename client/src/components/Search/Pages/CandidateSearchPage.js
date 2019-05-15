@@ -6,6 +6,8 @@ import CandidateSearchCard from '../../Cards/CandidateSearchCard';
 import SearchCandidateForm from '../Forms/SearchCandidateForm';
 import GetMoreCandidatesButton from '../../Buttons/getMoreCandidatesButton'
 import EmployerNavBar from '../../NavBars/Employer/EmployerNavBar'
+import UnauthenticatedNav from '../../NavBars/Unauthenticated/UnauthenticatedNav'
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -27,41 +29,51 @@ const styles = theme => ({
     experienceVal,
     categoryVal,
     errors,
+    loginError,
     candidates,
     onClick
   }) => {
 
   return (
-  <div>
     <div>
-      <EmployerNavBar/>
-    </div>
-    <div className={classes.root} >
-      <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={6}>
-            <SearchCandidateForm
-              onSubmit={onSubmit}
-              handleInputChange={handleInputChange}
-              handleExperienceValue={handleExperienceValue}
-              categoryVal={categoryVal}
-              experienceVal={experienceVal}
-              errors={errors}
-            />
+    {loginError ? 
+      <div>
+        <UnauthenticatedNav/> 
+        <h1>{loginError}</h1>
+     </div>
+       : 
+    <div>
+      <div>
+        <EmployerNavBar/>
+      </div>
+      <div className={classes.root} >
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={12} md={6}>  
+              <SearchCandidateForm
+                onSubmit={onSubmit}
+                handleInputChange={handleInputChange}
+                handleExperienceValue={handleExperienceValue}
+                categoryVal={categoryVal}
+                experienceVal={experienceVal}
+                errors={errors}
+              />
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={6}>
-          {candidates.length > 0 ? <CandidateSearchCard candidates={candidates} /> : <h1>Nu am gasit nici un candidat</h1> }
+        <Grid container spacing={16}>
+          <Grid item xs={12} sm={12} md={6}>
+            {candidates.length > 0 ? <CandidateSearchCard candidates={candidates} /> : <h1>Nu am gasit nici un candidat</h1> }
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={6}>
-          {candidates.length > 0 ? <GetMoreCandidatesButton onClick={onClick}/> : null}
-       </Grid>
-      </Grid>
-    </div>
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={12} md={6}>
+            {candidates.length > 0 ? <GetMoreCandidatesButton onClick={onClick}/> : null}
+        </Grid>
+        </Grid>
+      </div>
+   </div>
+    }
   </div>
   );
 }

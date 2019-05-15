@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,12 +5,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { LoginUrl }from '../../Utils/Paths/UrlPaths';
-import JobPageSideNav from './JobPageSideNav';
 import BrandName from '../../Utils/BrandName';
-import { SignUpUrlJobSeeker} from '../../Utils/Paths/UrlPaths';
-import { SignUpUrlEmployer} from '../../Utils/Paths/UrlPaths';
-
+import { LoginUrl }from '../../Utils/Paths/UrlPaths';
+import UnauthenticatedSideNav from './UnauthenticatedSideNav';
 const styles = {
   root: {
     flexGrow: 1,
@@ -26,22 +22,19 @@ const styles = {
 
   logIn:{
     color:'white',
-    textDecoration:'none'
   }
 };
 
-function JobPageNav(props) {
+function UnauthenticatedNav(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <JobPageSideNav/> 
+          <UnauthenticatedSideNav/> 
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {BrandName}
           </Typography>
-          <Button color="inherit"><a  className={classes.logIn}  href={SignUpUrlEmployer}>Angajeaza</a></Button>
-          <Button color="inherit"><a  className={classes.logIn}  href={SignUpUrlJobSeeker}>Inregistrare</a></Button>
           <Button color="inherit"><a  className={classes.logIn}  href={LoginUrl}>Logare</a></Button>
         </Toolbar>
       </AppBar>
@@ -49,8 +42,8 @@ function JobPageNav(props) {
   );
 }
 
-JobPageNav.propTypes = {
+UnauthenticatedNav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(JobPageNav);
+export default withStyles(styles)(UnauthenticatedNav);

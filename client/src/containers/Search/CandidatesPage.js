@@ -11,14 +11,15 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
          this.state = {
             candidates:[],
             offset:2,
-            category:'frumusete si bunastare',
-            location:'chisinau',
+            category:'',
+            location:'',
             experienceMax:1,
             url:'',
+            loginError:'',
             formErrors:{
               categoryError:'',
               locationError:'',
-              experienceMaxError:'',
+             
               
             }
 
@@ -40,12 +41,18 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
             const url = `/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
             const offset = 2;
             try {
-
+            
               const response = await axios.post(url,{
                 offset:0
               })
-
-              this.setState({candidates:[...response.data],url, offset})
+              
+               const data = response.data
+               
+               if(data.code === 99){
+                this.setState({loginError:[...data.msg]})   
+              } else {
+                this.setState({candidates:[...data],url, offset})
+              }
             } catch (error) {
               console.error(error);
             }
@@ -56,12 +63,11 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
     
     //   //form validation
         validate = () => {
-          const {location, category ,experienceMax,experienceMin} = this.state;
+          const {location, category } = this.state;
           
           let categoryError = "";
           let locationError = "";
-          let experienceMaxError = "";
-          
+      
         
           if(!category){
            categoryError = "Te rog alege categoria"
@@ -71,19 +77,17 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
             locationError = "Te rog alege orasul"
           }
 
-          if(!experienceMax){
-            experienceMaxError = "Te rog alege experienta maxima"
-          }
+       
 
          
 
-          if(categoryError || locationError || experienceMaxError){
+          if(categoryError || locationError){
             this.setState(prevState => ({
               formErrors:{
                 ...prevState.formErrors,
                 locationError,
                 categoryError,
-                experienceMaxError
+              
               }
             }))
             return false;
@@ -112,35 +116,45 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
              event.preventDefault();
 
              const isValid = this.validate();
-             const { location, category, experienceMax, } = this.state;
-              if(isValid){
-                    const getCandidates=  async () => {
-                      const url = `/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
-                      const offset = 2;
-                      try {
+             const { location, category, experienceMax, errorMsg} = this.state;
+             
+  
+                  if(isValid){
+                       const getCandidates=  async () => {
+                         const url = `/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
+                         const offset = 2;
+                         try {
+   
+                           const response = await axios.post(url,{
+                             offset:0
+                           })
+                           const data = response.data
+                
+                               
+                          if(data.code === 99){
+                            this.setState({loginError:[...data.msg]})  
+                          } else {
+                            this.setState({candidates:[...data],url, offset})
+                          }
+       
+                         } catch (error) {
+                           console.error(error);
+                         }
+                       }
+                       getCandidates();
+                       
+                       this.setState(prevState => ({
+                         formErrors:{
+                           ...prevState.formErrors,
+                           locationError:'',
+                           categoryError:'',
+                         
+                         }
+                       }))
+   
+                     }
 
-                        const response = await axios.post(url,{
-                          offset:0
-                        })
-
-                        this.setState({candidates:[...response.data],url, offset})
-                      } catch (error) {
-                        console.error(error);
-                      }
-                    }
-                    getCandidates();
-                    
-                    this.setState(prevState => ({
-                      formErrors:{
-                        ...prevState.formErrors,
-                        locationError:'',
-                        categoryError:'',
-                        experienceMaxError:'',
-                        experienceMinError:''
-                      }
-                    }))
-
-                  }
+               
           }
 
 
@@ -151,7 +165,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
               const response = await axios.post(url,{
                   offset: this.state.offset 
               });
-
+            
               this.setState({candidates:[...this.state.candidates, ...response.data], offset:this.state.offset + 2})
             } catch (error) {
               console.error(error);
@@ -159,7 +173,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
           }  
 
           render() {
-            console.log(this.state)
+            // console.log(this.state)
             return (
               <div>
                 <CandidateSearchPage
@@ -172,6 +186,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
                   onClick = {this.getMoreCandidates}
                   experienceVal = {this.state.experienceMax}
                   handleExperienceValue = {this.handleExperienceValue}
+                  loginError={this.state.loginError}
                 />
               </div>
            )

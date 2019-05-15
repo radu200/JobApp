@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add react-redux redux-thunk
+  /usr/bin/node /usr/share/yarn/bin/yarn.js install
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: EACCES: permission denied, mkdir '/home/radu/Desktop/JobApp/server/node_modules/invariant/node_modules/loose-envify'
+  Error: EACCES: permission denied, unlink '/home/radu/Desktop/JobApp/server/node_modules/.bin/acorn'
 
 npm manifest: 
   {

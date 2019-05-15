@@ -6,6 +6,10 @@ import Button from '@material-ui/core/Button';
 const styles = theme => ({
     button: {
       width:"100%",
+      paddingTop:10,
+      paddingBottom:10,
+      marginTop:20,
+      marginBottom:20,
     },
     input: {
       display: 'none',
