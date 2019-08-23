@@ -27,7 +27,7 @@ module.exports.JobsPage = async (req, res, next) => {
 
         const db = await dbPromise
         const [jobs] = await db.execute(`select * from jobs  `);
-       
+        console.log(jobs)
         res.render('./jobs/jobs',{
             'results':jobs
         })
@@ -371,14 +371,14 @@ module.exports.deleteJob = async (req, res, next) => {
 
         await db.execute(`DELETE FROM jobs  WHERE id =${id}`);
 
-        if (userDetails[0].image && userDetails[0].image !== null) {
+        if (userDetails[0].image && userDetails[0].image !== null && userDetails[0].image > 0) {
             await fsPromises.unlink(`./public/${userDetails[0].image}`)
         }
 
         req.flash('success_msg', {
             msg: "Jobul a fost sters cu success"
         });
-        res.redirect('back');
+        res.redirect('/my_jobs');
     
     } catch (err) {
         console.log(err)
