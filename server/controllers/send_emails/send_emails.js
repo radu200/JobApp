@@ -114,11 +114,12 @@ ${emailFooter}
 
     transwerporter.sendMail(mailOptions, (err) => {
         if (err) {
-            req.flash('error_msg', errors);
+            req.flash('error_msg', err);
 
             return res.redirect('/forgot/password');
         }
-    });
+        transwerporter.close();
+      });
 }
 
 ///confirm that forgot password was reseted succefully
@@ -184,9 +185,10 @@ module.exports.forgotPasswordSucess = (req,res,nex,nodemailer,email) => {
 
           transwerporter.sendMail(mailOptions, (err) => {
               if (err) {
-                  req.flash('error_msg', errors)
+                  req.flash('error_msg', err)
                   return res.redirect('/forgot/password');
               }
+              transwerporter.close();
           });
 }
 
@@ -263,14 +265,9 @@ module.exports.changePasswordProfile = (req, res, next, nodemailer, email) => {
 
     transwerporter.sendMail(mailOptions, (err) => {
         if (err) {
-            req.flash('error_msg', errors);
+            req.flash('error_msg',err);
 
-        } else {
-            req.flash('success_msg', {
-                msg: 'Parola dvs. a fost schimbată.'
-            });
-            res.redirect('/password/reset')
-        }
+        } 
         transwerporter.close();
     });
 }
@@ -338,10 +335,11 @@ ${emailFooter}
 
 transporter.sendMail(mailOptions, (err) => {
     if (err) {
-        req.flash('error_msg', errors);
+        req.flash('error_msg', err);
 
         return res.redirect('/back');
     }
-});
+    transwerporter.close();
+  });
 
 }

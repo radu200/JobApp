@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-
+const msg = require('../../utils/messages')
 const recaptcha = require('../../../middleware/recaptcha')
 const send_emails = require('../../send_emails/send_emails')
 
@@ -62,24 +62,31 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
       const db = await dbPromise;
      
       const [userDetails] = await db.execute("SELECT email FROM users WHERE email = ?", [email])
-      
-      const GoogleCAPTCHA =  await recaptcha.GoogleCAPTCHA(req, res);
-      
-      if(userDetails.length){
-        req.flash('error_msg', {
-            msg: 'Această adresă de e-mail este deja luată.'
-        });
-      
-      res.redirect('/signup/employer')
-
-
-  
-    } else if (GoogleCAPTCHA === false){
-      
-        return res.redirect('back')
     
-    } else {
-
+       const GoogleCAPTCHA =  await recaptcha.GoogleCAPTCHA(req, res);
+    
+       
+       
+      if(userDetails.length){
+          
+          req.flash('error_msg', {
+              msg: 'Această adresă de e-mail este deja luată.'
+        });
+        
+        res.redirect('/signup/employer')
+        
+        
+        
+    } else if (GoogleCAPTCHA === false){
+        
+        return res.redirect('back');
+        
+    } 
+    
+  
+    
+    else {
+        
         const hash =  await bcrypt.hash(password, saltRounds);
         
         const token = await new Promise((resolve, reject) => {
@@ -90,7 +97,7 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
                 resolve(buffer.toString('hex'));
             })
         })
-      
+        
         let user = {
             password: hash,
             email: email,
@@ -104,28 +111,28 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
         }
         
         await db.query('insert into users set ?', user)
-
+        
         
         await db.execute('UPDATE users SET email_token_expire = TIMESTAMPADD(HOUR, 1, NOW())  WHERE  email_confirmation_token = ? ', [token]);
         
-        await send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token);
     
-      
+    
+        send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token);
+        
         req.flash('warning_msg', {
             msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul"
         });
-
+        
         res.redirect('/login')
         
         
-      
-      }
+       }
     } catch(err){
         
         console.log(err)
         req.flash('error_msg', {
-            msg: 'O eroare a avut loc.Incerca-ti din nou..'
+            msg: msg.error
         });
-        res.redirect('/signup/employer')
+        return res.redirect('/signup/employer');
     }  
 };

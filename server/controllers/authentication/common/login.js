@@ -41,7 +41,7 @@ module.exports.getLogout = function (req, res, next) {
     req.session.destroy(function (err) {
         if (err) {
             return next(err);
-        }else{
+        } else{
             // destroy session data
             req.session = null;
     

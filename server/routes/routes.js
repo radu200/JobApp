@@ -19,8 +19,7 @@ module.exports = function (app){
   const candidateController =  require('../controllers/candidates/candidates')
   
   app.get('/',  homeController.getHomePage)
-  
-  
+  app.get('/success', homeController.getSuccessPage)
   //authetication routes
   app.get('/signup/employer',  signupEmployerController.getSignUpEmployer)
   app.post('/signup/employer',  signupEmployerController.postSignUpEmployer)
@@ -82,7 +81,7 @@ module.exports = function (app){
   
   //jobs controller 
   app.post('/jobs', jobsController.getJobsPage)
-  // app.get('/jobs', jobsController.JobsPage)
+   app.get('/jobs', jobsController.JobsPage)
   app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer,accessController.ensureEmailChecked, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)

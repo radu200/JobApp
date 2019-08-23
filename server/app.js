@@ -50,18 +50,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../files')));
 
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    if (req.method === "OPTIONS") {
-            res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-            return res.status(200).json({});
-        }
-        next();
-    });
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//     );
+//     if (req.method === "OPTIONS") {
+//             res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+//             return res.status(200).json({});
+//         }
+//         next();
+//     });
     
     
    app.use(helmet());
@@ -86,7 +86,7 @@ const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hou r
 
 
 app.use(session({ 
-    secret: process.env.SESSION_SECRET, 
+    secret: 'cat', 
     store: sessionStore,
     resave:false, //session will be saved each time no matter if exist or not
     saveUninitialized: false,  //if it's true session will be stored on server no matter if is something there
