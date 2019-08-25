@@ -22,21 +22,21 @@ module.exports.getJobsPage = async (req, res, next) => {
     }
 };
 
-module.exports.JobsPage = async (req, res, next) => {
-    try {
+// module.exports.JobsPage = async (req, res, next) => {
+//     try {
 
-        const db = await dbPromise
-        const [jobs] = await db.execute(`select * from jobs  `);
-        console.log(jobs)
-        res.render('./jobs/jobs',{
-            'results':jobs
-        })
+//         const db = await dbPromise
+//         const [jobs] = await db.execute(`select * from jobs  `);
+//         console.log(jobs)
+//         res.render('./jobs/jobs',{
+//             'results':jobs
+//         })
 
-    } catch (err) {
-        console.log(err)
-    }
+//     } catch (err) {
+//         console.log(err)
+//     }
 
-};
+// };
 
 
 

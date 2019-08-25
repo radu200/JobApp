@@ -57,6 +57,9 @@ const JobCard = ({jobs,classes}) => {
                     <Typography gutterBottom variant="h5" component="h2">
                     {job.position}
                     </Typography>
+                    <Typography component="p">
+                       {job.category}
+                    </Typography>
                     <Typography  noWrap className={classes.heading} component="p">
                        {job.description}
                     </Typography>
@@ -67,7 +70,7 @@ const JobCard = ({jobs,classes}) => {
                 </CardActionArea>
                     <CardActions>
                     <Button size="small" color="primary">
-                      <a className={classes.JobDetails} href={jobDetailPath}>Vezi Mai Mult</a>
+                        <a className={classes.JobDetails} href={jobDetailPath}>Vezi Mai Mult</a>
                     </Button>
     
                   </CardActions>

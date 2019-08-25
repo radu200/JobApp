@@ -30,7 +30,15 @@ const styles = theme => ({
     '&:hover': {
       color: 'grey'
     }
+  },
+ aboutPage:{
+  textDecoration: 'none',
+   color:"blue",
+  '&:hover': {
+    fontWeight:'bold'
   }
+ }
+
 });
 
 const JobCard = ({classes, candidates}) => {
@@ -56,13 +64,11 @@ const JobCard = ({classes, candidates}) => {
                                   {candidate.category} - {candidate.total_ex_years} ani
                                 </Typography>
                                   {candidate.job_seeker_about_me}
+                                  <Link className={classes.aboutPage} to={candidateDetailsUrl}>Vezi mai mult</Link>
                                 </React.Fragment>
                             }
                         />
                      </ListItem>
-                     <Button variant="contained" color="primary" className={classes.button}>
-                     <Link to={candidateDetailsUrl}>About</Link>
-                      </Button>
                     </Paper>
                 </List>
            </div> 

@@ -81,7 +81,7 @@ module.exports = function (app){
   
   //jobs controller 
   app.post('/jobs', jobsController.getJobsPage)
-   app.get('/jobs', jobsController.JobsPage)
+  //  app.get('/jobs', jobsController.JobsPage)
   app.get('/jobs/add', accessController.ensureAuthenticated, accessController.employer,accessController.ensureEmailChecked, jobsController.getAddJobs)
   app.post('/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)
@@ -92,10 +92,10 @@ module.exports = function (app){
   app.get('/job/details/:id', jobsController.getJobDetail)
  
   ///candidate controller 
-  app.post('/candidates', candidateController.getCandidates)
+   app.get('/candidate-details', candidateController.getCandidateDetails)
  //search
- app.post('/search/job', search.searchJobs)
- app.post('/candidate-search', accessController.ensureAuthenticatedJsonRes, search.searchCandidates )
+  app.post('/search/job', search.searchJobs)
+  app.post('/candidate-search', accessController.ensureAuthenticatedJsonRes, search.searchCandidates )
   ///contact us
   app.get('/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
 }

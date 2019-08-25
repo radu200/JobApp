@@ -12,7 +12,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
             candidates:[],
             offset:2,
             category:'',
-            location:'',
+            location:'Chisinau',
             experienceMax:1,
             url:'',
             loginError:'',
@@ -33,7 +33,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
     
 
         componentDidMount () {
-          const searchVal = {location:'chisinau',category:'frumusete' ,experienceMax:10}
+          const searchVal = {location:'Chisinau',category:'Frumusete si Bunastare' ,experienceMax:10}
          
           const {location, category ,experienceMax} = searchVal;
          
