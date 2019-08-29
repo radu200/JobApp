@@ -1,3 +1,5 @@
+const urlPaths = require('.././utils/url-paths')
+
 const emailFooter = ` <tr>
 <td height="40">
   <p style="line-height: 40px; padding: 0 0 0 0; margin: 0 0 0 0;">&nbsp;</p>
@@ -116,7 +118,7 @@ ${emailFooter}
         if (err) {
             req.flash('error_msg', err);
 
-            return res.redirect('/forgot/password');
+            return res.redirect(urlPaths.forgotPassword);
         }
         transwerporter.close();
       });
@@ -186,7 +188,7 @@ module.exports.forgotPasswordSucess = (req,res,nex,nodemailer,email) => {
           transwerporter.sendMail(mailOptions, (err) => {
               if (err) {
                   req.flash('error_msg', err)
-                  return res.redirect('/forgot/password');
+                  return res.redirect(urlPaths.forgotPassword);
               }
               transwerporter.close();
           });
@@ -337,7 +339,7 @@ transporter.sendMail(mailOptions, (err) => {
     if (err) {
         req.flash('error_msg', err);
 
-        return res.redirect('/back');
+        return res.redirect(urlPaths.back);
     }
     transwerporter.close();
   });

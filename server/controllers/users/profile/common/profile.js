@@ -1,12 +1,9 @@
-const {
-    db
-} = require('../../../.././config/database.js');
-const {
-    dbPromise
-} = require('../../../.././config/database.js');
+const {dbPromise } = require('../../../.././config/database.js');
 const fs = require('fs')
 const fsPromises = fs.promises;
 const sharp = require('sharp')
+const msg = require('../../../utils/messages')
+const urlPaths = require('../../../utils/url-paths')
 
 
 module.exports.getProfile = async (req, res, next) => {
@@ -37,14 +34,14 @@ module.exports.getProfile = async (req, res, next) => {
           
 
         } else {
-            res.redirect('/login')
+            res.redirect(urlPaths.login)
         }
 
 
     } catch (err) {
-        req.flash('error_msg',{msg:'O eroare a avut loc.Incercati din nou.'})
+        req.flash('error_msg',{msg:msg.error})
        
-        res.redirect('back')
+        res.redirect(urlPaths.back)
 
         console.log(err)
     }
@@ -108,15 +105,15 @@ module.exports.postProfileAvatarEdit = async (req, res, next) => {
 
 
         res.json({
-            msg: 'Image uploaded succefully'
+            msg: 'Success'
         })
 
     } catch (err) {
         console.log(err)
 
-        req.flash('error_msg',{msg:'O eroare a avut loc.Incercati din nou.'})
+        req.flash('error_msg',{msg:msg.error})
        
-        res.redirect('back')
+        res.redirect(urlPaths.back)
 
     }
 }

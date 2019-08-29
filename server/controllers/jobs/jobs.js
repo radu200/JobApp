@@ -1,12 +1,10 @@
 
-const {
-    dbPromise
-} = require('../.././config/database.js');
+const { dbPromise } = require('../.././config/database.js');
 const fs = require('fs')
 const fsPromises = fs.promises;
 const sharp = require('sharp')
-
-
+const urlPaths = require('.././utils/url-paths')
+const msg = require ('.././utils/messages')
 
 module.exports.getJobsPage = async (req, res, next) => {
     const offset = req.body.offset;
@@ -21,22 +19,6 @@ module.exports.getJobsPage = async (req, res, next) => {
         console.log(err)
     }
 };
-
-// module.exports.JobsPage = async (req, res, next) => {
-//     try {
-
-//         const db = await dbPromise
-//         const [jobs] = await db.execute(`select * from jobs  `);
-//         console.log(jobs)
-//         res.render('./jobs/jobs',{
-//             'results':jobs
-//         })
-
-//     } catch (err) {
-//         console.log(err)
-//     }
-
-// };
 
 
 
@@ -96,7 +78,7 @@ module.exports.postAddJobs = async (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('/jobs/add')
+        return res.redirect(urlPaths.addJob)
     }
 
 
@@ -151,9 +133,9 @@ module.exports.postAddJobs = async (req, res, next) => {
         console.log(err)
         
         req.flash('error_msg', {
-            msg: "O eroare a avut loc, incercati din nou."
+            msg: msg.error
         });
-        res.redirect('back');
+        res.redirect(urlPaths.back);
     }
 
 
@@ -216,15 +198,16 @@ module.exports.postJobImageEdit = async (req, res, next) => {
         }
 
         res.json({
-            msg: 'Image uploaded succefully'
+            msg: "Success"
         })
 
     } catch (err) {
         console.log('jobimageEdit', err)
+       
         req.flash('error_msg', {
-            msg: "O eroare a avut loc, incercati din nou."
+            msg: msg.error
         });
-        res.redirect('back');
+        res.redirect(urlPaths.back);
     }
 };
 
@@ -244,7 +227,10 @@ module.exports.getEmployerJobs = async (req, res, next) => {
         })
 
     } catch (err) {
-        console.log(err)
+        console.log(err);
+        
+        res.redirect(urlPaths.back);
+
     }
 
 }
@@ -263,10 +249,11 @@ module.exports.getEmployerJobEdit = async (req, res, next) => {
 
     } catch (err) {
         req.flash('error_msg', {
-            msg: "O eroare a avut loc, incercati din nou."
+            msg: msg.error
         });
-        res.redirect('back');
-        console.log(err)
+        res.redirect(urlPaths.back);
+       
+        console.log('getEmployerJobEdit',err)
     }
 
 
@@ -349,12 +336,12 @@ module.exports.postEmployerJobEdit = async (req, res, next) => {
         res.redirect('/my_jobs')
 
     } catch (err) {
-        console.log(err)
+        console.log('postEmployerJobEdit',err)
 
         req.flash('error_msg', {
-            msg: "O eroare a avut loc, incercati din nou."
+            msg: msg.error
         });
-        res.redirect('back');
+        res.redirect(urlPaths.back);
     }
 
 }
@@ -384,9 +371,9 @@ module.exports.deleteJob = async (req, res, next) => {
         console.log(err)
         
         req.flash('error_msg', {
-            msg: "O eroare a avut loc, incercati din nou."
+            msg: msg.error
         });
-        res.redirect('back');
+        res.redirect(urlPaths.back);
     }
 
 
@@ -405,12 +392,12 @@ module.exports.getJobDetail = async (req, res, next) => {
         })
         
         } catch(err){
-        console.log(err)
+        console.log('getJobDetail',err)
 
         req.flash('error_msg', {
-            msg: "O eroare a avut loc, incercati din nou."
+            msg:msg.error
         });
-        res.redirect('back');
+        res.redirect(urlPaths.back);
 
     }
    

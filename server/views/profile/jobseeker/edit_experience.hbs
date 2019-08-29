@@ -4,7 +4,7 @@
 {{>alerts}}
 <div class="container">
     <div class="row">
-        <form id="employee_edit_experience" method="POST" action="/jobseeker/experience/edit/{{result.id}}">
+        <form id="employee_edit_experience" method="POST" action="/api/jobseeker/experience/edit/{{result.id}}">
             <!--employee personal info --->
             <h5 class="center"><b>Editeaza Experienta</b></h5>
             <div class="col s12 m12 l12">
@@ -101,7 +101,7 @@
 
             <button type="submit" class="btn blue right ">Posteaza<i class="material-icons right">send</i></button>
         </form>
-      <form method="POST" action="/jobseeker/experience/delete/{{result.id}}?_method=DELETE">
+      <form method="POST" action="/api/jobseeker/experience/delete/{{result.id}}?_method=DELETE">
                 <button class="btn  " type='submit' value='delete'>Sterge</button>
            </form>
     </div>

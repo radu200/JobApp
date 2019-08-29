@@ -4,16 +4,17 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const request = require('request');
 const recaptcha = require('../../../middleware/recaptcha')
 const send_emails = require('../../send_emails/send_emails')
+const  urlPaths  = require('../../utils/url-paths')
+const  msg  = require('../../utils/messages')
 
 module.exports.getSignUpJobSeeker = function (req, res, next) {
     if (req.isAuthenticated()) {
         req.flash('info_msg', {
             msg:"Pentru a va inregistra trebuie sa iesiti din cont."
         })
-        res.redirect('/profile')
+        res.redirect(urlPaths.profile)
     } else {
         res.render('authentication/job_seeker/signup', {
             RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY
@@ -51,7 +52,7 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('/signup/jobseeker')
+        return res.redirect(urlPaths.signUpJobseeker)
     }
 
 
@@ -69,13 +70,13 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
               msg: 'Această adresă de e-mail este deja luată.'
           });
         
-        res.redirect('/signup/jobseeker')
+        res.redirect(urlPaths.signUpJobseeker)
   
   
     
       } else if (GoogleCAPTCHA === false){
         
-          return res.redirect('back')
+          return res.redirect(urlPaths.back)
       
       } else {
   
@@ -114,7 +115,7 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
               msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul"
           });
   
-          res.redirect('/success')
+          res.redirect(urlPaths.login)
           
           
         
@@ -123,9 +124,9 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
           
           console.log(err)
           req.flash('error_msg', {
-              msg: 'O eroare a avut loc.Incerca-ti din nou.'
+              msg: msg.error
           });
-          res.redirect('/signup/jobseeker')
+          res.redirect(urlPaths.signUpJobseeker)
       }  
 
 };

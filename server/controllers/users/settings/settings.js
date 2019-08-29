@@ -1,17 +1,12 @@
-const {
-    db
-} = require('../../../././config/database.js');
-const {
-    dbPromise
-} = require('../../../././config/database.js');
+
+const {dbPromise} = require('../../../././config/database.js');
 const nodemailer = require("nodemailer");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const saltRounds = 10;
-const request = require('request');
 const send_emails = require('../../send_emails/send_emails');
-const recaptcha = require('../../../middleware/recaptcha')
-
+const msg = require('../../utils/messages')
+const urlPaths = require('../../utils/url-paths')
 
 ///change password within profile
 module.exports.getChangePassword = (req, res, next) => {
@@ -38,7 +33,7 @@ module.exports.postChangePassword = async (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('back')
+        return res.redirect(urlPaths.back)
     }
 
 
@@ -73,7 +68,7 @@ module.exports.postChangePassword = async (req, res, next) => {
             req.flash('success_msg', {
                 msg: 'Parola dvs. a fost schimbată.'
             });
-            res.redirect('back')
+            res.redirect(urlPaths.back)
         }
 
     } catch (err) {
@@ -107,7 +102,7 @@ module.exports.postForgotPassword = async (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('/forgot/password');
+        return res.redirect(urlPaths.forgotPassword);
     }
 
   
@@ -122,7 +117,7 @@ module.exports.postForgotPassword = async (req, res, next) => {
             req.flash('error_msg', {
                 msg: 'Contul cu adresa de e-mail respectivă nu există.'
             });
-            return res.redirect('/forgot/password')
+            return res.redirect(urlPaths.forgotPassword)
 
         } else {
 
@@ -147,7 +142,7 @@ module.exports.postForgotPassword = async (req, res, next) => {
                 msg: `A fost trimis un e-mail la
                 ${email} cu instrucțiuni suplimentare.`
             });
-            res.redirect('/forgot/password');
+            res.redirect(urlPaths.forgotPassword);
 
         }
 
@@ -206,7 +201,7 @@ module.exports.postForgotPasswordReset = async (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('back');
+        return res.redirect(urlPaths.back);
     }
 
 
@@ -221,7 +216,7 @@ module.exports.postForgotPasswordReset = async (req, res, next) => {
             req.flash('error_msg', {
                 msg: 'Resetarea parolei nu este validă sau a expirat.'
             })
-            res.redirect('/forgot/password')
+            res.redirect(urlPaths.forgotPassword)
 
         }
 
@@ -248,7 +243,7 @@ module.exports.postForgotPasswordReset = async (req, res, next) => {
         req.flash('success_msg', {
             msg: 'Parola dvs. a fost schimbată.'
         });
-        res.redirect('/profile')
+        res.redirect(urlPaths.profile)
 
 
 
@@ -290,13 +285,13 @@ module.exports.getCheckEmail = async (req, res, next) => {
             req.flash('success_msg', {
                 msg: "Emailul dvs. a fost verificat cu succes.Va multumim!"
             });
-            res.redirect('/profile')
+            res.redirect(urlPaths.profile)
 
         } else {
             req.flash('error_msg', {
                 msg: "Ne pare rau din pacate nu am putut sa va verificam emailul sau tokenul a expirat"
             });
-            res.redirect('/login')
+            res.redirect(urlPaths.login)
         }
 
     } catch (err) {
@@ -322,7 +317,7 @@ module.exports.getResendEmailCheck = async (req, res, nexr) => {
 
         } else {
 
-            res.redirect('/profile')
+            res.redirect(urlPaths.profile)
         }
 
     } catch (err) {
@@ -365,7 +360,7 @@ module.exports.postResendEmailCheck = async (req, res, next) => {
             msg: `A fost trimis un e-mail la ${userDetails[0].email} cu instrucțiuni suplimentare.`
         });
 
-        res.redirect('/login');
+        res.redirect(urlPaths.profile);
 
     } catch (err) {
         console.log(err)
@@ -396,7 +391,7 @@ module.exports.postChangeEmail = async (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('/change/email')
+        return res.redirect(urlPaths.changeEmail)
 
     }
 
@@ -415,7 +410,7 @@ module.exports.postChangeEmail = async (req, res, next) => {
             req.flash('error_msg', {
                 msg: 'E-mailul este deja în uz.Utilizați un alt e-mail'
             });
-            return res.redirect('/change/email')
+            return res.redirect(urlPaths.changeEmail)
 
 
         }
@@ -427,7 +422,7 @@ module.exports.postChangeEmail = async (req, res, next) => {
                 msg: 'Parola e gresita.Incerca-ti din nou.'
             });
 
-            return res.redirect('/change/email')
+            return res.redirect(urlPaths.changeEmail)
 
         } else {
 
@@ -455,7 +450,7 @@ module.exports.postChangeEmail = async (req, res, next) => {
                 msg: `A fost trimis un e-mail la ${email} cu instrucțiuni suplimentare.`
             });
 
-            res.redirect('/login')
+            res.redirect(urlPaths.login)
 
         }
 

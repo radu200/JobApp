@@ -59,7 +59,7 @@ const CandidateDetailsCard = ({candidateDetails,experience,classes}) => {
                     <Typography gutterBottom variant="h5" component="h2">
                     {candidate.first_name} {candidate.last_name}
                     </Typography>
-                    <Typography component="p">
+                    <Typography component="p" >
                        {candidate.job_seeker_about_me}
                     </Typography>
                     <Typography  noWrap className={classes.heading} component="p">

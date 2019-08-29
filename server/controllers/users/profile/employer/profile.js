@@ -1,5 +1,6 @@
  const {dbPromise} = require('../../../.././config/database.js');
-
+ const msg = require('../../../utils/messages')
+ const urlPaths = require('../../../utils/url-paths')
 
 
 module.exports.getCandidateDetails = (req,res,next) => {
@@ -41,7 +42,7 @@ module.exports.getEmployerProfileInfoEdit =  async (req, res, next) => {
 
     if (errors) {
         req.flash('error_msg', errors);
-         return  res.redirect('back')
+         return  res.redirect(urlPaths.back)
     }
 
     try {
@@ -49,7 +50,7 @@ module.exports.getEmployerProfileInfoEdit =  async (req, res, next) => {
          
          await  db.execute('update users  set   first_name = ?, last_name = ?  where id = ?', [first_name, last_name,req.user.id]);
          
-         res.redirect('/profile')
+         res.redirect(urlPaths.profile)
      } catch(err){
        console.log(err)
        
@@ -97,14 +98,14 @@ module.exports.postCompanyInfoEdit =   async (req, res, next) => {
 
     if (errors) {
        req.flash('error_msg', errors);
-        return  res.redirect('/company/info/edit')
+        return  res.redirect(urlPaths.companyEdit)
     }
 
 
      try {
         const db = await dbPromise;
         await  db.execute('update  users set  company_name = ? , company_description = ?,  company_location = ?,  company_type  = ? where id = ?', [name,description,location,type, req.user.id]);
-        res.redirect('/profile')
+        res.redirect(urlPaths.profile)
  
      } catch(err){
          console.log(err)

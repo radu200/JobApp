@@ -1,8 +1,6 @@
-const {
-    dbPromise
-} = require('../.././config/database.js');
-
-
+const { dbPromise} = require('../.././config/database.js');
+const msg = require('.././utils/messages')
+const urlPaths = require('.././utils/url-paths')
 module.exports.searchJobs = async (req, res, next) => {
 
     const searchVal = req.query.search_query
@@ -24,7 +22,7 @@ module.exports.searchJobs = async (req, res, next) => {
         }
             
     } catch (err) {
-        res.json('O errore a avut loc')
+        res.json(msg.error)
     }
         
 };
@@ -91,9 +89,8 @@ module.exports.getCandidateDetails = async (req,res) => {
     
        } catch (err) {
           
-             res.redirect('back')
- 
-             console.log(err)
+             res.json(msg.err) 
+             console.log('getCandidateDetails ',err)
        }
  
  }

@@ -1,11 +1,12 @@
 
 const {db} = require('../../../config/database.js');
 const passport = require('passport');
+const  urlPaths  = require('../../utils/url-paths')
 
-const login = '/api/login'
+
 module.exports.getLogin = (req, res, next) => {
     if(req.isAuthenticated()){
-        res.redirect('/profile')
+        res.redirect(urlPaths.profile)
     }else {
         res.render('authentication/common/login')
     }
@@ -17,18 +18,17 @@ module.exports.getLogin = (req, res, next) => {
     req.checkBody('password', 'Password cannot be blank').notEmpty();
     req.checkBody('password', 'Password must be between 6-100 characters long.').len(6, 100);
     
-    const email = req.body.username;
     const errors = req.validationErrors();
     
     if (errors) {
         req.flash('error_msg', errors);
-        return res.redirect('/login')
+        return res.redirect(urlPaths.login)
     } else {
   
 
       passport.authenticate('local-login', {
-        successRedirect: '/profile', // redirect to the secure profile section
-        failureRedirect: '/login', // redirect back to the signup page if there is an error
+        successRedirect: urlPaths.profile, // redirect to the secure profile section
+        failureRedirect:  urlPaths.login, // redirect back to the signup page if there is an error
         failureFlash: true // allow flash messages
     })(req, res);
                 
@@ -46,7 +46,7 @@ module.exports.getLogout = function (req, res, next) {
             // destroy session data
             req.session = null;
     
-            res.redirect('/login');
+            res.redirect(urlPaths.login);
 
         }
 
