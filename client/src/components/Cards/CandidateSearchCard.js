@@ -8,7 +8,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom'
-import Button from '@material-ui/core/Button';
 const styles = theme => ({
   bigAvatar: {
     margin: 10,
@@ -35,13 +34,13 @@ const styles = theme => ({
   textDecoration: 'none',
    color:"blue",
   '&:hover': {
-    fontWeight:'bold'
+     textDecoration:'underline'
   }
  }
 
 });
 
-const JobCard = ({classes, candidates}) => {
+const CandidateCard = ({classes, candidates}) => {
   
  
      return candidates.map((candidate) => {
@@ -58,12 +57,15 @@ const JobCard = ({classes, candidates}) => {
                                 {candidate.first_name} {candidate.last_name}
                                </Typography>
                             }
-                            secondary={
+                             secondary={
                                 <React.Fragment>
                                 <Typography  className={classes.textBold} component="span"  color="textPrimary">
                                   {candidate.category} - {candidate.total_ex_years} ani
                                 </Typography>
+                                <Typography  className={classes.textBold} component="span"  color="textSecondary">                    
                                   {candidate.job_seeker_about_me}
+                                </Typography>
+
                                   <Link className={classes.aboutPage} to={candidateDetailsUrl}>Vezi mai mult</Link>
                                 </React.Fragment>
                             }
@@ -78,7 +80,7 @@ const JobCard = ({classes, candidates}) => {
      
 
 
-JobCard.propTypes = {
+CandidateCard.propTypes = {
   classes: PropTypes.object.isRequired,
 }
-export default  withStyles(styles)(JobCard);
+export default  withStyles(styles)(CandidateCard);

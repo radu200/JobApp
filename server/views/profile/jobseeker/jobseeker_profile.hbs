@@ -39,7 +39,7 @@
            <a href="/profile-edit/jobseeker" class="text-black">
               <div class="jb-profile-hover">
                 <h4>Despre Mine</h4>
-                <p>{{result.job_seeker_about_me}}</p>
+                <p class="break_text">{{result.job_seeker_about_me}}</p>
               </div>
             </a>
           {{else}}
@@ -53,13 +53,13 @@
           {{#if experience}}
           {{#each experience}}
           <a href="/jobseeker/experience/edit/{{id}}" class="text-black">
-            <div class="jb-profile-hover">
+            <div class="jb-profile-hover break_text">
               <p class="category"> {{category}}</p>
               <p>{{start_date}} — {{end_date}} </p>
               <p class="blue-text">{{#if years }}{{years}} ani {{/if}} {{#if months}} {{months}} luni {{/if}} {{#if days}} {{days}} zile {{/if}}</p>
               <h6><b>{{company_name}}</b></h6>
-              <p>{{position}}</p>
-              <p>{{responsibilities}}</p> 
+              <p >{{position}}</p>
+              <p class="break_text">{{responsibilities}}</p> 
             </div>
           </a>          
           {{/each}}

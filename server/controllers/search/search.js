@@ -41,7 +41,7 @@ module.exports.searchCandidates = async(req,res) => {
         const db = await dbPromise
         const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
         const user_details = ` users.email,users.first_name,users.last_name,users.type, users.avatar,users.email_status,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_languages,users.job_seeker_education,users.job_seeker_location ,users.job_seeker_availability`
-        const sql =  `SELECT ${jobseeker_experience}, ${user_details}  from users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%'  AND lower(users.job_seeker_location) LIKE '%${location}%' AND jobseeker_experience.years BETWEEN ${experienceMin} AND ${experienceMax} GROUP BY category,userID  LIMIT ${limit} OFFSET ${offset}`
+        const sql =  `SELECT ${jobseeker_experience}, ${user_details}  FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%'  AND lower(users.job_seeker_location) LIKE '%${location}%' AND jobseeker_experience.years BETWEEN ${experienceMin} AND ${experienceMax} GROUP BY category,userID  LIMIT ${limit} OFFSET ${offset}`
         const [results] = await db.query(sql)
        
         if(!results){
@@ -61,3 +61,39 @@ module.exports.searchCandidates = async(req,res) => {
   }
 
 }
+
+
+module.exports.getCandidateDetails = async (req,res) => {
+ 
+    const id = req.params.id
+    
+    try {
+        const db = await dbPromise;
+        
+       const [candidate] = await db.execute('select first_name,last_name,avatar,id,job_seeker_employment_type, job_seeker_about_me,job_seeker_education,job_seeker_location,job_seeker_languages job_seeker_availability from users where id = ? ', [id]);
+ 
+       const [experience] = await db.execute('select * from jobseeker_experience where jobseeker_id = ? ', [id]);
+         
+       
+       if(!candidate && !experience){
+        res.json({
+            'msg':'Nu am gasit nici un candidat',
+            'code':88
+        })
+       
+      } else {
+         res.json({
+            details:candidate,
+            experience:experience
+         })   
+     }
+         
+    
+       } catch (err) {
+          
+             res.redirect('back')
+ 
+             console.log(err)
+       }
+ 
+ }

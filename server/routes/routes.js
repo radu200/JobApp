@@ -15,8 +15,7 @@ module.exports = function (app){
   const contactUs = require('../controllers/helpPages/contactUs')
   const accessController = require('../middleware/access_control_middleware');
   const filesController = require('../middleware/files_control_middleware');
-  const search =  require('../controllers/search/search');
-  const candidateController =  require('../controllers/candidates/candidates')
+  const searchController =  require('../controllers/search/search');
   
   app.get('/',  homeController.getHomePage)
   app.get('/success', homeController.getSuccessPage)
@@ -91,11 +90,10 @@ module.exports = function (app){
   app.delete('/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
   app.get('/job/details/:id', jobsController.getJobDetail)
  
-  ///candidate controller 
-   app.get('/candidate-details', candidateController.getCandidateDetails)
- //search
-  app.post('/search/job', search.searchJobs)
-  app.post('/candidate-search', accessController.ensureAuthenticatedJsonRes, search.searchCandidates )
+  //search
+  app.get('/candidate-details/:id', accessController.ensureAuthenticatedJsonRes, searchController.getCandidateDetails)
+  app.post('/search/job', searchController.searchJobs)
+  app.post('/candidate-search', accessController.ensureAuthenticatedJsonRes, searchController.searchCandidates )
   ///contact us
   app.get('/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
 }

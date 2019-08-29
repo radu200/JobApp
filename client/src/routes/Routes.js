@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter,Switch, Route } from 'react-router-dom';
 import Jobs from '../containers/Search/JobsPage';
 import Candidates from '../containers/Search/CandidatesPage';
-import CandidateDetails from '../components/Pages/CandidateDetails';
+import CandidateDetails from '../containers/Search/CandidateDetails';
 
 const Routes = () => (
   <main>

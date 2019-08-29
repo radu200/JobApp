@@ -132,12 +132,8 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
 
             }
           }
-
-      
-        
-                     
-            render() {
               
+            render() {  
               return (
                 <div>
                 <JobsSearchPage
@@ -150,9 +146,6 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
                    locationVal={this.state.location}
                    locations={cities}
                 />
-            
-        
-            
             </div>
            )
           }

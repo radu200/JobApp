@@ -4,7 +4,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
 
 
 
- class JobsPage extends Component {
+ class CandidatesPage extends Component {
   
     constructor(props){
         super(props) 
@@ -37,7 +37,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
          
           const {location, category ,experienceMax} = searchVal;
          
-          const getCandidates=  async () => {
+          const getCandidates =  async () => {
             const url = `/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
             const offset = 2;
             try {
@@ -173,7 +173,6 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
           }  
 
           render() {
-            // console.log(this.state)
             return (
               <div>
                 <CandidateSearchPage
@@ -193,4 +192,4 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
         }
   }
 
-export default JobsPage;
+export default CandidatesPage;
