@@ -14,15 +14,12 @@ export default class CandidateDetails extends Component {
          }
     }
 
-
-
-
     componentDidMount () {
         
          const id = this.props.match.params.id;
            const getCandidateDetails =  async () => {
            try {
-               const res = await axios.get(`/candidate-details/${id}`)
+               const res = await axios.get(`/api/candidate-details/${id}`)
                 
                const data = res.data
                console.log(data.details)
@@ -44,16 +41,16 @@ export default class CandidateDetails extends Component {
 
     }
 
-    render(){
-   
-        return (
-            <div>
-                 <CandidateDetailsPage 
-                   loginError = {this.state.loginError}
-                   candidateDetails={this.state.candidate} 
-                   experience={this.state.experience}
-                   />
-            </div>
-        )
-    }
+        render(){
+      
+            return (
+                <div>
+                    <CandidateDetailsPage 
+                      loginError = {this.state.loginError}
+                      candidateDetails={this.state.candidate} 
+                      experience={this.state.experience}
+                      />
+                </div>
+            )
+        }
 }

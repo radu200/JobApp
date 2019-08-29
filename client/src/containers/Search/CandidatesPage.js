@@ -38,7 +38,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
           const {location, category ,experienceMax} = searchVal;
          
           const getCandidates =  async () => {
-            const url = `/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
+            const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
             const offset = 2;
             try {
             
@@ -121,7 +121,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
   
                   if(isValid){
                        const getCandidates=  async () => {
-                         const url = `/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
+                         const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
                          const offset = 2;
                          try {
    

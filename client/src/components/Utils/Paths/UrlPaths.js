@@ -1,9 +1,9 @@
 
 const webSiteUrl = 'http://localhost:8000';
-const  LoginUrl = `${webSiteUrl}/login`;
-const JobDetailsUrl = `${webSiteUrl}/job/details/`;
-const SignUpUrlJobSeeker =`${webSiteUrl}/signup/jobseeker`;
-const SignUpUrlEmployer =`${webSiteUrl}/signup/employer`
+const  LoginUrl = `/api/login`;
+const JobDetailsUrl = `/api/job/details/`;
+const SignUpUrlJobSeeker =`/api/signup/jobseeker`;
+const SignUpUrlEmployer =`/api/signup/employer`;
 
 module.exports = {
     LoginUrl,

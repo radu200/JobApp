@@ -5,9 +5,9 @@
  <div class="row">
     <div class="col s12 m6 l4 center">
       <div class="card">
-        <a class="btn grey right tooltipped" href="/profile/avatar " data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">create</i></a>
+        <a class="btn grey right tooltipped" href="/api/profile/avatar " data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">create</i></a>
         <div class="card-image card-profile-image">
-            <a href="/profile/avatar">
+            <a href="/api/profile/avatar">
           {{#if this.result.avatar }}
           <img  src="{{this.result.avatar}}" class="avatar">
           {{else}}
@@ -19,10 +19,10 @@
           <h5 class="break_text">{{result.first_name}}</h5>
           <h5 class="break_text">{{result.last_name}}</h5>
           <p>{{result.email}}</p>
-          <a class="btn grey" href="/change/password">Schimba Parola</a>
+          <a class="btn grey" href="/api/change/password">Schimba Parola</a>
         </div>
         <div class="card-action">
-          <a class="btn grey center" href="/profile/edit/employer">Editeaza Profilul</a>
+          <a class="btn grey center" href="/api/profile/edit/employer">Editeaza Profilul</a>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
           <p>{{result.company_location}}</p>
         </div>
         <div class="card-action">
-          <a class="btn grey center" href="/company/info/edit" > Editeaza</a>
+          <a class="btn grey center" href="/api/company/info/edit" > Editeaza</a>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
         <div class="card-title">Informatie despre companie</div>
         <h6>Adauga mai multa informatie despre companie.</h6>
         <div class="card-action">
-          <a class="btn grey center" href="/company/info/edit" >Adauga</a>
+          <a class="btn grey center" href="/api/company/info/edit" >Adauga</a>
         </div>
       </div>
     </div>

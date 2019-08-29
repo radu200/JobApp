@@ -45,8 +45,9 @@ app.use(bodyParser.json());
 app.use(expressValidator({}));
 app.use(methodOverride('_method'))
 app.use(cookieParser());
- app.use(express.static(path.join(__dirname, '../client/build')));
- app.use(express.static(path.join(__dirname, 'public')));
+ 
+app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../files')));
 
 
@@ -148,9 +149,10 @@ app.use(function(req, res, next) {
 
 
 require('./routes/routes.js')(app);
-app.get('/client', (req,res) =>{
-    res.sendFile(path.join(__dirname,'../client/build/index.html'));
-});
+ 
+app.get('*', (req,res) => {
+     res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
+ })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

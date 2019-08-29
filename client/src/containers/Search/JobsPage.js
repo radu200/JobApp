@@ -58,7 +58,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
         
     componentDidMount(){
       const getJobs =  async () => {
-        const url = '/jobs'
+        const url = '/api/jobs'
         try {
             const response = await axios.post(url,{
             offset:0
@@ -109,7 +109,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
 
          if(isValid){
               const getSearchRes =  async () => {
-                const url = `/search/job?search_query=${this.state.query}&location=${this.state.location}`
+                const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`
                 const offset = 12;
                 try {
                   const response = await axios.post(url,{

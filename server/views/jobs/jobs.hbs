@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
             <div class="col s12  m6 l4 ">
-                <a href="/profile">
+                <a href="/api/profile">
                     <div class="card-panel black-text border-radius-low ">
                         Barista și Barman
 
@@ -123,7 +123,7 @@
         {{#if results}}
             {{#each results}}
             <div class="col s12 m6 l4">
-                <a href="/job/details/{{id}}" target="_blank" class="black-text">
+                <a href="/api/job/details/{{id}}" target="_blank" class="black-text">
                     <div class="card hoverable ">
                         <div class="card-image  ">
                             {{#if this.image}}
@@ -155,7 +155,7 @@
                         </div>
 
                         <div class="card-action">
-                            <a href="/job/details/{{id}}" class=" btn blue white-text text-lighten-1 waves-effect waves-light full-width-btn">
+                            <a href="/api/job/details/{{id}}" class=" btn blue white-text text-lighten-1 waves-effect waves-light full-width-btn">
                                 Vezi Mai mult</a>
 
                         </div>
@@ -170,11 +170,11 @@
               <ul class="pagination">
          {{#if res}}
                
-                <li class="waves-effect"><a href='/jobs/{{res}}'>next</a></li>
+                <li class="waves-effect"><a href='/api/obs/{{res}}'>next</a></li>
              {{/if}}
                {{#if prev}}
                
-                <li class="waves-effect"><a href='/jobs/{{prev}}'>prev</a></li>
+                <li class="waves-effect"><a href='/api/jobs/{{prev}}'>prev</a></li>
              {{/if}}
                
              </ul>

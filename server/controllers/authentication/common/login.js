@@ -2,6 +2,7 @@
 const {db} = require('../../../config/database.js');
 const passport = require('passport');
 
+const login = '/api/login'
 module.exports.getLogin = (req, res, next) => {
     if(req.isAuthenticated()){
         res.redirect('/profile')
