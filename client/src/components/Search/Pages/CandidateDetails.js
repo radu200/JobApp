@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    maxWidth: 1200,
+    maxWidth: 800,
     marginTop: 0,
     marginRight: 'auto',
     marginBottom: 0,
@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 
 });
-const CandidateDetails = ({loginError, candidateDetails,experience}) => {
+const CandidateDetails = ({loginError, candidateDetails,experience,classes}) => {
     return (
            <div>
               {loginError ? 
@@ -32,12 +32,12 @@ const CandidateDetails = ({loginError, candidateDetails,experience}) => {
                 <EmployerNavBar/>
 
             </div>
-            <div>
-          <Grid container spacing={16}>
-            <Grid item xs={12} sm={12} md={6}>
-             <CandidateDetailsCard candidateDetails={candidateDetails} experience={experience} />
-             </Grid>
-         </Grid>    
+            <div className={classes.root}>
+              <Grid container spacing={0} justify="center" alignItems="center">
+                <Grid item xs={12} sm={12} md={8}>
+                <CandidateDetailsCard  candidateDetails={candidateDetails} experience={experience} />
+                </Grid>
+            </Grid>    
            </div>
 
           </div>

@@ -1,11 +1,12 @@
-const {
-    db
-} = require('.././config/database.js');
+const {db} = require('.././config/database.js');
+
+
+
 module.exports.loggedIn = (req, res, next) => {
     if (req.user) {
         next();
     } else {
-        res.redirect('/login');
+        res.redirect('/api/login');
     }
 }
 
@@ -15,7 +16,7 @@ module.exports.ensureAuthenticated = function (req, res, next) {
         return next();
     } else {
 
-        res.redirect('/login')
+        res.redirect('/api/login')
     }
 
 };
@@ -27,7 +28,7 @@ module.exports.employer = function (req, res, next) {
     if (req.user.type === 'employer') {
         return next();
     } else {
-        res.redirect('/login')
+        res.redirect('//api/login')
     }
 }
 
@@ -35,7 +36,7 @@ module.exports.jobSeeker = function (req, res, next) {
     if (req.user.type === 'jobseeker') {
         return next();
     } else {
-        res.redirect('/login')
+        res.redirect('/api/login')
     }
 }
 
@@ -76,7 +77,7 @@ module.exports.ensureEmailChecked = (req, res, next) => {
         if (results[0].email_status === "unverified" || results[0].email_status === null) {
             res.redirect('/resend/email/check')
         } else if (results[0].email_status === undefined) {
-            res.redirect('/logout')
+            res.redirect('/api/logout')
 
         } else {
             return next();
@@ -87,9 +88,9 @@ module.exports.ensureEmailChecked = (req, res, next) => {
 
 module.exports.userAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
-        res.redirect('/profile');
+        res.redirect('/api/profile');
     } else {
 
-        res.redirect('/login')
+        res.redirect('/api/login')
     }
 }

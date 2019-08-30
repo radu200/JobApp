@@ -4,11 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+
+
 
 const styles = {
+  
 
   media: {
     // ⚠️ object-fit is not supported by IE 11.
@@ -18,13 +19,45 @@ const styles = {
   heading:{
     opacity:0.7
   },
-
+  candidateAbout:{
+    wordWrap: 'break-word',
+  },
   companyName:{
    color:'black',
    fontWeight:'bold'
   },
-  breakText:{
-    wordBreak:'break-all'
+  responsibilities:{
+    wordWrap: 'break-word',
+  },
+  card:{
+    marginTop:10,
+    display:'flex',
+    flexDirection:'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  avatarContainer:{
+    width:'100%',
+    display:'flex'
+
+  },
+  avatar: {
+    marginTop:0,
+    marginLeft:'auto',
+    marginRight:'auto',
+    marginBottom:0,
+    width: 200,
+    height: 157,
+    borderRadius:10
+  
+    
+  },
+  lang:{
+    fontWeight:'bold'
+  },
+  availability:{
+    color:'#43a047'
   }
 };
 
@@ -35,22 +68,15 @@ const CandidateDetailsCard = ({candidateDetails,experience,classes}) => {
   
   
   return(
-      <Grid  item xs={12} sm={6} md={4}>
-       <Card>
-                
-                {candidateDetails.map((candidate,index) => {
+        <Card className={classes.card}>
+          {candidateDetails.map((candidate,index) => {
                return( 
                   <CardActionArea key={index} >
-                  <CardMedia
-                    component="img"
-                    alt={candidate.category}
-                    className={classes.media}
-                    height="140"
-                    image={candidate.avatar}
-                    title={candidate.category}
-                    />
+                    <div className={classes.avatarContainer}>
+                     <img alt="Remy Sharp" src={candidate.avatar} className={classes.avatar} />
+                    </div>
                   <CardContent>
-                  <Typography    gutterBottom component="p" color="primary">
+                  <Typography    gutterBottom component="p" className={classes.availability} >
                       {candidate.job_seeker_availability}
                     </Typography>
                     <Typography component="p">
@@ -59,12 +85,14 @@ const CandidateDetailsCard = ({candidateDetails,experience,classes}) => {
                     <Typography gutterBottom variant="h5" component="h2">
                     {candidate.first_name} {candidate.last_name}
                     </Typography>
-                    <Typography component="p" >
-                       {candidate.job_seeker_about_me}
+                    <Typography component="p" className={classes.candidateAbout} >
+                       {candidate.job_seeker_about_me} 
                     </Typography>
-                    <Typography  noWrap className={classes.heading} component="p">
-                       {candidate.description}
-                    </Typography>
+
+                      <Typography    gutterBottom component="p" className={classes.lang}>
+                         Limbi : {candidate.job_seeker_languages} 
+                        </Typography>
+                   
                     <Typography component="p">
                           {candidate.job_seeker_location}
                     </Typography>
@@ -87,15 +115,14 @@ const CandidateDetailsCard = ({candidateDetails,experience,classes}) => {
                    <Typography    gutterBottom component="p" color="primary">
                       {experience.start_date}- {experience.end_date} - {experience.years} ani {experience.months} luni {experience.days} zile
                     </Typography>
-                    <Typography    gutterBottom component="p"  className={classes.wordBreak} >
+                    <Typography    gutterBottom component="p"  className={classes.responsibilities} >
                       {experience.responsibilities}
                     </Typography>
                   </CardContent>
                   </CardActionArea>
                 )})}
                    
-                </Card>
-           </Grid>
+            </Card>
         
            )
 

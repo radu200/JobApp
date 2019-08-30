@@ -7,6 +7,7 @@ const addJob = '/api/jobs/add'
 const forgotPassword = '/api/forgot/password'
 const companyEdit = '/api/company/info/edit';
 const changeEmail = '/api/change/email';
+
 module.exports = {
     login,
     signUpEmployer,

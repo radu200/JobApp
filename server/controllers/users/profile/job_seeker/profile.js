@@ -78,7 +78,7 @@ module.exports.postJobSeekerProfileInfoEdit = async (req, res, next) => {
      
        await db.query("UPDATE users SET ? WHERE id = ? ",[jobSeeker, req.user.id])
   
-      res.redirect('/profile')
+      res.redirect(urlPaths.profile)
 
    } catch (err) {
       console.log(err);
@@ -156,7 +156,7 @@ module.exports.postJobSeekerExperience = async (req, res, next) => {
       req.flash('success_msg', {
          msg: 'Experienta a fost adaugata cu success'
       })
-      res.redirect('/profile')
+      res.redirect(urlPaths.profile)
 
    } catch (err) {
       console.log(err);
@@ -238,7 +238,7 @@ module.exports.postJobSeekerEditExperience = async (req, res, next) => {
       req.flash('success_msg', {
          msg: 'Detaliile au fost schimbate cu success.'
       })
-      res.redirect('/profile')
+      res.redirect(urlPaths.profile)
 
    } catch (err) {
       console.log(err);

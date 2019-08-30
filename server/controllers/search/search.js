@@ -68,10 +68,11 @@ module.exports.getCandidateDetails = async (req,res) => {
     try {
         const db = await dbPromise;
         
-       const [candidate] = await db.execute('select first_name,last_name,avatar,id,job_seeker_employment_type, job_seeker_about_me,job_seeker_education,job_seeker_location,job_seeker_languages job_seeker_availability from users where id = ? ', [id]);
+       const [candidate] = await db.execute('select first_name,last_name,avatar,id,job_seeker_employment_type, job_seeker_about_me,job_seeker_education,job_seeker_location,job_seeker_languages, job_seeker_availability from users where id = ? ', [id]);
  
        const [experience] = await db.execute('select * from jobseeker_experience where jobseeker_id = ? ', [id]);
          
+
        
        if(!candidate && !experience){
         res.json({

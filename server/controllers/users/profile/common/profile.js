@@ -80,7 +80,7 @@ module.exports.postProfileAvatarEdit = async (req, res, next) => {
             var filename = req.file.filename;
 
             await sharp(req.file.path)
-                .resize(200, 157)
+                .resize(400, 314)
                 .toFile(`../files/uploads/users/${req.file.filename}`);
 
 

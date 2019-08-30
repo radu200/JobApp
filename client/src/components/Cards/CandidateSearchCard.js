@@ -21,7 +21,8 @@ const styles = theme => ({
   inline: {
     display: 'inline',
   },
-  textBold:{
+  textAbout:{
+     wordWrap: 'break-word',
       fontWeight:"bold"
   },
   hover: {
@@ -62,7 +63,7 @@ const CandidateCard = ({classes, candidates}) => {
                                 <Typography  className={classes.textBold} component="span"  color="textPrimary">
                                   {candidate.category} - {candidate.total_ex_years} ani
                                 </Typography>
-                                <Typography  className={classes.textBold} component="span"  color="textSecondary">                    
+                                <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
                                   {candidate.job_seeker_about_me}
                                 </Typography>
 

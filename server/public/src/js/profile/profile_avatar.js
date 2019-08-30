@@ -40,7 +40,7 @@ let formdata = new FormData();
 	xhr.addEventListener("load", completeHandlerImageEdit, false);
 	xhr.addEventListener("error", errorHandlerImageEdit, false);
 	xhr.addEventListener("abort", abortHandlerImageEdit, false);
-	xhr.open("POST",` /profile/avatar/${avatarId}`);
+	xhr.open("POST",` /api/profile/avatar/${avatarId}`);
 	//var contentType = "multipart/form-data";
     //xhr.setRequestHeader("Content-Type", contentType);
 
@@ -57,7 +57,7 @@ function progressHandlerImageEdit(event){
 	
 }
 function completeHandlerImageEdit(event){
-	window.location.href="/profile" 
+	window.location.href="/api/profile" 
     
 	 // _("statusd").innerHTML = event.target.responseText;
 	 //_('post_job').reset();
