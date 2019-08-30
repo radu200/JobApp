@@ -8,9 +8,10 @@ const SignUpUrlEmployer =`${webSiteUrl}/api/signup/employer`;
 const Profile = `${webSiteUrl}/api/profile`;
 const searchCandidate = `${webSiteUrl}/api/search-candidate`;
 const MyJobs  = `${webSiteUrl}/api/my-jobs`;
-const Help = `${webSiteUrl}/api/help`;
+const Help = `${webSiteUrl}/api/contact-us`;
 const Settings = `${webSiteUrl}/api/settings`
 const Chats = `${webSiteUrl}/chats`
+
 module.exports = {
     LoginUrl,
     JobDetailsUrl,
