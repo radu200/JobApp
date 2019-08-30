@@ -81,6 +81,7 @@ module.exports = function (app){
   //jobs controller 
   app.post('/api/jobs', jobsController.getJobsPage)
   //  app.get('/api/jobs', jobsController.JobsPage)
+  app.post('/api/apply/job/:id',jobsController.postApplyJobs )
   app.get('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer,accessController.ensureEmailChecked, jobsController.getAddJobs)
   app.post('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer ,filesController.uploadJobImage,jobsController.postAddJobs)
   app.get('/api/job_image/edit/:id', accessController.ensureAuthenticated ,accessController.employer, jobsController.getJobImageEdit)

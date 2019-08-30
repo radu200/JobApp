@@ -7,6 +7,7 @@ const addJob = '/api/jobs/add'
 const forgotPassword = '/api/forgot/password'
 const companyEdit = '/api/company/info/edit';
 const changeEmail = '/api/change/email';
+const MyJobs  = `/api/my-jobs`;
 
 module.exports = {
     login,
@@ -17,6 +18,7 @@ module.exports = {
     addJob,
     forgotPassword,
     companyEdit,
-    changeEmail
+    changeEmail,
+    MyJobs
 
 }

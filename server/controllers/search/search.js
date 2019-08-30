@@ -58,8 +58,6 @@ module.exports.searchCandidates = async(req,res) => {
   
   
     try{
-
-
         ///validation
         if( location === '' || location.length > 70){
             return false
@@ -68,8 +66,6 @@ module.exports.searchCandidates = async(req,res) => {
         } else if( experienceMax > 50) { 
             return false
         } else {
-
-        
 
         const db = await dbPromise
         const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;

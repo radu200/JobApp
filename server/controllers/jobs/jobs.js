@@ -6,8 +6,38 @@ const sharp = require('sharp')
 const urlPaths = require('.././utils/url-paths')
 const msg = require ('.././utils/messages')
 
+
+///apply jobs
+module.exports.postApplyJobs = async (req,res,next) => {
+
+       
+
+   let job = {
+       jobseeker_id:req.user.id,
+       job_id:req.params.id
+   }
+    
+    try {
+
+        const db = await dbPromise
+        const [jobs] = await db.query(`insert into applied_jobs set ?`, job);
+        
+         req.flash('success_msg',{msg:'Ai aplicat cu success! Multa Bafta!'})
+         res.redirect(urlPaths.profile)
+
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+
+
 module.exports.getJobsPage = async (req, res, next) => {
+    
     const offset = req.body.offset;
+    
     try {
 
         const db = await dbPromise
@@ -125,7 +155,7 @@ module.exports.postAddJobs = async (req, res, next) => {
         //     //creat employer
         await db.query("INSERT INTO jobs SET ?", jobs);
 
-        res.redirect('/my_jobs')
+        res.redirect(urlPaths.MyJo)
 
 
 
@@ -333,7 +363,7 @@ module.exports.postEmployerJobEdit = async (req, res, next) => {
 
         await db.query(`UPDATE jobs SET  ?  WHERE id = ?`, [job, req.params.id])
 
-        res.redirect('/my_jobs')
+        res.redirect(urlPaths.MyJobs)
 
     } catch (err) {
         console.log('postEmployerJobEdit',err)
@@ -365,7 +395,7 @@ module.exports.deleteJob = async (req, res, next) => {
         req.flash('success_msg', {
             msg: "Jobul a fost sters cu success"
         });
-        res.redirect('/my_jobs');
+        res.redirect(urlPaths.MyJobs);
     
     } catch (err) {
         console.log(err)
