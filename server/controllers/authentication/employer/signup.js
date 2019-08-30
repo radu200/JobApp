@@ -108,7 +108,12 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
             avatar:null,
             email_confirmation_token: token,
             terms_conditions: siteRules,
-            email_status: 'unverified'
+            email_status: 'unverified',
+            ip_adress:req.ip,
+            software:req.headers['user-agent'],
+            preferred_lang:req.acceptsLanguages().toString()
+
+
         }
         
         await db.query('insert into users set ?', user)

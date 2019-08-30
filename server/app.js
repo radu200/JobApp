@@ -15,6 +15,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const MySQLStore = require('express-mysql-session')(session);
 const methodOverride = require('method-override');
 const helmet = require('helmet')
+const cors = require ('cors');
 
 
 const app = express();
@@ -45,7 +46,9 @@ app.use(bodyParser.json());
 app.use(expressValidator({}));
 app.use(methodOverride('_method'))
 app.use(cookieParser());
- 
+app.use(cors());
+
+
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../files')));

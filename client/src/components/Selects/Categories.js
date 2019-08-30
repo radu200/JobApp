@@ -67,7 +67,7 @@ const styles = theme => ({
 
 
 
-const categories = ['Frumusete si Bunastare', 'Barman', 'Sofer',"Vinzari" ];
+const categories = ['Categoria','Frumusete si Bunastare', 'Barman', 'Sofer',"Vinzari" ];
 
 const Categories = ({onChange,classes,categoryVal,error}) => {
 

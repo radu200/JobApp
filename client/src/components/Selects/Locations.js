@@ -65,7 +65,7 @@ const styles = theme => ({
 
 
 
-const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
+const cities = ['Alege Orasul','chisinau', 'Balti', 'Cahul',"Ungheni" ];
 
 const SelectLocation = ({onChange,classes,locationVal,error}) => {
 
@@ -77,6 +77,7 @@ const SelectLocation = ({onChange,classes,locationVal,error}) => {
       <FormControl className={classes.margin}>
         <div className={classes.label}>Locatie</div>
         <NativeSelect
+          className={classes.input}
           value={locationVal}
           onChange={onChange}
           input={<BootstrapInput name="location"  />}

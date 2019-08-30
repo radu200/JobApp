@@ -12,7 +12,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
             candidates:[],
             offset:2,
             category:'',
-            location:'Chisinau',
+            location:'',
             experienceMax:1,
             url:'',
             loginError:'',
@@ -69,11 +69,11 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
           let locationError = "";
       
         
-          if(!category){
+          if(!category || category === 'Categoria'){
            categoryError = "Te rog alege categoria"
           }
     
-          if(!location){
+          if(!location || location === 'Orasul'){
             locationError = "Te rog alege orasul"
           }
 
