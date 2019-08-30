@@ -5,7 +5,7 @@ import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
 
 
 
-const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
+const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
  class JobsPage extends Component {
   
     constructor(props){
@@ -38,11 +38,18 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
         
           if(!query){
             searchError = "Nu poate fi gol"
+          } else if( query.length > 70){
+            searchError = " Te rog nu cauta mai mult de 70 de caractere"
+
           }
     
           if(!location){
             locationError = "Te rog alege orasul"
+          } else if(location.length > 70) {
+            locationError = "Locatia are mai mult de 70 caractere"
+      
           }
+
           if(searchError || locationError){
             this.setState(prevState => ({
               formErrors:{
@@ -107,7 +114,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
 
         const isValid = this.validate();
 
-         if(isValid){
+          if(isValid){
               const getSearchRes =  async () => {
                 const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`
                 const offset = 12;
@@ -131,7 +138,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" ];
               }))
 
             }
-          }
+           }
               
             render() {  
               return (

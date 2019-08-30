@@ -31,14 +31,16 @@ const styles = {
   
 const JobCard = ({jobs,classes}) => {
   
-  return jobs.map((job) => {
+  return jobs.map((job,index) => {
 
      const jobDetailPath = `${JobDetailsUrl}${job.id}`
 
       return(
-              <Grid key={job.id} item xs={12} sm={6} md={4}>
+              
+              <Grid  key={index}item xs={12} sm={6} md={4}>
                 <Card className={classes.card} >
                   <CardActionArea>
+                  {job.image ? (
                   <CardMedia
                     component="img"
                     alt={job.category}
@@ -47,6 +49,9 @@ const JobCard = ({jobs,classes}) => {
                     image={job.image}
                     title={job.category}
                     />
+                     ) : (
+                    null
+                  )}
                   <CardContent>
                   <Typography    gutterBottom component="p" color="primary">
                        {job.salary ? `${job.salary} ${salaryCurrency}` : null}
@@ -76,6 +81,7 @@ const JobCard = ({jobs,classes}) => {
                   </CardActions>
                 </Card>
            </Grid>
+    
         
            )
       } )

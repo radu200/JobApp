@@ -71,15 +71,23 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
         
           if(!category || category === 'Categoria'){
            categoryError = "Te rog alege categoria"
-          }
-    
-          if(!location || location === 'Orasul'){
-            locationError = "Te rog alege orasul"
-          }
-
-       
-
          
+          } else if( category.length > 70) {
+         
+            categoryError = 'Categoria are  mai mult de 70 de caractere'
+         
+          }  
+          
+          if(!location || location === 'Alege Orasul'){
+           
+            locationError = "Te rog alege orasul"
+          
+          } else if( location.length > 70) {
+            locationError = "Locatia are mai mult de 70 caracatere"
+
+          }
+
+          
 
           if(categoryError || locationError){
             this.setState(prevState => ({
@@ -93,6 +101,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
             return false;
           }
             return true;
+          
       }
         
       
