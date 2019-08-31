@@ -5,18 +5,14 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import BrandName from '../../Utils/BrandName';
-import { LoginUrl }from '../../Utils/Paths/UrlPaths';
-import { SignUpUrlJobSeeker} from '../../Utils/Paths/UrlPaths';
-import { SignUpUrlEmployer} from '../../Utils/Paths/UrlPaths';
-import { Profile } from '../../Utils/Paths/UrlPaths';
-
+import { Profile }from '../../Utils/Paths/UrlPaths';
+import { MyJobs} from '../../Utils/Paths/UrlPaths';
+import { SearchCandidate } from '../../Utils/Paths/UrlPaths';
+import { Help} from '../../Utils/Paths/UrlPaths';
 const styles = {
   list: {
     width: 250,
@@ -26,7 +22,7 @@ const styles = {
   },
 };
 
-class JobPageSideNav extends React.Component {
+class JobSeekerSideNav extends React.Component {
   state = {
     left: false,
   };
@@ -40,6 +36,7 @@ class JobPageSideNav extends React.Component {
   render() {
     const { classes } = this.props;
 
+
     const sideList = (
       <div className={classes.list}>
         <ListItem button component="a" variant='title'>
@@ -47,24 +44,24 @@ class JobPageSideNav extends React.Component {
           </ListItem>
         <Divider/>     
         <List>
-        <ListItem button component="a" href={Profile}>
+          <ListItem button component="a" href={Profile}>
             <ListItemText primary="Profil" />
           </ListItem>
-          <ListItem button component="a" href={SignUpUrlEmployer}>
-            <ListItemText primary="Angajeaza" />
+          <ListItem button component="a" href={MyJobs}>
+            <ListItemText primary="Joburile Mele" />
           </ListItem>
-          <ListItem button component="a" href={SignUpUrlJobSeeker}>
-            <ListItemText primary="Inregistrare" />
+          <ListItem button component="a"  href={SearchCandidate}>
+            <ListItemText primary="Cauta candidati" />
           </ListItem>
-          <ListItem button component="a"  href={LoginUrl}>
-            <ListItemText primary="Logare" />
+          <Divider/>
+          <ListItem button component="a"  href={Help}>
+            <ListItemText primary="Ajutor" />
           </ListItem>
          </List>
       </div>
     );
 
-  
-
+ 
     return (
       <div>
          <IconButton  onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Open drawer">
@@ -85,8 +82,8 @@ class JobPageSideNav extends React.Component {
   }
 }
 
-JobPageSideNav.propTypes = {
+JobSeekerSideNav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(JobPageSideNav);
+export default withStyles(styles)(JobSeekerSideNav);

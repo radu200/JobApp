@@ -22,8 +22,7 @@ export default class CandidateDetails extends Component {
                const res = await axios.get(`/api/candidate-details/${id}`)
                 
                const data = res.data
-               console.log(data.details)
-               console.log(data.experience)
+  
                if(data.code === 99){
                 this.setState({loginError:data.msg})  
               } else {

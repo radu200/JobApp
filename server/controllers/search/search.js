@@ -30,7 +30,7 @@ module.exports.searchJobs = async (req, res, next) => {
              const [results] = await db.query(sql)
              if(!results){
                 res.json({
-                    'msg':'Nu am gasit nici un lucru',
+                    'msg':'Nu am gasit nici un post lucru',
                     'code':88
                 })
              }else {
@@ -83,7 +83,7 @@ module.exports.searchCandidates = async(req,res) => {
             
      }
       
-  }catch(err){
+  } catch(err){
       res.json('O errore a avut loc')
       console.log(err)
   }

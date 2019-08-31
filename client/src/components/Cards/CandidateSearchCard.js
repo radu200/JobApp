@@ -55,7 +55,7 @@ const CandidateCard = ({classes, candidates}) => {
                         <ListItemText 
                              primary={
                                 <Typography>
-                                {candidate.first_name} {candidate.last_name}
+                                {candidate.first_name} {candidate.last_name} 
                                </Typography>
                             }
                              secondary={
@@ -66,7 +66,9 @@ const CandidateCard = ({classes, candidates}) => {
                                 <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
                                   {candidate.job_seeker_about_me}
                                 </Typography>
-
+                                <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
+                                  {candidate.job_seeker_location}
+                                </Typography>
                                   <Link className={classes.aboutPage} to={candidateDetailsUrl}>Vezi mai mult</Link>
                                 </React.Fragment>
                             }

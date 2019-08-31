@@ -31,10 +31,7 @@ const styles = {
   },
   card:{
     marginTop:10,
-    display:'flex',
-    flexDirection:'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+  
   },
 
   avatarContainer:{
@@ -83,13 +80,17 @@ const CandidateDetailsCard = ({candidateDetails,experience,classes}) => {
                     <Typography gutterBottom variant="h5" component="h2">
                     {candidate.first_name} {candidate.last_name}
                     </Typography>
-                    <Typography component="p" className={classes.candidateAbout} >
-                       {candidate.job_seeker_about_me} 
-                    </Typography>
 
+                    { candidate.job_seeker_about_me ? 
+                    <Typography component="p" className={classes.candidateAbout} >
+                      <b>Despre</b>  {candidate.job_seeker_about_me} 
+                    </Typography>
+                      : null } 
+                      { candidate.job_seeker_languages ?
                       <Typography    gutterBottom component="p" className={classes.lang}>
-                         Limbi : {candidate.job_seeker_languages} 
-                        </Typography>
+                        <b> Limbi :</b>
+                         {candidate.job_seeker_languages} 
+                        </Typography> :null}
                    
                     <Typography component="p">
                           {candidate.job_seeker_location}

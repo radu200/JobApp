@@ -1,5 +1,4 @@
 
-const {db} = require('../../../config/database.js');
 const passport = require('passport');
 const  urlPaths  = require('../../utils/url-paths')
 
