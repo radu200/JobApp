@@ -10,8 +10,6 @@ const msg = require ('.././utils/messages')
 ///apply jobs
 module.exports.postApplyJobs = async (req,res,next) => {
 
-       
-
    let job = {
        jobseeker_id:req.user.id,
        job_id:req.params.id
@@ -20,19 +18,42 @@ module.exports.postApplyJobs = async (req,res,next) => {
     try {
 
         const db = await dbPromise
-        const [jobs] = await db.query(`insert into applied_jobs set ?`, job);
+         
+        const [response] = await db.execute('select job_id from  job_application where jobseeker_id = ? and job_id = ?', [req.user.id,req.params.id] );
         
-         req.flash('success_msg',{msg:'Ai aplicat cu success! Multa Bafta!'})
-         res.redirect(urlPaths.profile)
+        if(response.length > 0) {
+            req.flash('warning_msg',{msg:'Ai aplicat deja la acest post de munca!'})
+            res.redirect('back')
+         } else {
+            
+            await db.query(`insert into job_application set ?`, job); 
+            req.flash('success_msg',{msg:'Ai aplicat cu success! Multa Bafta!'})
+            res.redirect('back')
 
-
-    } catch (err) {
-        console.log(err)
+         }
+ 
+        } catch (err) {
+       
+            console.log(err)
     }
 }
 
 
 
+module.exports.JobSeekerAppliedJobs = async (req,res) => {
+       
+    try {
+
+        const db = await dbPromise
+      
+         const [results] = await db.execute('select job_application.id as appliedJobsId, job_application.job_id, job_application.jobseeker_id , jobs.* from  job_application left join jobs on job_application.job_id = jobs.id and job_application.jobseeker_id = ?',[req.user.id]);
+
+        res.json(results)
+
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 module.exports.getJobsPage = async (req, res, next) => {
     
@@ -41,7 +62,7 @@ module.exports.getJobsPage = async (req, res, next) => {
     try {
 
         const db = await dbPromise
-        const [jobs] = await db.execute(`select * from jobs LIMIT 12 OFFSET ${offset} `);
+        const [jobs] = await db.execute(`select * from jobs limit 12 offset ${offset} `);
        
        res.json(jobs)
 
@@ -416,6 +437,7 @@ module.exports.getJobDetail = async (req, res, next) => {
     try{
         const db = await dbPromise;
         const [userDetails] = await db.execute('select jobs.*, users.id as userId,users.first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type, users.avatar from jobs LEFT JOIN users ON  jobs.employer_id = users.id where jobs.id = ?', [req.params.id])
+       
         res.render('jobs/job_details', {
             "result": userDetails[0],
 

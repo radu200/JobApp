@@ -10,8 +10,7 @@ module.exports.searchJobs = async (req, res, next) => {
     const city = req.query.location
     const limit = 12
     
-    // const antiScript = new RegExp('/<script[\s\S]*?>[\s\S]*?<\/script>/gi')
-    // const searchValRgex = antiScript.test(searchVal)
+
  
     try {  
 

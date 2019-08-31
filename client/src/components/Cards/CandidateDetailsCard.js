@@ -65,8 +65,6 @@ const styles = {
   
 const CandidateDetailsCard = ({candidateDetails,experience,classes}) => {
   
-  
-  
   return(
         <Card className={classes.card}>
           {candidateDetails.map((candidate,index) => {
