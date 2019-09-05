@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import EmployerDashboard from '../../components/JobApplication/EmployerDashboard'
+
 import axios from 'axios';
 
 
@@ -73,9 +75,10 @@ import axios from 'axios';
               
               return (
                 <div>
-                {this.state.applicants.map((applicant,index) => {
+                  <EmployerDashboard/>
+                {/* {this.state.applicants.map((applicant,index) => {
                   return (<p key={index}>{applicant.first_name}</p>)
-                })}
+                })} */}
               </div>
            )
           }

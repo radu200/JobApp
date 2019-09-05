@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
+import GetMoreJobsButton from '../../components/Buttons/getMoreJobsButton'
 
 
 
@@ -153,6 +154,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
                    locationVal={this.state.location}
                    locations={cities}
                 />
+                
             </div>
            )
           }

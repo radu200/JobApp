@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import JobPageNavBar from '../../NavBars/MainNavBars/JobPageNavBar'
+import UnauthenticatedNav from '../../NavBars/Unauthenticated/UnauthenticatedNav'
 import SearchJobForm from '../Forms/SearchJobForm';
 import JobCard from '../../Cards/JobCard';
 import GetMoreJobsButton from '../../Buttons/getMoreJobsButton'
@@ -35,7 +35,7 @@ const styles = theme => ({
   return (
   <div>
     <div>
-      <JobPageNavBar/>
+      <UnauthenticatedNav/>
     </div>
     <div className={classes.root} >
       <Grid container spacing={24}>
