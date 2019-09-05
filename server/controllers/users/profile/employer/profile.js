@@ -119,7 +119,7 @@ module.exports.getCompanyProfile =  async (req,res, next) => {
     try {
      const db = await dbPromise;
     
-     const [userDetails] = await  db.execute("SELECT  avatar,first_name, .last_name, .company_name,.company_description,.company_location, company_type  FROM   WHERE .id = ?" ,[req.params.id]);
+     const [userDetails] = await  db.execute("SELECT  avatar,first_name, last_name, company_name, company_description, company_location, company_type  FROM users  WHERE id = ?" ,[req.params.id]);
      
      const [jobs] = await db.execute ('SELECT * FROM  jobs WHERE jobs.employer_id = ?  ', [req.params.id])
      

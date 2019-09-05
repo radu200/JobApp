@@ -485,7 +485,8 @@ module.exports.getJobDetail = async (req, res, next) => {
 
     try{
         const db = await dbPromise;
-        const [userDetails] = await db.execute('select jobs.*, users.id as userId,users.first_name, users.last_name, users.company_name,users.company_description,users.company_location, company_type, users.avatar from jobs LEFT JOIN users ON  jobs.employer_id = users.id where jobs.id = ?', [req.params.id])
+        const userSql = `users.id as userId, users.first_name, users.last_name, users.company_name, users.company_description, users.company_location, users.company_type, users.avatar `
+        const [userDetails] = await db.execute(`select jobs.*, ${userSql} FROM jobs LEFT JOIN users ON  jobs.employer_id = users.id WHERE jobs.id = ?`, [req.params.id])
        
         res.render('jobs/job_details', {
             "result": userDetails[0],
