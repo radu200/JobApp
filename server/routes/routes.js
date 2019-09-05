@@ -95,9 +95,9 @@ module.exports = function (app){
   app.get('/api/job/details/:id', jobsController.getJobDetail)
  
   //search
-  app.get('/api/candidate-details/:id', accessController.ensureAuthenticatedJsonRes,accessController.employerJsonRes, searchController.getCandidateDetails)
+  app.get('/api/candidate-details/:id', accessController.ensureAuthenticatedJsonRes, searchController.getCandidateDetails)
   app.post('/api/search/job', searchController.searchJobs)
-  app.post('/api/candidate-search', accessController.ensureAuthenticatedJsonRes, accessController.employerJsonRes,  searchController.searchCandidates )
+  app.post('/api/candidate-search', accessController.ensureAuthenticatedJsonRes,searchController.searchCandidates )
   ///contact us
   app.get('/api/contact-us',accessController.ensureAuthenticated,contactUs.getContactUs);
 }

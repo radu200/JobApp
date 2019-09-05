@@ -102,26 +102,19 @@ module.exports.getJobsPage = async (req, res, next) => {
         if(!req.isAuthenticated() ){
             res.json({
                 jobs,
-                type:'notAuthenticated'
+                'auth':'notAuthenticated'
             })
-        }
-      
-        else  if (req.user.type === 'jobseeker') {
+        }  else  if (req.user.type === 'jobseeker') {
             res.json({
                 jobs,
-                 type:'jobseeker'
+                'auth':'jobseeker'
             })
 
         } else if(req.user.type === 'employer'){
-            let jobs = []
-               res.json({ jobs , type:'employer'})
+               res.json({ jobs , 'auth':'employer'})
         
-        } else {
-              res.json({jobs, 'type':'noType'})
-        }
+        } 
         
-
-
     } catch (err) {
         console.log(err)
     }

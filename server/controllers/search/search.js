@@ -72,16 +72,13 @@ module.exports.searchCandidates = async(req,res) => {
         const sql =  `SELECT ${jobseeker_experience}, ${user_details}  FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%'  AND lower(users.job_seeker_location) LIKE '%${location}%' AND jobseeker_experience.years BETWEEN ${experienceMin} AND ${experienceMax} GROUP BY category,userID  LIMIT ${limit} OFFSET ${offset}`
         const [results] = await db.query(sql)
        
-        if(!results){
-            res.json({
-                'msg':'Nu am gasit nici un candidat',
-                'code':88
-            })
-         }else {
-             res.json(results)
-         }
-            
-     }
+        if( req.user.type === 'employer' ){
+            res.json({'candidates':results, 'auth':'employer' })
+           }  
+        }
+       
+      
+     
       
   } catch(err){
       res.json('O errore a avut loc')
@@ -103,21 +100,16 @@ module.exports.getCandidateDetails = async (req,res) => {
        const [experience] = await db.execute('select * from jobseeker_experience where jobseeker_id = ? ', [id]);
          
 
-       
-       if(!candidate && !experience){
+
+       if( req.user.type === 'employer' ){
         res.json({
-            'msg':'Nu am gasit nici un candidat',
-            'code':88
-        })
-       
-      } else {
-         res.json({
-            details:candidate,
-            experience:experience
-         })   
-     }
-         
+            'details':candidate,
+            'experience':experience,
+            'auth':'employer'
+         })
+       }  
     
+       
        } catch (err) {
           
              res.json(msg.err) 

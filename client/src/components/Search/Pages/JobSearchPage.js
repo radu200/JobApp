@@ -41,21 +41,7 @@ const styles = theme => ({
     {isAuthenticated  === 'notAuthenticated' ? 
     <div>
       <UnauthenticatedNav/>
-    </div> 
-      : isAuthenticated === 'jobseeker' ?
-   
-    <div>
-      <JobSeekerNavBar/>
-     </div>  
-       : isAuthenticated === 'employer' ? 
-      
-       <div>
-       <EmployerNavBar/>
-      </div> : 
-        <div>
-        <UnauthenticatedNav/>
-       </div> }
-    <div className={classes.root} >
+      <div className={classes.root} >
       <Grid container spacing={24}>
         <Grid item xs={12} sm={12} md={12}>
           <SearchJobForm
@@ -79,6 +65,43 @@ const styles = theme => ({
        </Grid>
       </Grid>
     </div>
+    </div> 
+      : isAuthenticated === 'jobseeker' ?
+   
+    <div>
+      <JobSeekerNavBar/>
+    
+        <div className={classes.root} >
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={12} md={12}>
+            <SearchJobForm
+               onSubmit={onSubmit}
+               handleInputChange={handleInputChange}
+               queryVal={queryVal}
+               locationVal={locationVal}
+               errors={errors}
+               locations={locations}
+             />
+            
+          </Grid>
+        </Grid>
+        <Grid container spacing={24}>
+            {jobs.length > 0 ? <JobCard jobs={jobs} /> : <h1>Nu am gasit nici un post de munca</h1> }
+        </Grid>
+  
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={12} md={12} >
+            {jobs.length > 0 ? <GetMoreJobsButton  onClick={getMoreJobsBtn}/> : null}
+         </Grid>
+        </Grid>
+      </div>
+     </div> 
+       : isAuthenticated === 'employer' ? 
+      
+       <div>
+       <EmployerNavBar/>
+       <h1>Pagina indisponibila </h1>
+      </div>  : null}
   </div>
   );
 }

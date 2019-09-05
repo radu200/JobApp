@@ -10,7 +10,7 @@ export default class CandidateDetails extends Component {
          this.state = {
              candidate:[],
              experience:[],
-             loginError:''
+             isAuthenticated:''
          }
     }
 
@@ -23,29 +23,26 @@ export default class CandidateDetails extends Component {
                 
                const data = res.data
   
-               if(data.code === 99){
-                this.setState({loginError:data.msg})  
+              if(data.auth){
+                this.setState({isAuthenticated:data.auth,candidate:data.details, experience:data.experience})   
               } else {
-                this.setState({candidate:data.details, experience:data.experience})
+                this.setState({isAuthenticated:''})
               }
-
            } catch (err){
                console.log(err)
            }
-            
-            
-             }
+        }
         
-           getCandidateDetails();
+          getCandidateDetails();
 
-    }
+      }
 
         render(){
       
             return (
                 <div>
                     <CandidateDetailsPage 
-                      loginError = {this.state.loginError}
+                      isAuthenticated = {this.state.isAuthenticated}
                       candidateDetails={this.state.candidate} 
                       experience={this.state.experience}
                       />

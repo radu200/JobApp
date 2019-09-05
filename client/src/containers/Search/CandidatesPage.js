@@ -15,7 +15,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
             location:'',
             experienceMax:1,
             url:'',
-            loginError:'',
+            isAuthenticated:'',
             formErrors:{
               categoryError:'',
               locationError:'',
@@ -47,11 +47,11 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
               })
               
                const data = response.data
-               
-               if(data.code === 99){
-                this.setState({loginError:[...data.msg]})   
+          
+               if(data.auth === 'employer'){
+                this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset})   
               } else {
-                this.setState({candidates:[...data],url, offset})
+                this.setState({isAuthenticated:''})
               }
             } catch (error) {
               console.error(error);
@@ -139,11 +139,11 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
                            })
                            const data = response.data
                 
-                               
-                          if(data.code === 99){
-                            this.setState({loginError:[...data.msg]})  
+                             
+                           if(data.auth === 'employer'){
+                            this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset})   
                           } else {
-                            this.setState({candidates:[...data],url, offset})
+                            this.setState({isAuthenticated:''})
                           }
        
                          } catch (error) {
@@ -175,13 +175,14 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
                   offset: this.state.offset 
               });
             
-              this.setState({candidates:[...this.state.candidates, ...response.data], offset:this.state.offset + 2})
+              this.setState({candidates:[...this.state.candidates, ...response.data.candidates], offset:this.state.offset + 2})
             } catch (error) {
               console.error(error);
             }
           }  
 
           render() {
+            console.log(this.state.isAuthenticated)
             return (
               <div>
                 <CandidateSearchPage
@@ -194,7 +195,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
                   onClick = {this.getMoreCandidates}
                   experienceVal = {this.state.experienceMax}
                   handleExperienceValue = {this.handleExperienceValue}
-                  loginError={this.state.loginError}
+                  isAuthenticated={this.state.isAuthenticated}
                 />
               </div>
            )

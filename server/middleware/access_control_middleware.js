@@ -49,8 +49,7 @@ module.exports.ensureAuthenticatedJsonRes = function (req, res, next) {
         return next();
     } else {
         res.json({
-            'msg': 'Te rog logheazate',
-            'code': 99
+            'auth': 'notAuthenticated'
         })
     }
 
@@ -59,12 +58,14 @@ module.exports.ensureAuthenticatedJsonRes = function (req, res, next) {
 module.exports.employerJsonRes = function (req, res, next) {
 
     if (req.user.type === 'employer') {
-        return next();
-
+        res.json({
+            'auth': 'employer'
+         })
+      
+     
     } else {
         res.json({
-           'msg':'Te rog logheazate cu alt statut',
-            'code': 99
+           'auth': 'notEmployer'
         })
     }
 }

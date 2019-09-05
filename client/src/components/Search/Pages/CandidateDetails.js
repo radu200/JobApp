@@ -17,32 +17,31 @@ const styles = theme => ({
   },
 
 });
-const CandidateDetails = ({loginError, candidateDetails,experience,classes}) => {
+const CandidateDetails = ({isAuthenticated , candidateDetails,experience,classes}) => {
     return (
            <div>
-              {loginError ? 
-             <div>
-                <UnauthenticatedNav/> 
-                <h1>{loginError}</h1>
-            </div>
-            : 
+            {isAuthenticated === 'employer' ? 
             <div>
-            <div>
-                <EmployerNavBar/>
+              <div>
+                  <EmployerNavBar/>
 
-            </div>
+              </div>
             <div className={classes.root}>
               <Grid container spacing={0}>
                 <Grid item xs={12} sm={12} md={6}>
-                <CandidateDetailsCard  candidateDetails={candidateDetails} experience={experience} />
+                 <CandidateDetailsCard  candidateDetails={candidateDetails}    experience={experience} />
                 </Grid>
             </Grid>    
            </div>
 
-          </div>
-        
+          </div> : 
+           
+           <div>
+              <UnauthenticatedNav/> 
+              <h1>Te rog logheazate</h1>
+            </div>
 
-    }
+           }
          
       </div>  
     )

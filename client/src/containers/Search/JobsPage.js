@@ -76,7 +76,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
              const data = response.data;
 
 
-            this.setState({jobs:data.jobs,isAuthenticated:data.type,url})
+            this.setState({jobs:data.jobs,isAuthenticated:data.auth,url})
             console.log(response.data)
           } catch (error) {
             console.error(error);
@@ -120,21 +120,21 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
             event.preventDefault();
 
 
-        const isValid = this.validate();
+            const isValid = this.validate();
 
-          if(isValid){
-              const getSearchRes =  async () => {
-                const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`
-                const offset = 12;
-                try {
-                  const response = await axios.post(url,{
-                    offset:0
-                  })
-                  this.setState({jobs:[...response.data],url, offset})
-                } catch (error) {
-                  console.error(error);
-                }
-              }
+              if(isValid){
+                  const getSearchRes =  async () => {
+                    const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`
+                    const offset = 12;
+                    try {
+                      const response = await axios.post(url,{
+                        offset:0
+                      })
+                      this.setState({jobs:[...response.data],url, offset})
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }
               getSearchRes();
 
               this.setState(prevState => ({
