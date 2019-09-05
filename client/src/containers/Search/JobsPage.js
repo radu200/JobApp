@@ -17,6 +17,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
             query:'',
             location:'',
             url:'',
+            isAuthenticated:'',
             formErrors:{
               searchError:'',
               locationError:''
@@ -71,7 +72,11 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
             const response = await axios.post(url,{
             offset:0
             });
-            this.setState({jobs:response.data,url})
+            
+             const data = response.data;
+
+
+            this.setState({jobs:data.jobs,isAuthenticated:data.type,url})
             console.log(response.data)
           } catch (error) {
             console.error(error);
@@ -88,8 +93,10 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
         const response = await axios.post(url,{
             offset: this.state.offset 
         });
-      
-        this.setState({jobs:[...this.state.jobs, ...response.data], offset:this.state.offset + 12})
+       
+        const data = response.data;
+
+        this.setState({jobs:[...this.state.jobs, ...data.jobs], offset:this.state.offset + 12})
 
       } catch (error) {
         console.error(error);
@@ -153,6 +160,8 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
                    getMoreJobsBtn={this.getMoreJobs}
                    locationVal={this.state.location}
                    locations={cities}
+                   isAuthenticated={this.state.isAuthenticated}
+
                 />
                 
             </div>

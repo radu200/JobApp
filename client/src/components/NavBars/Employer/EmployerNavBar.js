@@ -14,8 +14,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Link from '@material-ui/core/Link';
-
 import MoreIcon from '@material-ui/icons/MoreVert';
 import EmployerSideNav from './EmployerSideNav'
 import BrandName from '../../Utils/BrandName'

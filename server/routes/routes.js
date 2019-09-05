@@ -79,7 +79,7 @@ module.exports = function (app){
   app.get('/api/chats', accessController.ensureAuthenticated,chatController.getChat )
   
   //jobs controller 
-  app.post('/api/jobs', jobsController.getJobsPage)
+  app.post('/api/jobs',jobsController.getJobsPage)
   //  app.get('/api/jobs', jobsController.JobsPage)
   // app.get('/api/job-application/shortlisted', accessController.ensureAuthenticated,accessController.employer, jobsController.JobApplicatioShortlisted)
   app.get('/api/job-application/employer/:id', accessController.ensureAuthenticated,accessController.employer, jobsController.JobApplicationEmployer)

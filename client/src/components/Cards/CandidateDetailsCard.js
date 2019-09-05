@@ -35,13 +35,13 @@ const styles = {
   },
 
   avatarContainer:{
-    width:'100%',
-    display:'flex'
+    // width:'100%',
+    // display:'flex'
 
   },
   avatar: {
-    marginTop:0,
-    marginLeft:'auto',
+    marginTop:10,
+    marginLeft:20,
     marginRight:'auto',
     marginBottom:0,
     width: 200,

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import UnauthenticatedNav from '../../NavBars/Unauthenticated/UnauthenticatedNav'
+import EmployerNavBar from '../../NavBars/Employer/EmployerNavBar'
+import JobSeekerNavBar from '../../NavBars/JobSeeker/JobseekerNavBar'
+
 import SearchJobForm from '../Forms/SearchJobForm';
 import JobCard from '../../Cards/JobCard';
 import GetMoreJobsButton from '../../Buttons/getMoreJobsButton'
@@ -29,14 +32,29 @@ const styles = theme => ({
     locationVal,
     locations,
     errors,
-    queryVal
+    queryVal,
+    isAuthenticated
   }) => {
 
   return (
   <div>
+    {isAuthenticated  === 'notAuthenticated' ? 
     <div>
       <UnauthenticatedNav/>
-    </div>
+    </div> 
+      : isAuthenticated === 'jobseeker' ?
+   
+    <div>
+      <JobSeekerNavBar/>
+     </div>  
+       : isAuthenticated === 'employer' ? 
+      
+       <div>
+       <EmployerNavBar/>
+      </div> : 
+        <div>
+        <UnauthenticatedNav/>
+       </div> }
     <div className={classes.root} >
       <Grid container spacing={24}>
         <Grid item xs={12} sm={12} md={12}>

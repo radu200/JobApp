@@ -10,8 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import BrandName from '../../Utils/BrandName';
 import { Profile }from '../../Utils/Paths/UrlPaths';
-import { MyJobs} from '../../Utils/Paths/UrlPaths';
-import { SearchCandidate } from '../../Utils/Paths/UrlPaths';
+import { Jobs} from '../../Utils/Paths/UrlPaths';
 import { Help} from '../../Utils/Paths/UrlPaths';
 const styles = {
   list: {
@@ -47,11 +46,8 @@ class JobSeekerSideNav extends React.Component {
           <ListItem button component="a" href={Profile}>
             <ListItemText primary="Profil" />
           </ListItem>
-          <ListItem button component="a" href={MyJobs}>
-            <ListItemText primary="Joburile Mele" />
-          </ListItem>
-          <ListItem button component="a"  href={SearchCandidate}>
-            <ListItemText primary="Cauta candidati" />
+          <ListItem button component="a" href={Jobs}>
+            <ListItemText primary="Exploreaza Joburi" />
           </ListItem>
           <Divider/>
           <ListItem button component="a"  href={Help}>

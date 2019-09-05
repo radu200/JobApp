@@ -14,9 +14,8 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
 import MoreIcon from '@material-ui/icons/MoreVert';
-import EmployerSideNav from './EmployerSideNav'
+import JobSeekerSideNav from './JobSeekerSideNav'
 import BrandName from '../../Utils/BrandName'
 import { Profile }from '../../Utils/Paths/UrlPaths';
 import { LogOut} from '../../Utils/Paths/UrlPaths';
@@ -61,7 +60,7 @@ const styles = theme => ({
   },
 });
 
-class EmployerNavBar extends React.Component {
+class JobSeekerNavBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
@@ -143,7 +142,7 @@ class EmployerNavBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <EmployerSideNav />
+            <JobSeekerSideNav />
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               {BrandName}
             </Typography>
@@ -183,4 +182,4 @@ JobSeekerNavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(EmployerNavBar);
+export default withStyles(styles)(JobSeekerNavBar);

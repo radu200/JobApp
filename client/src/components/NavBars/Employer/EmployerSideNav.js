@@ -13,6 +13,7 @@ import { Profile }from '../../Utils/Paths/UrlPaths';
 import { MyJobs} from '../../Utils/Paths/UrlPaths';
 import { SearchCandidate } from '../../Utils/Paths/UrlPaths';
 import { Help} from '../../Utils/Paths/UrlPaths';
+
 const styles = {
   list: {
     width: 250,

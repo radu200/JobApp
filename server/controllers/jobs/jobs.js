@@ -95,12 +95,32 @@ module.exports.getJobsPage = async (req, res, next) => {
     const offset = req.body.offset;
     
     try {
-
+       
         const db = await dbPromise
         const [jobs] = await db.execute(`select * from jobs limit 12 offset ${offset} `);
-       
+        
+        if(!req.isAuthenticated() ){
+            res.json({
+                jobs,
+                type:'notAuthenticated'
+            })
+        }
+      
+        else  if (req.user.type === 'jobseeker') {
+            res.json({
+                jobs,
+                 type:'jobseeker'
+            })
 
-       res.json(jobs)
+        } else if(req.user.type === 'employer'){
+            let jobs = []
+               res.json({ jobs , type:'employer'})
+        
+        } else {
+              res.json({jobs, 'type':'noType'})
+        }
+        
+
 
     } catch (err) {
         console.log(err)

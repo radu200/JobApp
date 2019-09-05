@@ -28,7 +28,7 @@ module.exports.employer = function (req, res, next) {
     if (req.user.type === 'employer') {
         return next();
     } else {
-        res.redirect('//api/login')
+        res.redirect('/api/login')
     }
 }
 
