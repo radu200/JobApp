@@ -6,7 +6,7 @@ const JobDetailsUrl = `${webSiteUrl}/api/job/details/`;
 const SignUpUrlJobSeeker =`${webSiteUrl}/api/signup/jobseeker`;
 const SignUpUrlEmployer =`${webSiteUrl}/api/signup/employer`;
 const Profile = `${webSiteUrl}/api/profile`;
-const searchCandidate = `${webSiteUrl}/api/search-candidate`;
+const SearchCandidate = `/search-candidate`;
 const MyJobs  = `${webSiteUrl}/api/my-jobs`;
 const Help = `${webSiteUrl}/api/contact-us`;
 const Settings = `${webSiteUrl}/api/settings`
@@ -19,7 +19,7 @@ module.exports = {
     SignUpUrlEmployer,
     LogOut,
     Profile,
-    searchCandidate,
+    SearchCandidate,
     MyJobs,
     Help,
     Settings,

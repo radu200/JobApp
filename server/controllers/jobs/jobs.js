@@ -41,32 +41,37 @@ module.exports.postApplyJobs = async (req,res,next) => {
     }
 }
 
+///employers see who applied for job
 module.exports.JobApplicationEmployer = async(req,res) => {
       
       const job_id = req.params.id;
-    
+      const category = req.params.category;
+      const status = 'active';
+
       
-     console.log(req.params.id)
+     
     try {
-  
-        const db = await dbPromise
       
-        const [job] = await db.execute('select * from jobs where id = ?',[job_id]);
-         
-        
-        const [results] = await db.execute('select  job_application.job_id, job_application.jobseeker_id , users.id as userId, users.first_name, users.last_name, users.type from  job_application left join users on job_application.jobseeker_id = users.id where job_application.job_id = ? ',[job_id]);
-       
+
+        if(req.user.type === 'employer') {
+
+            const db = await dbPromise
+
+            const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
+            const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
+             const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID`
+     
+            const [results] = await db.query(sql,[job_id,status])
+            
 
          
-         const jobseekerId = results.map((res) => {
-             return res.jobseeker_id
-         })
-       
-         res.json({
-             job:job,
-             applicants:results,
-             applicantsNumber:jobseekerId.length
-         })
+
+            
+             res.json({
+                 applicants:results,
+                  'auth':'employer'
+             })
+        }
 
       } catch (err) {
         
@@ -75,7 +80,7 @@ module.exports.JobApplicationEmployer = async(req,res) => {
         }
     }
 
-
+//list of jobs that jobseeker applied, appear on jobseeker profile
 module.exports.JobApplicationJobSeeker = async (req,res) => {
        
     try {

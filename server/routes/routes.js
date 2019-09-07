@@ -82,7 +82,7 @@ module.exports = function (app){
   app.post('/api/jobs',jobsController.getJobsPage)
   //  app.get('/api/jobs', jobsController.JobsPage)
   // app.get('/api/job-application/shortlisted', accessController.ensureAuthenticated,accessController.employer, jobsController.JobApplicatioShortlisted)
-  app.get('/api/job-application/employer/:id', accessController.ensureAuthenticated,accessController.employer, jobsController.JobApplicationEmployer)
+  app.get('/api/job-application/employer/:category/:id', accessController.ensureAuthenticatedJsonRes, jobsController.JobApplicationEmployer)
   app.get('/api/job-application/jobseeker',accessController.ensureAuthenticated,accessController.jobSeeker, jobsController.JobApplicationJobSeeker)
   app.post('/api/apply/job/:id', accessController.ensureAuthenticated,accessController.jobSeeker, jobsController.postApplyJobs )
   app.get('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer,accessController.ensureEmailChecked, jobsController.getAddJobs)

@@ -77,7 +77,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
 
 
             this.setState({jobs:data.jobs,isAuthenticated:data.auth,url})
-            console.log(response.data)
+            
           } catch (error) {
             console.error(error);
           }
