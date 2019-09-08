@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import CandidateSearchCard from '../../Cards/CandidateSearchCard';
+import CandidateCard from '../../Cards/CandidateCard';
 import SearchCandidateForm from '../Forms/SearchCandidateForm';
-import GetMoreCandidatesButton from '../../Buttons/getMoreCandidatesButton'
+import GetMoreButton from '../../Buttons/getMoreButton'
 import EmployerNavBar from '../../NavBars/Employer/EmployerNavBar'
 import UnauthenticatedNav from '../../NavBars/Unauthenticated/UnauthenticatedNav'
+
+
+
+const notFoundMsg = 'Nu am gasit nici un candidat';
+const loginMsg = 'Te rog logheazate';
 
 const styles = theme => ({
   root: {
@@ -30,7 +35,7 @@ const styles = theme => ({
     categoryVal,
     errors,
     isAuthenticated,
-    candidates,
+    candidate,
     onClick
   }) => {
 
@@ -57,13 +62,13 @@ const styles = theme => ({
 
           <Grid container spacing={16}>
             <Grid item xs={12} sm={12} md={6}>
-              {candidates.length > 0 ? <CandidateSearchCard candidates={candidates} /> : <h1>Nu am gasit nici un candidat</h1> }
+              {candidate.length > 0 ? <CandidateCard candidate={candidate} /> : <h1>{notFoundMsg}</h1> }
             </Grid>
           </Grid>
 
           <Grid container spacing={24}>
             <Grid item xs={12} sm={12} md={6}>
-              {candidates.length > 0 ? <GetMoreCandidatesButton onClick={onClick}/> : null}
+              {candidate.length > 0 ? <GetMoreButton onClick={onClick}/> : null}
           </Grid>
           </Grid>
         </div>
@@ -71,7 +76,7 @@ const styles = theme => ({
         : 
         <div>
         <UnauthenticatedNav/> 
-        <h1>Te rog logheazate</h1>
+        <h1>{loginMsg}</h1>
      </div> }
   </div>
   );

@@ -8,7 +8,7 @@ import JobSeekerNavBar from '../../NavBars/JobSeeker/JobseekerNavBar'
 
 import SearchJobForm from '../Forms/SearchJobForm';
 import JobCard from '../../Cards/JobCard';
-import GetMoreJobsButton from '../../Buttons/getMoreJobsButton'
+import GetMoreButton from '../../Buttons/getMoreButton'
 
 
 const styles = theme => ({
@@ -27,7 +27,7 @@ const styles = theme => ({
     classes,
     onSubmit,
     handleInputChange,
-    getMoreJobsBtn,
+    getMoreJobs,
     jobs,
     locationVal,
     locations,
@@ -61,7 +61,7 @@ const styles = theme => ({
 
       <Grid container spacing={24}>
         <Grid item xs={12} sm={12} md={12} >
-          {jobs.length > 0 ? <GetMoreJobsButton  onClick={getMoreJobsBtn}/> : null}
+          {jobs.length > 0 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
        </Grid>
       </Grid>
     </div>
@@ -91,7 +91,7 @@ const styles = theme => ({
   
         <Grid container spacing={24}>
           <Grid item xs={12} sm={12} md={12} >
-            {jobs.length > 0 ? <GetMoreJobsButton  onClick={getMoreJobsBtn}/> : null}
+            {jobs.length > 0 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
          </Grid>
         </Grid>
       </div>

@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom'
+
 const styles = theme => ({
   bigAvatar: {
     margin: 10,
@@ -40,11 +41,13 @@ const styles = theme => ({
  }
 
 });
+const seeMoreMsg = 'Vezi mai mult';
+const years = 'ani'
 
-const CandidateCard = ({classes, candidates}) => {
+const CandidateCard = ({classes, candidate}) => {
   
  
-     return candidates.map((candidate) => {
+     return candidate.map((candidate) => {
        const candidateDetailsUrl = `/candidate-details/${candidate.userID}`
        return(
                <div key={candidate.userID}>
@@ -61,7 +64,7 @@ const CandidateCard = ({classes, candidates}) => {
                              secondary={
                                 <React.Fragment>
                                 <Typography  className={classes.textBold} component="span"  color="textPrimary">
-                                  {candidate.category} - {candidate.total_ex_years} ani
+                                  {candidate.category} - {candidate.total_ex_years}{years}
                                 </Typography>
                                 <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
                                   {candidate.job_seeker_about_me}
@@ -69,7 +72,7 @@ const CandidateCard = ({classes, candidates}) => {
                                 <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
                                   {candidate.job_seeker_location}
                                 </Typography>
-                                  <Link className={classes.aboutPage} to={candidateDetailsUrl}>Vezi mai mult</Link>
+                                  <Link className={classes.aboutPage} to={candidateDetailsUrl}>{seeMoreMsg}</Link>
                                 </React.Fragment>
                             }
                         />

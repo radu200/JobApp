@@ -13,16 +13,18 @@ const styles = theme => ({
    
   });
 
-const GetMoreCandidatesButton =  ({onClick, classes}) => {
+ const getMoreMsg = 'Mai Mult';
+ 
+const GetMoreButton =  ({onClick, classes}) => {
       
         return(
-            <Button variant="outlined"  color="primary" className={classes.button} onClick={onClick}>Mai Mult</Button>
+            <Button variant="outlined"  color="primary" className={classes.button} onClick={onClick}>{getMoreMsg}</Button>
             )
 }
 
-GetMoreCandidatesButton.propTypes = {
+GetMoreButton.propTypes = {
     onClick:PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired
 }
-export default withStyles(styles) (GetMoreCandidatesButton);
+export default withStyles(styles) (GetMoreButton);
 

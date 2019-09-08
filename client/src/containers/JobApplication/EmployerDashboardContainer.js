@@ -25,7 +25,7 @@ import axios from 'axios';
      
       const getApplicants =  async () => {
 
-        const url = `/api/job-application/employer/${category}/${jobId}`
+        const url = `/api/job-application/applicants/active/${category}/${jobId}`
         try {
             const response = await axios.get(url,{
               statuss:'active'
@@ -75,9 +75,9 @@ import axios from 'axios';
               return (
                 <div>
                   <EmployerDashboard
-                  applicant = {this.state.applicants}
-                  isAuthenticated = {this.state.isAuthenticated}
-                  applicantsNum={this.state.applicantsNum}
+                    candidate = {this.state.applicants}
+                    isAuthenticated = {this.state.isAuthenticated}
+                    applicantsNum={this.state.applicantsNum}
                   /> 
         
               </div>

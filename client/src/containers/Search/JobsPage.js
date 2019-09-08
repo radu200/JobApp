@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
-import GetMoreJobsButton from '../../components/Buttons/getMoreJobsButton'
 
 
 
@@ -157,7 +156,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
                    queryVal={this.state.query}
                    errors={this.state.formErrors}
                    jobs={this.state.jobs}
-                   getMoreJobsBtn={this.getMoreJobs}
+                   getMoreJobs={this.getMoreJobs}
                    locationVal={this.state.location}
                    locations={cities}
                    isAuthenticated={this.state.isAuthenticated}

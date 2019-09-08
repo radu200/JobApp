@@ -21,64 +21,129 @@ module.exports.postApplyJobs = async (req,res,next) => {
     try {
 
         const db = await dbPromise
-         
+        
         const [response] = await db.execute('select job_id from  job_application where jobseeker_id = ? and job_id = ?', [jobseeker_id, job_id] );
         
         if(response.length > 0) {
             req.flash('warning_msg',{msg:'Ai aplicat deja la acest post de munca!'})
             res.redirect('back')
-         } else {
+        } else {
             
             await db.query(`insert into job_application set ?`, job); 
             req.flash('success_msg',{msg:'Ai aplicat cu success! Multa Bafta!'})
             res.redirect('back')
-
-         }
- 
-        } catch (err) {
-       
-            console.log(err)
+            
+        }
+        
+    } catch (err) {
+        
+        console.log(err)
     }
 }
 
 ///employers see who applied for job
-module.exports.JobApplicationEmployer = async(req,res) => {
-      
-      const job_id = req.params.id;
-      const category = req.params.category;
-      const status = 'active';
-
-      
-     
+module.exports.JobApplicationApplicantsActive = async(req,res) => {
+    
+    const job_id = req.params.id;
+    const category = req.params.category;
+    const status = 'active';
+    
+    
+    
     try {
-      
-
+        
+        
         if(req.user.type === 'employer') {
-
+            
             const db = await dbPromise
-
+            
             const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
             const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
-             const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID`
-     
+            const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID`
+            
             const [results] = await db.query(sql,[job_id,status])
             
-
-         
-
-            
-             res.json({
-                 applicants:results,
-                  'auth':'employer'
-             })
+            res.json({
+                applicants:results,
+                'auth':'employer'
+            })
         }
-
-      } catch (err) {
         
-         console.log(err)
-
-        }
+    } catch (err) {
+        
+        console.log(err)
+        
     }
+}
+
+module.exports.JobApplicationApplicantsRejected= async(req,res) => {
+    
+        const job_id = req.params.id;
+        const category = req.params.category;
+        const status = 'rejected';
+  
+        
+       
+      try {
+        
+  
+          if(req.user.type === 'employer') {
+  
+              const db = await dbPromise
+  
+              const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
+              const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
+               const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID`
+       
+              const [results] = await db.query(sql,[job_id,status])
+          
+               res.json({
+                   applicants:results,
+                    'auth':'employer'
+               })
+          }
+
+  
+        } catch (err) {
+          
+           console.log(err)
+  
+          }
+      }
+     
+     module.exports.JobApplicationApplicantsShortList = async(req,res) => {
+      
+        const job_id = req.params.id;
+        const category = req.params.category;
+        const status = 'shortlist';
+  
+        
+       
+      try {
+        
+  
+          if(req.user.type === 'employer') {
+  
+              const db = await dbPromise
+  
+              const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
+              const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
+               const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID`
+       
+              const [results] = await db.query(sql,[job_id,status])
+          
+               res.json({
+                   applicants:results,
+                    'auth':'employer'
+               })
+          }
+  
+        } catch (err) {
+          
+           console.log(err)
+  
+          }
+      }
 
 //list of jobs that jobseeker applied, appear on jobseeker profile
 module.exports.JobApplicationJobSeeker = async (req,res) => {

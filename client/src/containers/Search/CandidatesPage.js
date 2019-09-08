@@ -38,6 +38,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
           const {location, category ,experienceMax} = searchVal;
          
           const getCandidates =  async () => {
+            
             const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
             const offset = 2;
             try {
@@ -53,9 +54,10 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
               } else {
                 this.setState({isAuthenticated:''})
               }
-            } catch (error) {
-              console.error(error);
-            }
+              
+              } catch (error) {
+                console.error(error);
+              }
           }
           getCandidates();
           
@@ -182,7 +184,6 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
           }  
 
           render() {
-            console.log(this.state.isAuthenticated)
             return (
               <div>
                 <CandidateSearchPage
@@ -191,7 +192,7 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
                   errors={this.state.formErrors}
                   categoryVal={this.state.category}
                   locationVal={this.state.location}
-                  candidates={this.state.candidates}
+                  candidate={this.state.candidates}
                   onClick = {this.getMoreCandidates}
                   experienceVal = {this.state.experienceMax}
                   handleExperienceValue = {this.handleExperienceValue}
