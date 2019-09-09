@@ -12,13 +12,13 @@ const styles = theme => ({
   },
 
 });
-const EmployerDashboard = ({candidate,applicantsNum, classes}) => {
+const EmployerDashboard = ({candidate,applicantsNum,jobId,JobCategory, classes}) => {
     return (
             
           <div className={classes.root}>
             <Grid container spacing={0} justify="center" alignItems="center">
                 <Grid item xs={12} sm={12} md={8}>
-                  <ApplicantNavBar applicantsNum={applicantsNum} />
+                  <ApplicantNavBar applicantsNum={applicantsNum} jobId={jobId} JobCategory={JobCategory} />
                     <CandidateCard candidate={candidate}/>
                 </Grid>
            </Grid>   

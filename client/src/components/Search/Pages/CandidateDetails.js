@@ -16,15 +16,14 @@ const styles = theme => ({
 
 });
 const CandidateDetails = ({ candidateDetails,experience,classes}) => {
-    return (
-          
-            <div className={classes.root}>
-              <Grid container spacing={0}>
-                <Grid item xs={12} sm={12} md={6}>
-                 <CandidateDetailsCard  candidateDetails={candidateDetails}    experience={experience} />
-                </Grid>
-            </Grid>    
-           </div>
+    return (  
+        <div className={classes.root}>
+          <Grid container spacing={0}>
+            <Grid item xs={12} sm={12} md={6}>
+              <CandidateDetailsCard  candidateDetails={candidateDetails}    experience={experience} />
+            </Grid>
+        </Grid>    
+        </div>
     )
 }
 export default withStyles(styles)(CandidateDetails);

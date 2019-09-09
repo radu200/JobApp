@@ -15,10 +15,9 @@ export default class CandidateDetails extends Component {
          }
     }
 
-    componentDidMount () {
+    async componentDidMount () {
         
          const id = this.props.match.params.id;
-           const getCandidateDetails =  async () => {
            try {
                const res = await axios.get(`/api/candidate-details/${id}`)
                 
@@ -32,9 +31,6 @@ export default class CandidateDetails extends Component {
            } catch (err){
                console.log(err)
            }
-        }
-        
-          getCandidateDetails();
 
       }
 

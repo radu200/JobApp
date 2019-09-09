@@ -55,7 +55,7 @@ const styles = theme => ({
         <Grid container spacing={24}>
           <Grid item xs={12} sm={12} md={12} >
             {jobs.length > 0 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
-        </Grid>
+          </Grid>
         </Grid>
     </div>
   );

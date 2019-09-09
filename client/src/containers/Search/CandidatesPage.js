@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import CandidateCard from '../../components/Cards/CandidateCard';
+import SearchCandidateForm from '../../components/Search/Forms/SearchCandidateForm';
+import GetMoreButton from '../../components/Buttons/getMoreButton'
+import {NoCandFoundMsg} from '../../components/Utils/messages';
 import axios from 'axios';
-import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPage'
 import MainNav from '../../components/NavBars/MainNav/MainNav'
 
 
 
- class CandidatesPage extends Component {
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    maxWidth: 1200,
+    marginTop: 0,
+    marginRight: 'auto',
+    marginBottom: 0,
+    marginLeft: 'auto',
+  },
+ 
+});  
+
+
+class CandidatesPage extends Component {
   
     constructor(props){
         super(props) 
@@ -33,12 +51,11 @@ import MainNav from '../../components/NavBars/MainNav/MainNav'
         }
     
 
-        componentDidMount () {
+       async  componentDidMount () {
           const searchVal = {location:'Chisinau',category:'Frumusete si Bunastare' ,experienceMax:10}
          
           const {location, category ,experienceMax} = searchVal;
-         
-          const getCandidates =  async () => {
+
             
             const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
             const offset = 2;
@@ -59,8 +76,7 @@ import MainNav from '../../components/NavBars/MainNav/MainNav'
               } catch (error) {
                 console.error(error);
               }
-          }
-          getCandidates();
+          
           
         }
     
@@ -123,7 +139,7 @@ import MainNav from '../../components/NavBars/MainNav/MainNav'
         }
 
 
-           handleSubmit(event) {
+          async handleSubmit(event) {
              
              event.preventDefault();
 
@@ -132,7 +148,7 @@ import MainNav from '../../components/NavBars/MainNav/MainNav'
         
 
             if(isValid){
-                  const getCandidates=  async () => {
+                 
                     const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
                     const offset = 2;
                     try {
@@ -153,8 +169,7 @@ import MainNav from '../../components/NavBars/MainNav/MainNav'
                     } catch (error) {
                       console.error(error);
                     }
-                  }
-                  getCandidates();
+
                   
                   this.setState(prevState => ({
                     formErrors:{
@@ -185,25 +200,41 @@ import MainNav from '../../components/NavBars/MainNav/MainNav'
           }  
 
           render() {
+            const { classes} = this.props
+            const { category,experienceMax, candidates, formErrors} = this.state
+
             return (
               <div>
                 <MainNav isAuthenticated={this.state.isAuthenticated}/>
-                
-                <CandidateSearchPage
-                  onSubmit={this.handleSubmit}
-                  handleInputChange = {this.handleInputChange}
-                  errors={this.state.formErrors}
-                  categoryVal={this.state.category}
-                  locationVal={this.state.location}
-                  candidate ={this.state.candidates}
-                  onClick = {this.getMoreCandidates}
-                  experienceVal = {this.state.experienceMax}
-                  handleExperienceValue = {this.handleExperienceValue}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
+                <div className={classes.root} >
+                  <Grid container spacing={24}>
+                    <Grid item xs={12} sm={12} md={6}>  
+                        <SearchCandidateForm
+                          onSubmit={this.handleSubmit}
+                          handleInputChange={this.handleInputChange}
+                          handleExperienceValue={this.handleExperienceValue}
+                          categoryVal={category}
+                          experienceVal={experienceMax}
+                          errors={formErrors}
+                        />
+                    </Grid>
+                  </Grid>
+
+                  <Grid container spacing={16}>
+                    <Grid item xs={12} sm={12} md={6}>
+                      {candidates.length > 0 ? <CandidateCard candidate={candidates} /> : <h1>{NoCandFoundMsg}</h1> }
+                    </Grid>
+                  </Grid>
+
+                  <Grid container spacing={24}>
+                    <Grid item xs={12} sm={12} md={6}>
+                      {candidates.length > 0 ? <GetMoreButton onClick={this.getMoreCandidates}/> : null}
+                  </Grid>
+                  </Grid>
+                </div>
               </div>
            )
         }
   }
 
-export default CandidatesPage;
+export default withStyles(styles)(CandidatesPage);

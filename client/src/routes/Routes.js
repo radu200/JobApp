@@ -3,7 +3,7 @@ import { BrowserRouter,Switch, Route } from 'react-router-dom';
 import Jobs from '../containers/Search/JobsPage';
 import Candidates from '../containers/Search/CandidatesPage';
 import CandidateDetails from '../containers/Search/CandidateDetails';
-import EmployerDashboard from '../containers/JobApplication/EmployerDashboardContainer';
+import ApplicantsActive from '../containers/JobApplication/ApplicantsActive';
 
 const Routes = () => (
   <main>
@@ -12,7 +12,7 @@ const Routes = () => (
         <Route exact path='/jobs' component={Jobs} />
         <Route exact path='/candidate-details/:id' component={CandidateDetails} />
         <Route exact path='/search-candidate' component={Candidates} />
-        <Route exact path='/job-application/applicants/active/:category/:id' component={EmployerDashboard} />
+        <Route exact path='/job-application/applicants/active/:category/:id' component={ApplicantsActive} />
 
       </Switch>
   </BrowserRouter>

@@ -65,9 +65,8 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
             return true;
       }
         
-    componentDidMount(){
+    async componentDidMount(){
      
-      const getJobs =  async () => {
         const url = '/api/jobs'
         try {
             const response = await axios.post(url,{
@@ -75,7 +74,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
             });
             
              const data = response.data;
-            console.log(data)
+
              if(data.auth === 'employer'){
                this.setState({jobs:[],isAuthenticated:data.auth,})
               } else {
@@ -85,32 +84,28 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
           } catch (error) {
             console.error(error);
           }
-        }
-            getJobs()
             
     }
           
             
-      getMoreJobs =  async () => {
-        const { url } = this.state
-      try {
-        const response = await axios.post(url,{
-            offset: this.state.offset 
-        });
-       
-        const data = response.data;
+            getMoreJobs =  async () => {
+              const { url } = this.state
+            try {
+              const response = await axios.post(url,{
+                  offset: this.state.offset 
+              });
+            
+              const data = response.data;
 
-        this.setState({jobs:[...this.state.jobs, ...data.jobs], offset:this.state.offset + 12})
+              this.setState({jobs:[...this.state.jobs, ...data.jobs], offset:this.state.offset + 12})
 
-      } catch (error) {
-        console.error(error);
-      }
-    }
+            } catch (error) {
+              console.error(error);
+            }
+          }
     
       
-
-
-          handleInputChange (event) {
+         handleInputChange (event) {
             const target = event.target;
             const value = target.value;
             const name = target.name;
@@ -120,14 +115,14 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
             })
           }
 
-          handleSubmit(event) {
+      //submit form  
+       async handleSubmit(event) {
             event.preventDefault();
 
 
             const isValid = this.validate();
 
               if(isValid){
-                  const getSearchRes =  async () => {
                     const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`
                     const offset = 12;
                     try {
@@ -135,15 +130,13 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
                         offset:0
                       })
                         const data = response.data
-                        console.log(data)
+                       
                         this.setState({jobs:[...data.jobs],url, offset})
-
 
                     } catch (error) {
                       console.error(error);
                     }
-                  }
-              getSearchRes();
+               
 
               this.setState(prevState => ({
                 formErrors:{
@@ -160,6 +153,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
               return (
                 <div>
                  <MainNav isAuthenticated={this.state.isAuthenticated}/> 
+               
                 <JobsSearchPage
                    onSubmit={this.handleSubmit}
                    handleInputChange = {this.handleInputChange}
@@ -171,6 +165,8 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
                    locations={cities}
 
                 />
+
+                
             </div>
            )
           }

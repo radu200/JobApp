@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import EmployerDashboard from '../../components/JobApplication/EmployerDashboard'
-import MainNav from '../../components/NavBars/MainNav/MainNav'
+import MainNav from '../../components/NavBars/MainNav/MainNav';
 import axios from 'axios';
 
 
 
 
- class EmployerDasboardContainer extends Component {
+class EmployerDasboardContainer extends Component {
   
-    constructor(props){
-        super(props) 
-         this.state = {
-            applicants:[],
-            isAuthenticated:'',
-            applicantsNum:[]
-           
-        }        
-    }
+  constructor(props){
+    super(props) 
+    this.state = {
+      applicants:[],
+      applicantsNum:[],
+      isAuthenticated:''
+      
+    }        
+  }
+  
+  
+  async componentDidMount(){
     
-        
-    componentDidMount(){
-      const jobId = this.props.match.params.id;
-      const category  = this.props.match.params.category
-     
-      const getApplicants =  async () => {
+    const jobId = this.props.match.params.id;
+    const category  = this.props.match.params.category
 
         const url = `/api/job-application/applicants/active/${category}/${jobId}`
+       
         try {
             const response = await axios.get(url,{
               statuss:'active'
@@ -41,12 +41,10 @@ import axios from 'axios';
              })
            }
 
-            console.log(response.data)
           } catch (error) {
             console.error(error);
           }
-        }
-            getApplicants()
+    
             
     }
           
@@ -64,27 +62,23 @@ import axios from 'axios';
     //     console.error(error);
     //   }
     // }
+          
+        render() {  
+          return (
+            <div>
+              <MainNav isAuthenticated={this.state.isAuthenticated}/>
+              <EmployerDashboard
+                candidate = {this.state.applicants}
+                isAuthenticated = {this.state.isAuthenticated}
+                applicantsNum={this.state.applicantsNum}
+                jobCategory={this.props.match.params.category}
+                jobId={ this.props.match.params.id}
+              /> 
     
-      
-
-
-       
-              
-            render() {  
-              
-              return (
-                <div>
-                  <MainNav isAuthenticated={this.state.isAuthenticated}/>
-                  <EmployerDashboard
-                    candidate = {this.state.applicants}
-                    isAuthenticated = {this.state.isAuthenticated}
-                    applicantsNum={this.state.applicantsNum}
-                  /> 
-        
-              </div>
-           )
-          }
-        }
+          </div>
+        )
+      }
+    }
         
 
   
