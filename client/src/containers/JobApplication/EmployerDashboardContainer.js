@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EmployerDashboard from '../../components/JobApplication/EmployerDashboard'
-
+import MainNav from '../../components/NavBars/MainNav/MainNav'
 import axios from 'axios';
 
 
@@ -20,7 +20,7 @@ import axios from 'axios';
     
         
     componentDidMount(){
-      const jobId =this.props.match.params.id;
+      const jobId = this.props.match.params.id;
       const category  = this.props.match.params.category
      
       const getApplicants =  async () => {
@@ -74,6 +74,7 @@ import axios from 'axios';
               
               return (
                 <div>
+                  <MainNav isAuthenticated={this.state.isAuthenticated}/>
                   <EmployerDashboard
                     candidate = {this.state.applicants}
                     isAuthenticated = {this.state.isAuthenticated}
