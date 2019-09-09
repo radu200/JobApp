@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import MainNav from '../../components/NavBars/MainNav/MainNav'
 import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
 
 
@@ -65,6 +66,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
       }
         
     componentDidMount(){
+     
       const getJobs =  async () => {
         const url = '/api/jobs'
         try {
@@ -73,9 +75,12 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
             });
             
              const data = response.data;
-
-
-            this.setState({jobs:data.jobs,isAuthenticated:data.auth,url})
+            console.log(data)
+             if(data.auth === 'employer'){
+               this.setState({jobs:[],isAuthenticated:data.auth,})
+              } else {
+                this.setState({jobs:data.jobs,isAuthenticated:data.auth,url})
+            }
             
           } catch (error) {
             console.error(error);
@@ -129,7 +134,11 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
                       const response = await axios.post(url,{
                         offset:0
                       })
-                      this.setState({jobs:[...response.data],url, offset})
+                        const data = response.data
+                        console.log(data)
+                        this.setState({jobs:[...data.jobs],url, offset})
+
+
                     } catch (error) {
                       console.error(error);
                     }
@@ -150,6 +159,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
             render() {  
               return (
                 <div>
+                 <MainNav isAuthenticated={this.state.isAuthenticated}/> 
                 <JobsSearchPage
                    onSubmit={this.handleSubmit}
                    handleInputChange = {this.handleInputChange}
@@ -159,10 +169,8 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
                    getMoreJobs={this.getMoreJobs}
                    locationVal={this.state.location}
                    locations={cities}
-                   isAuthenticated={this.state.isAuthenticated}
 
                 />
-                
             </div>
            )
           }

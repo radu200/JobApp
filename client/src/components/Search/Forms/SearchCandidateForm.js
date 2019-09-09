@@ -5,6 +5,7 @@ import Categories from '../.././Selects/Categories'
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import {ExpMsg,SearchMsg,Years } from '../../Utils/messages';
 
 
 const styles = theme => ({
@@ -54,7 +55,7 @@ const SearchCandidateForm = ({
               </Grid>
 
                 <Grid item xs={12} sm={12} md={12}>
-                  <label className={classes.ExperienceLabel}>Experienta</label>
+                  <label className={classes.ExperienceLabel}>{ExpMsg}</label>
                 <div className={classes.slider}>
                   <input 
                     type="range" 
@@ -62,12 +63,12 @@ const SearchCandidateForm = ({
                     value={experienceVal} 
                     onChange={handleExperienceValue}
                     step="1"/>
-                    {experienceVal} Ani      
+                    {experienceVal}{Years}    
                 </div>
               </Grid>
                 <Grid item xs={12} sm={12} md={12}>
                   <Button size="medium" type="submit" variant="contained" color="primary" className={classes.button}>
-                    Cauta </Button>    
+                   {SearchMsg} </Button>    
               </Grid> 
 
             </Grid>   

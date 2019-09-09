@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { MoreMsg} from '.././Utils/messages';
 
 const styles = theme => ({
     button: {
@@ -13,12 +14,11 @@ const styles = theme => ({
    
   });
 
- const getMoreMsg = 'Mai Mult';
- 
+
 const GetMoreButton =  ({onClick, classes}) => {
       
-        return(
-            <Button variant="outlined"  color="primary" className={classes.button} onClick={onClick}>{getMoreMsg}</Button>
+        return (
+            <Button variant="outlined"  color="primary" className={classes.button} onClick={onClick}>{MoreMsg}</Button>
             )
 }
 

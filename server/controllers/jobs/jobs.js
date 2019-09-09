@@ -176,12 +176,12 @@ module.exports.getJobsPage = async (req, res, next) => {
             })
         }  else  if (req.user.type === 'jobseeker') {
             res.json({
-                jobs,
+                'jobs':jobs,
                 'auth':'jobseeker'
             })
 
         } else if(req.user.type === 'employer'){
-               res.json({ jobs , 'auth':'employer'})
+               res.json({ 'jobs':jobs , 'auth':'employer'})
         
         } 
         

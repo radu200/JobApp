@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-
+import { Months,Days, Years} from '.././Utils/messages';
 
 
 const styles = {
@@ -112,7 +112,7 @@ const CandidateDetailsCard = ({candidateDetails,experience,classes}) => {
                       {experience.company_name}
                     </Typography>
                    <Typography    gutterBottom component="p" color="primary">
-                      {experience.start_date}- {experience.end_date} - {experience.years} ani {experience.months} luni {experience.days} zile
+                      {experience.start_date}- {experience.end_date} - {experience.years} {Years} {experience.months} {Months} {experience.days} {Days}
                     </Typography>
                     <Typography    gutterBottom component="p"  className={classes.responsibilities} >
                       {experience.responsibilities}

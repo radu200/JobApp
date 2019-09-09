@@ -1,6 +1,6 @@
 
 const webSiteUrl = 'http://localhost:8000';
-const  LoginUrl = `${webSiteUrl}/api/login`;
+const LoginUrl = `${webSiteUrl}/api/login`;
 const LogOut = `${webSiteUrl}/api/logout`
 const JobDetailsUrl = `${webSiteUrl}/api/job/details/`;
 const SignUpUrlJobSeeker =`${webSiteUrl}/api/signup/jobseeker`;

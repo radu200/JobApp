@@ -8,6 +8,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom'
+import { MoreMsg, Years} from '.././Utils/messages';
+
 
 const styles = theme => ({
   bigAvatar: {
@@ -41,8 +43,8 @@ const styles = theme => ({
  }
 
 });
-const seeMoreMsg = 'Vezi mai mult';
-const years = 'ani'
+
+
 
 const CandidateCard = ({classes, candidate}) => {
   
@@ -64,7 +66,7 @@ const CandidateCard = ({classes, candidate}) => {
                              secondary={
                                 <React.Fragment>
                                 <Typography  className={classes.textBold} component="span"  color="textPrimary">
-                                  {candidate.category} - {candidate.total_ex_years}{years}
+                                  {candidate.category} - {candidate.total_ex_years}{Years}
                                 </Typography>
                                 <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
                                   {candidate.job_seeker_about_me}
@@ -72,7 +74,7 @@ const CandidateCard = ({classes, candidate}) => {
                                 <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
                                   {candidate.job_seeker_location}
                                 </Typography>
-                                  <Link className={classes.aboutPage} to={candidateDetailsUrl}>{seeMoreMsg}</Link>
+                                  <Link className={classes.aboutPage} to={candidateDetailsUrl}>{MoreMsg}</Link>
                                 </React.Fragment>
                             }
                         />

@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { JobDetailsUrl} from '../Utils/Paths/UrlPaths'
+import { SalaryCurrency,MoreMsg } from '.././Utils/messages';
 
 const styles = {
   JobDetails:{
@@ -54,7 +55,7 @@ const JobCard = ({jobs,classes}) => {
                   )}
                   <CardContent>
                   <Typography    gutterBottom component="p" color="primary">
-                       {job.salary ? `${job.salary} ${salaryCurrency}` : null}
+                       {job.salary ? `${job.salary} ${SalaryCurrency}` : null}
                     </Typography>
                     <Typography component="p">
                        {job.employment_type}
@@ -75,7 +76,7 @@ const JobCard = ({jobs,classes}) => {
                 </CardActionArea>
                     <CardActions>
                     <Button size="small" color="primary">
-                        <a className={classes.JobDetails} href={jobDetailPath}>Vezi Mai Mult</a>
+                        <a className={classes.JobDetails} href={jobDetailPath}>{MoreMsg}</a>
                     </Button>
     
                   </CardActions>

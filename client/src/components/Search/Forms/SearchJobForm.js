@@ -7,6 +7,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import {SearchMsg,LocMsg } from '../../Utils/messages';
 
 const styles = theme => ({
   container: {
@@ -55,7 +56,7 @@ const SearchJobForm = ({
      <form onSubmit={onSubmit}>
        <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel>
-          Locatia
+          {LocMsg}
           </InputLabel>
           <Select
             value={locationVal}
@@ -80,7 +81,7 @@ const SearchJobForm = ({
           {errors.locationError}
          </div>
         <TextField
-            label="Cauta"
+            label={SearchMsg}
             type="search"
             className={classes.searchField}
             margin="normal"
@@ -93,7 +94,7 @@ const SearchJobForm = ({
             {errors.searchError}
           </div>
            <Button size="medium" type="submit" variant="contained" color="primary" className={classes.button}>
-                Cauta </Button>  
+                {SearchMsg} </Button>  
       </form>
 
     

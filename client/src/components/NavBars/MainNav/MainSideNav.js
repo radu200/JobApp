@@ -10,8 +10,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import BrandName from '../../Utils/BrandName';
 import { Profile }from '../../Utils/Paths/UrlPaths';
-import { Jobs} from '../../Utils/Paths/UrlPaths';
+import { MyJobs} from '../../Utils/Paths/UrlPaths';
+import { SearchCandidate,Jobs,SignUpUrlEmployer,SignUpUrlJobSeeker,LoginUrl } from '../../Utils/Paths/UrlPaths';
 import { Help} from '../../Utils/Paths/UrlPaths';
+
 const styles = {
   list: {
     width: 250,
@@ -21,7 +23,8 @@ const styles = {
   },
 };
 
-class JobSeekerSideNav extends React.Component {
+class MainSideNav extends React.Component {
+  
   state = {
     left: false,
   };
@@ -33,7 +36,7 @@ class JobSeekerSideNav extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes,isAuthenticated } = this.props;
 
 
     const sideList = (
@@ -41,8 +44,28 @@ class JobSeekerSideNav extends React.Component {
         <ListItem button component="a" variant='title'>
             <ListItemText primary={BrandName} />
           </ListItem>
-        <Divider/>     
+        <Divider/>   
+
+       { isAuthenticated === 'employer'  ?
+        <>
         <List>
+          <ListItem button component="a" href={Profile}>
+            <ListItemText primary="Profil" />
+          </ListItem>
+          <ListItem button component="a" href={MyJobs}>
+            <ListItemText primary="Joburile Mele" />
+          </ListItem>
+          <ListItem button component="a"  href={SearchCandidate}>
+            <ListItemText primary="Cauta candidati" />
+          </ListItem>
+          <Divider/>
+          <ListItem button component="a"  href={Help}>
+            <ListItemText primary="Ajutor" />
+          </ListItem>
+         </List>
+        </> : isAuthenticated === 'jobseeker' ? 
+          <>
+           <List>
           <ListItem button component="a" href={Profile}>
             <ListItemText primary="Profil" />
           </ListItem>
@@ -53,7 +76,21 @@ class JobSeekerSideNav extends React.Component {
           <ListItem button component="a"  href={Help}>
             <ListItemText primary="Ajutor" />
           </ListItem>
+         </List> 
+          </> :
+          <>  
+          <List>
+          <ListItem button component="a" href={SignUpUrlEmployer}>
+            <ListItemText primary="Angajeaza" />
+          </ListItem>
+          <ListItem button component="a" href={SignUpUrlJobSeeker}>
+            <ListItemText primary="Inregistrare" />
+          </ListItem>
+          <ListItem button component="a"  href={LoginUrl}>
+            <ListItemText primary="Logare" />
+          </ListItem>
          </List>
+         </>}
       </div>
     );
 
@@ -78,8 +115,8 @@ class JobSeekerSideNav extends React.Component {
   }
 }
 
-JobSeekerSideNav.propTypes = {
+MainSideNav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(JobSeekerSideNav);
+export default withStyles(styles)(MainSideNav);

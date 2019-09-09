@@ -5,6 +5,7 @@ import CandidateCard from '.././Cards/CandidateCard';
 import ApplicantNavBar from '../NavBars/Employer/ApplicantsNavBar';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core';
+import { PLsLogInMsg } from '.././Utils/messages';
 
 
 const styles = theme => ({
@@ -34,7 +35,7 @@ const EmployerDashboard = ({isAuthenticated,candidate,applicantsNum, classes}) =
               </div> :
              <div>
                 <UnauthenticatedNav/> 
-                <h1>Te rog logheaza-te</h1>
+                <h1>{PLsLogInMsg}</h1>
             </div>
              }
       </div>  

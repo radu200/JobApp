@@ -15,11 +15,17 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import EmployerSideNav from './EmployerSideNav'
+import Button from '@material-ui/core/Button';
+import MainSideNav from './MainSideNav'
 import BrandName from '../../Utils/BrandName'
-import { Profile }from '../../Utils/Paths/UrlPaths';
-import { LogOut} from '../../Utils/Paths/UrlPaths';
-import { Settings } from '../../Utils/Paths/UrlPaths';
+import { 
+  Profile,
+  Settings,
+  LogOut,
+  SignUpUrlJobSeeker, 
+  SignUpUrlEmployer,
+  LoginUrl } from '../../Utils/Paths/UrlPaths';
+
 
 
 const styles = theme => ({
@@ -40,7 +46,10 @@ const styles = theme => ({
     },
   },
 
-
+  logIn:{
+    color:'white',
+    textDecoration:'none'
+  },
   inputRoot: {
     color: 'inherit',
     width: '100%',
@@ -60,7 +69,10 @@ const styles = theme => ({
   },
 });
 
-class EmployerNavBar extends React.Component {
+class MainNavBar extends React.Component {
+  constructor(props) {
+    super(props)
+  }
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
@@ -85,7 +97,7 @@ class EmployerNavBar extends React.Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes } = this.props;
+    const { classes,isAuthenticated } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -97,19 +109,16 @@ class EmployerNavBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-    
-        <List>
-          <ListItem button component="a" href={Profile}>
-            <ListItemText primary="Profil" />
-          </ListItem>
-          <ListItem button component="a"  href={Settings}>
-            <ListItemText primary="Setari" />
-          </ListItem>
-          <Divider/>
-          <ListItem button component="a"  href={LogOut}>
-            <ListItemText primary="Iesire" />
-          </ListItem>
-         </List>
+      
+        <MenuItem  button component="a"  href={Profile}> 
+          <p>Profil</p>
+        </MenuItem>
+        <MenuItem  button component="a"  href={Settings}> 
+          <p>Setari</p>
+        </MenuItem>
+         <MenuItem  button component="a"  href={LogOut}> 
+          <p>Iesire</p>
+        </MenuItem>
       </Menu>
     );
 
@@ -121,20 +130,31 @@ class EmployerNavBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
+       { isAuthenticated === 'employer' ||  isAuthenticated === 'jobseeker' ?
+       <>
+       <MenuItem  button component="a"  href={Profile}> 
+          <p>Profil</p>
         </MenuItem>
-        <MenuItem onClick={this.handleProfileMenuOpen}>
-          <IconButton color="inherit">
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
+        <MenuItem  button component="a"  href={Settings}> 
+          <p>Setari</p>
         </MenuItem>
+         <MenuItem  button component="a"  href={LogOut}> 
+          <p>Iesire</p>
+        </MenuItem>
+        </>
+         :
+        <>   
+        
+        <MenuItem  button component="a"  href={SignUpUrlEmployer}> 
+         <p>Angajeaza</p>
+       </MenuItem>
+       <MenuItem  button component="a"   href={SignUpUrlJobSeeker}> 
+         <p>Inregistrare</p>
+       </MenuItem>
+        <MenuItem  button component="a" href={LoginUrl}> 
+         <p>Logare</p>
+       </MenuItem> 
+       </>}
       </Menu>
     );
 
@@ -142,44 +162,56 @@ class EmployerNavBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <EmployerSideNav />
+            <MainSideNav isAuthenticated={isAuthenticated} />
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               {BrandName}
             </Typography>
             
             <div className={classes.grow} />
+            
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
              
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            </div>
+              { isAuthenticated === 'employer' ||  isAuthenticated === 'jobseeker' ?
+                <>
+                <IconButton color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                      <MailIcon />
+                    </Badge>
+                  </IconButton>
+                
+                  <IconButton
+                    aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                    aria-haspopup="true"
+                    onClick={this.handleProfileMenuOpen}
+                    color="inherit"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  {renderMenu}
+                  </> :
+
+                  <>
+                  <Button color="inherit"><a  className={classes.logIn}  href={SignUpUrlEmployer}>Angajeaza</a></Button>
+                  <Button color="inherit"><a  className={classes.logIn}  href={SignUpUrlJobSeeker}>Inregistrare</a></Button>
+                  <Button color="inherit"><a  className={classes.logIn}  href={LoginUrl}>Logare</a></Button>
+                  </>
+                }
+            </div>    
             <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                <MoreIcon />
-              </IconButton>
+                <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+                  <MoreIcon />
+                </IconButton>
             </div>
           </Toolbar>
         </AppBar>
-        {renderMenu}
         {renderMobileMenu}
       </div>
     );
   }
 }
 
-EmployerNavBar.propTypes = {
+MainNavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(EmployerNavBar);
+export default withStyles(styles)(MainNavBar);

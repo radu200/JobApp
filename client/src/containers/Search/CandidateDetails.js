@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CandidateDetailsPage from '../../components/Search/Pages/CandidateDetails'
+import MainNav from '../../components/NavBars/MainNav/MainNav'
 
 export default class CandidateDetails extends Component {
 
@@ -41,8 +42,8 @@ export default class CandidateDetails extends Component {
       
             return (
                 <div>
+                   <MainNav isAuthenticated={this.state.isAuthenticated}/>
                     <CandidateDetailsPage 
-                      isAuthenticated = {this.state.isAuthenticated}
                       candidateDetails={this.state.candidate} 
                       experience={this.state.experience}
                       />

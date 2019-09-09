@@ -5,13 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import CandidateCard from '../../Cards/CandidateCard';
 import SearchCandidateForm from '../Forms/SearchCandidateForm';
 import GetMoreButton from '../../Buttons/getMoreButton'
-import EmployerNavBar from '../../NavBars/Employer/EmployerNavBar'
-import UnauthenticatedNav from '../../NavBars/Unauthenticated/UnauthenticatedNav'
+import {notFoundCandMsg,PlsLogInMsg} from '../../Utils/messages';
 
 
 
-const notFoundMsg = 'Nu am gasit nici un candidat';
-const loginMsg = 'Te rog logheazate';
 
 const styles = theme => ({
   root: {
@@ -34,18 +31,11 @@ const styles = theme => ({
     experienceVal,
     categoryVal,
     errors,
-    isAuthenticated,
     candidate,
     onClick
   }) => {
 
   return (
-    <div>
-    {isAuthenticated  === 'employer' ? 
-      <div> 
-       <div>
-          <EmployerNavBar/>
-        </div>
         <div className={classes.root} >
           <Grid container spacing={24}>
             <Grid item xs={12} sm={12} md={6}>  
@@ -62,7 +52,7 @@ const styles = theme => ({
 
           <Grid container spacing={16}>
             <Grid item xs={12} sm={12} md={6}>
-              {candidate.length > 0 ? <CandidateCard candidate={candidate} /> : <h1>{notFoundMsg}</h1> }
+              {candidate.length > 0 ? <CandidateCard candidate={candidate} /> : <h1>{notFoundCandMsg}</h1> }
             </Grid>
           </Grid>
 
@@ -72,13 +62,6 @@ const styles = theme => ({
           </Grid>
           </Grid>
         </div>
-        </div>
-        : 
-        <div>
-        <UnauthenticatedNav/> 
-        <h1>{loginMsg}</h1>
-     </div> }
-  </div>
   );
 }
 

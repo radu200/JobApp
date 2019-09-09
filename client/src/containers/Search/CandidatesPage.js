@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPage'
+import MainNav from '../../components/NavBars/MainNav/MainNav'
 
 
 
@@ -127,44 +128,44 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
              event.preventDefault();
 
              const isValid = this.validate();
-             const { location, category, experienceMax, errorMsg} = this.state;
-             
-  
-                  if(isValid){
-                       const getCandidates=  async () => {
-                         const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
-                         const offset = 2;
-                         try {
-   
-                           const response = await axios.post(url,{
-                             offset:0
-                           })
-                           const data = response.data
-                
-                             
-                           if(data.auth === 'employer'){
-                            this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset})   
-                          } else {
-                            this.setState({isAuthenticated:''})
-                          }
-       
-                         } catch (error) {
-                           console.error(error);
-                         }
-                       }
-                       getCandidates();
-                       
-                       this.setState(prevState => ({
-                         formErrors:{
-                           ...prevState.formErrors,
-                           locationError:'',
-                           categoryError:'',
-                         
-                         }
-                       }))
-   
-                     }
+             const { location, category, experienceMax} = this.state;
+        
 
+            if(isValid){
+                  const getCandidates=  async () => {
+                    const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
+                    const offset = 2;
+                    try {
+
+                      const response = await axios.post(url,{
+                        offset:0
+                      })
+                      const data = response.data
+          
+                        
+                      if(data.auth === 'employer'){
+                      this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset})   
+                   
+                     } else {
+                      this.setState({isAuthenticated:''})
+                    }
+  
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }
+                  getCandidates();
+                  
+                  this.setState(prevState => ({
+                    formErrors:{
+                      ...prevState.formErrors,
+                      locationError:'',
+                      categoryError:'',
+                    
+                    }
+                  }))
+
+                }
                
           }
 
@@ -186,13 +187,15 @@ import CandidateSearchPage from '../../components/Search/Pages/CandidateSearchPa
           render() {
             return (
               <div>
+                <MainNav isAuthenticated={this.state.isAuthenticated}/>
+                
                 <CandidateSearchPage
                   onSubmit={this.handleSubmit}
                   handleInputChange = {this.handleInputChange}
                   errors={this.state.formErrors}
                   categoryVal={this.state.category}
                   locationVal={this.state.location}
-                  candidate={this.state.candidates}
+                  candidate ={this.state.candidates}
                   onClick = {this.getMoreCandidates}
                   experienceVal = {this.state.experienceMax}
                   handleExperienceValue = {this.handleExperienceValue}
