@@ -125,10 +125,10 @@ app.use(function(req, res, next) {
         res.locals.Employer = function(){
             if(req.user.type === 'employer'){
                 return true;
-                next()
+                // next()
             }else{
                 return false;
-                res.redirect('/login');
+                // res.redirect('/login');
             }
         }
         
@@ -137,7 +137,7 @@ app.use(function(req, res, next) {
                 return true;
             } else{
                 return false;
-                res.redirect('/login');
+                // res.redirect('/login');
                 
             }
             
