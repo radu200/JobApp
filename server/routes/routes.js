@@ -81,10 +81,9 @@ module.exports = function (app){
   //jobs controller 
   app.post('/api/jobs',jobsController.getJobsPage)
   //  app.get('/api/jobs', jobsController.JobsPage)
-  // app.get('/api/job-application/shortlisted', accessController.ensureAuthenticated,accessController.employer, jobsController.JobApplicatioShortlisted)
-  app.get('/api/job-application/applicants/active/:category/:id', accessController.ensureAuthenticatedJsonRes, jobsController.JobApplicationApplicantsActive )
-  app.get('/api/job-application/applicants/rejected/:category/:id', accessController.ensureAuthenticatedJsonRes, jobsController.JobApplicationApplicantsRejected )
-  app.get('/api/job-application/applicants/shortlist/:category/:id', accessController.ensureAuthenticatedJsonRes, jobsController.JobApplicationApplicantsShortList )
+  app.post('/api/job-application/applicants/active/:id', accessController.ensureAuthenticatedJsonRes, jobsController.JobApplicationApplicantsActive )
+  app.post('/api/job-application/applicants/rejected/:id', accessController.ensureAuthenticatedJsonRes, jobsController.JobApplicationApplicantsRejected )
+  app.post('/api/job-application/applicants/shortlist/:id', accessController.ensureAuthenticatedJsonRes, jobsController.JobApplicationApplicantsShortList )
   app.get('/api/job-application/jobseeker',accessController.ensureAuthenticated,accessController.jobSeeker, jobsController.JobApplicationJobSeeker)
   app.post('/api/apply/job/:id', accessController.ensureAuthenticated,accessController.jobSeeker, jobsController.postApplyJobs )
   app.get('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer,accessController.ensureEmailChecked, jobsController.getAddJobs)

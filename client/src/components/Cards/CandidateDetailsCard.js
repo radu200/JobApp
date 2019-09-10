@@ -60,11 +60,11 @@ const styles = {
 
 
   
-const CandidateDetailsCard = ({candidateDetails,experience,classes}) => {
+const CandidateDetailsCard = ({candidate,experience,classes}) => {
   
   return(
         <Card className={classes.card}>
-          {candidateDetails.map((candidate,index) => {
+          {candidate.map((candidate,index) => {
                return( 
                   <CardActionArea key={index} >
                     <div className={classes.avatarContainer}>

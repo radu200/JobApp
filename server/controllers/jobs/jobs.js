@@ -45,9 +45,9 @@ module.exports.postApplyJobs = async (req,res,next) => {
 module.exports.JobApplicationApplicantsActive = async(req,res) => {
     
     const job_id = req.params.id;
-    const category = req.params.category;
     const status = 'active';
-    
+    const limit = 6;
+    const offset = req.body.offset;
     
     
     try {
@@ -57,9 +57,11 @@ module.exports.JobApplicationApplicantsActive = async(req,res) => {
             
             const db = await dbPromise
             
+            const [job] = await db.execute('SELECT category FROM jobs  WHERE jobs.id = ?',[ job_id])
+            let category = job[0].category
             const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
             const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
-            const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID`
+            const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID LIMIT ${limit} OFFSET ${offset}`
             
             const [results] = await db.query(sql,[job_id,status])
             
@@ -79,9 +81,9 @@ module.exports.JobApplicationApplicantsActive = async(req,res) => {
 module.exports.JobApplicationApplicantsRejected= async(req,res) => {
     
         const job_id = req.params.id;
-        const category = req.params.category;
         const status = 'rejected';
-  
+        const limit = 6;
+        const offset = req.body.offset;
         
        
       try {
@@ -90,10 +92,12 @@ module.exports.JobApplicationApplicantsRejected= async(req,res) => {
           if(req.user.type === 'employer') {
   
               const db = await dbPromise
-  
+              const [job] = await db.execute('SELECT category FROM jobs  WHERE jobs.id = ?',[ job_id])
+              let category = job[0].category;
+
               const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
               const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
-               const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID`
+              const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID LIMIT ${limit} OFFSET ${offset}`
        
               const [results] = await db.query(sql,[job_id,status])
           
@@ -114,9 +118,9 @@ module.exports.JobApplicationApplicantsRejected= async(req,res) => {
      module.exports.JobApplicationApplicantsShortList = async(req,res) => {
       
         const job_id = req.params.id;
-        const category = req.params.category;
         const status = 'shortlist';
-  
+        const limit = 6;
+        const offset = req.body.offset;
         
        
       try {
@@ -125,10 +129,12 @@ module.exports.JobApplicationApplicantsRejected= async(req,res) => {
           if(req.user.type === 'employer') {
   
               const db = await dbPromise
-  
+              const [job] = await db.execute('SELECT category FROM jobs  WHERE jobs.id = ?',[ job_id])
+              let category = job[0].category;
+
               const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
               const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
-               const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID`
+               const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID LIMIT ${limit} OFFSET ${offset}`
        
               const [results] = await db.query(sql,[job_id,status])
           
@@ -170,15 +176,10 @@ module.exports.getJobsPage = async (req, res, next) => {
         const [jobs] = await db.execute(`select * from jobs limit 12 offset ${offset} `);
         
         if(!req.isAuthenticated() ){
-            res.json({
-                jobs,
-                'auth':'notAuthenticated'
-            })
+            res.json({'jobs':jobs,'auth':'notAuthenticated'})
+       
         }  else  if (req.user.type === 'jobseeker') {
-            res.json({
-                'jobs':jobs,
-                'auth':'jobseeker'
-            })
+            res.json({'jobs':jobs,'auth':'jobseeker' })
 
         } else if(req.user.type === 'employer'){
                res.json({ 'jobs':jobs , 'auth':'employer'})

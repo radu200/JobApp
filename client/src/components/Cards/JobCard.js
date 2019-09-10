@@ -27,7 +27,6 @@ const styles = {
     opacity:0.7
   }
 };
- const salaryCurrency = 'Lei'
 
   
 const JobCard = ({jobs,classes}) => {

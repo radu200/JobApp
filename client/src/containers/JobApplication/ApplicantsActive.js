@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
-import EmployerDashboard from '../../components/JobApplication/EmployerDashboard'
+import CandidateCard from '../../components/Cards/CandidateCard';
+import ApplicantNavBar from '../../components/NavBars/Employer/ApplicantsNavBar';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core';
 import MainNav from '../../components/NavBars/MainNav/MainNav';
+import GetMoreButton from '../../components/Buttons/getMoreButton'
 import axios from 'axios';
 
 
 
 
-class EmployerDasboardContainer extends Component {
+const styles = theme => ({
+  root: {
+    maxWidth: 960,
+     
+  },
+
+});
+
+
+class ApplicantsActive extends Component {
   
   constructor(props){
     super(props) 
     this.state = {
       applicants:[],
-      applicantsNum:[],
-      isAuthenticated:''
+      isAuthenticated:'',
+      offset:0,
+      url:''
       
     }        
   }
@@ -22,22 +36,21 @@ class EmployerDasboardContainer extends Component {
   async componentDidMount(){
     
     const jobId = this.props.match.params.id;
-    const category  = this.props.match.params.category
 
-        const url = `/api/job-application/applicants/active/${category}/${jobId}`
-       
+        const url = `/api/job-application/applicants/active/${jobId}`
+        const {offset} = this.state;
         try {
-            const response = await axios.get(url,{
-              statuss:'active'
+            const response = await axios.post(url,{
+              offset:offset
             });
             
              const data = response.data
-          
              if(data.auth === 'employer'){
              this.setState({
                applicants:data.applicants,
                isAuthenticated:data.auth,
-               applicantsNum:data.applicants.length
+               url,
+               offset:offset + 6
              })
            }
 
@@ -49,32 +62,39 @@ class EmployerDasboardContainer extends Component {
     }
           
             
-    //   getMoreJobs =  async () => {
-    //     const { url } = this.state
-    //   try {
-    //     const response = await axios.post(url,{
-    //         offset: this.state.offset 
-    //     });
-      
-    //     this.setState({jobs:[...this.state.jobs, ...response.data], offset:this.state.offset + 12})
-
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
+    getMoreApplicants =  async () => {
+      const { url,offset,applicants} = this.state
+        try {
+          const res = await axios.post(url,{
+              offset: offset 
+          });
+          
+           const data = res.data;
+           this.setState({applicants:[...applicants, ...data.applicants], offset:offset + 6})
+        } catch (error) {
+          console.error(error);
+        }
+      }  
           
         render() {  
+          const { classes} = this.props;
+          const { applicants, isAuthenticated}  = this.state;
+          const jobId = this.props.match.params.id; 
+          const {getMoreApplicants} = this;
+          const applicantsNum = applicants.length;
           return (
             <div>
-              <MainNav isAuthenticated={this.state.isAuthenticated}/>
-              <EmployerDashboard
-                candidate = {this.state.applicants}
-                isAuthenticated = {this.state.isAuthenticated}
-                applicantsNum={this.state.applicantsNum}
-                jobCategory={this.props.match.params.category}
-                jobId={ this.props.match.params.id}
-              /> 
-    
+              <MainNav isAuthenticated={isAuthenticated}/> 
+               <div className={classes.root}>
+                <Grid container spacing={0} justify="center" alignItems="center">
+                    <Grid item xs={12} sm={12} md={8}>
+                      <ApplicantNavBar  jobId={jobId}  />                       
+                        <h4>Aplicanti: {applicantsNum}</h4>
+                        <CandidateCard candidate={applicants}/>
+                       {applicants.length > 0 ? <GetMoreButton onClick={getMoreApplicants}/> : null}
+                    </Grid>
+                </Grid>   
+              </div>     
           </div>
         )
       }
@@ -82,4 +102,4 @@ class EmployerDasboardContainer extends Component {
         
 
   
-export default EmployerDasboardContainer;
+export default withStyles(styles)(ApplicantsActive);

@@ -1,12 +1,31 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { NoJobFoundMsg } from '../../components/Utils/messages';
+import SearchJobForm from '../../components/Search/Forms/SearchJobForm';
+import JobCard from '../../components/Cards/JobCard';
+import GetMoreButton from '../../components/Buttons/getMoreButton'
 import axios from 'axios';
 import MainNav from '../../components/NavBars/MainNav/MainNav'
-import JobsSearchPage from '../../components/Search/Pages/JobSearchPage'
 
 
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    maxWidth: 1200,
+    marginTop: 0,
+    marginRight: 'auto',
+    marginBottom: 0,
+    marginLeft: 'auto',
+  },
+ 
+});
 
 
 const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
+
  class JobsPage extends Component {
   
     constructor(props){
@@ -150,28 +169,47 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
            }
               
             render() {  
+              const {classes} = this.props;
+              const {query, formErrors,jobs,location,isAuthenticated} = this.state;
+              const {handleSubmit,handleInputChange,getMoreJobs} = this;
+    
               return (
                 <div>
-                 <MainNav isAuthenticated={this.state.isAuthenticated}/> 
-               
-                <JobsSearchPage
-                   onSubmit={this.handleSubmit}
-                   handleInputChange = {this.handleInputChange}
-                   queryVal={this.state.query}
-                   errors={this.state.formErrors}
-                   jobs={this.state.jobs}
-                   getMoreJobs={this.getMoreJobs}
-                   locationVal={this.state.location}
-                   locations={cities}
+                 <MainNav isAuthenticated={isAuthenticated}/> 
+              
+                        <div className={classes.root} >
+                            <Grid container spacing={24}>
+                              <Grid item xs={12} sm={12} md={12}>
+                                <SearchJobForm
+                                  onSubmit={handleSubmit}
+                                  handleInputChange={handleInputChange}
+                                  queryVal={query}
+                                  locationVal={location}
+                                  errors={formErrors}
+                                  locations={cities}
+                                />
+                                
+                              </Grid>
+                            </Grid>
+                            <Grid container spacing={24}>
+                                {jobs.length > 0 ? <JobCard jobs={jobs} /> : <h1>{NoJobFoundMsg}</h1> }
+                            </Grid>
 
-                />
-
-                
-            </div>
-           )
-          }
-        }
+                            <Grid container spacing={24}>
+                              <Grid item xs={12} sm={12} md={12} >
+                                {jobs.length > 0 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
+                              </Grid>
+                            </Grid>
+                        </div>     
+                    </div>
+                    )
+                }
+              }
         
 
   
-export default JobsPage;
+JobsPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(JobsPage);

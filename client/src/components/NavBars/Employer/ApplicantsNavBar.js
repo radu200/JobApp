@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { LoginUrl }from '../../Utils/Paths/UrlPaths';
-import BrandName from '../../Utils/BrandName';
-import { SignUpUrlJobSeeker} from '../../Utils/Paths/UrlPaths';
 import { SignUpUrlEmployer} from '../../Utils/Paths/UrlPaths';
 
 const styles = {
@@ -41,15 +37,17 @@ const styles = {
 };
 
 function applicantsNavBar(props) {
-  const { classes,applicantsNum } = props;
+  const { classes,jobId} = props;
+  const applicantActive = `/job-application/applicants/active/${jobId}`
+  const applicantRejected = `/job-application/applicants/rejected/${jobId}`
+  const applicantShortList = `/job-application/applicants/shortlist/${jobId}`
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.AppBar} >
         <Toolbar className={classes.toolbar} >
-
-          <Button color="inherit"><a  className={classes.links}  href={SignUpUrlEmployer}><p>{applicantsNum}</p>Aplicanti</a></Button>
-          <Button color="inherit"><a  className={classes.links}  href={SignUpUrlEmployer}><p>0</p> lista scurta</a></Button>
-          <Button color="inherit"><a  className={classes.links}  href={SignUpUrlEmployer}><p>0</p>Respins</a></Button>
+          <Button color="inherit"><a  className={classes.links}  href={applicantActive}>Aplicanti</a></Button>
+          <Button color="inherit"><a  className={classes.links}  href={applicantShortList}>Lista Scurta</a></Button>
+          <Button color="inherit"><a  className={classes.links}  href={applicantRejected}>Respins</a></Button>
         </Toolbar>
       </AppBar>
     </div>

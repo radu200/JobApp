@@ -10,10 +10,7 @@ import Menu from '@material-ui/core/Menu';
 import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import MainSideNav from './MainSideNav'
@@ -70,9 +67,7 @@ const styles = theme => ({
 });
 
 class MainNavBar extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
@@ -116,6 +111,7 @@ class MainNavBar extends React.Component {
         <MenuItem  button component="a"  href={Settings}> 
           <p>Setari</p>
         </MenuItem>
+        <Divider/>
          <MenuItem  button component="a"  href={LogOut}> 
           <p>Iesire</p>
         </MenuItem>

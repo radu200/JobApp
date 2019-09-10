@@ -25,6 +25,7 @@ class ApplicantsActive extends Component {
     super(props) 
     this.state = {
       applicants:[],
+      applicantsNum:0,
       isAuthenticated:'',
       offset:0,
       url:''
@@ -37,7 +38,7 @@ class ApplicantsActive extends Component {
     
     const jobId = this.props.match.params.id;
 
-        const url = `/api/job-application/applicants/rejected/${jobId}`
+        const url = `/api/job-application/applicants/shortlist/${jobId}`
         const {offset} = this.state;
         try {
             const response = await axios.post(url,{
@@ -49,6 +50,7 @@ class ApplicantsActive extends Component {
              this.setState({
                applicants:data.applicants,
                isAuthenticated:data.auth,
+               applicantsNum:data.applicants.length,
                url,
                offset:offset + 6
              })
@@ -78,17 +80,17 @@ class ApplicantsActive extends Component {
           
         render() {  
           const { classes} = this.props;
-          const { applicants, isAuthenticated}  = this.state;
+          const  {applicants, isAuthenticated}  = this.state;
           const jobId = this.props.match.params.id; 
           const {getMoreApplicants} = this;
-          const applicantsNum = applicants.length;
+          const applicantsNum = applicants.length
           return (
             <div>
               <MainNav isAuthenticated={isAuthenticated}/> 
                <div className={classes.root}>
                 <Grid container spacing={0} justify="center" alignItems="center">
                     <Grid item xs={12} sm={12} md={8}>
-                      <ApplicantNavBar  jobId={jobId}  />
+                      <ApplicantNavBar jobId={jobId}  />
                       <h4>Aplicanti: {applicantsNum}</h4>
                         <CandidateCard candidate={applicants}/>
                        {applicants.length > 0 ? <GetMoreButton onClick={getMoreApplicants}/> : null}

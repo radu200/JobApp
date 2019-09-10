@@ -162,9 +162,7 @@ class CandidatesPage extends Component {
                       if(data.auth === 'employer'){
                       this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset})   
                    
-                     } else {
-                      this.setState({isAuthenticated:''})
-                    }
+                     }
   
                     } catch (error) {
                       console.error(error);
@@ -201,18 +199,19 @@ class CandidatesPage extends Component {
 
           render() {
             const { classes} = this.props
-            const { category,experienceMax, candidates, formErrors} = this.state
+            const { category,experienceMax, candidates, formErrors,isAuthenticated} = this.state
+            const { handleSubmit,handleInputChange,handleExperienceValue,getMoreCandidates} = this;
 
             return (
               <div>
-                <MainNav isAuthenticated={this.state.isAuthenticated}/>
+                <MainNav isAuthenticated={isAuthenticated}/>
                 <div className={classes.root} >
                   <Grid container spacing={24}>
                     <Grid item xs={12} sm={12} md={6}>  
                         <SearchCandidateForm
-                          onSubmit={this.handleSubmit}
-                          handleInputChange={this.handleInputChange}
-                          handleExperienceValue={this.handleExperienceValue}
+                          onSubmit={handleSubmit}
+                          handleInputChange={handleInputChange}
+                          handleExperienceValue={handleExperienceValue}
                           categoryVal={category}
                           experienceVal={experienceMax}
                           errors={formErrors}
@@ -228,7 +227,7 @@ class CandidatesPage extends Component {
 
                   <Grid container spacing={24}>
                     <Grid item xs={12} sm={12} md={6}>
-                      {candidates.length > 0 ? <GetMoreButton onClick={this.getMoreCandidates}/> : null}
+                      {candidates.length > 0 ? <GetMoreButton onClick={getMoreCandidates}/> : null}
                   </Grid>
                   </Grid>
                 </div>
