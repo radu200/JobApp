@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import CandidateCard from '../../components/Cards/CandidateCard';
-import ApplicantNavBar from '../../components/NavBars/Employer/ApplicantsNavBar';
+import JobCard from '../../components/Cards/JobApplication_JobCard';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core';
 import MainNav from '../../components/NavBars/MainNav/MainNav';
@@ -24,7 +23,7 @@ class ApplicantsActive extends Component {
   constructor(props){
     super(props) 
     this.state = {
-      applicants:[],
+      jobs:[],
       isAuthenticated:'',
       offset:0,
       url:''
@@ -35,22 +34,23 @@ class ApplicantsActive extends Component {
   
   async componentDidMount(){
     
-    const jobId = this.props.match.params.id;
 
-        const url = `/api/job-application/applicants/rejected/${jobId}`
+        const url = `/api/job-application/jobseeker`
+       
         const {offset} = this.state;
+       
         try {
             const response = await axios.post(url,{
               offset:offset
             });
             
              const data = response.data
-             if(data.auth === 'employer'){
+             if(data.auth === 'jobseeker'){
              this.setState({
-               applicants:data.applicants,
+               jobs:data.jobs,
                isAuthenticated:data.auth,
                url,
-               offset:offset + 6
+               offset:offset + 12
              })
            }
 
@@ -62,15 +62,15 @@ class ApplicantsActive extends Component {
     }
           
             
-    getMoreApplicants =  async () => {
-      const { url,offset,applicants} = this.state
+    getMoreJobs =  async () => {
+      const { url,offset,jobs} = this.state
         try {
           const res = await axios.post(url,{
               offset: offset 
           });
-          
-           const data = res.data;
-           this.setState({applicants:[...applicants, ...data.applicants], offset:offset + 6})
+          const data = res.data;
+     
+           this.setState({jobs:[...jobs, ...data.jobs], offset:offset + 12})
         } catch (error) {
           console.error(error);
         }
@@ -78,20 +78,17 @@ class ApplicantsActive extends Component {
           
         render() {  
           const { classes} = this.props;
-          const { applicants, isAuthenticated}  = this.state;
-          const jobId = this.props.match.params.id; 
-          const {getMoreApplicants} = this;
-          const applicantsNum = applicants.length;
+          const { jobs, isAuthenticated}  = this.state;
+          const {getMoreJobs} = this;
           return (
             <div>
               <MainNav isAuthenticated={isAuthenticated}/> 
                <div className={classes.root}>
                 <Grid container spacing={0} justify="center" alignItems="center">
                     <Grid item xs={12} sm={12} md={8}>
-                      <ApplicantNavBar  jobId={jobId}  />
-                       <h4>Aplicanti: {applicantsNum}</h4>
-                        <CandidateCard candidate={applicants}/>
-                       {applicants.length >= 6 ? <GetMoreButton onClick={getMoreApplicants}/> : null}
+                      <h3>Joburi Aplicate</h3>
+                        <JobCard job={jobs}/>
+                        {jobs.length >= 12 ? <GetMoreButton onClick={getMoreJobs}/> : null} 
                     </Grid>
                 </Grid>   
               </div>     

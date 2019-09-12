@@ -154,12 +154,21 @@ module.exports.JobApplicationApplicantsRejected= async(req,res) => {
 //list of jobs that jobseeker applied, appear on jobseeker profile
 module.exports.JobApplicationJobSeeker = async (req,res) => {
        
+    const userType = req.user.type;
+    const offset = req.body.offset;
+    const limit = 12;
     try {
 
         const db = await dbPromise
       
-         const [results] = await db.execute('select job_application.id as appliedJobsId, job_application.job_id, job_application.jobseeker_id , jobs.* from  job_application left join jobs on job_application.job_id = jobs.id where job_application.jobseeker_id = ?',[req.user.id]);
-         res.json(results)
+         const [results] = await db.execute(`select job_application.id as appliedJobsId, job_application.job_id, job_application.jobseeker_id ,jobs.id, jobs.category,jobs.position,jobs.image,jobs.employment_type,jobs.city from  job_application LEFT JOIN jobs on job_application.job_id = jobs.id where job_application.jobseeker_id = ? LIMIT ${limit} OFFSET ${offset} `,[req.user.id]);
+         
+         if(userType === 'jobseeker' ){
+             res.json({
+                  'jobs':results,
+                   'auth':'jobseeker'
+                }) 
+         } 
 
     } catch (err) {
         console.log(err)
@@ -169,27 +178,31 @@ module.exports.JobApplicationJobSeeker = async (req,res) => {
 module.exports.getJobsPage = async (req, res, next) => {
     
     const offset = req.body.offset;
-    
+    const limit = 12
     try {
-       
+        
         const db = await dbPromise
-        const [jobs] = await db.execute(`select * from jobs limit 12 offset ${offset} `);
+        const [jobs] = await db.execute(`SELECT * FROM jobs LIMIT ${limit} OFFSET ${offset} `);
         
-        if(!req.isAuthenticated() ){
-            res.json({'jobs':jobs,'auth':'notAuthenticated'})
-       
-        }  else  if (req.user.type === 'jobseeker') {
-            res.json({'jobs':jobs,'auth':'jobseeker' })
+        if(req.isAuthenticated() ){
+            const userType = req.user.type;
 
-        } else if(req.user.type === 'employer'){
-               res.json({ 'jobs':jobs , 'auth':'employer'})
+            if (userType === 'jobseeker') {
+                res.json({'jobs':jobs,'auth':'jobseeker' })
+           
+            } else if(userType === 'employer'){
+                    res.json({ 'jobs':jobs , 'auth':'employer'}) }
+         
+        } else {
         
-        } 
+            res.json({'jobs':jobs,'auth':'notAuth' })
+
+          }
         
-    } catch (err) {
-        console.log(err)
-    }
-};
+        } catch (err) {
+            console.log(err)
+        }
+   };
 
 
 
@@ -212,10 +225,6 @@ module.exports.postAddJobs = async (req, res, next) => {
     const salary = req.body.salary;
     const experience = req.body.experience;
     const language = req.body.language;
-
-
-
-
 
 
     req.checkBody('category', 'Alege Categoria').notEmpty();
@@ -256,6 +265,7 @@ module.exports.postAddJobs = async (req, res, next) => {
 
     try {
         const db = await dbPromise;
+       
         if (req.file) {
             var job_image = '/uploads/jobs/' + req.file.filename;
             //resize image

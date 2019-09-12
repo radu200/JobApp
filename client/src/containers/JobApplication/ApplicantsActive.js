@@ -91,7 +91,7 @@ class ApplicantsActive extends Component {
                       <ApplicantNavBar  jobId={jobId}  />                       
                         <h4>Aplicanti: {applicantsNum}</h4>
                         <CandidateCard candidate={applicants}/>
-                       {applicants.length > 0 ? <GetMoreButton onClick={getMoreApplicants}/> : null}
+                       {applicants.length >= 6 ? <GetMoreButton onClick={getMoreApplicants}/> : null}
                     </Grid>
                 </Grid>   
               </div>     

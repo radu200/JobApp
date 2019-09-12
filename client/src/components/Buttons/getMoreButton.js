@@ -6,7 +6,8 @@ import { MoreMsg} from '.././Utils/messages';
 
 const styles = theme => ({
     button: {
-      width:"100%"
+      width:"100%",
+      marginBottom:50
     },
     input: {
       display: 'none',

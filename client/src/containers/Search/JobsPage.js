@@ -32,7 +32,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
         super(props) 
          this.state = {
             jobs:[],
-            offset:12,
+            offset:0,
             query:'',
             location:'',
             url:'',
@@ -87,9 +87,10 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
     async componentDidMount(){
      
         const url = '/api/jobs'
+        const {offset} = this.state;
         try {
             const response = await axios.post(url,{
-            offset:0
+            offset:offset
             });
             
              const data = response.data;
@@ -97,7 +98,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
              if(data.auth === 'employer'){
                this.setState({jobs:[],isAuthenticated:data.auth,})
               } else {
-                this.setState({jobs:data.jobs,isAuthenticated:data.auth,url})
+                this.setState({jobs:data.jobs,isAuthenticated:data.auth,url, offset:offset + 12})
             }
             
           } catch (error) {
@@ -107,16 +108,16 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
     }
           
             
-            getMoreJobs =  async () => {
-              const { url } = this.state
+           getMoreJobs =  async () => {
+              const { url,offset} = this.state
             try {
               const response = await axios.post(url,{
-                  offset: this.state.offset 
+                  offset:offset 
               });
             
               const data = response.data;
 
-              this.setState({jobs:[...this.state.jobs, ...data.jobs], offset:this.state.offset + 12})
+              this.setState({jobs:[...this.state.jobs, ...data.jobs], offset:offset + 12})
 
             } catch (error) {
               console.error(error);
@@ -136,76 +137,75 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
 
       //submit form  
        async handleSubmit(event) {
-            event.preventDefault();
+            
+        event.preventDefault();
 
+        const isValid = this.validate();
 
-            const isValid = this.validate();
+        if(isValid){
+              const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`
+              const offset = 12;
+              try {
+                const response = await axios.post(url,{
+                  offset:0
+                })
+                  const data = response.data
+                  
+                  this.setState({jobs:[...data.jobs],url, offset})
 
-              if(isValid){
-                    const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`
-                    const offset = 12;
-                    try {
-                      const response = await axios.post(url,{
-                        offset:0
-                      })
-                        const data = response.data
-                       
-                        this.setState({jobs:[...data.jobs],url, offset})
-
-                    } catch (error) {
-                      console.error(error);
-                    }
-               
-
-              this.setState(prevState => ({
-                formErrors:{
-                  ...prevState.formErrors,
-                  locationError:'',
-                  searchError:''
-                }
-              }))
-
-            }
-           }
-              
-            render() {  
-              const {classes} = this.props;
-              const {query, formErrors,jobs,location,isAuthenticated} = this.state;
-              const {handleSubmit,handleInputChange,getMoreJobs} = this;
-    
-              return (
-                <div>
-                 <MainNav isAuthenticated={isAuthenticated}/> 
-              
-                        <div className={classes.root} >
-                            <Grid container spacing={24}>
-                              <Grid item xs={12} sm={12} md={12}>
-                                <SearchJobForm
-                                  onSubmit={handleSubmit}
-                                  handleInputChange={handleInputChange}
-                                  queryVal={query}
-                                  locationVal={location}
-                                  errors={formErrors}
-                                  locations={cities}
-                                />
-                                
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={24}>
-                                {jobs.length > 0 ? <JobCard jobs={jobs} /> : <h1>{NoJobFoundMsg}</h1> }
-                            </Grid>
-
-                            <Grid container spacing={24}>
-                              <Grid item xs={12} sm={12} md={12} >
-                                {jobs.length > 0 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
-                              </Grid>
-                            </Grid>
-                        </div>     
-                    </div>
-                    )
-                }
+              } catch (error) {
+                console.error(error);
               }
-        
+          
+            this.setState(prevState => ({
+              formErrors:{
+                ...prevState.formErrors,
+                locationError:'',
+                searchError:''
+              }
+            }))
+
+        }
+    }
+              
+  render() {  
+    const {classes} = this.props;
+    const {query, formErrors,jobs,location,isAuthenticated} = this.state;
+    const {handleSubmit,handleInputChange,getMoreJobs} = this;
+
+    return (
+      <div>
+        <MainNav isAuthenticated={isAuthenticated}/> 
+    
+              <div className={classes.root} >
+                  <Grid container spacing={24}>
+                    <Grid item xs={12} sm={12} md={12}>
+                      <SearchJobForm
+                        onSubmit={handleSubmit}
+                        handleInputChange={handleInputChange}
+                        queryVal={query}
+                        locationVal={location}
+                        errors={formErrors}
+                        locations={cities}
+                      />
+                      
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={24}>
+                      {jobs.length > 0 ? <JobCard jobs={jobs} /> : <h1>{NoJobFoundMsg}</h1> }
+                  </Grid>
+
+                  <Grid container spacing={24}>
+                    <Grid item xs={12} sm={12} md={12} >
+                      {jobs.length >= 12 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
+                    </Grid>
+                  </Grid>
+              </div>     
+          </div>
+          )
+      }
+    }
+
 
   
 JobsPage.propTypes = {

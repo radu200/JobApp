@@ -61,7 +61,7 @@ module.exports.searchCandidates = async(req,res) => {
     const experienceMin = 0;
     const experienceMax = 50;
     const offset = req.body.offset;
-    const limit = 6;
+    const limit = 12;
   
   
     try{
@@ -82,11 +82,9 @@ module.exports.searchCandidates = async(req,res) => {
        
         if( req.user.type === 'employer' ){
             res.json({'candidates':results, 'auth':'employer' })
-           }  
-        }
+           } else{res.json({'candidates':[], 'auth':'notAuth' })}
        
-      
-     
+      }
       
   } catch(err){
       res.json('O errore a avut loc')

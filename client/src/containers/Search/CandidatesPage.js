@@ -29,7 +29,7 @@ class CandidatesPage extends Component {
         super(props) 
          this.state = {
             candidates:[],
-            offset:2,
+            offset:0,
             category:'',
             location:'',
             experienceMax:1,
@@ -53,22 +53,23 @@ class CandidatesPage extends Component {
 
        async  componentDidMount () {
           const searchVal = {location:'Chisinau',category:'Frumusete si Bunastare' ,experienceMax:10}
-         
+
           const {location, category ,experienceMax} = searchVal;
+          const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
+          const {offset} = this.state;
 
             
-            const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
-            const offset = 2;
+
             try {
-            
+
               const response = await axios.post(url,{
-                offset:0
+                offset:offset
               })
               
                const data = response.data
           
                if(data.auth === 'employer'){
-                this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset})   
+                this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset:offset + 12})   
               } else {
                 this.setState({isAuthenticated:''})
               }
@@ -79,6 +80,19 @@ class CandidatesPage extends Component {
           
           
         }
+        1
+        getMoreCandidates =  async () => {
+          const { url,offset } = this.state
+            try {
+              const response = await axios.post(url,{
+                  offset:offset 
+              });
+            
+              this.setState({candidates:[...this.state.candidates, ...response.data.candidates], offset:offset + 12})
+            } catch (error) {
+              console.error(error);
+            }
+          }  
     
     //   //form validation
         validate = () => {
@@ -147,55 +161,44 @@ class CandidatesPage extends Component {
              const { location, category, experienceMax} = this.state;
         
 
-            if(isValid){
-                 
-                    const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
-                    const offset = 2;
-                    try {
-
-                      const response = await axios.post(url,{
-                        offset:0
-                      })
-                      const data = response.data
+        if(isValid){
           
-                        
-                      if(data.auth === 'employer'){
-                      this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset})   
-                   
-                     }
-  
-                    } catch (error) {
-                      console.error(error);
-                    }
-
-                  
-                  this.setState(prevState => ({
-                    formErrors:{
-                      ...prevState.formErrors,
-                      locationError:'',
-                      categoryError:'',
-                    
-                    }
-                  }))
-
-                }
-               
-          }
-
-
-                    
-        getMoreCandidates =  async () => {
-          const { url } = this.state
+            const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
+            const offset = 12
             try {
+
               const response = await axios.post(url,{
-                  offset: this.state.offset 
-              });
+                offset:0
+              })
+              const data = response.data
+  
+                
+              if(data.auth === 'employer'){
+              this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset:offset+12})   
             
-              this.setState({candidates:[...this.state.candidates, ...response.data.candidates], offset:this.state.offset + 2})
+              }
+
             } catch (error) {
               console.error(error);
             }
-          }  
+
+          
+          this.setState(prevState => ({
+            formErrors:{
+              ...prevState.formErrors,
+              locationError:'',
+              categoryError:'',
+            
+            }
+          }))
+
+        }
+            
+    }
+
+
+                    
+  
 
           render() {
             const { classes} = this.props
@@ -227,7 +230,7 @@ class CandidatesPage extends Component {
 
                   <Grid container spacing={24}>
                     <Grid item xs={12} sm={12} md={6}>
-                      {candidates.length > 0 ? <GetMoreButton onClick={getMoreCandidates}/> : null}
+                      {candidates.length >= 12 ? <GetMoreButton onClick={getMoreCandidates}/> : null}
                   </Grid>
                   </Grid>
                 </div>

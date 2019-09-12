@@ -127,7 +127,7 @@ class MainNavBar extends React.Component {
         onClose={this.handleMenuClose}
       >
        { isAuthenticated === 'employer' ||  isAuthenticated === 'jobseeker' ?
-       <>
+       <div>
        <MenuItem  button component="a"  href={Profile}> 
           <p>Profil</p>
         </MenuItem>
@@ -137,9 +137,9 @@ class MainNavBar extends React.Component {
          <MenuItem  button component="a"  href={LogOut}> 
           <p>Iesire</p>
         </MenuItem>
-        </>
+        </div>
          :
-        <>   
+        <div>   
         
         <MenuItem  button component="a"  href={SignUpUrlEmployer}> 
          <p>Angajeaza</p>
@@ -150,7 +150,7 @@ class MainNavBar extends React.Component {
         <MenuItem  button component="a" href={LoginUrl}> 
          <p>Logare</p>
        </MenuItem> 
-       </>}
+       </div>}
       </Menu>
     );
 
@@ -168,7 +168,7 @@ class MainNavBar extends React.Component {
             <div className={classes.sectionDesktop}>
              
               { isAuthenticated === 'employer' ||  isAuthenticated === 'jobseeker' ?
-                <>
+              <div>
                 <IconButton color="inherit">
                     <Badge badgeContent={4} color="secondary">
                       <MailIcon />
@@ -184,7 +184,7 @@ class MainNavBar extends React.Component {
                     <AccountCircle />
                   </IconButton>
                   {renderMenu}
-                  </> :
+                </div> :
 
                   <>
                   <Button color="inherit"><a  className={classes.logIn}  href={SignUpUrlEmployer}>Angajeaza</a></Button>
