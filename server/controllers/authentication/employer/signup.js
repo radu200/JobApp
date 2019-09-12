@@ -34,8 +34,8 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
     const first_name = req.body.first_name;
     const last_name = req.body.last_name
     const siteRules = req.body.terms_conditions
-
-
+    const city = req.body.city
+   console.log(city)
 
     // //validation
     req.checkBody('email', 'E-mailul nu este valid').isEmail();
@@ -111,8 +111,8 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
             email_status: 'unverified',
             ip_adress:req.ip,
             software:req.headers['user-agent'],
-            preferred_lang:req.acceptsLanguages().toString()
-
+            preferred_lang:req.acceptsLanguages().toString(),
+            employer_location:city
 
         }
         

@@ -34,6 +34,7 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
     const first_name = req.body.first_name;
     const last_name = req.body.last_name
     const siteRules = req.body.terms_conditions
+    const city = req.body.city
 
 
     //validation
@@ -103,7 +104,8 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
               email_status: 'unverified',
               ip_adress:req.ip,
               software:req.headers['user-agent'],
-              preferred_lang:req.acceptsLanguages().toString()
+              preferred_lang:req.acceptsLanguages().toString(),
+              job_seeker_location:city
           }
           
           await db.query('insert into users set ?', user)

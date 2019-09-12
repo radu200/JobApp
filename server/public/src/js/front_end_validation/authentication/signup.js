@@ -10,6 +10,8 @@ $('.password').keyup(function(){
        $('#cmd-employer').html("Parolele nu se potrivesc")
     }
 })
+
+
 $('#signup-employer').on('submit', function (event) {
 
 if (grecaptcha.getResponse() == ""){

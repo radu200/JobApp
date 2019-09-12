@@ -23,8 +23,7 @@
                 <div class="input-field">
                     <select name="availabilityJobseeker">
                         {{#if result.job_seeker_availability}}
-                        <option value="{{result.job_seeker_availability}}" selected>{{result.job_seeker_availability}}
-                        </option>
+                        <option value="{{result.job_seeker_availability}}" selected>{{result.job_seeker_availability}} </option>
                         {{else}}
                         <option value="" disabled selected>Selecteaza disponibilitatea
                             </option>
@@ -72,9 +71,20 @@
                          
             <h5 class="center"><b>Limbi Vorbite</b> </h5>
               <div class="col s12 m12 l12">
-                <div class="input-field">
+                  <div class="input-field">
+                   <select id="language" name="language" multiple>
+                        {{#if result.job_seeker_languages}} 
+                                <option  value="{{result.job_seeker_languages}}" selected>{{result.job_seeker_languages}}</option>
+                                {{>languages}}
+                            {{else}}
+                                <option value="" disabled select>Selecteaza Limba</option>
+                                {{>languages}}
+                            {{/if}}
+                        </select>
+                    </div>
+                {{!-- <div class="input-field">
                     <input type="text" placeholder="Exemplue:Engleza, Franceza, Germana, Spaniola" maxlength="100" name="language" value="{{result.job_seeker_languages}}">
-                </div>
+                </div> --}}
             </div>
            
             <h5 class="center"><b>Educatie</b> </h5>

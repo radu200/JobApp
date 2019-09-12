@@ -265,9 +265,10 @@ module.exports.postAddJobs = async (req, res, next) => {
 
     try {
         const db = await dbPromise;
-       
-        if (req.file) {
-            var job_image = '/uploads/jobs/' + req.file.filename;
+        let  lang;
+        let job_image; 
+         if (req.file) {
+             job_image = '/uploads/jobs/' + req.file.filename;
             //resize image
             await sharp(req.file.path)
                 .resize(200, 157)
@@ -281,10 +282,10 @@ module.exports.postAddJobs = async (req, res, next) => {
         }
 
 
-
+      
 
         if (language) {
-            var lang = language.toString();
+             lang = language.toString();
         }
 
         let jobs = {
@@ -346,8 +347,8 @@ module.exports.getJobImageEdit = async (req, res, next) => {
 module.exports.postJobImageEdit = async (req, res, next) => {
 
     try {
+   
         const db = await dbPromise;
-
         const [userDetails] = await db.execute(`select id, image from jobs where id = ?`, [req.params.id]);
 
         if (req.file) {

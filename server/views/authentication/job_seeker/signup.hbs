@@ -5,7 +5,7 @@
     <div class="col s12  m12 l4 offset-l4">
       <div class="card ">
         <div class="card-content">
-          <h4 class="card-title center-align">Înregistrare</h4>
+          <h4 class="card-title center-align">Înregistrare Anagajat</h4>
           <form method="post" action="/api/signup/jobseeker" id="signup-jobseeker">
             <div class="row">
               <div class="input-field col s12">
@@ -41,11 +41,20 @@
               <div class="input-field col s12">
                 <i class="material-icons prefix">lock</i>
                   <input type="password" class="password" id="confirm-psw-jobseeker"  placeholder="Parola" name="confirm_password" oninvalid="this.setCustomValidity('Confirmati parola .Parola trebuie să aibă între 6 și 50 de caractere')" 
-                oninput="setCustomValidity('')"  minlength="6" maxlength="50"  required
+                oninput="setCustomValidity('')"  minlength="6" maxlength="50"  required="true"
                 />
               </div>
               <p class="center" id="cmd-jobseeker"></p>
             </div>
+            <div class="row">
+             <h4 class="card-title center-align">Alege Locatia curenta</h4>
+              <div class="input-field  col s12 ">
+                <i class="material-icons prefix">place</i>
+                  <select name="city"  >
+                      {{>locations}}
+                  </select>
+                </div>
+              </div>
 
             <p>
               <label>

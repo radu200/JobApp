@@ -11195,6 +11195,7 @@ $(document).ready(function () {
             $('#cmd-employer').html("Parolele nu se potrivesc");
         }
     });
+
     $('#signup-employer').on('submit', function (event) {
 
         if (grecaptcha.getResponse() == "") {
@@ -11473,106 +11474,9 @@ function abortHandlerImageEdit(event) {
   !*** ./public/src/js/jobs/jobs.js ***!
   \************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-// $.ajaxSetup({
-//     beforeSend: function (xhr) {
-//         xhr.setRequestHeader("jobs-list", "true");
-//     }
-// });
-$(document).ready(function () {
-    $.ajax({
-        url: '/jobs',
-        type: "GET",
-        dataType: 'json',
-        success: function success(data) {
-            var $output = $('.jobcontainer');
-            // $('#status').html( JSON.stringify(data.description))
-            var jobsNum = data.length;
-            $.each(data, function (index, job) {
-
-                if (job.image) {
-                    var jobImage = job.image;
-                } else {
-                    var jobImage = '/images/no_job_image.png';
-                }
-
-                if (job.salary) {
-                    var salary = job.salary + ' ' + 'LEI' + ' |';
-                } else {
-                    var salary = '';
-                }
-
-                if (job.start_time) {
-                    var startTime = job.startTime;
-                } else {
-                    var startTime = '';
-                }
-
-                $output.append('\n                                <div class="col s12 m6 l4">\n                                    <a href="/job/details/' + job.id + '" target="_blank" class="black-text">\n                                        <div class="card hoverable ">\n                                            <div class="card-image  ">\n                                             \n                                                <img src="' + jobImage + '" alt="">\n        \n                                                 <span class="card-title yellow-text text-lighten-1 start-time">' + startTime + '</span>\n                     \n                                            </div>\n\n                                            <div class="card-content card-content-jobs">\n                                                <p>\n                                                    <b>\n                                                   \n                                                        <span class="salary-card blue-text">' + salary + '  </span>\n                                                \n                                                        <span>' + job.employment_type + '</span>\n                                                    </b>\n                                                </p>\n\n                                                <p class="card-position"> <b>' + job.position + '</b> </p>\n                                                <p class="truncate description text-opacity">' + job.description + '</p>\n\n\n                                                <p class="text-opacity"><i class="material-icons">room</i>' + job.city + '</p>\n\n                                            </div>\n\n                                            <div class="card-action">\n                                                <a href="/job/details/' + job.id + '" class=" btn blue white-text text-lighten-1 waves-effect waves-light full-width-btn">\n                                                    Vezi Mai mult</a>\n\n                                            </div>\n                                        </div>\n                                 </div>\n                                </a>\n                           </div>\n                      ');
-            });
-
-            var page = 2;
-            $('#getMore').click(function () {
-                page += 2;
-                console.log('page', page);
-                $.ajax({
-                    url: '/job/get-more',
-                    type: "POST",
-                    data: { limit: page },
-                    success: function success(data) {
-                        console.log(data);
-                        // page += 3;
-                    }
-                });
-            });
-        }
-    });
-
-    $("#searchJobForm").submit(function (event) {
-
-        /* stop form from submitting normally */
-        event.preventDefault();
-        var $searchVal = $('#searchJobInput').val();
-
-        $.ajax({
-            url: '/search?searchJob=' + $searchVal,
-            type: "GET",
-            success: function success(data) {
-
-                var $output = $('.jobcontainer');
-                console.log('data', data.length);
-
-                $.each(data, function (index, job) {
-                    console.log('job', job);
-                    if (job.image) {
-                        var jobImage = job.image;
-                    } else {
-                        var jobImage = '/images/no_job_image.png';
-                    }
-
-                    if (job.salary) {
-                        var salary = job.salary + ' ' + 'LEI' + ' |';
-                    } else {
-                        var salary = '';
-                    }
-
-                    if (job.start_time) {
-                        var startTime = job.startTime;
-                    } else {
-                        var startTime = '';
-                    }
-
-                    $output.append('\n                                <div class="col s12 m6 l4">\n                                    <a href="/job/details/' + job.id + '" target="_blank" class="black-text">\n                                        <div class="card hoverable ">\n                                            <div class="card-image  ">\n                                             \n                                                <img src="' + jobImage + '" alt="">\n        \n                                                 <span class="card-title yellow-text text-lighten-1 start-time">' + startTime + '</span>\n                     \n                                            </div>\n\n                                            <div class="card-content card-content-jobs">\n                                                <p>\n                                                    <b>\n                                                   \n                                                        <span class="salary-card blue-text">' + salary + '  </span>\n                                                \n                                                        <span>' + job.employment_type + '</span>\n                                                    </b>\n                                                </p>\n\n                                                <p class="card-position"> <b>' + job.position + '</b> </p>\n                                                <p class="truncate description text-opacity">' + job.description + '</p>\n\n\n                                                <p class="text-opacity"><i class="material-icons">room</i>' + job.city + '</p>\n\n                                            </div>\n\n                                            <div class="card-action">\n                                                <a href="/job/details/' + job.id + '" class=" btn blue white-text text-lighten-1 waves-effect waves-light full-width-btn">\n                                                    Vezi Mai mult</a>\n\n                                            </div>\n                                        </div>\n                                 </div>\n                                </a>\n                           </div>\n                      ');
-                });
-            }
-
-        });
-    });
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/home/radu/Desktop/JobApp/server/public/src/js/jobs/jobs.js'");
 
 /***/ }),
 
@@ -11753,10 +11657,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   !*** ./public/src/js/profile/job_seeker_profile.js ***!
   \*****************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/home/radu/Desktop/JobApp/server/public/src/js/profile/job_seeker_profile.js'");
 
 /***/ }),
 

@@ -60,25 +60,36 @@ module.exports.postJobSeekerProfileInfoEdit = async (req, res, next) => {
         return res.redirect(urlPaths.back)
     }
 
-  
- 
-   let jobSeeker = {
-      first_name: firstName,
-      last_name: lastName,
-      job_seeker_employment_type: employmentType,
-      job_seeker_about_me: jobseekerDescription,
-      job_seeker_languages: language,
-      job_seeker_education: education,
-      job_seeker_location: location,
-      job_seeker_availability: availabilityJobseeker
-   }
+     
+
 
    try {
+      
       const db = await dbPromise;
-     
-       await db.query("UPDATE users SET ? WHERE id = ? ",[jobSeeker, req.user.id])
+      let lang;
   
+  
+    if (language) {
+         
+       lang = language.toString();
+
+   }
+      const  jobSeeker = {
+         first_name: firstName,
+         last_name: lastName,
+         job_seeker_employment_type: employmentType,
+         job_seeker_about_me: jobseekerDescription,
+         job_seeker_languages: lang,
+         job_seeker_education: education,
+         job_seeker_location: location,
+         job_seeker_availability: availabilityJobseeker
+      }
+
+         
+      await db.query("UPDATE users SET ? WHERE id = ? ",[jobSeeker, req.user.id])
+      
       res.redirect(urlPaths.profile)
+
 
    } catch (err) {
       console.log(err);
