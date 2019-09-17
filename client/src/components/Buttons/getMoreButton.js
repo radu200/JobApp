@@ -18,9 +18,12 @@ const styles = theme => ({
 
 const GetMoreButton =  ({onClick, classes}) => {
       
-        return (
-            <Button variant="outlined"  color="primary" className={classes.button} onClick={onClick}>{MoreMsg}</Button>
-            )
+        return ( <Button
+                  variant="outlined"  
+                  color="primary" 
+                  className={classes.button} 
+                  onClick={onClick}>{MoreMsg}</Button>
+               )
 }
 
 GetMoreButton.propTypes = {

@@ -25,7 +25,49 @@ const styles = theme => ({
 });
 
 
-const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
+const cities = [
+  'Chisinau', 
+  'Anenii Noi',
+  'Balti',
+  'Basarabeasca',
+  'Briceni' ,
+  'Călărași',
+  'Cantemir',
+  'Căușeni',
+  'Ceadîr-Lunga',
+  'Cimișlia',
+  'Comrat',
+  'Cricova',
+  'Criuleni',
+  'Dondușeni',
+  'Drochia',
+  'Dubăsari',
+  'Edineț',
+  'Fălești',
+  'Florești',
+  'Glodeni',
+  'Hîncești',
+  'Ialoveni',
+  'Leova',
+  'Leuseni',
+  'Nisporeni',
+  'Ocnița',
+  'Orhei',
+  'Rezina',
+  'Rîbnița',
+  'Rîșcani',
+  'Sîngerei',
+  'Șoldănești',
+  'Soroca',
+  'Ștefan Vodă',
+  'Taraclia',
+  'Telenești',
+  'Tighina',
+  'Tiraspol',
+  'Ungheni',
+  'Vadul lui Vodă',
+  'Vulcănești'
+];
 
  class JobsPage extends Component {
   

@@ -23,9 +23,68 @@ const styles = theme => ({
  
 });  
 
-const cities = ['Alege Orasul','chisinau', 'briceni','Balti', 'Cahul',"Ungheni" ];
+const cities = [
+    'Chisinau', 
+    'Anenii Noi',
+    'Balti',
+    'Basarabeasca',
+    'Briceni' ,
+    'Călărași',
+    'Cantemir',
+    'Căușeni',
+    'Ceadîr-Lunga',
+    'Cimișlia',
+    'Comrat',
+    'Cricova',
+    'Criuleni',
+    'Dondușeni',
+    'Drochia',
+    'Dubăsari',
+    'Edineț',
+    'Fălești',
+    'Florești',
+    'Glodeni',
+    'Hîncești',
+    'Ialoveni',
+    'Leova',
+    'Leuseni',
+    'Nisporeni',
+    'Ocnița',
+    'Orhei',
+    'Rezina',
+    'Rîbnița',
+    'Rîșcani',
+    'Sîngerei',
+    'Șoldănești',
+    'Soroca',
+    'Ștefan Vodă',
+    'Taraclia',
+    'Telenești',
+    'Tighina',
+    'Tiraspol',
+    'Ungheni',
+    'Vadul lui Vodă',
+    'Vulcănești'
+];
 
-const categories = ['Categoria','Frumusete si Bunastare', 'Barman', 'Sofer',"Vinzari", "alal" ];
+const categories = [
+    'Barista și Barman',
+    'Frumuseţe si Bunastare',
+    'Îngrijitorii și sănătatea',
+    'Bucatar',
+    'Curățenie',
+    'Constructie',
+    'Sofer',
+    'Tehnologie si Inginerie',
+    'Educaţie',
+    'Evenimente și promovare',
+    'Bucătărie portar',
+    'Oficiu si Administratre',
+    'Vanzari si Marketing',
+    'Ospătar sau servitoare',
+    'Depozit',
+    'Alte'
+  ];
 
 class CandidatesPage extends Component {
   
