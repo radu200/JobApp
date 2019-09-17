@@ -28,6 +28,7 @@ import {
 const styles = theme => ({
   root: {
     width: '100%',
+  
   },
   grow: {
     flexGrow: 1,
@@ -64,6 +65,9 @@ const styles = theme => ({
       display: 'none',
     },
   },
+  appBar:{
+    backgroundColor: '#2552C7'
+  }
 });
 
 class MainNavBar extends React.Component {
@@ -156,7 +160,7 @@ class MainNavBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar className={classes.appBar} position="static">
           <Toolbar>
             <MainSideNav isAuthenticated={isAuthenticated} />
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>

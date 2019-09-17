@@ -1,24 +1,24 @@
-<nav class="white">
+<nav class="blue white-text">
   <div class="container">
     <div class="nav-wrapper  lighten-4 ">
-      <a href="/" class="brand-logo red-text text-lighten-1">Logo</a>
+      <a href="/api/profile" class="brand-logo red-text text-lighten-1">Logo</a>
 
      {{#if isAuthenticated}}
       {{#if JobSeeker}}
       {{!--Navbar jobseeker --}}
        <ul id="nav-mobile" class=" right hide-on-med-and-down">
             <li>
-              <a href="/jobs" class="grey-text text-darken-4">Exploreaza joburi</a>
+              <a href="/jobs" >Exploreaza joburi</a>
             </li>
             <li>
-                <a href="/api/application" class="grey-text text-darken-4">Joburi aplicate</a>
+                <a href="/my/applications" >Joburi aplicate</a>
             </li>
             <li>
-                <a href="/api/chats" class="grey-text text-darken-4">Chats</a>
+                <a href="/api/chats" >Chats</a>
             </li>
             
               <li>
-                <a href="/api/profile" class="grey-text text-darken-4">Cv meu</a>
+                <a href="/api/profile" >Cv meu</a>
             </li>
 
            <ul id="nav-mobile" class=" right hide-on-med-and-down">
@@ -27,16 +27,13 @@
             <li>
               <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">  
                  
-                  <span class="black-text">Mai mult</span> 
+                  <span class="white-text">Mai mult</span> 
                     
-                  <i class="material-icons right black-text">arrow_drop_down</i>
+                  <i class="material-icons right white-text">arrow_drop_down</i>
               </a>
             </li>
             
             <ul id="moreNavBar" class="dropdown-content">
-              <li>
-                  <a href="#!">Ajutor</a>
-              </li>
               <li>
                   <a href="/api/settings">Setari</a>
               </li>
@@ -58,17 +55,17 @@
       {{#if Employer}}
         <ul id="nav-mobile" class=" right hide-on-med-and-down">
         <li>
-              <a href="/api/my-jobs" class="grey-text text-darken-4"> Joburile Mele</a>
+              <a href="/api/my-jobs" > Joburile Mele</a>
           </li>
           <li>
-              <a href="/api/chats" class="grey-text text-darken-4">Chats</a>
+              <a href="/api/chats" >Chats</a>
           </li>
           <li>
-              <a href="/search-candidate" class="grey-text text-darken-4">Cauta Candidati</a>
+              <a href="/search-candidate" >Cauta Candidati</a>
           </li>
           
           <li>
-              <a href="/api/profile" class="grey-text text-darken-4">Compania mea</a>
+              <a href="/api/profile" >Compania mea</a>
           </li>
 
         <ul id="nav-mobile" class=" right hide-on-med-and-down">
@@ -77,16 +74,14 @@
         <li>
           <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">  
               
-              <span class="black-text">Mai mult</span> 
+              <span class="white-text">Mai mult</span> 
                 
-              <i class="material-icons right black-text">arrow_drop_down</i>
+              <i class="material-icons right white-text">arrow_drop_down</i>
           </a>
         </li>
         
-        <ul id="moreNavBar" class="dropdown-content">
-          <li>
-              <a href="#!">Ajutor</a>
-          </li>
+        <ul id="moreNavBar" class="dropdown-content ">
+
           <li>
               <a href="/api/settings">Setari</a>
           </li>
@@ -106,13 +101,13 @@
       {{!-- navbar not authenticated--}}
       <ul id="nav-mobile" class=" right hide-on-med-and-down">
         <li>
-          <a href="/jobs" class="grey-text text-darken-4">Exploreaza joburi</a>
+          <a href="/jobs" >Exploreaza joburi</a>
         </li>
         <li>
-          <a href="/api/signup/employer" class="grey-text text-darken-4">Angajeaza</a>
+          <a href="/api/signup/employer" >Angajeaza</a>
         </li>
         <li>
-          <a href="/api/signup/jobseeker" class="grey-text text-darken-4">Creaza Cv</a>
+          <a href="/api/signup/jobseeker" >Creaza Cv</a>
         </li>
         <li>
           <a href="/api/login" class="waves-effect waves-light  btn ">Intra</a>
@@ -135,17 +130,17 @@
           <div class="divider"></div>
       </li>
       <li>
-          <a href="/jobs" class="grey-text text-darken-4">Exploreaza joburi</a>
+          <a href="/jobs" >Exploreaza joburi</a>
       </li>
       <li>
-          <a href="/api/application" class="grey-text text-darken-4">Joburi aplicate</a>
+          <a href="/api/application" >Joburi aplicate</a>
       </li>
       <li>
-          <a href="/api/chats" class="grey-text text-darken-4">Chats</a>
+          <a href="/api/chats" >Chats</a>
       </li>
       
           <li>
-          <a href="/api/profile" class="grey-text text-darken-4">Cv meu</a>
+          <a href="/api/profile" >Cv meu</a>
       </li>
       
 
@@ -159,9 +154,6 @@
       </li>
 
       <ul id="moreSideNav" class="dropdown-content">
-      <li>
-          <a href="/api/help">Ajutor</a>
-      </li>
       <li>
           <a href="/api/settings">Setari</a>
       </li>
@@ -183,17 +175,17 @@
         <div class="divider"></div>
     </li>
     <li>
-        <a href="/api/my-jobs" class="grey-text text-darken-4">Joburile Mele</a>
+        <a href="/api/my-jobs" >Joburile Mele</a>
     </li>
     <li>
-        <a href="/api/Chats" class="grey-text text-darken-4">Chats</a>
+        <a href="/api/Chats" >Chats</a>
     </li>
     <li>
-        <a href="/api/candidate_search" class="grey-text text-darken-4">Cauta Candidati</a>
+        <a href="/api/candidate_search" >Cauta Candidati</a>
     </li>
     
         <li>
-        <a href="/api/profile" class="grey-text text-darken-4">Compania mea</a>
+        <a href="/api/profile" >Compania mea</a>
     </li>
   <!--dropdown-->
     <li>
@@ -203,9 +195,6 @@
     </li>
 
      <ul id="moreSideNav" class="dropdown-content">
-        <li>
-            <a href="/api/help">Ajutor</a>
-        </li>
         <li>
             <a href="/api/settings">Setari</a>
         </li>
@@ -232,13 +221,13 @@
       <a href="#!">Salut numele</a>
     </li>
     <li>
-      <a href="/jobs" class="grey-text text-darken-4">Exploreaza joburi</a>
+      <a href="/jobs" >Exploreaza joburi</a>
     </li>
     <li>
-      <a href="/api/my-jobs" class="grey-text text-darken-4">Angajeaza</a>
+      <a href="/api/my-jobs" >Angajeaza</a>
     </li>
     <li>
-      <a href="/api/chat" class="grey-text text-darken-4">Creaza Cv</a>
+      <a href="/api/chat" >Creaza Cv</a>
     </li>
     <li>
       <a href="/api/login" class="waves-effect waves-light  btn ">Intra</a>

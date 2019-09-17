@@ -35,7 +35,6 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
     const last_name = req.body.last_name
     const siteRules = req.body.terms_conditions
     const city = req.body.city
-   console.log(city)
 
     // //validation
     req.checkBody('email', 'E-mailul nu este valid').isEmail();

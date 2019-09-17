@@ -93,6 +93,7 @@ class ApplicantsActive extends Component {
                         <CandidateCard candidate={applicants}/>
                        {applicants.length >= 6 ? <GetMoreButton onClick={getMoreApplicants}/> : null}
                     </Grid>
+              
                 </Grid>   
               </div>     
           </div>

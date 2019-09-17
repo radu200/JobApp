@@ -53,7 +53,7 @@ const JobCard = ({jobs,classes}) => {
                     null
                   )}
                   <CardContent>
-                  <Typography    gutterBottom component="p" color="primary">
+                    <Typography    gutterBottom component="p" color="primary">
                        {job.salary ? `${job.salary} ${SalaryCurrency}` : null}
                     </Typography>
                     <Typography component="p">
@@ -72,7 +72,8 @@ const JobCard = ({jobs,classes}) => {
                           {job.city}
                     </Typography>
                   </CardContent>
-                </CardActionArea>
+              
+                 </CardActionArea>
                     <CardActions>
                     <Button size="small" color="primary">
                         <a className={classes.JobDetails} href={jobDetailPath}>{MoreMsg}</a>

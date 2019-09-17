@@ -17,7 +17,7 @@ module.exports.getEmployerProfileInfoEdit =  async (req, res, next) => {
 
     try {
         const db = await dbPromise;
-        const [userDetails] =  await db.execute('select id, first_name, last_name from  where id = ?', [req.user.id]);
+        const [userDetails] =  await db.execute('select id, first_name, last_name from users where id = ?', [req.user.id]);
        
         res.render('profile/employer/employer_profile_edit',{
             'result':userDetails[0]
@@ -48,7 +48,7 @@ module.exports.getEmployerProfileInfoEdit =  async (req, res, next) => {
     try {
          const db = await dbPromise;
          
-         await  db.execute('update   set   first_name = ?, last_name = ?  where id = ?', [first_name, last_name,req.user.id]);
+         await  db.execute('update users set  first_name = ?, last_name = ?  where id = ?', [first_name, last_name,req.user.id]);
          
          res.redirect(urlPaths.profile)
      } catch(err){
@@ -64,7 +64,7 @@ module.exports.getCompanyInfoEdit =  async (req, res, next) => {
     try{
         const db = await dbPromise;
     
-        const [userDetails] = await db.execute('select id, company_description,company_name, company_location, company_type from  where id = ?', [req.user.id]);
+        const [userDetails] = await db.execute('select id, company_description,company_name, company_location, company_type from users where id = ?', [req.user.id]);
        
         res.render('profile/employer/company_info_edit',{
             'result':userDetails[0]
@@ -104,7 +104,7 @@ module.exports.postCompanyInfoEdit =   async (req, res, next) => {
 
      try {
         const db = await dbPromise;
-        await  db.execute('update   set  company_name = ? , company_description = ?,  company_location = ?,  company_type  = ? where id = ?', [name,description,location,type, req.user.id]);
+        await  db.execute('update  users set  company_name = ? , company_description = ?,  company_location = ?,  company_type  = ? where id = ?', [name,description,location,type, req.user.id]);
         res.redirect(urlPaths.profile)
  
      } catch(err){

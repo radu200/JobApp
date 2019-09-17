@@ -69,9 +69,7 @@ const JobCard = ({classes, job}) => {
                                    <RoomIcon  className={classes.RoomIcon}/>{job.city}
                                 </Typography>
                               </div>
-                              }
-    
-                        />
+                              } />
                      </ListItem>
                     </Paper>
                 </List>

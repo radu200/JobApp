@@ -10,8 +10,15 @@ import {ExpMsg,SearchMsg,Years } from '../../Utils/messages';
 
 const styles = theme => ({
   button: {
-    width:'100%'
+    width:'100%',
+    background:'#2552c7',
+    color:'#FFFFFF',
+    "&:hover": {
+      backgroundColor: "#2552c7",
+      opacity:0.9
+    }
   },
+
   snackbar: {
     margin: theme.spacing.unit,
     color: "red"
@@ -67,7 +74,7 @@ const SearchCandidateForm = ({
                 </div>
               </Grid>
                 <Grid item xs={12} sm={12} md={12}>
-                  <Button size="medium" type="submit" variant="contained" color="primary" className={classes.button}>
+                  <Button  size="medium" type="submit" color='primary'  className={classes.button}>
                    {SearchMsg} </Button>    
               </Grid> 
 

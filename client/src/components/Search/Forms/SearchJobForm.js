@@ -15,7 +15,13 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   button: {
-      width:"100%"
+      width:"100%",
+      background:'#2552c7',
+      color:'#FFFFFF',
+      "&:hover": {
+        backgroundColor: "#2552c7",
+        opacity:0.9
+      }
   },
   searchField: {
     width:'100%'

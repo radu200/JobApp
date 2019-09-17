@@ -1,7 +1,7 @@
 //Module name
 
-.hover-underline:hover{
-        text-decoration: underline; 
+.hover-underline:hover{ 
+  text-decoration: underline; 
 }
 
 .border-radius-low {
@@ -22,4 +22,12 @@
 .show-edit-buttons{
   padding: 10px 10px;
   
+}
+
+.no-color{
+    background:none!important;
+    border:1px solid blue;
+    &:hover{
+       opacity:0.5;     
+    }
 }
