@@ -29,21 +29,23 @@ module.exports.searchJobs = async (req, res, next) => {
              const sql = `SELECT * FROM jobs  WHERE category LIKE '%${searchVal}%' AND city  LIKE '%${city}%' LIMIT ${limit} OFFSET ${offset}`
              const [results] = await db.query(sql)
             
-             if(req.user.type === 'employer'){
-                res.json({
-                      'jobs':[],
-                       'auth':'employer'
-             })
-            
-            } else if(req.user.type === 'jobseeker'){
-                res.json({
-                      'jobs':results,
-                       'auth':'jobseeker'
-             })}
-            
-             else {
-                 res.json({'jobs':results})
-             }
+             if (req.isAuthenticated()) {
+
+                if(req.user.type === 'employer'){
+                    res.json({
+                        'jobs':[],
+                        'auth':'employer'
+                })
+                
+                } else if(req.user.type === 'jobseeker'){
+                    res.json({
+                        'jobs':results,
+                        'auth':'jobseeker'
+                })}
+             } else {
+                    res.json({'jobs':results,
+                    'auth':'none'})
+                }
                  
          }
 

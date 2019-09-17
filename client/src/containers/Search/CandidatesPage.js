@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CandidateCard from '../../components/Cards/CandidateCard';
-import SearchCandidateForm from '../../components/Search/Forms/SearchCandidateForm';
 import GetMoreButton from '../../components/Buttons/getMoreButton'
 import {NoCandFoundMsg} from '../../components/Utils/messages';
 import axios from 'axios';
 import MainNav from '../../components/NavBars/MainNav/MainNav'
-
-
+import SelectInput from '../../components/Inputs/Select'
+import SearchButton from '../../components/Buttons/Search';
+import Slider from '../../components/Inputs/Slider'
+import {Years } from '../../components/Utils/messages';
 
 const styles = theme => ({
   root: {
@@ -22,6 +23,9 @@ const styles = theme => ({
  
 });  
 
+const cities = ['Alege Orasul','chisinau', 'briceni','Balti', 'Cahul',"Ungheni" ];
+
+const categories = ['Categoria','Frumusete si Bunastare', 'Barman', 'Sofer',"Vinzari", "alal" ];
 
 class CandidatesPage extends Component {
   
@@ -77,10 +81,8 @@ class CandidatesPage extends Component {
               } catch (error) {
                 console.error(error);
               }
-          
-          
-        }
-        1
+          }
+        
         getMoreCandidates =  async () => {
           const { url,offset } = this.state
             try {
@@ -174,7 +176,7 @@ class CandidatesPage extends Component {
   
                 
               if(data.auth === 'employer'){
-              this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset:offset+12})   
+              this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset:offset + 12})   
             
               }
 
@@ -196,30 +198,40 @@ class CandidatesPage extends Component {
             
     }
 
-
-                    
-  
-
     render() {
       const { classes} = this.props
-      const { category,experienceMax, candidates, formErrors,isAuthenticated} = this.state
+      const { category,experienceMax, candidates, location,formErrors,isAuthenticated} = this.state
       const { handleSubmit,handleInputChange,handleExperienceValue,getMoreCandidates} = this;
-      console.log(candidates)
       return (
         <div>
           <MainNav isAuthenticated={isAuthenticated}/>
           <div className={classes.root} >
             <Grid container spacing={24}>
               <Grid item xs={12} sm={12} md={6}>  
-                  <SearchCandidateForm
-                    onSubmit={handleSubmit}
-                    handleInputChange={handleInputChange}
-                    handleExperienceValue={handleExperienceValue}
-                    categoryVal={category}
-                    experienceVal={experienceMax}
-                    errors={formErrors}
-                  />
-              </Grid>
+                    <form onSubmit={handleSubmit}>
+                      <Grid container spacing={24}>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <SelectInput onChange={handleInputChange} value={location} error={formErrors.locationError} elements={cities} title="Locatie" name="location" />
+                          <SelectInput onChange={handleInputChange} value={category} error={formErrors.categoryError} elements={categories} title="Categorie" name="category" />
+                        </Grid>
+
+                          <Grid item xs={12} sm={12} md={12}>
+                          <Slider
+                            min='0'
+                            max='50'
+                            value={experienceMax}
+                            onChange={handleExperienceValue}
+                            step='1'
+                            valueType={Years}
+                            title='Experienta'
+                          />
+                          </Grid>
+                          <Grid item xs={12} sm={12} md={12}>
+                              <SearchButton/>
+                        </Grid> 
+                       </Grid>   
+                     </form>
+                </Grid>
             </Grid>
 
             <Grid container spacing={16}>

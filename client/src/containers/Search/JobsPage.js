@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { NoJobFoundMsg } from '../../components/Utils/messages';
-import SearchJobForm from '../../components/Search/Forms/SearchJobForm';
 import JobCard from '../../components/Cards/JobCard';
 import GetMoreButton from '../../components/Buttons/getMoreButton'
 import axios from 'axios';
 import MainNav from '../../components/NavBars/MainNav/MainNav'
-
+import SelectInput from '../../components/Inputs/Select'
+import SearchButton from '../../components/Buttons/Search';
+import TextInput from '../../components/Inputs/TextInput';
 
 
 const styles = theme => ({
@@ -90,7 +91,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
         const {offset} = this.state;
         try {
             const response = await axios.post(url,{
-            offset:offset
+             offset:offset
             });
             
              const data = response.data;
@@ -178,27 +179,37 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
     
               <div className={classes.root} >
                   <Grid container spacing={24}>
-                    <Grid item xs={12} sm={12} md={12}>
-                      <SearchJobForm
-                        onSubmit={handleSubmit}
-                        handleInputChange={handleInputChange}
-                        queryVal={query}
-                        locationVal={location}
-                        errors={formErrors}
-                        locations={cities}
-                      />
-                      
+                    <Grid item xs={12} sm={12} md={12}>   
+                        <form onSubmit={handleSubmit}>
+                          <SelectInput 
+                            onChange={handleInputChange} 
+                            value={location} 
+                            error={formErrors.locationError} 
+                            elements={cities} 
+                            title="Locatie" 
+                            name="location" />
+    
+                            <TextInput
+                                type="search"
+                                title="Cauta"
+                                onChange={handleInputChange} 
+                                value={query} 
+                                name="query"
+                                error={formErrors.searchError}
+                                /> 
+                              <SearchButton/>
+                          </form>
+                       </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid container spacing={24}>
-                      {jobs.length > 0 ? <JobCard job={jobs} /> : <h1>{NoJobFoundMsg}</h1> }
-                  </Grid>
+                    <Grid container spacing={24}>
+                        {jobs.length > 0 ? <JobCard job={jobs} /> : <h1>{NoJobFoundMsg}</h1> }
+                    </Grid>
 
-                  <Grid container spacing={24}>
-                    <Grid item xs={12} sm={12} md={12} >
-                      {jobs.length >= 12 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
-                    </Grid>
-                  </Grid>
+                    <Grid container spacing={24}>
+                      <Grid item xs={12} sm={12} md={12} >
+                        {jobs.length >= 12 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
+                      </Grid>
+                   </Grid>
               </div>     
           </div>
           )

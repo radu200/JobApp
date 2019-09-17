@@ -7,7 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Icon from '@material-ui/core/Icon';
 import RoomIcon from '@material-ui/icons/Room';
 
 
