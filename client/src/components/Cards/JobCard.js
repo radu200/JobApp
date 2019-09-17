@@ -101,6 +101,7 @@ JobCard.propTypes = {
      SalaryCurrency:PropTypes.string,
      jobDetailPath:PropTypes.string,
      MoreMsg:PropTypes.string,
+    
      job:PropTypes.arrayOf(
        PropTypes.shape({
          id:PropTypes.number.isRequired,
@@ -112,7 +113,7 @@ JobCard.propTypes = {
          description:PropTypes.string.isRequired,
          city:PropTypes.string.isRequired
        })
-     ).isRequired
+     )
    };
 
 export default withStyles(styles)(JobCard);

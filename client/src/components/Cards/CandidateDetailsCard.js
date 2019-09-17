@@ -136,7 +136,7 @@ CandidateDetailsCard.propTypes = {
           job_seeker_about_me:PropTypes.string.isRequired,
           job_seeker_languages:PropTypes.string.isRequired,
           job_seeker_location:PropTypes.string.isRequired
-       })).isRequired
+       }))
    };
 
 export default withStyles(styles)(CandidateDetailsCard);

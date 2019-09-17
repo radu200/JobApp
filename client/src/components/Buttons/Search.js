@@ -9,6 +9,7 @@ const styles = theme => ({
         width:'100%',
         background:'#2552c7',
         color:'#FFFFFF',
+        marginBottom:20,
         "&:hover": {
           backgroundColor: "#2552c7",
           opacity:0.9
