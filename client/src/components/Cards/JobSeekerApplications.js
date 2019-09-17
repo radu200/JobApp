@@ -43,7 +43,7 @@ RoomIcon:{
 
 
 
-const JobCard = ({classes, job}) => {
+const JobSeekerApplication = ({classes, job}) => {
   
  
      return job.map((job,index) => {
@@ -80,7 +80,16 @@ const JobCard = ({classes, job}) => {
      
 
 
-JobCard.propTypes = {
+JobSeekerApplication.propTypes = {
   classes: PropTypes.object.isRequired,
+  job:PropTypes.arrayOf(
+    PropTypes.shape({
+      image:PropTypes.string,
+      position:PropTypes.string.isRequired,
+      category:PropTypes.string.isRequired,
+      employment_type:PropTypes.string.isRequired,
+      city:PropTypes.string.isRequired
+    })
+  )
 }
-export default  withStyles(styles)(JobCard);
+export default  withStyles(styles)(JobSeekerApplication);

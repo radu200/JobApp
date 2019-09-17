@@ -6,6 +6,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Months,Days, Years} from '.././Utils/messages';
+import RoomIcon from '@material-ui/icons/Room';
 
 
 const styles = {
@@ -34,11 +35,6 @@ const styles = {
   
   },
 
-  avatarContainer:{
-    // width:'100%',
-    // display:'flex'
-
-  },
   avatar: {
     marginTop:10,
     marginLeft:20,
@@ -55,69 +51,69 @@ const styles = {
   },
   availability:{
     color:'#43a047'
-  }
+  },
+  RoomIcon:{
+    fontSize:17
+}
 };
 
 
   
 const CandidateDetailsCard = ({candidate,experience,classes}) => {
-  
   return(
         <Card className={classes.card}>
           {candidate.map((candidate,index) => {
                return( 
-                  <CardActionArea key={index} >
-                    <div className={classes.avatarContainer}>
+                  <CardActionArea key={candidate.id} >
                      <img alt="Remy Sharp" src={candidate.avatar} className={classes.avatar} />
-                    </div>
                   <CardContent>
-                  <Typography    gutterBottom component="p" className={classes.availability} >
-                      {candidate.job_seeker_availability}
-                    </Typography>
-                    <Typography component="p">
-                       {candidate.job_seeker_employment_type}
-                    </Typography>
-                    <Typography gutterBottom variant="h5" component="h2">
-                    {candidate.first_name} {candidate.last_name}
-                    </Typography>
+                    <Typography    gutterBottom component="p" className={classes.availability} >
+                        {candidate.job_seeker_availability}
+                      </Typography>
+                      <Typography component="p">
+                        {candidate.job_seeker_employment_type}
+                      </Typography>
+                      <Typography gutterBottom variant="h5" component="h2">
+                      {candidate.first_name} {candidate.last_name}
+                      </Typography>
 
-                    { candidate.job_seeker_about_me ? 
-                    <Typography component="p" className={classes.candidateAbout} >
-                      <b>Despre</b>  {candidate.job_seeker_about_me} 
-                    </Typography>
-                      : null } 
-                      { candidate.job_seeker_languages ?
-                      <Typography    gutterBottom component="p" className={classes.lang}>
-                        <b> Limbi :</b>
-                         {candidate.job_seeker_languages} 
-                        </Typography> :null}
-                   
-                    <Typography component="p">
-                          {candidate.job_seeker_location}
-                    </Typography>
-                  </CardContent>
+                      { candidate.job_seeker_about_me ? 
+                      <Typography component="p" className={classes.candidateAbout} >
+                        <b>Despre: </b>  {candidate.job_seeker_about_me} 
+                      </Typography>
+                        : null } 
+                        { candidate.job_seeker_languages ?
+                        <Typography    gutterBottom component="p" >
+                          <b> Limbi: </b>
+                          {candidate.job_seeker_languages} 
+                          </Typography> :null}
+                    
+                      <Typography component="p">
+                        <RoomIcon  className={classes.RoomIcon} /> {candidate.job_seeker_location}
+                      </Typography>    
+                    </CardContent>
                   </CardActionArea>
                 )} )}
                 {experience.map((experience,index) =>{
                  return (
                   <CardActionArea key={index}>
-                  <CardContent >
-                    <Typography gutterBottom variant="h5" component="h2">
-                    {experience.position}
-                    </Typography>
-                    <Typography component="p">
-                      {experience.category}
-                    </Typography>
-                       <Typography component="p" className={classes.companyName}>
-                      {experience.company_name}
-                    </Typography>
-                   <Typography    gutterBottom component="p" color="primary">
-                      {experience.start_date}- {experience.end_date} - {experience.years} {Years} {experience.months} {Months} {experience.days} {Days}
-                    </Typography>
-                    <Typography    gutterBottom component="p"  className={classes.responsibilities} >
-                      {experience.responsibilities}
-                    </Typography>
-                  </CardContent>
+                    <CardContent >
+                      <Typography gutterBottom variant="h5" component="h2">
+                      {experience.position}
+                      </Typography>
+                      <Typography component="p">
+                        {experience.category}
+                      </Typography>
+                        <Typography component="p" className={classes.companyName}>
+                        {experience.company_name}
+                      </Typography>
+                    <Typography    gutterBottom component="p" color="primary">
+                        {experience.start_date}- {experience.end_date} - {experience.years} {Years} {experience.months} {Months} {experience.days} {Days}
+                      </Typography>
+                      <Typography    gutterBottom component="p"  className={classes.responsibilities} >
+                        {experience.responsibilities}
+                      </Typography>
+                    </CardContent>
                   </CardActionArea>
                 )})}
                    
@@ -129,6 +125,18 @@ const CandidateDetailsCard = ({candidate,experience,classes}) => {
 
 CandidateDetailsCard.propTypes = {
      classes: PropTypes.object.isRequired,
+     candidate:PropTypes.arrayOf(
+       PropTypes.shape({
+          id:PropTypes.number.isRequired,
+          avatar:PropTypes.string.isRequired,
+          job_seeker_availability:PropTypes.string.isRequired,
+          job_seeker_employment_type:PropTypes.string.isRequired,
+          first_name:PropTypes.string.isRequired,
+          last_name:PropTypes.string.isRequired,
+          job_seeker_about_me:PropTypes.string.isRequired,
+          job_seeker_languages:PropTypes.string.isRequired,
+          job_seeker_location:PropTypes.string.isRequired
+       })).isRequired
    };
 
 export default withStyles(styles)(CandidateDetailsCard);

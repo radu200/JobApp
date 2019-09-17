@@ -172,7 +172,6 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
     const {classes} = this.props;
     const {query, formErrors,jobs,location,isAuthenticated} = this.state;
     const {handleSubmit,handleInputChange,getMoreJobs} = this;
-
     return (
       <div>
         <MainNav isAuthenticated={isAuthenticated}/> 
@@ -192,7 +191,7 @@ const cities = ['chisinau', 'Balti', 'Cahul',"Ungheni" , ];
                     </Grid>
                   </Grid>
                   <Grid container spacing={24}>
-                      {jobs.length > 0 ? <JobCard jobs={jobs} /> : <h1>{NoJobFoundMsg}</h1> }
+                      {jobs.length > 0 ? <JobCard job={jobs} /> : <h1>{NoJobFoundMsg}</h1> }
                   </Grid>
 
                   <Grid container spacing={24}>

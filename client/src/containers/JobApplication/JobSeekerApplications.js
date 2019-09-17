@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import JobCard from '../../components/Cards/JobApplication_JobCard';
+import JobCard from '../../components/Cards/JobSeekerApplications';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core';
 import MainNav from '../../components/NavBars/MainNav/MainNav';
@@ -86,7 +86,7 @@ class ApplicantsActive extends Component {
                <div className={classes.root}>
                 <Grid container spacing={0} justify="center" alignItems="center">
                     <Grid item xs={12} sm={12} md={8}>
-                      <h3>Joburi Aplicate</h3>
+                      <h3>Joburi Aplicate: {jobs.length}</h3>
                         <JobCard job={jobs}/>
                         {jobs.length >= 12 ? <GetMoreButton onClick={getMoreJobs}/> : null} 
                     </Grid>

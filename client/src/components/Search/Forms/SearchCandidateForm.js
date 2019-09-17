@@ -86,6 +86,14 @@ const SearchCandidateForm = ({
 
  SearchCandidateForm.propTypes = {
   classes: PropTypes.object.isRequired,
+  onSubmit:PropTypes.func.isRequired,
+  handleInputChange:PropTypes.func.isRequired,
+  handleExperienceValue:PropTypes.func.isRequired,
+  errors:PropTypes.object.isRequired,
+  categoryVal:PropTypes.string.isRequired,
+  locationVal:PropTypes.string,
+  SearchMsg:PropTypes.string,
+  Years:PropTypes.string
 };
 
 export default withStyles(styles)(SearchCandidateForm);

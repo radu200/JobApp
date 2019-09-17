@@ -90,5 +90,20 @@ const CandidateCard = ({classes, candidate}) => {
 
 CandidateCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  candidateDetailsUrl:PropTypes.string,
+  Years:PropTypes.string,
+ 
+  candidate:PropTypes.arrayOf(
+    PropTypes.shape({
+       userID:PropTypes.number.isRequired,
+       first_name:PropTypes.string.isRequired,
+       last_name:PropTypes.string.isRequired,
+       category:PropTypes.string.isRequired,
+       total_ex_years:PropTypes.number.isRequired,
+       job_seeker_about_me:PropTypes.string,
+       job_seeker_location:PropTypes.string.isRequired,
+
+    })
+  )
 }
 export default  withStyles(styles)(CandidateCard);

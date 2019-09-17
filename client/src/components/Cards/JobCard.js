@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { JobDetailsUrl} from '../Utils/Paths/UrlPaths'
 import { SalaryCurrency,MoreMsg } from '.././Utils/messages';
-
+import NoJobImage from '../../images/no_job_image.png'
 const styles = {
   JobDetails:{
     textDecoration:'none',
@@ -29,9 +29,9 @@ const styles = {
 };
 
   
-const JobCard = ({jobs,classes}) => {
+const JobCard = ({job,classes}) => {
   
-  return jobs.map((job,index) => {
+  return job.map((job,index) => {
 
      const jobDetailPath = `${JobDetailsUrl}${job.id}`
 
@@ -50,7 +50,14 @@ const JobCard = ({jobs,classes}) => {
                     title={job.category}
                     />
                      ) : (
-                    null
+                      <CardMedia
+                      component="img"
+                      alt={job.category}
+                      className={classes.media}
+                      height="140"
+                      image={NoJobImage}
+                      title={job.category}
+                    />
                   )}
                   <CardContent>
                     <Typography    gutterBottom component="p" color="primary">
@@ -91,6 +98,21 @@ const JobCard = ({jobs,classes}) => {
 
 JobCard.propTypes = {
      classes: PropTypes.object.isRequired,
+     SalaryCurrency:PropTypes.string,
+     jobDetailPath:PropTypes.string,
+     MoreMsg:PropTypes.string,
+     job:PropTypes.arrayOf(
+       PropTypes.shape({
+         id:PropTypes.number.isRequired,
+         image:PropTypes.string,
+         salary:PropTypes.string,
+         employment_type:PropTypes.string.isRequired,
+         position:PropTypes.string.isRequired,
+         category:PropTypes.string.isRequired,
+         description:PropTypes.string.isRequired,
+         city:PropTypes.string.isRequired
+       })
+     ).isRequired
    };
 
 export default withStyles(styles)(JobCard);

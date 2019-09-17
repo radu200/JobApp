@@ -200,43 +200,43 @@ class CandidatesPage extends Component {
                     
   
 
-          render() {
-            const { classes} = this.props
-            const { category,experienceMax, candidates, formErrors,isAuthenticated} = this.state
-            const { handleSubmit,handleInputChange,handleExperienceValue,getMoreCandidates} = this;
+    render() {
+      const { classes} = this.props
+      const { category,experienceMax, candidates, formErrors,isAuthenticated} = this.state
+      const { handleSubmit,handleInputChange,handleExperienceValue,getMoreCandidates} = this;
+      console.log(candidates)
+      return (
+        <div>
+          <MainNav isAuthenticated={isAuthenticated}/>
+          <div className={classes.root} >
+            <Grid container spacing={24}>
+              <Grid item xs={12} sm={12} md={6}>  
+                  <SearchCandidateForm
+                    onSubmit={handleSubmit}
+                    handleInputChange={handleInputChange}
+                    handleExperienceValue={handleExperienceValue}
+                    categoryVal={category}
+                    experienceVal={experienceMax}
+                    errors={formErrors}
+                  />
+              </Grid>
+            </Grid>
 
-            return (
-              <div>
-                <MainNav isAuthenticated={isAuthenticated}/>
-                <div className={classes.root} >
-                  <Grid container spacing={24}>
-                    <Grid item xs={12} sm={12} md={6}>  
-                        <SearchCandidateForm
-                          onSubmit={handleSubmit}
-                          handleInputChange={handleInputChange}
-                          handleExperienceValue={handleExperienceValue}
-                          categoryVal={category}
-                          experienceVal={experienceMax}
-                          errors={formErrors}
-                        />
-                    </Grid>
-                  </Grid>
+            <Grid container spacing={16}>
+              <Grid item xs={12} sm={12} md={6}>
+                {candidates.length > 0 ? <CandidateCard candidate={candidates} /> : <h1>{NoCandFoundMsg}</h1> }
+              </Grid>
+            </Grid>
 
-                  <Grid container spacing={16}>
-                    <Grid item xs={12} sm={12} md={6}>
-                      {candidates.length > 0 ? <CandidateCard candidate={candidates} /> : <h1>{NoCandFoundMsg}</h1> }
-                    </Grid>
-                  </Grid>
-
-                  <Grid container spacing={24}>
-                    <Grid item xs={12} sm={12} md={6}>
-                      {candidates.length >= 12 ? <GetMoreButton onClick={getMoreCandidates}/> : null}
-                  </Grid>
-                  </Grid>
-                </div>
-              </div>
-           )
-        }
+            <Grid container spacing={24}>
+              <Grid item xs={12} sm={12} md={6}>
+                {candidates.length >= 12 ? <GetMoreButton onClick={getMoreCandidates}/> : null}
+            </Grid>
+            </Grid>
+          </div>
+        </div>
+      )
   }
+}
 
 export default withStyles(styles)(CandidatesPage);

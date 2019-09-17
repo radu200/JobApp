@@ -48,6 +48,7 @@ class CandidateDetails extends Component {
       }
 
         render(){
+            
             const {classes} = this.props;
             const {candidate, experience,isAuthenticated} = this.state;
             return (
