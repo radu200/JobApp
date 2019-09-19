@@ -52,7 +52,7 @@ const styles = theme => ({
 
 const CandidateCard = ({classes, candidate}) => {
   
- 
+   console.log(candidate)
      return candidate.map((candidate) => {
        const candidateDetailsUrl = `/candidate-details/${candidate.userID}`
        return(
@@ -70,7 +70,7 @@ const CandidateCard = ({classes, candidate}) => {
                                 <Typography  className={classes.textBold}   color="textPrimary">
                                     {candidate.category} - {candidate.total_ex_years} {Years}
                                  </Typography>
-                                 <Typography  className={classes.textAbout}   color="textSecondary">                    
+                                 <Typography    color="textSecondary">                    
                                   {candidate.position}
                                 </Typography>
                                  <Typography  className={classes.textAbout}   color="textSecondary">                    

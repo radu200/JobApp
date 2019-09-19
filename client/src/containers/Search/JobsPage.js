@@ -220,7 +220,7 @@ const cities = [
         <MainNav isAuthenticated={isAuthenticated}/> 
     
               <div className={classes.root} >
-                  <Grid container spacing={24}>
+                  <Grid container spacing={2}>
                     <Grid item xs={12} sm={12} md={12}>   
                         <form onSubmit={handleSubmit}>
                           <SelectInput 
@@ -243,11 +243,11 @@ const cities = [
                           </form>
                        </Grid>
                     </Grid>
-                    <Grid container spacing={24}>
+                    <Grid container spacing={2}>
                         {jobs.length > 0 ? <JobCard job={jobs} /> : <h1>{NoJobFoundMsg}</h1> }
                     </Grid>
 
-                    <Grid container spacing={24}>
+                    <Grid container spacing={2}>
                       <Grid item xs={12} sm={12} md={12} >
                         {jobs.length >= 12 ? <GetMoreButton  onClick={getMoreJobs} buttonText='Mai Mult' /> : null}
                       </Grid>

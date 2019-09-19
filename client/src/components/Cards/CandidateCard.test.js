@@ -12,10 +12,22 @@ describe('CandidateCard',() => {
         expect(component).toMatchSnapshot();
 
     })
-    // it('should render banner text correctly with given strings', () => {
-    //     const strings = ['one', 'two'];
-    //     const component = shallow(<CandidateCard list={strings} />);
-    //     expect(component).toMatchSnapshot();
-    //   });
+
+    it('should render banner text correctly with given props', () => {
+        const candidate = [{
+         avatar:'avatar',
+         category:'category',
+         first_name:'John',
+         last_name:'Doe',
+         job_seeker_about_me:'about me',
+         job_seeker_location:'Paris',
+         total_ex_years:0,
+         userID:1
+        }]
+       
+        const component = shallow(<CandidateCard candidate={candidate} />);
+        expect(component).toMatchSnapshot();
+      });
+
 })
 
