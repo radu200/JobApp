@@ -61,7 +61,7 @@ module.exports.searchCandidates = async(req,res) => {
     const location = req.query.location;
     const category = req.query.category;
     const experienceMin = 0;
-    const experienceMax = 50;
+    const experienceMax = req.query.experience_max;
     const offset = req.body.offset;
     const limit = 12;
   
@@ -81,19 +81,17 @@ module.exports.searchCandidates = async(req,res) => {
         const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
         const sql =  `SELECT ${jobseeker_experience}, ${user_details}  FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%'  AND lower(users.job_seeker_location) LIKE '%${location}%' AND jobseeker_experience.years BETWEEN ${experienceMin} AND ${experienceMax} GROUP BY category,userID  LIMIT ${limit} OFFSET ${offset}`
         const [results] = await db.query(sql)
-       
-        if( req.user.type === 'employer' ){
-            res.json({'candidates':results, 'auth':'employer' })
-           } else{res.json({'candidates':[], 'auth':'notAuth' })}
-       
-      }
-      
-  } catch(err){
-      res.json('O errore a avut loc')
-      console.log(err)
-  }
 
-}
+            if( req.user.type === 'employer' ){
+            res.json({'candidates':results, 'auth':'employer' })} 
+          }
+      
+        } catch(err){
+            res.json('O errore a avut loc')
+            console.log(err)
+        }
+
+  }
 
 
 module.exports.getCandidateDetails = async (req,res) => {

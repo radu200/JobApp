@@ -3,7 +3,7 @@ import JobCard from '../../components/Cards/JobSeekerApplications';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core';
 import MainNav from '../../components/NavBars/MainNav/MainNav';
-import GetMoreButton from '../../components/Buttons/getMoreButton'
+import GetMoreButton from '../../components/Buttons/ButtonOutlined'
 import axios from 'axios';
 
 

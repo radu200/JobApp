@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom'
 import { MoreMsg, Years} from '.././Utils/messages';
+import RoomIcon from '@material-ui/icons/Room';
 
 
 const styles = theme => ({
@@ -40,7 +41,10 @@ const styles = theme => ({
   '&:hover': {
      textDecoration:'underline'
   }
- }
+ },
+ RoomIcon:{
+  fontSize:17
+}
 
 });
 
@@ -59,25 +63,27 @@ const CandidateCard = ({classes, candidate}) => {
                         <Avatar className={classes.bigAvatar} alt={candidate.first_name} src={candidate.avatar} />
                         <ListItemText 
                              primary={
+                               <div>
                                 <Typography>
-                                {candidate.first_name} {candidate.last_name} 
-                               </Typography>
-                            }
-                             secondary={
-                                <React.Fragment>
-                                <Typography  className={classes.textBold} component="span"  color="textPrimary">
-                                  {candidate.category} - {candidate.total_ex_years}{Years}
+                                  {candidate.first_name} {candidate.last_name} 
                                 </Typography>
-                                <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
+                                <Typography  className={classes.textBold}   color="textPrimary">
+                                    {candidate.category} - {candidate.total_ex_years} {Years}
+                                 </Typography>
+                                 <Typography  className={classes.textAbout}   color="textSecondary">                    
+                                  {candidate.position}
+                                </Typography>
+                                 <Typography  className={classes.textAbout}   color="textSecondary">                    
                                   {candidate.job_seeker_about_me}
                                 </Typography>
-                                <Typography  className={classes.textAbout} component="span"  color="textSecondary">                    
-                                  {candidate.job_seeker_location}
+                                <Typography    color="textSecondary">                    
+                                  <RoomIcon  className={classes.RoomIcon}/> {candidate.job_seeker_location}
                                 </Typography>
-                                  <Link className={classes.aboutPage} to={candidateDetailsUrl}>{MoreMsg}</Link>
-                                </React.Fragment>
-                            }
-                        />
+                                <Typography  className={classes.textAbout}   color="textSecondary">                    
+                                    <Link className={classes.aboutPage} to={candidateDetailsUrl}>{MoreMsg}</Link>
+                                  </Typography>
+                               </div>
+                            } />
                      </ListItem>
                     </Paper>
                 </List>
@@ -86,6 +92,7 @@ const CandidateCard = ({classes, candidate}) => {
       } ) 
    }
      
+
 
 
 CandidateCard.propTypes = {

@@ -46,6 +46,7 @@ const JobSeekerApplication = ({classes, job}) => {
   
  
      return job.map((job,index) => {
+      
        return(
                <div key={index}>
                  <List className={classes.root} >
@@ -54,7 +55,7 @@ const JobSeekerApplication = ({classes, job}) => {
                         <Avatar className={classes.bigAvatar} alt={job.category} src={job.image} />
                         <ListItemText 
                              primary={
-                                 <div>
+                              <div>
                                 <Typography gutterBottom variant="h6" component="h2">
                                 {job.position}
                                 </Typography>

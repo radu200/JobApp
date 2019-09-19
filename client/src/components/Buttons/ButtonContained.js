@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import {SearchMsg } from '.././Utils/messages';
 
 const styles = theme => ({
     button: {
@@ -18,19 +17,16 @@ const styles = theme => ({
   });
 
 
-const SearchButton =  ({ classes}) => {
+const ButtonContained =  ({classes,buttonText}) => {
   
     return (<Button 
-            size="medium" 
-            type="submit" 
             variant="contained" 
-            color="primary" 
+            type="submit"
             className={classes.button}>
-            {SearchMsg} </Button>)
+            {buttonText} </Button>)
 }
 
-SearchButton.propTypes = {
+ButtonContained.propTypes = {
     classes: PropTypes.object.isRequired
 }
-export default withStyles(styles) (SearchButton);
-
+export default withStyles(styles) (ButtonContained);

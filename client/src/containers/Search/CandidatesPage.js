@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CandidateCard from '../../components/Cards/CandidateCard';
-import GetMoreButton from '../../components/Buttons/getMoreButton'
+import GetMoreButton from '../../components/Buttons/ButtonOutlined'
 import {NoCandFoundMsg} from '../../components/Utils/messages';
 import axios from 'axios';
 import MainNav from '../../components/NavBars/MainNav/MainNav'
 import SelectInput from '../../components/Inputs/Select'
-import SearchButton from '../../components/Buttons/Search';
+import SearchButton from '../../components/Buttons/ButtonContained';
 import Slider from '../../components/Inputs/Slider'
 import {Years } from '../../components/Utils/messages';
 
@@ -133,8 +133,6 @@ class CandidatesPage extends Component {
           
                if(data.auth === 'employer'){
                 this.setState({isAuthenticated:data.auth,candidates:[...data.candidates],url, offset:offset + 12})   
-              } else {
-                this.setState({isAuthenticated:''})
               }
               
               } catch (error) {
@@ -264,6 +262,7 @@ class CandidatesPage extends Component {
       return (
         <div>
           <MainNav isAuthenticated={isAuthenticated}/>
+         {isAuthenticated === 'employer' ?
           <div className={classes.root} >
             <Grid container spacing={24}>
               <Grid item xs={12} sm={12} md={6}>  
@@ -286,7 +285,7 @@ class CandidatesPage extends Component {
                           />
                           </Grid>
                           <Grid item xs={12} sm={12} md={12}>
-                              <SearchButton/>
+                              <SearchButton  buttonText="Cauta"/>
                         </Grid> 
                        </Grid>   
                      </form>
@@ -304,7 +303,7 @@ class CandidatesPage extends Component {
                 {candidates.length >= 12 ? <GetMoreButton onClick={getMoreCandidates}/> : null}
             </Grid>
             </Grid>
-          </div>
+          </div> : null }
         </div>
       )
   }

@@ -1,10 +1,8 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
-import { shallow, configure } from 'enzyme';
-configure({adapter: new Adapter()});
+import { shallow } from 'enzyme';
 import CandidateDetailsCard from './CandidateDetailsCard'
 
-describe('CandidateCard',() => {
+describe('CandidateDetailsCard',() => {
     it('should render correctly with no props', () => {
         const component = shallow(<CandidateDetailsCard />)
         expect(component).toMatchSnapshot();

@@ -1,8 +1,10 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
-import { shallow, configure } from 'enzyme';
-configure({adapter: new Adapter()});
+import { shallow} from 'enzyme';
 import CandidateCard from './CandidateCard'
+
+///component render with no props
+///componentn reder with props
+
 
 describe('CandidateCard',() => {
     it('should render correctly with no props', () => {
@@ -10,9 +12,10 @@ describe('CandidateCard',() => {
         expect(component).toMatchSnapshot();
 
     })
-    it('should render banner text correctly with given strings', () => {
-        const strings = ['one', 'two'];
-        const component = shallow(<CandidateCard list={strings} />);
-        expect(component).toMatchSnapshot();
-      });
+    // it('should render banner text correctly with given strings', () => {
+    //     const strings = ['one', 'two'];
+    //     const component = shallow(<CandidateCard list={strings} />);
+    //     expect(component).toMatchSnapshot();
+    //   });
 })
+

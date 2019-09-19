@@ -15,7 +15,8 @@ module.exports.postApplyJobs = async (req,res,next) => {
    
     let job = {
        jobseeker_id:jobseeker_id,
-       job_id:job_id
+       job_id:job_id,
+       status:'active'
    }
     
     try {

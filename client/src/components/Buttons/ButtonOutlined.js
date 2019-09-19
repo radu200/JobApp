@@ -1,8 +1,9 @@
+
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { MoreMsg} from '.././Utils/messages';
 
 const styles = theme => ({
     button: {
@@ -16,19 +17,19 @@ const styles = theme => ({
   });
 
 
-const GetMoreButton =  ({onClick, classes}) => {
+const ButtonOutlined =  ({onClick, classes,buttonText}) => {
       
         return ( <Button
                   variant="outlined"  
                   color="primary" 
                   className={classes.button} 
-                  onClick={onClick}>{MoreMsg}</Button>
+                  onClick={onClick}>{buttonText}</Button>
                )
 }
 
-GetMoreButton.propTypes = {
+ButtonOutlined.propTypes = {
     onClick:PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired
 }
-export default withStyles(styles) (GetMoreButton);
+export default withStyles(styles)(ButtonOutlined);
 

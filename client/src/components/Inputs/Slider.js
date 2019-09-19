@@ -35,10 +35,10 @@ const Slider = ({onChange,classes,value,title,min,max,step,valueType}) => {
     )
  }
  Slider.propTypes = {
-    onChange:PropType.func.isRequired,
-    classes:PropType.object.isRequired,
-    value:PropType.string,
-    title:PropType.string.isRequired
+    onChange:PropType.func,
+    classes:PropType.object,
+    // value:PropType.string,
+    title:PropType.string
   }
   
  export default withStyles(styles)(Slider);

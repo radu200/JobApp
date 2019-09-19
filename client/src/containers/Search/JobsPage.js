@@ -4,11 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { NoJobFoundMsg } from '../../components/Utils/messages';
 import JobCard from '../../components/Cards/JobCard';
-import GetMoreButton from '../../components/Buttons/getMoreButton'
+import GetMoreButton from '../../components/Buttons/ButtonOutlined'
 import axios from 'axios';
 import MainNav from '../../components/NavBars/MainNav/MainNav'
 import SelectInput from '../../components/Inputs/Select'
-import SearchButton from '../../components/Buttons/Search';
+import SearchButton from '../../components/Buttons/ButtonContained';
 import TextInput from '../../components/Inputs/TextInput';
 
 
@@ -239,7 +239,7 @@ const cities = [
                                 name="query"
                                 error={formErrors.searchError}
                                 /> 
-                              <SearchButton/>
+                              <SearchButton buttonText='Cauta'/>
                           </form>
                        </Grid>
                     </Grid>
@@ -249,7 +249,7 @@ const cities = [
 
                     <Grid container spacing={24}>
                       <Grid item xs={12} sm={12} md={12} >
-                        {jobs.length >= 12 ? <GetMoreButton  onClick={getMoreJobs}/> : null}
+                        {jobs.length >= 12 ? <GetMoreButton  onClick={getMoreJobs} buttonText='Mai Mult' /> : null}
                       </Grid>
                    </Grid>
               </div>     
