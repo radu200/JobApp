@@ -262,9 +262,9 @@ class CandidatesPage extends Component {
       return (
         <div>
           <MainNav isAuthenticated={isAuthenticated}/>
-         {isAuthenticated === 'employer' ?
+         {isAuthenticated === 'employer'?
           <div className={classes.root} >
-            <Grid container spacing={24}>
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={6}>  
                     <form onSubmit={handleSubmit}>
                       <Grid container spacing={24}>
@@ -291,14 +291,13 @@ class CandidatesPage extends Component {
                      </form>
                 </Grid>
             </Grid>
-
-            <Grid container spacing={16}>
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={6}>
                 {candidates.length > 0 ? <CandidateCard candidate={candidates} /> : <h1>{NoCandFoundMsg}</h1> }
               </Grid>
             </Grid>
 
-            <Grid container spacing={24}>
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={6}>
                 {candidates.length >= 12 ? <GetMoreButton onClick={getMoreCandidates}/> : null}
             </Grid>
