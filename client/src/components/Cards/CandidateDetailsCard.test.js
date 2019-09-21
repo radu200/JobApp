@@ -8,9 +8,5 @@ describe('CandidateDetailsCard',() => {
         expect(component).toMatchSnapshot();
 
     })
-    it('should render banner text correctly with given strings', () => {
-        const strings = ['one', 'two'];
-        const component = shallow(<CandidateDetailsCard list={strings} />);
-        expect(component).toMatchSnapshot();
-      });
+
 })

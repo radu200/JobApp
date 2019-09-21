@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { NoJobFoundMsg } from '../../components/Utils/messages';
+import { NoJobFoundMsg } from './../../Utils/messages';
 import JobCard from '../../components/Cards/JobCard';
 import GetMoreButton from '../../components/Buttons/ButtonOutlined'
 import axios from 'axios';
@@ -10,8 +10,8 @@ import MainNav from '../../components/NavBars/MainNav/MainNav'
 import SelectInput from '../../components/Inputs/Select'
 import SearchButton from '../../components/Buttons/ButtonContained';
 import TextInput from '../../components/Inputs/TextInput';
-
-
+import { connect } from 'react-redux';
+import { fetchJobs } from '../../redux/actions/thunks/FetchJobs'
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -127,34 +127,15 @@ const cities = [
             return true;
       }
         
-    async componentDidMount(){
-     
-        const url = '/api/jobs'
-        const {offset} = this.state;
-        try {
-            const response = await axios.post(url,{
-             offset:offset
-            });
-            
-             const data = response.data;
-
-             if(data.auth === 'employer'){
-               this.setState({jobs:[],isAuthenticated:data.auth,})
-              } else {
-                this.setState({jobs:data.jobs,isAuthenticated:data.auth,url, offset:offset + 12})
-            }
-            
-          } catch (error) {
-            console.error(error);
-          }
-            
+    componentDidMount(){
+      this.props.fetchJobs()            
     }
           
             
            getMoreJobs =  async () => {
               const { url,offset} = this.state
             try {
-              const response = await axios.post(url,{
+              const response = await axios.get(url,{
                   offset:offset 
               });
             
@@ -212,13 +193,13 @@ const cities = [
     }
               
   render() {  
-    const {classes} = this.props;
-    const {query, formErrors,jobs,location,isAuthenticated} = this.state;
+
+    const {classes,auth,jobs} = this.props;
+    const {query,formErrors,location} = this.state;
     const {handleSubmit,handleInputChange,getMoreJobs} = this;
     return (
       <div>
-        <MainNav isAuthenticated={isAuthenticated}/> 
-    
+        <MainNav isAuthenticated={auth}/> 
               <div className={classes.root} >
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={12} md={12}>   
@@ -260,8 +241,18 @@ const cities = [
 
 
   
+const mapStateToProps = state => ({
+    jobs:state.jobs.jobs,
+    auth:state.jobs.auth,
+})
+
+
 JobsPage.propTypes = {
   classes: PropTypes.object.isRequired,
+  jobs:PropTypes.array.isRequired,
+  auth:PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(JobsPage);
+
+
+export default connect(mapStateToProps,{fetchJobs})(withStyles(styles)(JobsPage));

@@ -8,11 +8,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import BrandName from '../../Utils/BrandName';
-import { Profile }from '../../Utils/Paths/UrlPaths';
-import { MyJobs} from '../../Utils/Paths/UrlPaths';
-import { SearchCandidate,Jobs,SignUpUrlEmployer,SignUpUrlJobSeeker,LoginUrl } from '../../Utils/Paths/UrlPaths';
-import { Help} from '../../Utils/Paths/UrlPaths';
+import {BrandName }from '../../../Utils/BrandName'
+import { SearchCandidate,
+        Jobs,
+        SignUpUrlEmployer,
+        SignUpUrlJobSeeker,
+        LoginUrl,
+        Profile, 
+        MyJobs,
+        Help
+        }  from './../../../Utils/Paths/UrlPaths';
 
 const styles = {
   list: {
@@ -22,7 +27,7 @@ const styles = {
     width: 'auto',
   },
 };
-
+ 
 class MainSideNav extends React.Component {
   
   state = {

@@ -8,7 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom'
-import { MoreMsg, Years} from '.././Utils/messages';
+import { MoreMsg, Years} from './../../Utils/messages';
 import RoomIcon from '@material-ui/icons/Room';
 
 
@@ -22,19 +22,12 @@ const styles = theme => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
-  inline: {
-    display: 'inline',
-  },
-  textAbout:{
+
+  breakWord:{
      wordWrap: 'break-word',
       fontWeight:"bold"
   },
-  hover: {
-    textDecoration: 'none',
-    '&:hover': {
-      color: 'grey'
-    }
-  },
+
  aboutPage:{
   textDecoration: 'none',
    color:"blue",
@@ -51,16 +44,13 @@ const styles = theme => ({
 
 
 const CandidateCard = ({classes, candidate}) => {
-  
-   console.log(candidate)
      return candidate.map((candidate) => {
-       const candidateDetailsUrl = `/candidate-details/${candidate.userID}`
        return(
                <div key={candidate.userID}>
                  <List className={classes.root} >
                    <Paper  >
                     <ListItem >
-                        <Avatar className={classes.bigAvatar} alt={candidate.first_name} src={candidate.avatar} />
+                        <Avatar  className={classes.bigAvatar} alt={candidate.first_name} src={candidate.avatar} />
                         <ListItemText 
                              primary={
                                <div>
@@ -73,14 +63,14 @@ const CandidateCard = ({classes, candidate}) => {
                                  <Typography    color="textSecondary">                    
                                   {candidate.position}
                                 </Typography>
-                                 <Typography  className={classes.textAbout}   color="textSecondary">                    
+                                 <Typography  className={classes.breakWord}   color="textSecondary">                    
                                   {candidate.job_seeker_about_me}
                                 </Typography>
                                 <Typography    color="textSecondary">                    
                                   <RoomIcon  className={classes.RoomIcon}/> {candidate.job_seeker_location}
                                 </Typography>
-                                <Typography  className={classes.textAbout}   color="textSecondary">                    
-                                    <Link className={classes.aboutPage} to={candidateDetailsUrl}>{MoreMsg}</Link>
+                                <Typography  className={classes.breakWord}   color="textSecondary">                    
+                                    <Link className={classes.aboutPage} to={`/candidate-details/${candidate.userID}`}>{MoreMsg}</Link>
                                   </Typography>
                                </div>
                             } />
@@ -96,19 +86,18 @@ const CandidateCard = ({classes, candidate}) => {
 
 
 CandidateCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  candidateDetailsUrl:PropTypes.string,
-  Years:PropTypes.string,
+  classes: PropTypes.object,
+   Years:PropTypes.string,
  
   candidate:PropTypes.arrayOf(
     PropTypes.shape({
-       userID:PropTypes.number.isRequired,
-       first_name:PropTypes.string.isRequired,
-       last_name:PropTypes.string.isRequired,
-       category:PropTypes.string.isRequired,
-       total_ex_years:PropTypes.number.isRequired,
+       userID:PropTypes.number,
+       first_name:PropTypes.string,
+       last_name:PropTypes.string,
+       category:PropTypes.string,
+       total_ex_years:PropTypes.number,
        job_seeker_about_me:PropTypes.string,
-       job_seeker_location:PropTypes.string.isRequired,
+       job_seeker_location:PropTypes.string,
 
     })
   )

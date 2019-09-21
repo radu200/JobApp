@@ -1,206 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CandidateCard should render banner text correctly with given props 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ForwardRef(WithStyles)
-    candidate={
-      Array [
-        Object {
-          "avatar": "avatar",
-          "category": "category",
-          "first_name": "John",
-          "job_seeker_about_me": "about me",
-          "job_seeker_location": "Paris",
-          "last_name": "Doe",
-          "total_ex_years": 0,
-          "userID": 1,
-        },
-      ]
+exports[`CandidateCard it renders the component correctly 1`] = `
+<CandidateCard
+  candidate={
+    Array [
+      Object {
+        "avatar": "some-url-string",
+        "category": "category",
+        "first_name": "John",
+        "job_seeker_about_me": "about me",
+        "job_seeker_location": "Paris",
+        "last_name": "Doe",
+        "total_ex_years": 0,
+        "userID": 1,
+      },
+    ]
+  }
+  classes={
+    Object {
+      "RoomIcon": "CandidateCard-RoomIcon-5 roomIcon",
+      "aboutPage": "CandidateCard-aboutPage-4 aboutPage",
+      "bigAvatar": "CandidateCard-bigAvatar-1 avatar",
+      "breakWord": "CandidateCard-breakWord-3 word",
+      "root": "CandidateCard-root-2 root",
     }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "checkPropTypes": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "function",
-    "props": Object {
-      "candidate": Array [
-        Object {
-          "avatar": "avatar",
-          "category": "category",
-          "first_name": "John",
-          "job_seeker_about_me": "about me",
-          "job_seeker_location": "Paris",
-          "last_name": "Doe",
-          "total_ex_years": 0,
-          "userID": 1,
-        },
-      ],
-      "classes": Object {
-        "RoomIcon": "CandidateCard-RoomIcon-7",
-        "aboutPage": "CandidateCard-aboutPage-6",
-        "bigAvatar": "CandidateCard-bigAvatar-1",
-        "hover": "CandidateCard-hover-5",
-        "inline": "CandidateCard-inline-3",
-        "root": "CandidateCard-root-2",
-        "textAbout": "CandidateCard-textAbout-4",
-      },
-    },
-    "ref": null,
-    "rendered": null,
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "function",
-      "props": Object {
-        "candidate": Array [
-          Object {
-            "avatar": "avatar",
-            "category": "category",
-            "first_name": "John",
-            "job_seeker_about_me": "about me",
-            "job_seeker_location": "Paris",
-            "last_name": "Doe",
-            "total_ex_years": 0,
-            "userID": 1,
-          },
-        ],
-        "classes": Object {
-          "RoomIcon": "CandidateCard-RoomIcon-7",
-          "aboutPage": "CandidateCard-aboutPage-6",
-          "bigAvatar": "CandidateCard-bigAvatar-1",
-          "hover": "CandidateCard-hover-5",
-          "inline": "CandidateCard-inline-3",
-          "root": "CandidateCard-root-2",
-          "textAbout": "CandidateCard-textAbout-4",
-        },
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "legacyContextMode": "parent",
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getChildContext": Object {
-            "calledByRenderer": false,
-          },
-          "getDerivedStateFromError": true,
-          "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
-          },
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-    "disableLifecycleMethods": true,
-    Symbol(enzyme.__providerValues__): undefined,
-  },
-  Symbol(enzyme.__providerValues__): Map {},
-}
-`;
-
-exports[`CandidateCard should render correctly with no props 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ForwardRef(WithStyles) />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "checkPropTypes": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "function",
-    "props": Object {
-      "classes": Object {
-        "RoomIcon": "CandidateCard-RoomIcon-7",
-        "aboutPage": "CandidateCard-aboutPage-6",
-        "bigAvatar": "CandidateCard-bigAvatar-1",
-        "hover": "CandidateCard-hover-5",
-        "inline": "CandidateCard-inline-3",
-        "root": "CandidateCard-root-2",
-        "textAbout": "CandidateCard-textAbout-4",
-      },
-    },
-    "ref": null,
-    "rendered": null,
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "function",
-      "props": Object {
-        "classes": Object {
-          "RoomIcon": "CandidateCard-RoomIcon-7",
-          "aboutPage": "CandidateCard-aboutPage-6",
-          "bigAvatar": "CandidateCard-bigAvatar-1",
-          "hover": "CandidateCard-hover-5",
-          "inline": "CandidateCard-inline-3",
-          "root": "CandidateCard-root-2",
-          "textAbout": "CandidateCard-textAbout-4",
-        },
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "legacyContextMode": "parent",
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getChildContext": Object {
-            "calledByRenderer": false,
-          },
-          "getDerivedStateFromError": true,
-          "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
-          },
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-    "disableLifecycleMethods": true,
-    Symbol(enzyme.__providerValues__): undefined,
-  },
-  Symbol(enzyme.__providerValues__): Map {},
-}
+  }
+/>
 `;

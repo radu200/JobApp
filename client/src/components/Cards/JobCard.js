@@ -9,8 +9,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { JobDetailsUrl} from '../Utils/Paths/UrlPaths'
-import { SalaryCurrency,MoreMsg } from '.././Utils/messages';
+import { JobDetailsUrl} from '../../Utils/Paths/UrlPaths'
+import { SalaryCurrency,MoreMsg } from './../../Utils/messages';
 import NoJobImage from '../../images/no_job_image.png'
 const styles = {
   JobDetails:{
