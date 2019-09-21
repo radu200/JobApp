@@ -37,7 +37,6 @@ const Slider = ({onChange,classes,value,title,min,max,step,valueType}) => {
  Slider.propTypes = {
     onChange:PropType.func,
     classes:PropType.object,
-    // value:PropType.string,
     title:PropType.string
   }
   

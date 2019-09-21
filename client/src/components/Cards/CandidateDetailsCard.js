@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Months,Days, Years} from '.././Utils/messages';
+import { Months,Days, Years} from './../../Utils/messages';
 import RoomIcon from '@material-ui/icons/Room';
 
 

@@ -178,7 +178,7 @@ module.exports.JobApplicationJobSeeker = async (req,res) => {
 
 module.exports.getJobsPage = async (req, res, next) => {
     
-    const offset = req.body.offset;
+    const offset = req.query.offset;
     const limit = 12
     try {
         

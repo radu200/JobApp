@@ -3,13 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CandidateCard from '../../components/Cards/CandidateCard';
 import GetMoreButton from '../../components/Buttons/ButtonOutlined'
-import {NoCandFoundMsg} from '../../components/Utils/messages';
 import axios from 'axios';
 import MainNav from '../../components/NavBars/MainNav/MainNav'
 import SelectInput from '../../components/Inputs/Select'
 import SearchButton from '../../components/Buttons/ButtonContained';
 import Slider from '../../components/Inputs/Slider'
-import {Years } from '../../components/Utils/messages';
+import {Years,NoCandFoundMsg} from './../../Utils/messages';
 
 const styles = theme => ({
   root: {
@@ -267,7 +266,7 @@ class CandidatesPage extends Component {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={6}>  
                     <form onSubmit={handleSubmit}>
-                      <Grid container spacing={24}>
+                      <Grid container spacing={2}>
                         <Grid item xs={12} sm={12} md={12}>
                           <SelectInput onChange={handleInputChange} value={location} error={formErrors.locationError} elements={cities} title="Locatie" name="location" />
                           <SelectInput onChange={handleInputChange} value={category} error={formErrors.categoryError} elements={categories} title="Categorie" name="category" />

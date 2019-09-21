@@ -14,14 +14,14 @@ import Divider from '@material-ui/core/Divider';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import MainSideNav from './MainSideNav'
-import BrandName from '../../Utils/BrandName'
+import {BrandName }from '../../../Utils/BrandName'
 import { 
   Profile,
   Settings,
   LogOut,
   SignUpUrlJobSeeker, 
   SignUpUrlEmployer,
-  LoginUrl } from '../../Utils/Paths/UrlPaths';
+  LoginUrl } from '../../../Utils/Paths/UrlPaths';
 
 
 
