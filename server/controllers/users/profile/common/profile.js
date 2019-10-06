@@ -34,14 +34,14 @@ module.exports.getProfile = async (req, res, next) => {
           
 
         } else {
-            res.redirect(urlPaths.login)
+            res.redirect('/api/login')
         }
 
 
     } catch (err) {
-        req.flash('error_msg',{msg:msg.error})
+      
        
-        res.redirect(urlPaths.back)
+        res.redirect('/api/login')
 
         console.log(err)
     }
@@ -52,68 +52,48 @@ module.exports.getProfile = async (req, res, next) => {
 module.exports.getProfileAvatarEdit = async (req, res, next) => {
 
     try {
-        const db = await dbPromise;
 
-        const [userDetails] = await db.execute('select id, avatar from users where id = ? ', [req.user.id]);
-
-        res.render('profile/common/profile_avatar_edit', {
-            'result': userDetails[0]
-        })
-
+        res.render('profile/common/profile_avatar_edit')
     } catch (err) {
         console.log(err)
     }
-
-
-
+    
+    
+    
 }
 
 module.exports.postProfileAvatarEdit = async (req, res, next) => {
-
-
+    
+    
     try {
         const db = await dbPromise;
         const [userDetails] = await db.execute(`select id, avatar from users where id=${req.user.id}`);
-
+        
+        let avatar
+        
         if (req.file) {
-            var avatar = `/uploads/users/${req.file.filename}`;
-            var filename = req.file.filename;
-
-            await sharp(req.file.path)
-                .resize(400, 314)
-                .toFile(`../files/uploads/users/${req.file.filename}`);
-
-
+            avatar = `/uploads/users/${req.file.filename}`;
+            
+            await sharp(req.file.path).resize(400, 314)
+            
+            
         } else {
             avatar = null;
         }
+        
+        await  db.execute(`update users set  avatar = ? where id=${req.user.id}`, [avatar])         
+        
+          
+        if (userDetails[0].avatar !== null && userDetails[0].avatar !== avatar) {
+                //remove old image if exists
+                await fsPromises.unlink(`../files/${userDetails[0].avatar}`)
 
+            }
 
-        await Promise.all([
-
-            db.execute(`update users set  avatar = ? where id=${req.user.id}`, [avatar]),
-
-            ///remove image from temp folder
-            fsPromises.unlink(`../files/tmp_folder/${filename}`),
-        ])
-
-        if (userDetails[0].avatar !== null) {
-            //remove old image if exists
-            await fsPromises.unlink(`../files/${userDetails[0].avatar}`)
-
-        }
-
-
-        res.json({
-            msg: 'Success'
-        })
+           res.redirect('/api/profile')
 
     } catch (err) {
-        console.log(err)
-
-        req.flash('error_msg',{msg:msg.error})
-       
-        res.redirect(urlPaths.back)
-
+        console.log(err)       
+        res.redirect('/api/profile')
     }
 }

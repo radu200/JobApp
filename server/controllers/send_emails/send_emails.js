@@ -92,7 +92,7 @@ module.exports.forgotPassword = (req, res, next, nodemailer, email, token) => {
           Primiți acest e-mail pentru că dvs. (sau altcineva) ați solicitat resetarea parolei pentru contul dvs.</span></p>
         <p class="description center" style="font-family:'Muli','Arial Narrow',Arial;Margin:0;text-align:center;max-width:320px;color:#a1a8ad;line-height:24px;font-size:15px;Margin-bottom:10px;margin-left: auto; margin-right: auto;"><span style="color: rgb(161, 168, 173); font-family: Muli, &quot;Arial Narrow&quot;, Arial; font-size: 15px; text-align:center; background-color:rgb(255, 255, 255);">
             Faceți clic pe butonul de mai jos pentru a finaliza procesul</span></p>
-        <a href="http://${req.headers.host}/forgot/password/reset/${token}"  target="_blank" style="border:none;  margin-bottom: 5px;text-decoration:none; color:white; background-color:#2196F3 ;padding:14px 60px;cursor: pointer; display: inline-block; font-size:20px;">Reseteaza Parola Aici</a> 
+        <a href="http://${req.headers.host}/api/forgot/password/reset/${token}"  target="_blank" style="border:none;  margin-bottom: 5px;text-decoration:none; color:white; background-color:#2196F3 ;padding:14px 60px;cursor: pointer; display: inline-block; font-size:20px;">Reseteaza Parola Aici</a> 
          <p class="description center" style="font-family:'Muli','Arial Narrow',Arial;Margin:0;text-align:center;max-width:320px;color:#a1a8ad;line-height:24px;font-size:15px;Margin-bottom:10px;margin-left: auto; margin-right: auto;"><span style="color: rgb(161, 168, 173); font-family: Muli, &quot;Arial Narrow&quot;, Arial; font-size: 15px; text-align:center; background-color:rgb(255, 255, 255);">
               Acest link va fi valabil doar pentru o oră. Dacă nu ați solicitat acest lucru, ignorați acest e-mail și parola dvs. va rămâne neschimbată.</span></p>
       </center>
@@ -315,7 +315,7 @@ const mailOptions = {
                 Va multumim pentru că  va-ați înregistrat pe saitul nostru.</br>
                 Faceți clic pe buttonul  de mai jos  pentru a finaliza procesul:
               </span></p>
-              <a  href="http://${req.headers.host}/email/verify/${token}" style="border: none; color:white; background-color:#2196F3 ;padding:14px 60px;cursor: pointer; display: inline-block; text-decoration:none;">Confirma Email</a> 
+              <a  href="http://${req.headers.host}/api/email/verify/${token}" style="border: none; color:white; background-color:#2196F3 ;padding:14px 60px;cursor: pointer; display: inline-block; text-decoration:none;">Confirma Email</a> 
               <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;font-size:15px;color:#a1a8ad;line-height:23px;">Dacă nu ați solicitat acest lucru, ignorați acest e-mail si raportați. 
                </p>
             </center>

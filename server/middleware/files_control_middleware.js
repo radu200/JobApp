@@ -3,7 +3,7 @@ const path = require('path')
   
   // multer configuration for product image upload
   module.exports.uploadJobImage = multer({
-    dest: '../files/tmp_folder/',
+    dest: '../files/uploads/jobs/',
     limits: {
         fileSize: 5e+6 // 5 mb
     },
@@ -22,8 +22,8 @@ const path = require('path')
   }).single('job_image')
 
   
-  module.exports.editJobImage = multer({
-    dest: '../files/tmp_folder/',
+module.exports.editJobImage = multer({
+    dest:'../files/uploads/jobs/',
     limits: {
         fileSize: 5e+6
     },
@@ -39,12 +39,12 @@ const path = require('path')
             cb(" We only support PNG, GIF, or JPG pictures.")
         }
     }
-}).single('job_image_edit')
+}).single('imageEdit')
 
 
 
 module.exports.avatar = multer({
-    dest: '../files/tmp_folder/',
+    dest: '../files/uploads/users/',
     limits: {
         fileSize: 5e+6
     },

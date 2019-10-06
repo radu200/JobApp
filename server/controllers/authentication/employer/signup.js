@@ -12,8 +12,8 @@ const  urlPaths  = require('../../utils/url-paths')
 
 
 module.exports.getSignUpEmployer = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        
+  
+    if (req.isAuthenticated()) {     
          req.flash('info_msg', {
              msg:"Pentru a va inregistra trebuie sa iesiti din cont."
          })
@@ -43,7 +43,7 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
     req.checkBody('last_name', 'Numele de familie este necesar').notEmpty();
     req.checkBody('last_name', 'Numele de familie trebuie să aibă între 1 și 50 de caractere.').len(1, 50);
     req.checkBody('password', 'Parola trebuie să aibă între 6-100 de caractere').len(6, 100);
-    req.checkBody('confirm_password', 'Parolele nu se potrivesc').equals(req.body.password);
+    req.checkBody('confirm_password', 'Parolele nu se potrivesc').equals(confirm_password);
     req.checkBody('terms_conditions', 'Termenii și condițiile sunt necesare').notEmpty();
 
 
@@ -125,7 +125,7 @@ module.exports.postSignUpEmployer = async (req, res, next) => {
         send_emails.checkEmailAfterSignUp(req, res, nodemailer, email, token);
         
         req.flash('warning_msg', {
-            msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul"
+            msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul.Daca nu gasiti emailul va rog sa va loga-ti si sa retrimite-ti."
         });
         
         res.redirect(urlPaths.login)

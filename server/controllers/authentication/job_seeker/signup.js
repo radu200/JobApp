@@ -117,7 +117,7 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
       
         
           req.flash('warning_msg', {
-              msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul"
+              msg: "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul.Daca nu gasiti emailul va rog sa va loga-ti si sa retrimite-ti."
           });
   
           res.redirect(urlPaths.login)

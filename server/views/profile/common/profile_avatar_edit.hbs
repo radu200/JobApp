@@ -3,6 +3,29 @@
     {{>alerts}}
  <div class="container">
       <div class="row">
+         <h4>Schimba imaginea</h4> 
+        <form  action="/api/profile/avatar"  method="POST"  enctype="multipart/form-data">
+              
+           <div class="file-field input-field">
+                  <div class="btn blue ">
+                      <span>  Incarca imagine</span>
+                      <input  type="file" id="avatar" name="avatar" accept=".jpeg, .jpg, .png" >
+                  </div>
+              <div class="file-path-wrapper">
+                  <input class="file-path " type="text" placeholder=" Incarca imagine">
+              </div>
+          </div>
+            
+              <button type="submit"  class="btn blue right">Posteaza<i class="material-icons right">send</i></button>
+
+        </form>
+                                     
+     </div> <!--row ends-->
+</div><!--container-->
+
+{{!-- 
+ <div class="container">
+      <div class="row">
         <form id="profile_avatar_form" method="POST"  data_avatar_id="{{result.id}}">
           <h4>Schimba imaginea</h4> <!--obligatoriu-->
             <p class="job_image_edit_error error"></p>                                 
@@ -12,12 +35,12 @@
                           <span class="sr-only"></span>
                         </div>
                               <div class="col s12 m12">
-                               <p class="avatar_image_error error"></p>
+                               <p class="avatar_error error"></p>
                               <h4>Adauga imagine</h4>
                               <div class="file-field input-field">
                                   <div class="btn blue ">
                                       <span>  Incarca imagine</span>
-                                      <input  type="file" id="profile_avatar" name="profile_avatar" accept=".jpeg, .jpg, .png" >
+                                      <input  type="file" id="avatar" name="avatar" accept=".jpeg, .jpg, .png" >
                                   </div>
                               <div class="file-path-wrapper">
                                   <input class="file-path " type="text" placeholder=" Incarca imagine">
@@ -31,6 +54,4 @@
         </form>   
                                      
      </div> <!--row ends-->
-</div><!--container-->
-
-
+</div><!--container--> --}}

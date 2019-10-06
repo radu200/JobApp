@@ -39,8 +39,8 @@ module.exports = function (app){
   app.post('/api/change/email', accessController.ensureAuthenticated,settingsController.postChangeEmail)
    //verify email after signup
    app.get('/api/email/verify/:token',settingsController.getCheckEmail);
-   app.get('/api/resend/email/check',accessController.ensureAuthenticated, settingsController.getResendEmailCheck )
-   app.post('/api/resend/email/check',accessController.ensureAuthenticated, settingsController.postResendEmailCheck)
+   app.get('/api/resend/email/check', settingsController.getResendEmailCheck )
+   app.post('/api/resend/email/check', settingsController.postResendEmailCheck)
    //forgot password
    app.get('/api/forgot/password',settingsController.getForgotPassword);
    app.post('/api/forgot/password',settingsController.postForgotPassword);
@@ -51,9 +51,9 @@ module.exports = function (app){
    app.post('/api/change/password', accessController.ensureAuthenticated, settingsController.postChangePassword)
 
   //profile common
-  app.get('/api/profile', accessController.ensureAuthenticated, profileController.getProfile)
+  app.get('/api/profile', accessController.ensureAuthenticated,accessController.ensureEmailChecked, profileController.getProfile)
   app.get('/api/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
-  app.post('/api/profile/avatar/:id', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)  
+  app.post('/api/profile/avatar', accessController.ensureAuthenticated,filesController.avatar, profileController.postProfileAvatarEdit)  
   //employer profile
   app.get('/api/profile/edit/employer', accessController.ensureAuthenticated,accessController.ensureEmailChecked,accessController.employer, employerProfileController.getEmployerProfileInfoEdit)
   app.post('/api/profile/edit/employer', accessController.ensureAuthenticated,accessController.employer, employerProfileController.postEmployerProfileInfoEdit)

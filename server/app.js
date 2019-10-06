@@ -20,7 +20,7 @@ const cors = require ('cors');
 
 const app = express();
 // Load environment variables from .env file
-require('dotenv').config({ path: '.env' })
+dotenv.config({ path: '.env' })
 
 //Passport configuration.
 require('./config/passport')(passport);

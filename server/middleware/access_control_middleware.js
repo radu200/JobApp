@@ -71,15 +71,13 @@ module.exports.employerJsonRes = function (req, res, next) {
 }
 
 module.exports.ensureEmailChecked = (req, res, next) => {
+  
     db.query('select id, email,email_status from users where id = ? ', [req.user.id], (err, results) => {
 
         if (err) throw err;
 
         if (results[0].email_status === "unverified" || results[0].email_status === null) {
-            res.redirect('/resend/email/check')
-        } else if (results[0].email_status === undefined) {
-            res.redirect('/api/logout')
-
+            res.redirect('/api/resend/email/check')
         } else {
             return next();
         }

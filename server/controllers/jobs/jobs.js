@@ -131,11 +131,11 @@ module.exports.JobApplicationApplicantsRejected= async(req,res) => {
   
               const db = await dbPromise
               const [job] = await db.execute('SELECT category FROM jobs  WHERE jobs.id = ?',[ job_id])
-              let category = job[0].category;
+              const category = job[0].category;
 
               const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
               const user_details = `users.first_name,users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `
-               const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID LIMIT ${limit} OFFSET ${offset}`
+              const sql =  `SELECT ${jobseeker_experience}, ${user_details}, job_application.jobseeker_id, job_application.job_id, job_application.status FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id INNER JOIN job_application ON job_application.jobseeker_id = users.id WHERE lower(category ) LIKE '%${category}%' AND job_application.job_id = ?  AND job_application.status = ?  GROUP BY category,userID LIMIT ${limit} OFFSET ${offset}`
        
               const [results] = await db.query(sql,[job_id,status])
           
@@ -158,11 +158,12 @@ module.exports.JobApplicationJobSeeker = async (req,res) => {
     const userType = req.user.type;
     const offset = req.body.offset;
     const limit = 12;
+   
     try {
 
         const db = await dbPromise
       
-         const [results] = await db.execute(`select job_application.id as appliedJobsId, job_application.job_id, job_application.jobseeker_id ,jobs.id, jobs.category,jobs.position,jobs.image,jobs.employment_type,jobs.city from  job_application LEFT JOIN jobs on job_application.job_id = jobs.id where job_application.jobseeker_id = ? LIMIT ${limit} OFFSET ${offset} `,[req.user.id]);
+        const [results] = await db.execute(`select job_application.id as appliedJobsId, job_application.job_id, job_application.jobseeker_id ,jobs.id, jobs.category,jobs.position,jobs.image,jobs.employment_type,jobs.city from  job_application LEFT JOIN jobs on job_application.job_id = jobs.id where job_application.jobseeker_id = ? LIMIT ${limit} OFFSET ${offset} `,[req.user.id]);
          
          if(userType === 'jobseeker' ){
              res.json({
@@ -180,6 +181,7 @@ module.exports.getJobsPage = async (req, res, next) => {
     
     const offset = req.query.offset;
     const limit = 12
+   
     try {
         
         const db = await dbPromise
@@ -268,22 +270,18 @@ module.exports.postAddJobs = async (req, res, next) => {
         const db = await dbPromise;
         let  lang;
         let job_image; 
-         if (req.file) {
+       
+        if (req.file) {
              job_image = '/uploads/jobs/' + req.file.filename;
             //resize image
             await sharp(req.file.path)
                 .resize(200, 157)
-                .toFile('../files/uploads/jobs/' + req.file.filename);
-
-            await fsPromises.unlink('../files/tmp_folder/' + req.file.filename);
 
         } else {
             job_image = null;
 
         }
 
-
-      
 
         if (language) {
              lang = language.toString();
@@ -313,11 +311,8 @@ module.exports.postAddJobs = async (req, res, next) => {
 
 
     } catch (err) {
-        console.log(err)
-        
-        req.flash('error_msg', {
-            msg: msg.error
-        });
+        console.log(err)   
+        req.flash('error_msg', { msg: msg.error});
         res.redirect(urlPaths.back);
     }
 
@@ -331,10 +326,9 @@ module.exports.getJobImageEdit = async (req, res, next) => {
     try {
         const db = await dbPromise;
 
-        const [userDetails] = await db.execute('select id, image from jobs  where id= ?', [req.params.id]);
-
+        const [userDetails] = await db.execute('select id, image from jobs  where id = ?', [req.params.id]);
         res.render('./jobs/job_edit_image', {
-            'results': userDetails
+             'result': userDetails
         })
 
     } catch (err) {
@@ -346,52 +340,46 @@ module.exports.getJobImageEdit = async (req, res, next) => {
 
 
 module.exports.postJobImageEdit = async (req, res, next) => {
-
-    try {
    
+    try {
+        
+        let image;        
+        let id = req.params.id
+
         const db = await dbPromise;
-        const [userDetails] = await db.execute(`select id, image from jobs where id = ?`, [req.params.id]);
-
+        const [userDetails] = await db.execute(`select id, image from jobs where id = ?`, [id]);
+        
+       
         if (req.file) {
-            var image = '/uploads/jobs/' + req.file.filename;
-            var filename = req.file.filename;
-            await sharp(req.file.path)
-                .resize(820, 461)
-                .toFile(`../files/uploads/jobs/${req.file.filename}`);
-
+            image = '/uploads/jobs/' + req.file.filename;
+            await sharp(req.file.path).resize(820, 461)
 
         } else {
             image = null;
         }
 
 
-        await Promise.all([
-
-            db.execute(`update jobs set image = ? where id = ?`, [image, req.params.id]),
-
-            ///remove image from temp folder
-            fsPromises.unlink(`../files/tmp_folder/${filename}`),
-        ])
-
-
-        if (userDetails[0].image !== null) {
+        await db.execute(`update jobs set image = ? where id = ?`, [image, id])
+       
+        
+        if (userDetails[0].image !== null && userDetails[0].image !== image ) {
+           
+            const path  = `../files/${userDetails[0].image}`
             //remove old image if exists
-            await fsPromises.unlink(`../files/${userDetails[0].image}`)
-
+            await fsPromises.unlink(path)
+          
         }
 
-        res.json({
-            msg: "Success"
-        })
+          res.redirect('/api/my-jobs')
+     
 
     } catch (err) {
         console.log('jobimageEdit', err)
-       
-        req.flash('error_msg', {
-            msg: msg.error
-        });
-        res.redirect(urlPaths.back);
+      
+
+        res.redirect('/api/my-jobs')
     }
+
 };
 
 

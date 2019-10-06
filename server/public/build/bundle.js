@@ -11114,18 +11114,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./public/src/js/components/main.js":
-/*!******************************************!*\
-  !*** ./public/src/js/components/main.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-
 /***/ "./public/src/js/front_end_validation/authentication/login.js":
 /*!********************************************************************!*\
   !*** ./public/src/js/front_end_validation/authentication/login.js ***!
@@ -11402,70 +11390,74 @@ $('#job_edit_form').on('submit', function (event) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+// function _(el){
+// 	return document.getElementById(el);
+// }
+
+// $("#job_image_edit_form").on("submit",function(event){
+// 	event.preventDefault();
+//     // alert('hello')
+// 	var jobForm = $('#job_image_edit_form');
+// 	var jobId =  jobForm.attr('data_job_id');
+
+// 	//console.log(file.name+" | "+file.size+" | "+file.type)
+// 	// //  alert(file.name+" | "+file.size+" | "+file.type);
+
+// 	var formdata = new FormData();
+
+// 	let imageInput =  $('#job_image_edit');
+// 	if(imageInput.val() === ''){
+// 		$('.job_image_edit_error').text('Te rog alege imagine')
+// 		return false;
+// 	}
+
+// 	//size validation
+// 	 let file = _("job_image_edit").files[0];
+//        if(file.size > 5e+6 ){
+// 			//alert("image is too big")
+// 	     $(".job_image_edit_error").text('Imagine nu trebuie sa fie mai mare de 5mb');
+
+// 		return false;
+//       }
+
+// 		//append input
+//     formdata.append("job_image_edit", file );
 
 
-function _(el) {
-	return document.getElementById(el);
-}
+// 	let xhr = new XMLHttpRequest();
+// 	xhr.open("POST",` /job_image/edit/${jobId}`, true);
+// 	xhr.upload.addEventListener("progress", progressHandlerImageEdit, false)
+// 	xhr.addEventListener("load", completeHandlerImageEdit, false);
+// 	xhr.addEventListener("error", errorHandlerImageEdit, false);
+// 	xhr.addEventListener("abort", abortHandlerImageEdit, false);
 
-$("#job_image_edit_form").on("submit", function (event) {
-	event.preventDefault();
-	// alert('hello')
-	var jobForm = $('#job_image_edit_form');
-	var jobId = jobForm.attr('data_job_id');
+// 	xhr.send(formdata);
 
-	//console.log(file.name+" | "+file.size+" | "+file.type)
-	// //  alert(file.name+" | "+file.size+" | "+file.type);
 
-	var formdata = new FormData();
+// });
+// function progressHandlerImageEdit(event){
+// 	// _("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
+// 	 let percent = (event.loaded / event.total) * 100;
+// 	 console.log(percent)
+//       _("progressBarEdit").style.width = percent + "%";
+// 	 // _("statusd").innerHTML = Math.round(percent)+"% uploaded";
 
-	var imageInput = $('#job_image_edit');
-	if (imageInput.val() === '') {
-		$('.job_image_edit_error').text('Te rog alege imagine');
-		return false;
-	}
+// }
+// function completeHandlerImageEdit(event){
+// 	window.location.href="/api/my-jobs" 
 
-	//size validation
-	var file = _("job_image_edit").files[0];
-	if (file.size > 5e+6) {
-		//alert("image is too big")
-		$(".job_image_edit_error").text('Imagine nu trebuie sa fie mai mare de 5mb');
+// 	 // _("statusd").innerHTML = event.target.responseText;
+// 	 //_('post_job').reset();
 
-		return false;
-	}
+// }
+// function errorHandlerImageEdit(event){
 
-	//append input
-	formdata.append("job_image_edit", file);
+// 	//  _("status").innerHTML = "Upload Failed";
+// }
+// function abortHandlerImageEdit(event){
+// 	//  _("status").innerHTML = "Upload Aborted";
+// }
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", " /job_image/edit/" + jobId, true);
-	xhr.upload.addEventListener("progress", progressHandlerImageEdit, false);
-	xhr.addEventListener("load", completeHandlerImageEdit, false);
-	xhr.addEventListener("error", errorHandlerImageEdit, false);
-	xhr.addEventListener("abort", abortHandlerImageEdit, false);
-
-	xhr.send(formdata);
-});
-function progressHandlerImageEdit(event) {
-	// _("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
-	var percent = event.loaded / event.total * 100;
-	console.log(percent);
-	_("progressBarEdit").style.width = percent + "%";
-	// _("statusd").innerHTML = Math.round(percent)+"% uploaded";
-}
-function completeHandlerImageEdit(event) {
-	window.location.href = "/my_jobs";
-
-	// _("statusd").innerHTML = event.target.responseText;
-	//_('post_job').reset();
-}
-function errorHandlerImageEdit(event) {
-
-	//  _("status").innerHTML = "Upload Failed";
-}
-function abortHandlerImageEdit(event) {
-	//  _("status").innerHTML = "Upload Aborted";
-}
 
 /***/ }),
 
@@ -11629,7 +11621,7 @@ var _main7 = __webpack_require__(/*! ./profile/main */ "./public/src/js/profile/
 
 var _main8 = _interopRequireDefault(_main7);
 
-var _main9 = __webpack_require__(/*! ./components/main */ "./public/src/js/components/main.js");
+var _main9 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './components/main'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 var _main10 = _interopRequireDefault(_main9);
 
@@ -11673,70 +11665,75 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 "use strict";
 
 
-function _(el) {
-	return document.getElementById(el);
-}
+// function _(el){
+// 	return document.getElementById(el);
+// }
 
-$("#profile_avatar_form").on("submit", function (event) {
-	event.preventDefault();
-	// alert('hello')
-	var avatarForm = $('#profile_avatar_form');
-	var avatarId = avatarForm.attr('data_avatar_id');
 
-	//console.log(file.name+" | "+file.size+" | "+file.type)
-	// //  alert(file.name+" | "+file.size+" | "+file.type);
+// $("#avatarForm").on("submit",function(event){
+// 	 event.preventDefault();
+// 	alert('hello')
 
-	var formdata = new FormData();
 
-	var avatarInput = $('#profile_avatar');
-	if (avatarInput.val() === '') {
-		$('.avatar_image_error').text('Te rog alege imagine');
-		return false;
-	}
+// });
+// 	console.log(file.name+" | "+file.size+" | "+file.type)
+// 	//  alert(file.name+" | "+file.size+" | "+file.type);
 
-	// //size vappplidation
-	var file = _("profile_avatar").files[0];
-	if (file.size > 5e+6) {
-		//alert("image is too big")
-		$('.avatar_image_error').text('Imagine nu trebuie sa fie mai mare de 5mb');
+// let formdata = new FormData();
 
-		return false;
-	}
+// 	let avatarInput =  $('#avatar');
+// 	if(avatarInput.val() === ''){
+// 		$('.avatar_error').text('Te rog alege imagine')x
+// 		return false;
+// 	}
 
-	//append input
-	formdata.append("avatar", file);
+// 	// //size vappplidation
+// 	  let file = _("avatar").files[0];
 
-	var xhr = new XMLHttpRequest();
-	xhr.upload.addEventListener("progress", progressHandlerImageEdit, false);
-	xhr.addEventListener("load", completeHandlerImageEdit, false);
-	xhr.addEventListener("error", errorHandlerImageEdit, false);
-	xhr.addEventListener("abort", abortHandlerImageEdit, false);
-	xhr.open("POST", " /api/profile/avatar/" + avatarId);
-	//var contentType = "multipart/form-data";
-	//xhr.setRequestHeader("Content-Type", contentType);
+// 	  if(file.size > 5e+6 ){
+// 			//alert("image is too big")
+// 		$('.avatar_error').text('Imagine nu trebuie sa fie mai mare de 5mb');
 
-	xhr.send(formdata);
-});
-function progressHandlerImageEdit(event) {
-	// _("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
-	var percent = event.loaded / event.total * 100;
-	console.log(percent);
-	_("progressBarAavatar").style.width = percent + "%";
-	// _("statusd").innerHTML = Math.round(percent)+"% uploaded";
-}
-function completeHandlerImageEdit(event) {
-	window.location.href = "/api/profile";
+// 		return false;
+//       }
 
-	// _("statusd").innerHTML = event.target.responseText;
-	//_('post_job').reset();
-}
-function errorHandlerImageEdit(event) {
+// 		//append input
+//     formdata.append("avatar", file );
 
-	//  _("status").innerHTML = "Upload Failed";
-}
-function abortHandlerImageEdit(event) {
-	//  _("status").innerHTML = "Upload Aborted";
-}
+// 	console.log(file)
+// 	let xhr = new XMLHttpRequest();
+// 	xhr.upload.addEventListener("progress", progressHandlerImageEdit, false)
+// 	xhr.addEventListener("load", completeHandlerImageEdit, false);
+// 	xhr.addEventListener("error", errorHandlerImageEdit, false);
+// 	xhr.addEventListener("abort", abortHandlerImageEdit, false);
+// 	xhr.open("POST",` /api/profile/avatar`);
+// 	//var contentType = "multipart/form-data";
+//     //xhr.setRequestHeader("Content-Type", contentType);
+
+// 	xhr.send(formdata);
+
+
+// function progressHandlerImageEdit(event){
+// 	// _("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
+// 	 let percent = (event.loaded / event.total) * 100;
+//       _("progressBarAavatar").style.width = percent + "%";
+// 	 // _("statusd").innerHTML = Math.round(percent)+"% uploaded";
+
+// }
+// function completeHandlerImageEdit(event){
+// 	window.location.href="/api/profile" 
+
+// 	 // _("statusd").innerHTML = event.target.responseText;
+// 	 //_('post_job').reset();
+
+// }
+// function errorHandlerImageEdit(event){
+// 	//  _("status").innerHTML = "Upload Failed";
+// }
+// function abortHandlerImageEdit(event){
+// 	//  _("status").innerHTML = "Upload Aborted";
+// }
+
 
 /***/ }),
 
