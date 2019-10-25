@@ -1,142 +1,148 @@
-import React from 'react'
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import { Months,Days, Years} from './../../Utils/messages';
-import RoomIcon from '@material-ui/icons/Room';
-
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import { Months, Days, Years } from "./../../Utils/messages";
+import RoomIcon from "@material-ui/icons/Room";
 
 const styles = {
-  
-
   media: {
     // ⚠️ object-fit is not supported by IE 11.
-    objectFit: 'cover',
+    objectFit: "cover"
   },
 
-  heading:{
-    opacity:0.7
+  heading: {
+    opacity: 0.7
   },
-  candidateAbout:{
-    wordWrap: 'break-word',
+  candidateAbout: {
+    wordWrap: "break-word"
   },
-  companyName:{
-   color:'black',
-   fontWeight:'bold'
+  companyName: {
+    color: "black",
+    fontWeight: "bold"
   },
-  responsibilities:{
-    wordWrap: 'break-word',
+  responsibilities: {
+    wordWrap: "break-word"
   },
-  card:{
-    marginTop:10,
-  
+  card: {
+    marginTop: 10
   },
 
   avatar: {
-    marginTop:10,
-    marginLeft:20,
-    marginRight:'auto',
-    marginBottom:0,
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: "auto",
+    marginBottom: 0,
     width: 200,
     height: 157,
-    borderRadius:10
-  
-    
+    borderRadius: 10
   },
-  lang:{
-    fontWeight:'bold'
+  lang: {
+    fontWeight: "bold"
   },
-  availability:{
-    color:'#43a047'
+  availability: {
+    color: "#43a047"
   },
-  RoomIcon:{
-    fontSize:17
-}
+  RoomIcon: {
+    fontSize: 17
+  }
 };
 
+const CandidateDetailsCard = ({ candidate, experience, classes }) => {
+  return (
+    <Card className={classes.card}>
+      {candidate.map((candidate, index) => {
+        return (
+          <CardActionArea key={candidate.id}>
+            <img
+              alt="Remy Sharp"
+              src={candidate.avatar}
+              className={classes.avatar}
+            />
+            <CardContent>
+              <Typography
+                gutterBottom
+                component="p"
+                className={classes.availability}
+              >
+                {candidate.job_seeker_availability}
+              </Typography>
+              <Typography component="p">
+                {candidate.job_seeker_employment_type}
+              </Typography>
+              <Typography gutterBottom variant="h5" component="h2">
+                {candidate.first_name} {candidate.last_name}
+              </Typography>
 
-  
-const CandidateDetailsCard = ({candidate,experience,classes}) => {
-  return(
-        <Card className={classes.card}>
-          {candidate.map((candidate,index) => {
-               return( 
-                  <CardActionArea key={candidate.id} >
-                     <img alt="Remy Sharp" src={candidate.avatar} className={classes.avatar} />
-                  <CardContent>
-                    <Typography    gutterBottom component="p" className={classes.availability} >
-                        {candidate.job_seeker_availability}
-                      </Typography>
-                      <Typography component="p">
-                        {candidate.job_seeker_employment_type}
-                      </Typography>
-                      <Typography gutterBottom variant="h5" component="h2">
-                      {candidate.first_name} {candidate.last_name}
-                      </Typography>
+              {candidate.job_seeker_about_me ? (
+                <Typography component="p" className={classes.candidateAbout}>
+                  <b>Despre: </b> {candidate.job_seeker_about_me}
+                </Typography>
+              ) : null}
+              {candidate.job_seeker_languages ? (
+                <Typography gutterBottom component="p">
+                  <b> Limbi: </b>
+                  {candidate.job_seeker_languages}
+                </Typography>
+              ) : null}
 
-                      { candidate.job_seeker_about_me ? 
-                      <Typography component="p" className={classes.candidateAbout} >
-                        <b>Despre: </b>  {candidate.job_seeker_about_me} 
-                      </Typography>
-                        : null } 
-                        { candidate.job_seeker_languages ?
-                        <Typography    gutterBottom component="p" >
-                          <b> Limbi: </b>
-                          {candidate.job_seeker_languages} 
-                          </Typography> :null}
-                    
-                      <Typography component="p">
-                        <RoomIcon  className={classes.RoomIcon} /> {candidate.job_seeker_location}
-                      </Typography>    
-                    </CardContent>
-                  </CardActionArea>
-                )} )}
-                {experience.map((experience,index) =>{
-                 return (
-                  <CardActionArea key={index}>
-                    <CardContent >
-                      <Typography gutterBottom variant="h5" component="h2">
-                      {experience.position}
-                      </Typography>
-                      <Typography component="p">
-                        {experience.category}
-                      </Typography>
-                        <Typography component="p" className={classes.companyName}>
-                        {experience.company_name}
-                      </Typography>
-                    <Typography    gutterBottom component="p" color="primary">
-                        {experience.start_date}- {experience.end_date} - {experience.years} {Years} {experience.months} {Months} {experience.days} {Days}
-                      </Typography>
-                      <Typography    gutterBottom component="p"  className={classes.responsibilities} >
-                        {experience.responsibilities}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                )})}
-                   
-            </Card>
-        
-           )
-
-}
+              <Typography component="p">
+                <RoomIcon className={classes.RoomIcon} />{" "}
+                {candidate.job_seeker_location}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        );
+      })}
+      {experience.map((experience, index) => {
+        return (
+          <CardActionArea key={index}>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {experience.position}
+              </Typography>
+              <Typography component="p">{experience.category}</Typography>
+              <Typography component="p" className={classes.companyName}>
+                {experience.company_name}
+              </Typography>
+              <Typography gutterBottom component="p" color="primary">
+                {experience.start_date}- {experience.end_date} -{" "}
+                {experience.years} {Years} {experience.months} {Months}{" "}
+                {experience.days} {Days}
+              </Typography>
+              <Typography
+                gutterBottom
+                component="p"
+                className={classes.responsibilities}
+              >
+                {experience.responsibilities}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        );
+      })}
+    </Card>
+  );
+};
 
 CandidateDetailsCard.propTypes = {
-     classes: PropTypes.object.isRequired,
-     candidate:PropTypes.arrayOf(
-       PropTypes.shape({
-          id:PropTypes.number.isRequired,
-          avatar:PropTypes.string.isRequired,
-          job_seeker_availability:PropTypes.string.isRequired,
-          job_seeker_employment_type:PropTypes.string.isRequired,
-          first_name:PropTypes.string.isRequired,
-          last_name:PropTypes.string.isRequired,
-          job_seeker_about_me:PropTypes.string.isRequired,
-          job_seeker_languages:PropTypes.string.isRequired,
-          job_seeker_location:PropTypes.string.isRequired
-       }))
-   };
+  classes: PropTypes.object.isRequired,
+  candidate: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      avatar: PropTypes.string.isRequired,
+      job_seeker_availability: PropTypes.string.isRequired,
+      job_seeker_employment_type: PropTypes.string.isRequired,
+      first_name: PropTypes.string.isRequired,
+      last_name: PropTypes.string.isRequired,
+      job_seeker_about_me: PropTypes.string.isRequired,
+      job_seeker_languages: PropTypes.string.isRequired,
+      job_seeker_location: PropTypes.string.isRequired
+    })
+  )
+};
 
 export default withStyles(styles)(CandidateDetailsCard);

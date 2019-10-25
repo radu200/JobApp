@@ -1,20 +1,20 @@
 {{>MainNavBar}}
 
-    <div class="container">
-      <div class="card-panel">
-        <div class="row">
-          <div class="col s12 m12 l4">
-          <div class="card">
-             <div class="card-image waves-effect waves-block waves-light">
-              {{#if this.result.image}}       
-              <img  src="{{result.image}}">
-              {{else}}
-              <img  src="https://image.ibb.co/hbEMux/resort1.jpg">
-              
-              {{/if}}
-            </div>
+<div class="container">
+  <div class="card-panel">
+    <div class="row">
+      <div class="col s12 m12 l4">
+        <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            {{#if this.result.image}}
+            <img src="{{result.image}}">
+            {{else}}
+            <img src="https://image.ibb.co/hbEMux/resort1.jpg">
+
+            {{/if}}
           </div>
-      
+        </div>
+
         <div class="card-content">
           <h4 class="break_text">{{result.position}}</h4>
           <p class="text-opacity">{{result.category}}</p>
@@ -37,25 +37,28 @@
           <p> <i class="material-icons">place</i> <span class="font_weight_bold">{{result.city}}</span></p>
           <div class="divider"></div>
         </div>
-     </div>
-          <div class="col s12 m12 l8">
-                  
+      </div>
+      
+      <div class="col s12 m12 l8">
         <ul class="collapsible">
-            <li>
-              <div class="collapsible-header"><span> 1</span> Aplicat</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"> <span>2 </span> lista scurta</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"><span>2</span> Respins</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-             <li>
-              <div class="collapsible-header"><span>1</span> Expirat</div>
-              <div class="collapsible-body"><span>Lorem ips</span></div>
-            </li>
-          </ul>
-          </div>
+          <li>
+            <div class="collapsible-header"><span> 1</span> Aplicat</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"> <span>2 </span> lista scurta</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><span>2</span> Respins</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><span>1</span> Expirat</div>
+            <div class="collapsible-body"><span>Lorem ips</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

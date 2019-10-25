@@ -5,7 +5,5 @@ import $ from 'jquery';
 import '../materialize/js/bin/materialize.min.js'
 import Utility from './utility/main';
 import Jobs from './jobs/main';
-import Profile from './profile/main';
-import Components from './components/main'
 import FrontEndValidation from './front_end_validation/main'
 

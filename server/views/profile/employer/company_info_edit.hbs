@@ -1,52 +1,52 @@
 {{>MainNavBar}}
-  {{>alerts}}
-      <div class="row">
-            <div class="col s12 l4 offset-l4">
-              <div class="card ">
-                <div class="card-content">
-                  <h4 class="card-title center-align">Editeaza Informatia despre companie</h4>
-                  <form method="post" action="/api/company/info/edit">
-                      <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text"   placeholder="Numele " value="{{result.company_name}}" name="companyName"   />
-                        </div>
-                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text"   placeholder="Tipul comapniei " name="companyType" value="{{result.company_type}}"  />
-                        </div>
-                     </div>
-                        <div class="row">
-                            <div class="col s12 m12">
-                                <p class="company_description_error error"></p>
-                                <div class="input-field">
-                                <textarea id="company_description" class="materialize-textarea"  data-length="250" placeholder="ex.Descriere.Te rog nu inlude numere" name="companyDescription"  maxlength="250"  >{{result.company_description}}</textarea>
-                                    <span for="company_description"></span>
-                                </div>
-                            </div>
-                        </div>
-
-              
-                <div class="row">
-                  <div class="input-field">
-                            <select  name="company_location" id="company_location">
-                              {{#if result.company_location}}
-                                <option value="{{result.location}}" selected>{{result.company_location}}</option>
-                                {{else}}
-                                 <option selected value="">Alege locatia unde se afla compania</option>
-                                {{/if}}
-                                {{>locations}}
-                            </select>
-                        </div>
-                    </div>
-              
-                    <div class="row">
-                        <button class="btn  full-width-btn blue btn-large waves-effect waves-light " type="submit" >Posteaza
-                        </button>
-                    </div>
-                  </form> 
-              </div>
+{{>alerts}}
+<div class="row">
+  <div class="col s12 l4 offset-l4">
+    <div class="card ">
+      <div class="card-content">
+        <h4 class="card-title center-align">Editeaza Informatia despre companie</h4>
+        <form method="post" action="/api/company/info/edit">
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="text" placeholder="Numele " value="{{result.company_name}}" name="companyName" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="text" placeholder="Tipul comapniei " name="companyType" value="{{result.company_type}}" />
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col s12 m12">
+              <p class="company_description_error error"></p>
+              <div class="input-field">
+                <textarea id="company_description" class="materialize-textarea" data-length="250"
+                  placeholder="ex.Descriere.Te rog nu inlude numere" name="companyDescription"
+                  maxlength="250">{{result.company_description}}</textarea>
+                <span for="company_description"></span>
               </div>
             </div>
-          </div> 
-     
+          </div>
+
+          <div class="row">
+            <div class="input-field">
+              <select name="company_location" id="company_location">
+                {{#if result.company_location}}
+                <option value="{{result.location}}" selected>{{result.company_location}}</option>
+                {{else}}
+                <option selected value="">Alege locatia unde se afla compania</option>
+                {{/if}}
+                {{>locations}}
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn  full-width-btn blue btn-large waves-effect waves-light " type="submit">Posteaza
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

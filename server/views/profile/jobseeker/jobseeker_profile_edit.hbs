@@ -1,103 +1,103 @@
 {{>MainNavBar}}
 {{>alerts}}
 <div class="container">
-    <div class="row">
-        <form id="employee_info_form" method="POST" action="/api/profile-edit/jobseeker">
+  <div class="row">
+    <form id="employee_info_form" method="POST" action="/api/profile-edit/jobseeker">
 
-            <!--employee personal info --->
-            <h5 class="center"><b>Informatia personala</b> </h5>
+      <!--employee personal info --->
+      <h5 class="center"><b>Informatia personala</b> </h5>
 
-            <div class="col s12 m6 l6">
-                <div class="input-field">
-                    <input type="text" placeholder="Prenumele" maxlength="50" name="firstName" value="{{result.first_name}}">
-                </div>
-            </div>
-            <div class="col s12 m6 l6">
-                <div class="input-field">
-                    <input type="text" placeholder="Numele de familie" maxlength="50" name="lastName" value="{{result.last_name}}">
-                </div>
-            </div>
+      <div class="col s12 m6 l6">
+        <div class="input-field">
+          <input type="text" placeholder="Prenumele" maxlength="50" name="firstName" value="{{result.first_name}}">
+        </div>
+      </div>
+      <div class="col s12 m6 l6">
+        <div class="input-field">
+          <input type="text" placeholder="Numele de familie" maxlength="50" name="lastName"
+            value="{{result.last_name}}">
+        </div>
+      </div>
 
-            <div class="col s12 m12 l12">
-                <h6> <b>Care este disponibilitatea dvs. actuală ? </h6>
-                <div class="input-field">
-                    <select name="availabilityJobseeker">
-                        {{#if result.job_seeker_availability}}
-                        <option value="{{result.job_seeker_availability}}" selected>{{result.job_seeker_availability}} </option>
-                        {{else}}
-                        <option value="" disabled selected>Selecteaza disponibilitatea
-                            </option>
-                        {{/if}}
-                        <option value="Sunt disponibil pentru începerea imediata">Sunt disponibil pentru începerea imediata</option>
-                        <option value="Sunt disponibil, dar nu imediat">Sunt disponibil, dar nu imediat</option>
-                        <option value="Nu sunt disponibil pentru oferte"> Nu sunt disponibil pentru oferte</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col s12 m12 l12">
-                <h6 class="text-opacity">Tipuri de angajare </h6>
-                <div class="input-field">
-                    <select name="employmentType">
-                        {{#if result.job_seeker_employment_type}}
-                        <option value="{{result.job_seeker_employment_type}}" selected>{{result.job_seeker_employment_type}}</option>
-                        {{else}}
-                        <option value="Timp deplin" selected>Timp deplin</option>
-                        {{/if}}
-                        <option value="Timp deplin">Timp deplin</option>
-                        <option value="Cu jumătate de normă">Cu jumătate de normă</option>
-                        <option value="Temporar"> Temporar</option>
-                        <option value="Freelance">Freelance</option>
-                        <option value="Contract">Contract</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col s12 m12 l12">
-                <h6> <b>Unde este locatia dvs. la moment ? </b></h6>
-                <div class="input-field">
-                    <input type="text" placeholder="Locatia dvs." maxlength="70" name="jobseekerLocation" value={{result.job_seeker_location}}>
-                </div>
-            </div>
+      <div class="col s12 m12 l12">
+        <h6> <b></b>Care este disponibilitatea dvs. actuală ? </h6>
+        <div class="input-field">
+          <select name="availabilityJobseeker">
+            {{#if result.job_seeker_availability}}
+            <option value="{{result.job_seeker_availability}}" selected>{{result.job_seeker_availability}} </option>
+            {{else}}
+            <option value="" disabled selected>Selecteaza disponibilitatea
+            </option>
+            {{/if}}
+            <option value="Sunt disponibil pentru începerea imediata">Sunt disponibil pentru începerea imediata</option>
+            <option value="Sunt disponibil, dar nu imediat">Sunt disponibil, dar nu imediat</option>
+            <option value="Nu sunt disponibil pentru oferte"> Nu sunt disponibil pentru oferte</option>
+          </select>
+        </div>
+      </div>
+      <div class="col s12 m12 l12">
+        <h6 class="text-opacity">Tipuri de angajare </h6>
+        <div class="input-field">
+          <select name="employmentType">
+            {{#if result.job_seeker_employment_type}}
+            <option value="{{result.job_seeker_employment_type}}" selected>{{result.job_seeker_employment_type}}
+            </option>
+            {{else}}
+            <option value="Timp deplin" selected>Timp deplin</option>
+            {{/if}}
+            <option value="Timp deplin">Timp deplin</option>
+            <option value="Cu jumătate de normă">Cu jumătate de normă</option>
+            <option value="Temporar"> Temporar</option>
+            <option value="Freelance">Freelance</option>
+            <option value="Contract">Contract</option>
+          </select>
+        </div>
+      </div>
+      <div class="col s12 m12 l12">
+        <h6> <b>Unde este locatia dvs. la moment ? </b></h6>
+        <div class="input-field">
+          <input type="text" placeholder="Locatia dvs." maxlength="70" name="jobseekerLocation"
+            value={{result.job_seeker_location}}>
+        </div>
+      </div>
+      <!--about me -->
+      <h5 class="center"><b>Despre Mine</b> </h5>
+      <div class="col s12 m12">
+        <div class="input-field">
+          <textarea class="materialize-textarea" data-length="250" placeholder="Despre mine."
+            name="jobseekerDescription" maxlength="250">{{result.job_seeker_about_me}}</textarea>
+          <span for="description"></span>
+        </div>
+      </div>
 
-
-            <!--about me -->
-            <h5 class="center"><b>Despre Mine</b> </h5>
-            <div class="col s12 m12">
-                <div class="input-field">
-                    <textarea class="materialize-textarea" data-length="250" placeholder="Despre mine." name="jobseekerDescription"
-                        maxlength="250">{{result.job_seeker_about_me}}</textarea>
-                    <span for="description"></span>
-                </div>
-            </div>
-                         
-            <h5 class="center"><b>Limbi Vorbite</b> </h5>
-              <div class="col s12 m12 l12">
-                  <div class="input-field">
-                   <select id="language" name="language" multiple>
-                        {{#if result.job_seeker_languages}} 
-                                <option  value="{{result.job_seeker_languages}}" selected>{{result.job_seeker_languages}}</option>
-                                {{>languages}}
-                            {{else}}
-                                <option value="" disabled select>Selecteaza Limba</option>
-                                {{>languages}}
-                            {{/if}}
-                        </select>
-                    </div>
-                {{!-- <div class="input-field">
+      <h5 class="center"><b>Limbi Vorbite</b> </h5>
+      <div class="col s12 m12 l12">
+        <div class="input-field">
+          <select id="language" name="language" multiple>
+            {{#if result.job_seeker_languages}}
+            <option value="{{result.job_seeker_languages}}" selected>{{result.job_seeker_languages}}</option>
+            {{>languages}}
+            {{else}}
+            <option value="" disabled select>Selecteaza Limba</option>
+            {{>languages}}
+            {{/if}}
+          </select>
+        </div>
+        {{!-- <div class="input-field">
                     <input type="text" placeholder="Exemplue:Engleza, Franceza, Germana, Spaniola" maxlength="100" name="language" value="{{result.job_seeker_languages}}">
                 </div> --}}
-            </div>
-           
-            <h5 class="center"><b>Educatie</b> </h5>
-            <div class="col s12 m12">
-                <div class="input-field">
-                    <textarea id="education" class="materialize-textarea" data-length="250" placeholder="Educatie."
-                        name="education" maxlength="250">{{result.job_seeker_education}}</textarea>
-                    <span for="description"></span>
-                </div>
-            </div>
-            <button type="submit" class="btn blue right full-width-btn">Posteaza<i class="material-icons right">send</i></button>
-
-        </form>
-    </div>
-    <!--row ends-->
+      </div>
+      <h5 class="center"><b>Educatie</b> </h5>
+      <div class="col s12 m12">
+        <div class="input-field">
+          <textarea id="education" class="materialize-textarea" data-length="250" placeholder="Educatie."
+            name="education" maxlength="250">{{result.job_seeker_education}}</textarea>
+          <span for="description"></span>
+        </div>
+      </div>
+      <button type="submit" class="btn blue right full-width-btn">Posteaza<i class="material-icons right">send</i>
+      </button>
+      <form>
+  </div>
+  <!--row ends-->
 </div>

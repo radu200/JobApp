@@ -199,12 +199,12 @@ function toComment(sourceMap) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(/*! -!./jquery.js */ "./node_modules/jquery/dist/jquery.js");
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(/*! -!./jquery.js */ "./node_modules/jquery/dist/jquery.js?1157");
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/jquery/dist/jquery.js":
+/***/ "./node_modules/jquery/dist/jquery.js?1157":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
   \********************************************/
@@ -10580,10 +10580,10 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./node_modules/jquery/dist/jquery.js-exposed":
-/*!****************************************************!*\
-  !*** ./node_modules/jquery/dist/jquery.js-exposed ***!
-  \****************************************************/
+/***/ "./node_modules/jquery/dist/jquery.js?fe57":
+/*!********************************************!*\
+  !*** ./node_modules/jquery/dist/jquery.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11581,10 +11581,6 @@ var _job_edit = __webpack_require__(/*! ./job_edit */ "./public/src/js/jobs/job_
 
 var _job_edit2 = _interopRequireDefault(_job_edit);
 
-var _jobs = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './jobs'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _jobs2 = _interopRequireDefault(_jobs);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
@@ -11603,7 +11599,7 @@ var _main = __webpack_require__(/*! ../scss/main.scss */ "./public/src/scss/main
 
 var _main2 = _interopRequireDefault(_main);
 
-var _jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js-exposed");
+var _jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -11617,123 +11613,11 @@ var _main5 = __webpack_require__(/*! ./jobs/main */ "./public/src/js/jobs/main.j
 
 var _main6 = _interopRequireDefault(_main5);
 
-var _main7 = __webpack_require__(/*! ./profile/main */ "./public/src/js/profile/main.js");
+var _main7 = __webpack_require__(/*! ./front_end_validation/main */ "./public/src/js/front_end_validation/main.js");
 
 var _main8 = _interopRequireDefault(_main7);
 
-var _main9 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './components/main'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _main10 = _interopRequireDefault(_main9);
-
-var _main11 = __webpack_require__(/*! ./front_end_validation/main */ "./public/src/js/front_end_validation/main.js");
-
-var _main12 = _interopRequireDefault(_main11);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-
-/***/ "./public/src/js/profile/main.js":
-/*!***************************************!*\
-  !*** ./public/src/js/profile/main.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _profile_avatar = __webpack_require__(/*! ./profile_avatar */ "./public/src/js/profile/profile_avatar.js");
-
-var _profile_avatar2 = _interopRequireDefault(_profile_avatar);
-
-var _job_seeker_profile = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './job_seeker_profile'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _job_seeker_profile2 = _interopRequireDefault(_job_seeker_profile);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-
-/***/ "./public/src/js/profile/profile_avatar.js":
-/*!*************************************************!*\
-  !*** ./public/src/js/profile/profile_avatar.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// function _(el){
-// 	return document.getElementById(el);
-// }
-
-
-// $("#avatarForm").on("submit",function(event){
-// 	 event.preventDefault();
-// 	alert('hello')
-
-
-// });
-// 	console.log(file.name+" | "+file.size+" | "+file.type)
-// 	//  alert(file.name+" | "+file.size+" | "+file.type);
-
-// let formdata = new FormData();
-
-// 	let avatarInput =  $('#avatar');
-// 	if(avatarInput.val() === ''){
-// 		$('.avatar_error').text('Te rog alege imagine')x
-// 		return false;
-// 	}
-
-// 	// //size vappplidation
-// 	  let file = _("avatar").files[0];
-
-// 	  if(file.size > 5e+6 ){
-// 			//alert("image is too big")
-// 		$('.avatar_error').text('Imagine nu trebuie sa fie mai mare de 5mb');
-
-// 		return false;
-//       }
-
-// 		//append input
-//     formdata.append("avatar", file );
-
-// 	console.log(file)
-// 	let xhr = new XMLHttpRequest();
-// 	xhr.upload.addEventListener("progress", progressHandlerImageEdit, false)
-// 	xhr.addEventListener("load", completeHandlerImageEdit, false);
-// 	xhr.addEventListener("error", errorHandlerImageEdit, false);
-// 	xhr.addEventListener("abort", abortHandlerImageEdit, false);
-// 	xhr.open("POST",` /api/profile/avatar`);
-// 	//var contentType = "multipart/form-data";
-//     //xhr.setRequestHeader("Content-Type", contentType);
-
-// 	xhr.send(formdata);
-
-
-// function progressHandlerImageEdit(event){
-// 	// _("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
-// 	 let percent = (event.loaded / event.total) * 100;
-//       _("progressBarAavatar").style.width = percent + "%";
-// 	 // _("statusd").innerHTML = Math.round(percent)+"% uploaded";
-
-// }
-// function completeHandlerImageEdit(event){
-// 	window.location.href="/api/profile" 
-
-// 	 // _("statusd").innerHTML = event.target.responseText;
-// 	 //_('post_job').reset();
-
-// }
-// function errorHandlerImageEdit(event){
-// 	//  _("status").innerHTML = "Upload Failed";
-// }
-// function abortHandlerImageEdit(event){
-// 	//  _("status").innerHTML = "Upload Aborted";
-// }
-
 
 /***/ }),
 

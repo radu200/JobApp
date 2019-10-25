@@ -1,5 +1,7 @@
 const express = require('express');
-const http2 = require('http2');
+const app = express();
+const server = require('http').createServer(app)
+const io = require('socket.io')(server);
 const exphbs = require('express-handlebars');
 const path = require('path');
 const expressValidator = require('express-validator');
@@ -18,7 +20,6 @@ const helmet = require('helmet')
 const cors = require ('cors');
 
 
-const app = express();
 // Load environment variables from .env file
 dotenv.config({ path: '.env' })
 
@@ -54,18 +55,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../files')));
 
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    if (req.method === "OPTIONS") {
-            res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-            return res.status(200).json({});
-        }
-        next();
-    });
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//     );
+//     if (req.method === "OPTIONS") {
+//             res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+//             return res.status(200).json({});
+//         }
+//         next();
+//     });
     
     
    app.use(helmet());
@@ -77,14 +78,14 @@ app.use((req, res, next) => {
 
 
 
-    const options = {
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database : process.env.DB_NAME,
-        //checkExpirationInterval: 9000,
-        // expiration: 864
-    };
+const options = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database : process.env.DB_NAME,
+    //checkExpirationInterval: 9000,
+    // expiration: 864
+};
 const sessionStore = new MySQLStore(options);
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hou r
 
@@ -147,12 +148,20 @@ app.use(function(req, res, next) {
     next();
 });
 
-
-
-
-
-require('./routes/routes.js')(app);
+app.get('/api/chat', (req, res) => {
+    res.render('./pages/chat')
+ })
  
+ io.on('connection', socket => {
+    //  socket.emit('chat-messages','Hello world' )
+     socket.on('send-chat-message', message => {
+          socket.broadcast.emit('chat-message', message)
+     })
+ })
+
+
+ require('./routes/routes.js')(app);
+  
 app.get('*', (req,res) => {
      res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
  })
@@ -177,7 +186,7 @@ app.use(function(err, req, res, next) {
 
 
 
-app.listen(app.get('port'), function() {
+server.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
 

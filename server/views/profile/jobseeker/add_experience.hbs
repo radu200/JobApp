@@ -1,100 +1,81 @@
 {{>MainNavBar}}
 {{>alerts}}
 <div class="container">
-    <div class="row">
-        <form id="employee_add_experience" method="POST" action="/api/jobseeker/add/experience">
-            <!--employee personal info --->
-            <h5 class="center"><b>Adauga Experienta</b></h5>
-            <div class="col s12 m12 l12">
-                <h6> <b>Categoria </b></h6>
-                <p class="categoryExperience-error error"></p>
-                <div class="input-field">
-                    <select  class="categoryExperience" name="categoryExperience">
-                        <option value="" selected>Selecteaza Categoria</option>
-                        <option value="Barista Barman">Barista Barman</option>
-                        <option value="Frumuseţe si Bunastare">Frumuseţe si Bunastare</option>
-                        <option value="Îngrijitorii și sănătatea">Îngrijitorii și sănătatea</option>
-                        <option value="Bucatar">Bucatar</option>
-                        <option value="Curățenie">Curățenie</option>
-                        <option value="Constructie">Constructie</option>
-                        <option value="Sofer">Sofer</option>
-                        <option value="Tehnologie si Inginerie">Tehnologie si Inginerie</option>
-                        <option value="Educaţie">Educaţie</option>
-                        <option value="Evenimente și promovare">Evenimente și promovare</option>
-                        <option value="Bucătărie portar ">Bucătărie portar </option>
-                        <option value="Oficiu si Administratre">Oficiu si Administratre</option>
-                        <option value="Vanzari si Marketing">Vanzari si Marketing</option>
-                        <option value="Ospătar sau servitoare">Ospătar sau servitoare</option>
-                        <option value="Depozit">Depozit</option>
-                    </select>
-                </div>
-            </div>
+  <div class="row">
+    <form id="employee_add_experience" method="POST" action="/api/jobseeker/add/experience">
+      <!--employee personal info --->
+      <h5 class="center"><b>Adauga Experienta</b></h5>
+      <div class="col s12 m12 l12">
+        <h6> <b>Categoria </b></h6>
+        <p class="categoryExperience-error error"></p>
+        <div class="input-field">
+          <select class="categoryExperience" name="categoryExperience">
+            <option value="" selected>Selecteaza Categoria</option>
+            <option value="Barista Barman">Barista Barman</option>
+            <option value="Frumuseţe si Bunastare">Frumuseţe si Bunastare</option>
+            <option value="Îngrijitorii și sănătatea">Îngrijitorii și sănătatea</option>
+            <option value="Bucatar">Bucatar</option>
+            <option value="Curățenie">Curățenie</option>
+            <option value="Constructie">Constructie</option>
+            <option value="Sofer">Sofer</option>
+            <option value="Tehnologie si Inginerie">Tehnologie si Inginerie</option>
+            <option value="Educaţie">Educaţie</option>
+            <option value="Evenimente și promovare">Evenimente și promovare</option>
+            <option value="Bucătărie portar ">Bucătărie portar </option>
+            <option value="Oficiu si Administratre">Oficiu si Administratre</option>
+            <option value="Vanzari si Marketing">Vanzari si Marketing</option>
+            <option value="Ospătar sau servitoare">Ospătar sau servitoare</option>
+            <option value="Depozit">Depozit</option>
+          </select>
+        </div>
+      </div>
 
-            <div class="col s12 m12 l12">
-                <h6> <b>Pozitia dvs.</b></h6>
-                <div class="input-field">
-                    <input type="text" 
-                        placeholder="Pozitia dvs." 
-                        name="position" 
-                        minlength="0"
-                         maxlength="70"
-                        oninvalid="this.setCustomValidity('Câmpul este necesar')" 
-                        oninput="setCustomValidity('')"
-                        required>
+      <div class="col s12 m12 l12">
+        <h6> <b>Pozitia dvs.</b></h6>
+        <div class="input-field">
+          <input type="text" placeholder="Pozitia dvs." name="position" minlength="0" maxlength="70"
+            oninvalid="this.setCustomValidity('Câmpul este necesar')" oninput="setCustomValidity('')" required>
 
-                </div>
-            </div>
-            <div class="col s12 m12 l12">
-                <h6> <b>Numele Companiei</b></h6>
-                <div class="input-field">
-                    <input type="text"
-                        placeholder="Numele companiei" 
-                        name="companyName" 
-                        maxlength="70" minlength="0"
-                        oninvalid="this.setCustomValidity('Câmpul este necesar')" 
-                        oninput="setCustomValidity('')"
-                        required>
-                </div>
-            </div>
-            <div class="col s12 m6 l6">
-                <p><b>De La</b></p>
-                <div class="input-field">
-                    <input type="text" 
-                     placeholder="Alege data" 
-                     class="datepicker startDate"
-                     name="startDate"
-                    >
-                <p class="startDateError error"></p>
-                </div>
-            </div>
+        </div>
+      </div>
+      <div class="col s12 m12 l12">
+        <h6> <b>Numele Companiei</b></h6>
+        <div class="input-field">
+          <input type="text" placeholder="Numele companiei" name="companyName" maxlength="70" minlength="0"
+            oninvalid="this.setCustomValidity('Câmpul este necesar')" oninput="setCustomValidity('')" required>
+        </div>
+      </div>
+      <div class="col s12 m6 l6">
+        <p><b>De La</b></p>
+        <div class="input-field">
+          <input type="text" placeholder="Alege data" class="datepicker startDate" name="startDate">
+          <p class="startDateError error"></p>
+        </div>
+      </div>
 
-            <div class="col s12 m6 l6">
-                <p><b>Pina La</b></p>
-                <div class="input-field">
-                    <input type="text"
-                     placeholder="Alege data" 
-                     class="datepicker endDate" 
-                     name="endDate"
-                    >
-                <p class="endDateError error"></p>
-                </div>
-            </div>
-            <!--about me -->
-            <h5 class="center"><b>Principalele responsabilități</b>
-                <p class="text-opacity">(optional)</p>
-            </h5>
-            <div class="col s12 m12">
-                <div class="input-field">
-                    <textarea id="mainResponsibilities" class="textarea-style" data-length="250" rows="5" cols="33"
-                        placeholder="De exemplu,am fost responsabil pentru deschiderea și închiderea barului, pentru a face cocktail-uri, pentru a servi clienții și pentru a opera"
-                        name="responsibilities" maxlength="250"></textarea>
-                    <span for="description"></span>
-                </div>
-            </div>
+      <div class="col s12 m6 l6">
+        <p><b>Pina La</b></p>
+        <div class="input-field">
+          <input type="text" placeholder="Alege data" class="datepicker endDate" name="endDate">
+          <p class="endDateError error"></p>
+        </div>
+      </div>
+      <!--about me -->
+      <h5 class="center"><b>Principalele responsabilități</b>
+        <p class="text-opacity">(optional)</p>
+      </h5>
+      <div class="col s12 m12">
+        <div class="input-field">
+          <textarea id="mainResponsibilities" class="textarea-style" data-length="250" rows="5" cols="33"
+            placeholder="De exemplu,am fost responsabil pentru deschiderea și închiderea barului, pentru a face cocktail-uri, pentru a servi clienții și pentru a opera"
+            name="responsibilities" maxlength="250"></textarea>
+          <span for="description"></span>
+        </div>
+      </div>
 
-            <button type="submit" class="btn blue right full-width-btn">Posteaza<i class="material-icons right">send</i></button>
-
-        </form>
-    </div>
-    <!--row ends-->
+      <button type="submit" class="btn blue right full-width-btn">Posteaza<i
+          class="material-icons right">send</i></button>
+    </form>
+  </div>
+  <!--row ends-->
 </div>

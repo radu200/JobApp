@@ -1,66 +1,67 @@
 {{>MainNavBar}}
 
-  {{>alerts}}
+{{>alerts}}
 <div class="container">
-    <div class="row">
-      <div class="col s12 m12 l6">
-          <div class="card">
-             <div class="card-image waves-effect waves-block waves-light">
-              {{#if this.result.image}}       
-              <img  src="{{this.result.image}}">
-              {{else}}
-              <img src="/images/no_job_image.png">
-              {{/if}}
-            </div>
-          </div>
-          <form method="post" action="/api/apply/job/{{result.id}}" >
-            <button type="submit" class="btn full-width-btn">Aplica acum</button>
-          </form>
-        <div class="card-content">
-          <h4 class="break_text">{{result.position}}</h4>
-          <p class="text-opacity">{{result.category}}</p>
-          <p>{{result.description}}</p>
-          {{#if result.experience}}
-          <p>Experienta: <span class="font_weight_bold">{{result.experience}}</span></p>
-          {{/if}}
-          {{#if result.language}}
-          <p>Limbi: <span class="font_weight_bold"> {{result.language}}</span></p>
-          {{/if}}
-          {{#if result.employment_type}}
-          <p>Tipul de angajare: <span class="font_weight_bold">{{result.employment_type}}</span></p>
-          {{/if}}
-          {{#if result.salary}}
-          <p>Salariu: <span class="font_weight_bold">{{result.salary}}LEI </span></p>
-          {{/if}}
-          {{#if result.start_time}}
-          <p>Timpul de începere: <span class="font_weight_bold yellow-backgr ">{{result.start_time}}</span></p>
-          {{/if}}
-          <p> <i class="material-icons">place</i> <span class="font_weight_bold">{{result.city}}</span></p>
-          <div class="divider"></div>
-        </div>
-     </div>
+	<div class="row">
+		<div class="col s12 m12 l6">
+			<div class="card">
+				<div class="card-image waves-effect waves-block waves-light">
+					{{#if this.result.image}}
+					<img src="{{this.result.image}}">
+					{{else}}
+					<img src="/images/no_job_image.png">
+					{{/if}}
+				</div>
+			</div>
+			<form method="post" action="/api/apply/job/{{result.id}}">
+				<button type="submit" class="btn full-width-btn">Aplica acum</button>
+			</form>
+			<div class="card-content">
+				<h4 class="break_text">{{result.position}}</h4>
+				<p class="text-opacity">{{result.category}}</p>
+				<p>{{result.description}}</p>
 
-      <!--employer details -->
-          <div class="col s12 m12 l4">
-            <div class="card-panel">
-              <h4>{{result.company_name}}</h4>
-              <div class="card-content">
-                <p class="text-opacity">{{result.company_type}}</p>
-                <p class="job_details_description">{{result.company_description}}</p>
-              </div>
-              <p><a href="/api/company/{{result.employer_id}}" class="right" >mai mult informatie</a></p>
-              {{#if this.result.avatar}}
-              <img class="job_detail_employer_img" src="{{this.result.avatar}}">
-              {{else}}
-              <img class="job_detail_employer_img" src="/images/no_user.png">
-              {{/if}}
+				{{#if result.experience}}
+				<p>Experienta: <span class="font_weight_bold">{{result.experience}}</span></p>
+				{{/if}}
+				{{#if result.language}}
+				<p>Limbi: <span class="font_weight_bold"> {{result.language}}</span></p>
+				{{/if}}
+				{{#if result.employment_type}}
+				<p>Tipul de angajare: <span class="font_weight_bold">{{result.employment_type}}</span></p>
+				{{/if}}
+				{{#if result.salary}}
+				<p>Salariu: <span class="font_weight_bold">{{result.salary}}LEI </span></p>
+				{{/if}}
+				{{#if result.start_time}}
+				<p>Timpul de începere: <span class="font_weight_bold yellow-backgr ">{{result.start_time}}</span></p>
+				{{/if}}
+				<p> <i class="material-icons">place</i> <span class="font_weight_bold">{{result.city}}</span></p>
+				<div class="divider"></div>
+			</div>
+		</div>
 
-              {{#if result.first_name}}
-              <p> <span class="text-opacity">Angajeza</span><br> <span class="font_weight_bold">{{result.first_name}}
-                  {{result.last_name}}</span></p>
-              {{/if}}
-              <div class="divider"></div>
-            </div>
-          </div>
-  </div>
+		<!--employer details -->
+		<div class="col s12 m12 l4">
+			<div class="card-panel">
+				<h4>{{result.company_name}}</h4>
+				<div class="card-content">
+					<p class="text-opacity">{{result.company_type}}</p>
+					<p class="job_details_description">{{result.company_description}}</p>
+				</div>
+				<p><a href="/api/company/{{result.employer_id}}" class="right">mai mult informatie</a></p>
+				{{#if this.result.avatar}}
+				<img class="job_detail_employer_img" src="{{this.result.avatar}}">
+				{{else}}
+				<img class="job_detail_employer_img" src="/images/no_user.png">
+				{{/if}}
+
+				{{#if result.first_name}}
+				<p> <span class="text-opacity">Angajeza</span><br> <span class="font_weight_bold">{{result.first_name}}
+						{{result.last_name}}</span></p>
+				{{/if}}
+				<div class="divider"></div>
+			</div>
+		</div>
+	</div>
 </div>

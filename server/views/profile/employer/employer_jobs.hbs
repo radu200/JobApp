@@ -6,7 +6,7 @@
       <div class="row">
         <a href="/api/jobs/add" class="btn  no-color post-job-btn  blue-text btn-large">Posteaza job</a>
         {{#if results}}
-          {{#each results}}
+        {{#each results}}
         <div class="col s12 m6 l4">
           <a href="/job-application/applicants/active/{{id}}" target="_blank">
             <div class="card hoverable">
@@ -18,7 +18,8 @@
 
                 {{/if}}
                 <span class="card-title yellow-text text-lighten-1 ">{{start_time}}</span>
-                <a href="/api/job_image/edit/{{id}}" class="btn-floating btn-large halfway-fab  waves-effect waves-light yellow darken-2 tooltipped "
+                <a href="/api/job_image/edit/{{id}}"
+                  class="btn-floating btn-large halfway-fab  waves-effect waves-light yellow darken-2 tooltipped "
                   data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">edit</i></a>
               </div>
               <div class="card-content card-content-jobs">
@@ -27,25 +28,24 @@
                     <span>{{employment_type}}</span>
                   </b>
                 </p>
-
                 <p class="card-position"> <b>{{position}}</b> </p>
                 <p>{{category}}</p>
                 <p class="truncate description text-opacity">{{description}}</p>
                 <p class="text-opacity">{{city}}</p>
-                <a class=' ' href="/job-application/applicants/active/{{id}}" target="_blank" >Vezi mai mult</a>
+                <a class=' ' href="/job-application/applicants/active/{{id}}" target="_blank">Vezi mai mult</a>
               </div>
               <div class="card-action">
-                <a class='btn  no-color full-width-btn blue-text' href="/api/job/edit/{{id}}" >Editeaza</a> 
+                <a class='btn  no-color full-width-btn blue-text' href="/api/job/edit/{{id}}">Editeaza</a>
                 <li>
               </div>
             </div>
           </a>
         </div>
-         {{/each}}
+        {{/each}}
 
         {{else}}
         <h4 class="center">Nici un job nu este disponibil la moment</h4>
-      {{/if}}
+        {{/if}}
       </div>
     </div>
 </section>

@@ -2,265 +2,240 @@
   <div class="container">
     <div class="nav-wrapper  lighten-4 ">
       <a href="/api/profile" class="brand-logo red-text text-lighten-1">Logo</a>
+      {{#if isAuthenticated}}
+       {{#if JobSeeker}}
+        {{!--Navbar jobseeker --}}
+          <ul id="nav-mobile" class=" right hide-on-med-and-down">
+            <li>
+              <a href="/jobs">Exploreaza joburi</a>
+            </li>
+            <li>
+              <a href="/my/applications">Joburi aplicate</a>
+            </li>
+            <li>
+              <a href="/api/chats">Chats</a>
+            </li>
+            <li>
+              <a href="/api/profile">Cv meu</a>
+            </li>
 
-     {{#if isAuthenticated}}
-      {{#if JobSeeker}}
-      {{!--Navbar jobseeker --}}
-       <ul id="nav-mobile" class=" right hide-on-med-and-down">
-            <li>
-              <a href="/jobs" >Exploreaza joburi</a>
-            </li>
-            <li>
-                <a href="/my/applications" >Joburi aplicate</a>
-            </li>
-            <li>
-                <a href="/api/chats" >Chats</a>
-            </li>
-            
+            <ul id="nav-mobile" class=" right hide-on-med-and-down">
+              <!--dropdown-->
               <li>
-                <a href="/api/profile" >Cv meu</a>
-            </li>
-
-           <ul id="nav-mobile" class=" right hide-on-med-and-down">
-                    
-                    <!--dropdown-->
-            <li>
-              <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">  
-                 
-                  <span class="white-text">Mai mult</span> 
-                    
+                <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">
+                  <span class="white-text">Mai mult</span>
                   <i class="material-icons right white-text">arrow_drop_down</i>
+                </a>
+              </li>
+              <ul id="moreNavBar" class="dropdown-content">
+                <li>
+                  <a href="/api/settings">Setari</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="/api/logout">Iesire</a>
+                </li>
+              </ul>
+            </ul>
+          </ul>
+          <!-- hamburger -->
+          <a href="#" data-target="slide-out" class="sidenav-trigger">
+            <i class="material-icons white-text ">menu</i>
+          </a>
+        <!--right side-->
+        {{/if}}
+        {{#if Employer}}
+        <ul id="nav-mobile" class=" right hide-on-med-and-down">
+          <li>
+            <a href="/api/my-jobs"> Joburile Mele</a>
+          </li>
+          <li>
+            <a href="/api/chats">Chats</a>
+          </li>
+          <li>
+            <a href="/search-candidate">Cauta Candidati</a>
+          </li>
+
+          <li>
+            <a href="/api/profile">Compania mea</a>
+          </li>
+
+          <ul id="nav-mobile" class=" right hide-on-med-and-down">
+            <!--dropdown-->
+            <li>
+              <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">
+                <span class="white-text">Mai mult</span>
+                <i class="material-icons right white-text">arrow_drop_down</i>
               </a>
             </li>
-            
-            <ul id="moreNavBar" class="dropdown-content">
+            <ul id="moreNavBar" class="dropdown-content ">
               <li>
-                  <a href="/api/settings">Setari</a>
+                <a href="/api/settings">Setari</a>
               </li>
               <li class="divider"></li>
-             
+
               <li>
-                  <a  href="/api/logout">Iesire</a>
+                <a href="/api/logout">Iesire</a>
               </li>
+            </ul>
           </ul>
         </ul>
-     </ul>
-                            <!-- hamburger -->
         <a href="#" data-target="slide-out" class="sidenav-trigger">
-            <i class="material-icons white-text ">menu</i>
-          </a>
-          <!--right side-->
-     {{/if}}
-     
-      {{#if Employer}}
-        <ul id="nav-mobile" class=" right hide-on-med-and-down">
-        <li>
-              <a href="/api/my-jobs" > Joburile Mele</a>
-          </li>
-          <li>
-              <a href="/api/chats" >Chats</a>
-          </li>
-          <li>
-              <a href="/search-candidate" >Cauta Candidati</a>
-          </li>
-          
-          <li>
-              <a href="/api/profile" >Compania mea</a>
-          </li>
-
-        <ul id="nav-mobile" class=" right hide-on-med-and-down">
-                
-                <!--dropdown-->
-        <li>
-          <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">  
-              
-              <span class="white-text">Mai mult</span> 
-                
-              <i class="material-icons right white-text">arrow_drop_down</i>
-          </a>
-        </li>
-        
-        <ul id="moreNavBar" class="dropdown-content ">
-
-          <li>
-              <a href="/api/settings">Setari</a>
-          </li>
-          <li class="divider"></li>
-          
-          <li>
-              <a  href="/api/logout">Iesire</a>
-          </li>
-      </ul>
-    </ul>
-  </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger">
-            <i class="material-icons white-text ">menu</i>
+          <i class="material-icons white-text ">menu</i>
         </a>
-   
-     {{/if}}
-    
-     {{else}}
+      {{/if}}
+
+      {{else}}
 
       {{!-- navbar not authenticated--}}
       <ul id="nav-mobile" class=" right hide-on-med-and-down">
         <li>
-          <a href="/jobs" >Exploreaza joburi</a>
+          <a href="/jobs">Exploreaza joburi</a>
         </li>
         <li>
-          <a href="/api/signup/employer" >Angajeaza</a>
+          <a href="/api/signup/employer">Angajeaza</a>
         </li>
         <li>
-          <a href="/api/signup/jobseeker" >Creaza Cv</a>
+          <a href="/api/signup/jobseeker">Creaza Cv</a>
         </li>
         <li>
           <a href="/api/login" class="waves-effect waves-light  btn ">Intra</a>
         </li>
-       </ul>
-     {{/if}}
-       </div>
-    </div> 
- 
+      </ul>
+      {{/if}}
+    </div>
+  </div>
+
 
   <!---SideNav --->
-     {{#if isAuthenticated}}
-      {{#if JobSeeker}}
-    {{!--sidenav jobseeker --}}
-   <ul id="slide-out" class="sidenav">
+  {{#if isAuthenticated}}
+   {{#if JobSeeker}}
+  {{!--sidenav jobseeker --}}
+    <ul id="slide-out" class="sidenav">
       <li>
-          <a href="#!">Salut numele</a>
-      </li>
-      <li>
-          <div class="divider"></div>
+        <a href="#!">Salut numele</a>
       </li>
       <li>
-          <a href="/jobs" >Exploreaza joburi</a>
+        <div class="divider"></div>
       </li>
       <li>
-          <a href="/api/application" >Joburi aplicate</a>
+        <a href="/jobs">Exploreaza joburi</a>
       </li>
       <li>
-          <a href="/api/chats" >Chats</a>
+        <a href="/api/application">Joburi aplicate</a>
       </li>
-      
-          <li>
-          <a href="/api/profile" >Cv meu</a>
+      <li>
+        <a href="/api/chats">Chats</a>
       </li>
-      
 
-
-    <!--dropdown-->
       <li>
-          <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Mai Mult
-            
-            <i class="material-icons right">arrow_drop_down</i>
-          </a>
+        <a href="/api/profile">Cv meu</a>
+      </li>
+      <!--dropdown-->
+      <li>
+        <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Mai Mult
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
       </li>
 
       <ul id="moreSideNav" class="dropdown-content">
-      <li>
+        <li>
           <a href="/api/settings">Setari</a>
-      </li>
-      <li>
-          <a href="/api/logout"  class="waves-effect waves-light btn ">Iesire</a>
-      </li>
-      <li class="divider"></li>
-            
-    </ul>
-  {{/if}}
-  
-     <!-- side-nav  employer-->
-  {{#if Employer}} 
-    <ul id="slide-out" class="sidenav">
-    <li>
-        <a href="#!">Salut numele</a>
-    </li>
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li>
-        <a href="/api/my-jobs" >Joburile Mele</a>
-    </li>
-    <li>
-        <a href="/api/Chats" >Chats</a>
-    </li>
-    <li>
-        <a href="/search-candidate" >Cauta Candidati</a>
-    </li>
-    
-        <li>
-        <a href="/api/profile" >Compania mea</a>
-    </li>
-  <!--dropdown-->
-    <li>
-        <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Mai Mult
-            <i class="material-icons right">arrow_drop_down</i>
-        </a>
-    </li>
-
-     <ul id="moreSideNav" class="dropdown-content">
-        <li>
-            <a href="/api/settings">Setari</a>
         </li>
         <li>
-            <a href="/api/logout"  class="waves-effect waves-light btn ">Iesire</a>
+          <a href="/api/logout" class="waves-effect waves-light btn ">Iesire</a>
         </li>
         <li class="divider"></li>
-      </ul>
 
+      </ul>
+      {{/if}}
+
+      <!-- side-nav  employer-->
+      {{#if Employer}}
+      <ul id="slide-out" class="sidenav">
         <li>
-            <a href="/api/jobs/add" class="btn blue  lighten-1">Posteaza</a>
+          <a href="#!">Salut numele</a>
         </li>
         <li>
-          <a class="waves-effect waves-light btn orange lighten-1 white-text"><i class="material-icons left">vpn_key</i><span class=" new badge" data-badge-caption="">20</span>  Obtine Chei </a>
-      </li>   
-   </ul>   
-  {{/if}}
-  
-  {{else}}
+          <div class="divider"></div>
+        </li>
+        <li>
+          <a href="/api/my-jobs">Joburile Mele</a>
+        </li>
+        <li>
+          <a href="/api/Chats">Chats</a>
+        </li>
+        <li>
+          <a href="/search-candidate">Cauta Candidati</a>
+        </li>
+        <li>
+          <a href="/api/profile">Compania mea</a>
+        </li>
+        <!--dropdown-->
+        <li>
+          <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Mai Mult
+            <i class="material-icons right">arrow_drop_down</i>
+          </a>
+        </li>
 
-    {{!-- side not authenticated--}}  
-  <ul id="slide-out" class="sidenav">
-    <li>
-      <a href="#!">Salut numele</a>
-    </li>
-    <li>
-      <a href="/jobs" >Exploreaza joburi</a>
-    </li>
-    <li>
-      <a href="/api/my-jobs" >Angajeaza</a>
-    </li>
-    <li>
-      <a href="/api/chat" >Creaza Cv</a>
-    </li>
-    <li>
-      <a href="/api/login" class="waves-effect waves-light  btn ">Intra</a>
-    </li>
+        <ul id="moreSideNav" class="dropdown-content">
+          <li>
+            <a href="/api/settings">Setari</a>
+          </li>
+          <li>
+            <a href="/api/logout" class="waves-effect waves-light btn ">Iesire</a>
+          </li>
+          <li class="divider"></li>
+        </ul>
 
-    <li>
-      <a class="dropdown-trigger btn" href="#!" data-target="registerSideNav">
-        <span>înregistrare</span>
-      </a>
-    </li>
+        <li>
+          <a href="/api/jobs/add" class="btn blue  lighten-1">Posteaza</a>
+        </li>
+        <li>
+          <a class="waves-effect waves-light btn orange lighten-1 white-text"><i
+              class="material-icons left">vpn_key</i><span class=" new badge" data-badge-caption="">20</span>
+            Obtine Chei </a>
+        </li>
+      </ul>
+    {{/if}}
 
-    <ul id="registerSideNav" class="dropdown-content">
+    {{else}}
 
+    {{!-- side not authenticated--}}
+    <ul id="slide-out" class="sidenav">
       <li>
-        <a href="/api/signup/jobseeker">Sunt In cautare de munca</a>
+        <a href="#!">Salut numele</a>
       </li>
-      <li class="divider"></li>
       <li>
-        <a href="/api/signup/employer">Sunt Angajator</a>
+        <a href="/jobs">Exploreaza joburi</a>
       </li>
-
+      <li>
+        <a href="/api/my-jobs">Angajeaza</a>
+      </li>
+      <li>
+        <a href="/api/chat">Creaza Cv</a>
+      </li>
+      <li>
+        <a href="/api/login" class="waves-effect waves-light  btn ">Intra</a>
+      </li>
+      <li>
+        <a class="dropdown-trigger btn" href="#!" data-target="registerSideNav">
+          <span>înregistrare</span>
+        </a>
+      </li>
+      <ul id="registerSideNav" class="dropdown-content">
+        <li>
+          <a href="/api/signup/jobseeker">Sunt In cautare de munca</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="/api/signup/employer">Sunt Angajator</a>
+        </li>
+      </ul>
     </ul>
-  </ul>
-    
-      <!-- hamburger -->
-      <a href="#" data-target="slide-out" class="sidenav-trigger">
-        <i class="material-icons grey-text text-darken-4">menu</i>
-      </a>
-{{/if}}
-
-
-
+    <!-- hamburger -->
+    <a href="#" data-target="slide-out" class="sidenav-trigger">
+      <i class="material-icons grey-text text-darken-4">menu</i>
+    </a>
+ {{/if}}
 </nav>

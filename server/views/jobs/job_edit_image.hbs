@@ -1,28 +1,26 @@
 {{>MainNavBar}}
-     {{>alerts}}
+{{>alerts}}
 
- <div class="container">
-      <div class="row">
-      {{#if result}}
-       {{#each result}}
-         <h4>Schimba imaginea</h4> 
-              <form  action="/api/job_image/edit/{{id}}"  method="POST"  enctype="multipart/form-data">
-                    
-                    <div class="file-field input-field">
-                            <div class="btn blue ">
-                                <input  type="file" name="imageEdit" accept=".jpeg, .jpg, .png" >
-                                <span>  Incarca imagine</span>
-                            </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path " type="text" placeholder=" Incarca imagine">
-                        </div>
-                    </div>          
-                 <button type="submit"  class="btn blue right">Posteaza<i class="material-icons right">send</i></button>
-              </form>
-        {{/each}}
-      {{/if}}
-                                     
-     </div> <!--row ends-->
+<div class="container">
+  <div class="row">
+    {{#if result}}
+      {{#each result}}
+       <h4>Schimba imaginea</h4> 
+        <form  action="/api/job_image/edit/{{id}}"  method="POST"  enctype="multipart/form-data">
+         <div class="file-field input-field">
+          <div class="btn blue ">
+            <input  type="file" name="imageEdit" accept=".jpeg, .jpg, .png" >
+            <span>  Incarca imagine</span>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path " type="text" placeholder=" Incarca imagine">
+          </div>
+         </div>            
+         <button type="submit"  class="btn blue right">Posteaza<i class="material-icons right">send</i></button>
+        </form>
+      {{/each}}
+    {{/if}}                               
+  </div> <!--row ends-->
 </div><!--container-->
 
 

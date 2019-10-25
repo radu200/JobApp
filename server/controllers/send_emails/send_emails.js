@@ -1,4 +1,4 @@
-const urlPaths = require('.././utils/url-paths')
+const urlPaths = require(".././utils/url-paths");
 
 const emailFooter = ` <tr>
 <td height="40">
@@ -42,30 +42,24 @@ const emailFooter = ` <tr>
 
   <p>&nbsp;</p>
 </td>
-</tr>`
-
-
-
-
+</tr>`;
 
 //sedn email to reset password  when user forgot password
 module.exports.forgotPassword = (req, res, next, nodemailer, email, token) => {
-    ///send email with token
-    const transwerporter = nodemailer.createTransport({
-        service: 'GMAIL',
-        auth: {
-            user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASSWORD
-        }
+  ///send email with token
+  const transwerporter = nodemailer.createTransport({
+    service: "GMAIL",
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD
+    }
+  });
 
-
-    });
-
-    const mailOptions = {
-        to: email,
-        from: process.env.COMPANY_NAME,
-        subject: 'Reseteaza parola',
-        html: `
+  const mailOptions = {
+    to: email,
+    from: process.env.COMPANY_NAME,
+    subject: "Reseteaza parola",
+    html: `
 <body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">
 
 <center style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#e1e5e8;">
@@ -110,36 +104,35 @@ ${emailFooter}
 </table>
 </div>
 </center>
-</body> `,
+</body> `
+  };
 
-    };
+  transwerporter.sendMail(mailOptions, err => {
+    if (err) {
+      req.flash("error_msg", err);
 
-    transwerporter.sendMail(mailOptions, (err) => {
-        if (err) {
-            req.flash('error_msg', err);
-
-            return res.redirect(urlPaths.forgotPassword);
-        }
-        transwerporter.close();
-      });
-}
+      return res.redirect(urlPaths.forgotPassword);
+    }
+    transwerporter.close();
+  });
+};
 
 ///confirm that forgot password was reseted succefully
-module.exports.forgotPasswordSucess = (req,res,nex,nodemailer,email) => {
-             //send email that password was updated
-             const transwerporter = nodemailer.createTransport({
-              service: 'GMAIL',
-              auth: {
-                  user: process.env.MAIL_USER,
-                  pass: process.env.MAIL_PASSWORD
-              }
-          });
+module.exports.forgotPasswordSucess = (req, res, nex, nodemailer, email) => {
+  //send email that password was updated
+  const transwerporter = nodemailer.createTransport({
+    service: "GMAIL",
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD
+    }
+  });
 
-          const mailOptions = {
-              to: email,
-              from: process.env.COMPANY_NAME,
-              subject: 'Parola dvs. a fost resetata cu success',
-              html: `<body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">                         
+  const mailOptions = {
+    to: email,
+    from: process.env.COMPANY_NAME,
+    subject: "Parola dvs. a fost resetata cu success",
+    html: `<body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">                         
               <center style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#e1e5e8;">
                 <div style="max-width:600px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;">
                   <table align="center" cellpadding="0" style="border-spacing:0;font-family:'Muli',Arial,sans-serif;color:#333333;Margin:0 auto;width:100%;max-width:600px;">
@@ -183,42 +176,34 @@ module.exports.forgotPasswordSucess = (req,res,nex,nodemailer,email) => {
                 </div>
               </center>
             </body>`
-          };
+  };
 
-          transwerporter.sendMail(mailOptions, (err) => {
-              if (err) {
-                  req.flash('error_msg', err)
-                  return res.redirect(urlPaths.forgotPassword);
-              }
-              transwerporter.close();
-          });
-}
-
-
-
+  transwerporter.sendMail(mailOptions, err => {
+    if (err) {
+      req.flash("error_msg", err);
+      return res.redirect(urlPaths.forgotPassword);
+    }
+    transwerporter.close();
+  });
+};
 
 //change password in profile
 
 module.exports.changePasswordProfile = (req, res, next, nodemailer, email) => {
-    const transwerporter = nodemailer.createTransport({
-        service: 'gmail',
-        host: 'smtp.gmail.com',
-        auth: {
-            user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASSWORD
-        }
+  const transwerporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD
+    }
+  });
 
-
-    });
-
-
-
-
-    const mailOptions = {
-        to: email,
-        from: process.env.COMPANY_NAME,
-        subject: 'Parola dvs. a fost schimbată',
-        html: ` <body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">
+  const mailOptions = {
+    to: email,
+    from: process.env.COMPANY_NAME,
+    subject: "Parola dvs. a fost schimbată",
+    html: ` <body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">
       <center style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#e1e5e8;">
         <div style="max-width:600px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;">
           <table align="center" cellpadding="0" style="border-spacing:0;font-family:'Muli',Arial,sans-serif;color:#333333;Margin:0 auto;width:100%;max-width:600px;">
@@ -262,34 +247,31 @@ module.exports.changePasswordProfile = (req, res, next, nodemailer, email) => {
         </div>
       </center>
     </body>`
+  };
 
-    };
-
-    transwerporter.sendMail(mailOptions, (err) => {
-        if (err) {
-            req.flash('error_msg',err);
-
-        } 
-        transwerporter.close();
-    });
-}
-
+  transwerporter.sendMail(mailOptions, err => {
+    if (err) {
+      req.flash("error_msg", err);
+    }
+    transwerporter.close();
+  });
+};
 
 //check email after user signup
-module.exports.checkEmailAfterSignUp = (req,res,nodemailer,email,token) => {
+module.exports.checkEmailAfterSignUp = (req, res, nodemailer, email, token) => {
   ///send email with token
   const transporter = nodemailer.createTransport({
-    service: 'GMAIL',
+    service: "GMAIL",
     auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASSWORD
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD
     }
-});
+  });
 
-const mailOptions = {
+  const mailOptions = {
     to: email,
     from: process.env.COMPANY_NAME,
-    subject: 'Verificare Email',
+    subject: "Verificare Email",
     html: `            
 <body bgcolor="#e1e5e8" style="margin-top:0 ;margin-bottom:0 ;margin-right:0 ;margin-left:0 ;padding-top:0px;padding-bottom:0px;padding-right:0px;padding-left:0px;background-color:#e1e5e8;">                        
 <center style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#e1e5e8;">
@@ -332,16 +314,14 @@ ${emailFooter}
 </div>
 </center>
 </body>`
+  };
 
-};
-
-transporter.sendMail(mailOptions, (err) => {
+  transporter.sendMail(mailOptions, err => {
     if (err) {
-        req.flash('error_msg', err);
+      req.flash("error_msg", err);
 
-        return res.redirect(urlPaths.back);
+      return res.redirect(urlPaths.back);
     }
     transwerporter.close();
   });
-
-}
+};

@@ -1,19 +1,20 @@
 {{>MainNavBar}}
-  {{>alerts}}
+{{>alerts}}
 
 <div class="container">
- <div class="row">
+  <div class="row">
     <div class="col s12 m12 l6 center">
       <div class="card">
-        <a class="btn grey right tooltipped" href="/api/profile/avatar " data-position="top" data-tooltip="Schimba Imaginea"><i class="material-icons">create</i></a>
+        <a class="btn grey right tooltipped" href="/api/profile/avatar " data-position="top"
+          data-tooltip="Schimba Imaginea"><i class="material-icons">create</i></a>
         <div class="card-image card-profile-image">
-            <a href="/api/profile/avatar">
-          {{#if this.result.avatar }}
-          <img  src="{{this.result.avatar}}" class="avatar">
-          {{else}}
-          <img  src="/images/no_user.png" class="avatar">
-          {{/if}}
-        </a>
+          <a href="/api/profile/avatar">
+            {{#if this.result.avatar }}
+            <img src="{{this.result.avatar}}" class="avatar">
+            {{else}}
+            <img src="/images/no_user.png" class="avatar">
+            {{/if}}
+          </a>
         </div>
         <div class="card-content center">
           <h5 class="break_text">{{result.first_name}}</h5>
@@ -27,12 +28,12 @@
       </div>
     </div>
     {{#if result.company_name }}
-     <div class="col s12 m12 l6 center">
+    <div class="col s12 m12 l6 center">
       <div class="card">
         <div class="card-title">Informatie despre companie</div>
         <div class="card-content center">
           <h4 class="break_text">{{result.company_name}}</h4>
-           <p class="break_text text-opacity"> {{result.company_type}}</p>
+          <p class="break_text text-opacity"> {{result.company_type}}</p>
           <p class="break_text"> {{result.company_description}}</p>
           <p>{{result.company_location}}</p>
         </div>
@@ -42,16 +43,15 @@
       </div>
     </div>
     {{else}}
-     <div class="col s12 m12 l4 center">
+    <div class="col s12 m12 l4 center">
       <div class="card">
         <div class="card-title">Informatie despre companie</div>
         <h6>Adauga mai multa informatie despre companie.</h6>
         <div class="card-action">
-          <a class="btn no-color blue-text center" href="/api/company/info/edit" >Adauga</a>
+          <a class="btn no-color blue-text center" href="/api/company/info/edit">Adauga</a>
         </div>
       </div>
     </div>
     {{/if}}
   </div>
- </div>   
-
+</div>

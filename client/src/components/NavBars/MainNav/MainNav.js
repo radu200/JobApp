@@ -1,80 +1,77 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import { withStyles } from '@material-ui/core/styles';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import Divider from '@material-ui/core/Divider';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/Button';
-import MainSideNav from './MainSideNav'
-import {BrandName }from '../../../Utils/BrandName'
-import { 
+import React from "react";
+import PropTypes from "prop-types";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Badge from "@material-ui/core/Badge";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import { withStyles } from "@material-ui/core/styles";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import MailIcon from "@material-ui/icons/Mail";
+import Divider from "@material-ui/core/Divider";
+import MoreIcon from "@material-ui/icons/MoreVert";
+import Button from "@material-ui/core/Button";
+import MainSideNav from "./MainSideNav";
+import { BrandName } from "../../../Utils/BrandName";
+import {
   Profile,
   Settings,
   LogOut,
-  SignUpUrlJobSeeker, 
+  SignUpUrlJobSeeker,
   SignUpUrlEmployer,
-  LoginUrl } from '../../../Utils/Paths/UrlPaths';
-
-
+  LoginUrl
+} from "../../../Utils/Paths/UrlPaths";
 
 const styles = theme => ({
   root: {
-    width: '100%',
-  
+    width: "100%"
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 20
   },
   title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block"
+    }
   },
 
-  logIn:{
-    color:'white',
-    textDecoration:'none'
+  logIn: {
+    color: "white",
+    textDecoration: "none"
   },
   inputRoot: {
-    color: 'inherit',
-    width: '100%',
+    color: "inherit",
+    width: "100%"
   },
 
   sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex"
+    }
   },
   sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
+    display: "flex",
+    [theme.breakpoints.up("md")]: {
+      display: "none"
+    }
   },
-  appBar:{
-    backgroundColor: '#2552C7'
+  appBar: {
+    backgroundColor: "#2552C7"
   }
 });
 
 class MainNavBar extends React.Component {
-
   state = {
     anchorEl: null,
-    mobileMoreAnchorEl: null,
+    mobileMoreAnchorEl: null
   };
 
   handleProfileMenuOpen = event => {
@@ -96,27 +93,26 @@ class MainNavBar extends React.Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes,isAuthenticated } = this.props;
+    const { classes, isAuthenticated } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-      
-        <MenuItem  button component="a"  href={Profile}> 
+        <MenuItem button component="a" href={Profile}>
           <p>Profil</p>
         </MenuItem>
-        <MenuItem  button component="a"  href={Settings}> 
+        <MenuItem button component="a" href={Settings}>
           <p>Setari</p>
         </MenuItem>
-        <Divider/>
-         <MenuItem  button component="a"  href={LogOut}> 
+        <Divider />
+        <MenuItem button component="a" href={LogOut}>
           <p>Iesire</p>
         </MenuItem>
       </Menu>
@@ -125,36 +121,36 @@ class MainNavBar extends React.Component {
     const renderMobileMenu = (
       <Menu
         anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-       { isAuthenticated === 'employer' ||  isAuthenticated === 'jobseeker' ?
-       <div>
-       <MenuItem  button component="a"  href={Profile}> 
-          <p>Profil</p>
-        </MenuItem>
-        <MenuItem  button component="a"  href={Settings}> 
-          <p>Setari</p>
-        </MenuItem>
-         <MenuItem  button component="a"  href={LogOut}> 
-          <p>Iesire</p>
-        </MenuItem>
-        </div>
-         :
-        <div>   
-        
-        <MenuItem  button component="a"  href={SignUpUrlEmployer}> 
-         <p>Angajeaza</p>
-       </MenuItem>
-       <MenuItem  button component="a"   href={SignUpUrlJobSeeker}> 
-         <p>Inregistrare</p>
-       </MenuItem>
-        <MenuItem  button component="a" href={LoginUrl}> 
-         <p>Logare</p>
-       </MenuItem> 
-       </div>}
+        {isAuthenticated === "employer" || isAuthenticated === "jobseeker" ? (
+          <div>
+            <MenuItem button component="a" href={Profile}>
+              <p>Profil</p>
+            </MenuItem>
+            <MenuItem button component="a" href={Settings}>
+              <p>Setari</p>
+            </MenuItem>
+            <MenuItem button component="a" href={LogOut}>
+              <p>Iesire</p>
+            </MenuItem>
+          </div>
+        ) : (
+          <div>
+            <MenuItem button component="a" href={SignUpUrlEmployer}>
+              <p>Angajeaza</p>
+            </MenuItem>
+            <MenuItem button component="a" href={SignUpUrlJobSeeker}>
+              <p>Inregistrare</p>
+            </MenuItem>
+            <MenuItem button component="a" href={LoginUrl}>
+              <p>Logare</p>
+            </MenuItem>
+          </div>
+        )}
       </Menu>
     );
 
@@ -163,24 +159,29 @@ class MainNavBar extends React.Component {
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
             <MainSideNav isAuthenticated={isAuthenticated} />
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              color="inherit"
+              noWrap
+            >
               {BrandName}
             </Typography>
-            
+
             <div className={classes.grow} />
-            
+
             <div className={classes.sectionDesktop}>
-             
-              { isAuthenticated === 'employer' ||  isAuthenticated === 'jobseeker' ?
-              <div>
-                <IconButton color="inherit">
+              {isAuthenticated === "employer" ||
+              isAuthenticated === "jobseeker" ? (
+                <div>
+                  <IconButton color="inherit">
                     <Badge badgeContent={4} color="secondary">
                       <MailIcon />
                     </Badge>
                   </IconButton>
-                
+
                   <IconButton
-                    aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                    aria-owns={isMenuOpen ? "material-appbar" : undefined}
                     aria-haspopup="true"
                     onClick={this.handleProfileMenuOpen}
                     color="inherit"
@@ -188,19 +189,35 @@ class MainNavBar extends React.Component {
                     <AccountCircle />
                   </IconButton>
                   {renderMenu}
-                </div> :
-
-                  <>
-                  <Button color="inherit"><a  className={classes.logIn}  href={SignUpUrlEmployer}>Angajeaza</a></Button>
-                  <Button color="inherit"><a  className={classes.logIn}  href={SignUpUrlJobSeeker}>Inregistrare</a></Button>
-                  <Button color="inherit"><a  className={classes.logIn}  href={LoginUrl}>Logare</a></Button>
-                  </>
-                }
-            </div>    
+                </div>
+              ) : (
+                <>
+                  <Button color="inherit">
+                    <a className={classes.logIn} href={SignUpUrlEmployer}>
+                      Angajeaza
+                    </a>
+                  </Button>
+                  <Button color="inherit">
+                    <a className={classes.logIn} href={SignUpUrlJobSeeker}>
+                      Inregistrare
+                    </a>
+                  </Button>
+                  <Button color="inherit">
+                    <a className={classes.logIn} href={LoginUrl}>
+                      Logare
+                    </a>
+                  </Button>
+                </>
+              )}
+            </div>
             <div className={classes.sectionMobile}>
-                <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                  <MoreIcon />
-                </IconButton>
+              <IconButton
+                aria-haspopup="true"
+                onClick={this.handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
             </div>
           </Toolbar>
         </AppBar>
@@ -211,7 +228,7 @@ class MainNavBar extends React.Component {
 }
 
 MainNavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(MainNavBar);
