@@ -18,6 +18,7 @@ const MySQLStore = require('express-mysql-session')(session);
 const methodOverride = require('method-override');
 const helmet = require('helmet')
 const cors = require ('cors');
+const SoketIo = require("./controllers/chat/socketIo.js")(io)
 
 
 // Load environment variables from .env file
@@ -55,18 +56,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../files')));
 
 
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header(
-//         "Access-Control-Allow-Headers",
-//         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//     );
-//     if (req.method === "OPTIONS") {
-//             res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-//             return res.status(200).json({});
-//         }
-//         next();
-//     });
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if (req.method === "OPTIONS") {
+            res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+            return res.status(200).json({});
+        }
+        next();
+    });
     
     
    app.use(helmet());
@@ -75,7 +76,6 @@ app.use(express.static(path.join(__dirname, '../files')));
    app.use(helmet.xssFilter({ setOnOldIE: true }));
    app.use(helmet.frameguard({ action: 'sameorigin' }))
    app.use(helmet.dnsPrefetchControl({ allow: true }))
-
 
 
 const options = {
@@ -148,23 +148,15 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/api/chat', (req, res) => {
-    res.render('./pages/chat')
- })
- 
- io.on('connection', socket => {
-    //  socket.emit('chat-messages','Hello world' )
-     socket.on('send-chat-message', message => {
-          socket.broadcast.emit('chat-message', message)
-     })
- })
 
-
+ app.set('socketio', io)
  require('./routes/routes.js')(app);
   
 app.get('*', (req,res) => {
      res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
  })
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -189,5 +181,4 @@ app.use(function(err, req, res, next) {
 server.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
-
 

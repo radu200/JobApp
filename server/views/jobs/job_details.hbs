@@ -49,17 +49,23 @@
 					<p class="text-opacity">{{result.company_type}}</p>
 					<p class="job_details_description">{{result.company_description}}</p>
 				</div>
-				<p><a href="/api/company/{{result.employer_id}}" class="right">mai mult informatie</a></p>
+
 				{{#if this.result.avatar}}
 				<img class="job_detail_employer_img" src="{{this.result.avatar}}">
 				{{else}}
 				<img class="job_detail_employer_img" src="/images/no_user.png">
 				{{/if}}
+                {{!-- create chat room --}}
+				<form  action="/api/room" method="post" >
+					<Input type="hidden" name="userId" value="{{result.employer_id}}"/>
+                    <button class="waves-effect waves-light btn blue" type="submit">Chat</button>
+				</form>
 
 				{{#if result.first_name}}
 				<p> <span class="text-opacity">Angajeza</span><br> <span class="font_weight_bold">{{result.first_name}}
 						{{result.last_name}}</span></p>
 				{{/if}}
+				<p><a href="/api/company/{{result.employer_id}}" >mai mult informatie</a></p>
 				<div class="divider"></div>
 			</div>
 		</div>

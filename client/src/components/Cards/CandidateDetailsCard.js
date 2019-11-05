@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Months, Days, Years } from "./../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
+import CreateChatForm from "../Forms/createChatRoom"
 
 const styles = {
   media: {
@@ -51,7 +52,7 @@ const styles = {
   }
 };
 
-const CandidateDetailsCard = ({ candidate, experience, classes }) => {
+const CandidateDetailsCard = ({ candidate, experience, classes , onSubmit}) => {
   return (
     <Card className={classes.card}>
       {candidate.map((candidate, index) => {
@@ -61,7 +62,9 @@ const CandidateDetailsCard = ({ candidate, experience, classes }) => {
               alt="Remy Sharp"
               src={candidate.avatar}
               className={classes.avatar}
-            />
+              />
+            
+
             <CardContent>
               <Typography
                 gutterBottom
@@ -97,6 +100,7 @@ const CandidateDetailsCard = ({ candidate, experience, classes }) => {
           </CardActionArea>
         );
       })}
+
       {experience.map((experience, index) => {
         return (
           <CardActionArea key={index}>
@@ -120,26 +124,31 @@ const CandidateDetailsCard = ({ candidate, experience, classes }) => {
               >
                 {experience.responsibilities}
               </Typography>
+
             </CardContent>
           </CardActionArea>
         );
       })}
+      
+         <CardContent>
+           <CreateChatForm onSubmit={onSubmit}/>
+        </CardContent>
     </Card>
   );
 };
 
 CandidateDetailsCard.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   candidate: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      avatar: PropTypes.string.isRequired,
-      job_seeker_availability: PropTypes.string.isRequired,
-      job_seeker_employment_type: PropTypes.string.isRequired,
-      first_name: PropTypes.string.isRequired,
-      last_name: PropTypes.string.isRequired,
-      job_seeker_about_me: PropTypes.string.isRequired,
-      job_seeker_languages: PropTypes.string.isRequired,
+      id: PropTypes.number,
+      avatar: PropTypes.string,
+      job_seeker_availability: PropTypes.string,
+      job_seeker_employment_type: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      job_seeker_about_me: PropTypes.string,
+      job_seeker_languages: PropTypes.string,
       job_seeker_location: PropTypes.string.isRequired
     })
   )

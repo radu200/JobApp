@@ -51,6 +51,7 @@ module.exports.searchCandidates = async (req, res) => {
   const offset = req.body.offset;
   const limit = 12;
 
+
   try {
     ///validation
     if (location === "" || location.length > 70) {
@@ -74,7 +75,6 @@ module.exports.searchCandidates = async (req, res) => {
       }
     }
   } catch (err) {
-    res.json("O errore a avut loc");
     console.log(err);
   }
 };

@@ -75,7 +75,9 @@ module.exports = function (app) {
   app.delete('/api/jobseeker/experience/delete/:id', accessController.ensureAuthenticated, accessController.jobSeeker, JobSeekerProfileController.deleteJobSeekerExperience)
 
   //chat 
-  app.get('/api/chats', accessController.ensureAuthenticated, chatController.getChat)
+  app.get('/api/chat', accessController.ensureAuthenticated, chatController.getChat)
+  app.get('/api/room/:name', accessController.ensureAuthenticated, chatController.getRoom)
+  app.post('/api/room', accessController.ensureAuthenticated, chatController.postRoom)
 
   //jobs controller 
   app.get('/api/jobs', jobsController.getJobsPage)

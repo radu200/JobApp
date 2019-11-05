@@ -1,0 +1,154 @@
+{{>MainNavBar}}
+  <div class="container">
+    <div class="row">   
+      <div class="chat-container">
+       {{!-- <div class="col  s12 m12 l4">
+          <h5>Online users</h5>    
+           <hr>
+          <div class="onlinebox ">
+            <ul class="chat-user-list">         
+              <li class="chat-user">
+                <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                <div class="about">
+                <div class="name">Mike Thomas</div>
+                  <div class="status">
+                   <i class=" tiny material-icons  online">brightness_1</i> online
+                </div>
+               </div> 
+              </li>
+
+             <li class="chat-user">
+                <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+                <div class="about">
+                 <div class="name">Mike Thomas</div>
+                  <div class="status">
+                   <i class=" tiny material-icons  offline">brightness_1</i> Offline
+                 </div>
+               </div> 
+             </li>
+
+             <li class="chat-user">
+               <img  class="userImage circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="">
+               <div class="about">
+                 <div class="name">Mike Thomas</div>
+                  <div class="status">
+                   <i class=" tiny material-icons  offline">brightness_1</i> Offline
+                 </div>
+               </div> 
+             </li>  
+            </ul>
+          </div>
+        </div> --}}
+
+
+
+      <div class="col s12 m12 l8">
+        <h5><i class="material-icons">chat_bubble_outline</i> Chat Box</h5>
+        <hr>
+        <div class="chatbox">
+          <div class="chat-header">
+            {{roomName}}
+          </div>
+          {{!-- <div class="message-data-user-one">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-time">10:12 AM, Today</span>
+          </div>
+              
+          <div class="chatmsg user-one ">
+            Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.
+          </div>
+          <div class="message-data-user-two">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-time">10:12 AM, Today</span>
+          </div>
+          <div class=" chatmsg user-two ">
+            <span class="what">Lorem Ipsum is simply dummy text of the printing and typesetting  Lorem Ipsum passages, and more recently with desktop publis</span>
+          </div> 
+          <div class="message-data-user-one">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-time">10:12 AM, Today</span>
+          </div>
+          <div class="chatmsg user-one ">
+            Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.
+          </div>
+          <div class="message-data-user-two">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-time">10:12 AM, Today</span>
+          </div>
+          <div class=" chatmsg user-two ">
+            <span class="what">Lorem Ipsum is simply dummy text of the printing and typesetting  Lorem Ipsum passages, and more recently with desktop publis</span>
+          </div> 
+         <div class="message-data-user-one">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-time">10:12 AM, Today</span>
+         </div>
+          
+          <div class="chatmsg user-one ">
+            Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.
+          </div>
+          <div class="message-data-user-two">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-time">10:12 AM, Today</span>
+          </div>
+          <div class=" chatmsg user-two ">
+            <span class="what">Lorem Ipsum is simply dummy text of the printing and typesetting  Lorem Ipsum passages, and more recently with desktop publis</span>
+          </div>  
+         
+          <div class=" chatmsg user-two ">
+            <span id='messageContainer'></span>
+          </div>          
+        </div> --}}
+          
+           <div id="messageContainer"></div>
+
+          <form id="chatForm">
+              <textarea id="messageInput" class="browser-default chat-textarea" placeholder="Scrie Mesaj"></textarea>
+              <button class="waves-effect waves-light  blue btn right button-chat"><i class="material-icons right">send</i>Trimite</button>
+          </form>
+       </div>
+
+     </div>
+   </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+  <script>
+      const socket = io('http://localhost:8000');
+      const messageForm = document.getElementById('chatForm')
+      const messageInput = document.getElementById('messageInput')
+      const messageContainer = document.getElementById('messageContainer')
+       
+     
+      
+      socket.emit('join-room', roonName)
+      socket.on('user-connected', name => {
+        console.log(name)
+      })
+      /*
+      socket.on('chat-message', data => {
+        appendMessage(`${data.name}: ${data.message}`)
+      })
+
+      socket.on('user-connected', name => {
+        appendMessage(`${name} connected`)
+      })
+
+      socket.on('user-disconnected', name => {
+        appendMessage(`${name} disconnected`)
+      }) */
+
+      messageForm.addEventListener('submit', e => {
+        e.preventDefault()
+        const message = messageInput.value
+        messageInput.value = ''
+      })
+     
+     
+      function appendMessage(message){
+         const messageElement = document.createElement('div')
+         messageElement.innerText = message
+         messageContainer.append(messageElement)
+
+      } 
+ 
+  </script>

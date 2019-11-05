@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { NoJobFoundMsg } from "./../../Utils/messages";
+import { NoJobFoundMsg } from "../../Utils/messages";
 import JobCard from "../../components/Cards/JobCard";
 import GetMoreButton from "../../components/Buttons/ButtonOutlined";
 import axios from "axios";
@@ -12,7 +12,7 @@ import SearchButton from "../../components/Buttons/ButtonContained";
 import TextInput from "../../components/Inputs/TextInput";
 import { connect } from "react-redux";
 import { fetchJobs } from "../../redux/actions/thunks/FetchJobs";
-import { cities } from "./../../api/cities";
+import { cities } from "../../api/cities";
 
 const styles = theme => ({
   root: {
