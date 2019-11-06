@@ -1,21 +1,51 @@
 import React, {Component} from 'react'
+import io from 'socket.io-client';
+import axios from "axios";
+import ChatRoom from './ChatRoom'
+const socket = io('http://localhost:8000');
+
 
 
 class Chat extends Component {
     constructor(){
          super()
          this.state = {
-           data:[]
+           chatRooms:[],
+           room: null
           }
     }
 
+    async  componentDidMount() {
+       
+      try {
+        const res = await axios.get('/api/chat')
+        const chatRooms = res.data
+         this.setState({chatRooms})
+      } catch(err){
+        console.log(err)
+      }
+
+  
+    }
 
 
+   onChatRoom(id) {
+     this.setState({
+       room:id
+     })
+    //  console.log("click", id)
+   }
 
-
-  render(){     
+  render(){ 
+     const { chatRooms, room} = this.state   
       return (
-          <div>{this.state.data}</div>
+        <div>
+         {chatRooms.map((room, i) => {
+           return <div onClick={() => this.onChatRoom(room.id)} key={room.id}>{room.receiverName}</div>
+          })}
+
+         { room ===  <ChatRoom rooms={chatRooms} />  }
+         </div>
       )
   }
 } 

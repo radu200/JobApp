@@ -8,6 +8,7 @@ import ApplicantsRejected from '../containers/jobApplication/ApplicantsRejected'
 import ApplicantsShortList from '../containers/jobApplication/ApplicantsShortList';
 import JobSeekerApplications from '../containers/jobApplication/JobSeekerApplications';
 import Chat from '../containers/chat/Chat';
+import ChatRoom from '../containers/chat/ChatRoom';
 
 
 const Routes = () => (
@@ -16,6 +17,7 @@ const Routes = () => (
       <Switch>
         <Route exact path='/' component={Jobs} />
         <Route exact path='/chat' component={Chat} />
+        <Route exact path='/chat/:room' component={ChatRoom} />
         <Route exact path='/jobs' component={Jobs} />
         <Route exact path='/candidate-details/:id' component={CandidateDetails} />
         <Route exact path='/search-candidate' component={Candidates} />

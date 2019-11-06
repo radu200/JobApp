@@ -1,12 +1,14 @@
 module.exports = (io) => {
     io.on('connection', function(socket){
-      socket.on('join-room', (room) => {
+       socket.on('join-room', (room) => {
           socket.join(room)
-         socket.broadcast.emit('user-connected', 'radu')
-          //   socket.to(room).emit('user-connected', 'radu')
+          socket.broadcast.emit('user-connected', 'lall')
 
       })
-        console.log('user connected')     
+
+        socket.on('front', msg => {
+            console.log(msg)
+        })
 
         socket.on('disconnect', () => {
             console.log('user disconnected')
@@ -14,4 +16,4 @@ module.exports = (io) => {
     }) 
 
 
-}
+} 

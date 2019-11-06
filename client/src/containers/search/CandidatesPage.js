@@ -8,9 +8,9 @@ import MainNav from "../../components/NavBars/MainNav/MainNav";
 import SelectInput from "../../components/Inputs/Select";
 import SearchButton from "../../components/Buttons/ButtonContained";
 import Slider from "../../components/Inputs/Slider";
-import { Years, NoCandFoundMsg } from "./../../Utils/messages";
-import { cities } from "./../../api/cities";
-import { categories } from "./../../api/categories";
+import { Years, NoCandFoundMsg } from "../../Utils/messages";
+import { cities } from "../../api/cities";
+import { categories } from "../../api/categories";
 
 const styles = theme => ({
   root: {

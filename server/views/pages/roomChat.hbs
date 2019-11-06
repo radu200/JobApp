@@ -117,14 +117,13 @@
       const messageForm = document.getElementById('chatForm')
       const messageInput = document.getElementById('messageInput')
       const messageContainer = document.getElementById('messageContainer')
-       
-     
-      
-      socket.emit('join-room', roonName)
-      socket.on('user-connected', name => {
+    
+   
+      /* socket.on('user-connected', name => {
         console.log(name)
       })
-      /*
+      
+      socket.emit('join-room', 'radu')
       socket.on('chat-message', data => {
         appendMessage(`${data.name}: ${data.message}`)
       })

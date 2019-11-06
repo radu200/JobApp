@@ -6,7 +6,7 @@ const { dbPromise } = require("./../../config/database.js");
 module.exports.postRoom = async (req,res) => {
    
    try {
-       const io = req.app.get('socketio')
+      //  const io = req.app.get('socketio')
     
       const receiverId = req.body.userId
       const senderId = req.user.id
@@ -44,19 +44,19 @@ module.exports.getChat = async (req, res, next) => {
      const db = await dbPromise;
      const textSqlRoom = 'SELECT id, receiverName FROM chatRooms WHERE sender = ? OR receiver = ?'
      const [room] = await db.execute(textSqlRoom, [userId, userId])
-  
-     res.render("pages/chat", {
-        room:room
-     });
+     res.json(room)
+    //  res.render("pages/chat", {
+    //     room:room
+    //  });
     } catch (err) {
       console.log(err);
     }
 };
 module.exports.getRoom = (req, res) => {
- 
-  const io = req.app.get('socketio')
-  
-  io.emit('join-room', 'my-room')
-  res.render("./pages/roomChat", {roomName:req.params.name})
+  const roomName = req.params.name
+ const io = req.app.get('socketio')
+
+
+  res.render("./pages/roomChat", {roomName:roomName})
 
 }

@@ -18,7 +18,6 @@ const MySQLStore = require('express-mysql-session')(session);
 const methodOverride = require('method-override');
 const helmet = require('helmet')
 const cors = require ('cors');
-const SoketIo = require("./controllers/chat/socketIo.js")(io)
 
 
 // Load environment variables from .env file
@@ -151,7 +150,8 @@ app.use(function(req, res, next) {
 
  app.set('socketio', io)
  require('./routes/routes.js')(app);
-  
+ const SoketIo = require("./controllers/chat/socketIo.js")(io)
+
 app.get('*', (req,res) => {
      res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
  })
