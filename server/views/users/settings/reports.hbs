@@ -1,0 +1,45 @@
+{{>MainNavBar}}
+  {{>alerts}}
+      <div class="row">
+            <div class="col s12 l4 offset-l4">
+              <div class="card ">
+                <div class="card-content">
+                  <h4 class="card-title center-align">Raporteaza</h4>
+                  <p>De ce ai vrea să raportezi ? Vă rugăm să selectați motivul principal:</p>
+                  <br>
+                  <form method="post" action="/api/report">
+                    <input type="hidden"  value="{{reportedUser}}"name='reported_user'/>
+                      <div class="row">
+                        <label>
+                            <input class="with-gap" type="radio" name="reason" value="Nepoliticos sau Nepotrivit"  required/>
+                            <span >Nepoliticos sau Nepotrivit</span>
+                        </label>
+                    </div>
+                         <div class="row">
+                        <label>
+                            <input class="with-gap" type="radio" name="reason" value="Fraud" required/>
+                            <span >Frauda </span>
+                        </label>
+                    </div>
+                         <div class="row">
+                        <label>
+                            <input class="with-gap" type="radio" name="reason" value="Spam" required />
+                            <span >Spam</span>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea class="materialize-textarea" placeholder="Raportez pentru că..." data-length="120" name="message"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <button class="btn full-width-btn blue btn-large waves-effect waves-light " type="submit" >Raporteaza
+                      </button>
+                    </div>
+                  </form> 
+             
+              </div>
+            </div>
+          </div> 
+      </div>

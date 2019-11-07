@@ -16,8 +16,8 @@ module.exports.searchJobs = async (req, res, next) => {
       return false;
     } else {
       const db = await dbPromise;
-      const sql = `SELECT * FROM jobs  WHERE category LIKE '%${searchVal}%' AND city  LIKE '%${city}%'  LIMIT ${limit} OFFSET ${offset}`;
-      const [results] = await db.query(sql);
+      const sql = `SELECT jobs.*, users.id, users.blacklist FROM jobs LEFT JOIN users ON jobs.employer_id = users.id WHERE users.blacklist = ? AND  jobs.category LIKE '%${searchVal}%' AND jobs.city  LIKE '%${city}%'  LIMIT ${limit} OFFSET ${offset}`;
+      const [results] = await db.query(sql, ['no']);
 
       if (req.isAuthenticated()) {
         if (req.user.type === "employer") {
@@ -39,6 +39,7 @@ module.exports.searchJobs = async (req, res, next) => {
       }
     }
   } catch (err) {
+    console.log(err)
     res.json(msg.error);
   }
 };

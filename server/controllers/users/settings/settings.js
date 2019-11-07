@@ -7,6 +7,42 @@ const send_emails = require("../../send_emails/send_emails");
 const msg = require("../../utils/messages");
 const urlPaths = require("../../utils/url-paths");
 
+ //report users 
+ module.exports.getReportUser = async (req, res) => {
+   res.render('users/settings/reports',{
+     reportedUser:req.params.id
+   })
+}
+
+ module.exports.postReportUser = async (req, res) => {
+   const  reporter_id = req.user.id
+   const reported_user_id = req.body.reported_user 
+   const reason = req.body.reason
+   const message = req.body.message
+
+   req
+   .checkBody("message", "Mesajul ne trebuie sa fie mai lung de 250 de caractere")
+   .len(0, 250);
+
+
+ const errors = req.validationErrors();
+
+ if (errors) {
+   req.flash("error_msg", errors);
+   return res.redirect(urlPaths.back);
+ }
+ 
+   try{
+     const db = await dbPromise
+     textSql = 'INSERT INTO reports (reporter_id, reported_user_id, message, reason) VALUES(?,?,?,?)'
+     db.query(textSql,[reporter_id, reported_user_id, message, reason ])
+    } catch(err){
+      console.log(err)
+    }
+    req.flash('success_msg', {msg:'Va mltumim pentru colaborare. Ati raportat cu succes.'})
+    res.redirect('back')
+ }
+
 ///change password within profile
 module.exports.getChangePassword = (req, res, next) => {
   res.render("users/settings/change_password");

@@ -137,8 +137,8 @@ class JobsPage extends Component {
           offset: 0
         });
         const data = response.data;
-        const searchLength = data.jobs.length
-        this.setState({ jobs: [...data.jobs], url, offset , searchLength});
+         const searchLength = data.jobs.length
+        this.setState({ jobs: [...data.jobs], url, offset, searchLength });
       } catch (error) {
         console.error(error);
       }

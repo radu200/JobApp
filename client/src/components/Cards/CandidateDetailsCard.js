@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { Months, Days, Years } from "./../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
 import CreateChatForm from "../Forms/createChatRoom"
+import Button from '@material-ui/core/Button';
 
 const styles = {
   media: {
@@ -63,9 +64,10 @@ const CandidateDetailsCard = ({ candidate, experience, classes , onSubmit}) => {
               src={candidate.avatar}
               className={classes.avatar}
               />
-            
-
             <CardContent>
+                <Button href={`/api/report/${candidate.id}`} size="small" color="primary">
+                  Raporteaza  acest utilizator
+                </Button>
               <Typography
                 gutterBottom
                 component="p"
