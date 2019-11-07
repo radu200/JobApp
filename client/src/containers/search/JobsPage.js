@@ -34,6 +34,7 @@ class JobsPage extends Component {
       query: "",
       location: "",
       url: "",
+      searchLength:null,
       isAuthenticated: "",
       formErrors: {
         searchError: "",
@@ -136,8 +137,8 @@ class JobsPage extends Component {
           offset: 0
         });
         const data = response.data;
-        
-        this.setState({ jobs: [...data.jobs], url, offset });
+        const searchLength = data.jobs.length
+        this.setState({ jobs: [...data.jobs], url, offset , searchLength});
       } catch (error) {
         console.error(error);
       }
@@ -154,12 +155,12 @@ class JobsPage extends Component {
   }
 
   render() {
-    const { classes, auth } = this.props;
-    const { query, formErrors, location, jobs} = this.state;
+     const { classes } = this.props;
+    const { query, formErrors, location, jobs, searchLength, isAuthenticated} = this.state;
     const { handleSubmit, handleInputChange, getMoreJobs } = this;
     return (
       <div>
-        <MainNav isAuthenticated={auth} />
+        <MainNav isAuthenticated={isAuthenticated} />
         <div className={classes.root}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
@@ -185,11 +186,12 @@ class JobsPage extends Component {
               </form>
             </Grid>
           </Grid>
+            <div>{searchLength !== null? <h2>Rezultat: {searchLength}</h2> : null}</div>
           <Grid container spacing={2}>
             {jobs.length > 0 ? (
               <JobCard job={jobs} />
-            ) : (
-              <h1>{NoJobFoundMsg}</h1>
+              ) : (
+              <h2>{NoJobFoundMsg}</h2>
             )}
           </Grid>
 
