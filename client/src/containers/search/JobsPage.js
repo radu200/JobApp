@@ -48,22 +48,22 @@ class JobsPage extends Component {
   //form validation
   validate = () => {
     const { location, query } = this.state;
-
+    
     let searchError = "";
     let locationError = "";
-
+    
     if (!query) {
       searchError = "Nu poate fi gol";
     } else if (query.length > 70) {
       searchError = " Te rog nu cauta mai mult de 70 de caractere";
     }
-
+    
     if (!location) {
       locationError = "Te rog alege orasul";
     } else if (location.length > 70) {
       locationError = "Locatia are mai mult de 70 caractere";
     }
-
+    
     if (searchError || locationError) {
       this.setState(prevState => ({
         formErrors: {
@@ -76,20 +76,33 @@ class JobsPage extends Component {
     }
     return true;
   };
-
-  componentDidMount() {
-    this.props.fetchJobs();
+  
+  async componentDidMount() {
+    const {offset} = this.state;
+    const url = `/api/jobs?offset=${offset}`
+    try {
+        const response = await axios.get(url);
+        
+         const data = response.data;
+         if(data.auth === 'employer'){
+           this.setState({jobs:[],isAuthenticated:data.auth,})
+          } else {
+            this.setState({jobs:data.jobs,isAuthenticated:data.auth,url, offset:offset + 12})
+        }
+        
+      } catch (error) {
+        console.error(error);
+      }
   }
-
+  
   getMoreJobs = async () => {
     const { url, offset } = this.state;
     try {
       const response = await axios.get(url, {
         offset: offset
       });
-
+      
       const data = response.data;
-
       this.setState({
         jobs: [...this.state.jobs, ...data.jobs],
         offset: offset + 12
@@ -98,23 +111,23 @@ class JobsPage extends Component {
       console.error(error);
     }
   };
-
+  
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
+    
     this.setState({
       [name]: value
     });
   }
-
+  
   //submit form
   async handleSubmit(event) {
     event.preventDefault();
-
+     
     const isValid = this.validate();
-
+    
     if (isValid) {
       const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`;
       const offset = 12;
@@ -123,12 +136,12 @@ class JobsPage extends Component {
           offset: 0
         });
         const data = response.data;
-
+        
         this.setState({ jobs: [...data.jobs], url, offset });
       } catch (error) {
         console.error(error);
       }
-
+      
       this.setState(prevState => ({
         formErrors: {
           ...prevState.formErrors,
@@ -137,11 +150,12 @@ class JobsPage extends Component {
         }
       }));
     }
+    
   }
 
   render() {
-    const { classes, auth, jobs } = this.props;
-    const { query, formErrors, location } = this.state;
+    const { classes, auth } = this.props;
+    const { query, formErrors, location, jobs} = this.state;
     const { handleSubmit, handleInputChange, getMoreJobs } = this;
     return (
       <div>

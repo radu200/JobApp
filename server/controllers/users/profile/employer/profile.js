@@ -133,20 +133,24 @@ module.exports.getCompanyProfile = async (req, res, next) => {
   try {
     const db = await dbPromise;
 
-    const [userDetails] = await db.execute(
-      "SELECT  avatar,first_name, last_name, company_name, company_description, company_location, company_type  FROM users  WHERE id = ?",
-      [req.params.id]
+    const [user] = await db.execute(
+      "SELECT  id, avatar,first_name, last_name, company_name, company_description, company_location, company_type  FROM users  WHERE id = ? AND blacklist = ? ",
+      [req.params.id,'no']
     );
+    if(user[0]){
+      const [jobs] = await db.execute(
+        "SELECT * FROM  jobs WHERE jobs.employer_id = ?  ",
+        [user[0].id]
+      );
+      res.render("profile/employer/company_profile", {
+         job: jobs,
+        employer: user[0]
+      });
+      
+    } else {
+      res.render("profile/employer/company_profile");
+    }
 
-    const [jobs] = await db.execute(
-      "SELECT * FROM  jobs WHERE jobs.employer_id = ?  ",
-      [req.params.id]
-    );
-
-    res.render("profile/employer/company_profile", {
-      job: jobs,
-      employer: userDetails[0]
-    });
   } catch (err) {
     console.log(err);
   }

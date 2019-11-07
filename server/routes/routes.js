@@ -15,7 +15,7 @@ module.exports = function (app) {
   const accessController = require('../middleware/access_control_middleware');
   const filesController = require('../middleware/files_control_middleware');
   const searchController = require('../controllers/search/search');
-
+  const adminController = require('../controllers/dashboard/admin')
   app.get('/api/home', homeController.getHomePage)
   app.get('/api/success', homeController.getSuccessPage)
   //authetication routes
@@ -101,4 +101,12 @@ module.exports = function (app) {
   app.post('/api/candidate-search', accessController.ensureAuthenticated, searchController.searchCandidates)
   ///contact us
   app.get('/api/contact-us', accessController.ensureAuthenticated, contactUs.getContactUs);
+
+   //dashboard
+  app.get('/api/admin/users', adminController.getAllUsers )
+  app.get('/api/admin/black-list', adminController.getAllBlackListedUsers)
+  app.post('/api/admin/black-list', adminController.postBlackListeddUsers )
+  app.get('/api/admin/reported', adminController.getAllUsers )
+
 }
+

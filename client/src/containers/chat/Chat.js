@@ -41,7 +41,7 @@ class Chat extends Component {
       return (
         <div>
          {chatRooms.map((room, i) => {
-           return <div onClick={() => this.onChatRoom(room.id)} key={room.id}>{room.receiverName}</div>
+           return <div onClick={() => this.onChatRoom(room.id)} key={room.id}><a href={`/chat/${room.id}`}>{room.receiverName}</a> </div>
           })}
 
          { room ===  <ChatRoom rooms={chatRooms} />  }

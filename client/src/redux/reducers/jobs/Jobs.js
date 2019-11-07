@@ -5,7 +5,6 @@ const initialState = {
     auth:''
 }
  export  default (state = initialState, action) => {
-    //  console.log(action)
      switch(action.type){
          case GET_JOBS:
              return {...state, jobs:action.jobs, auth:action.auth}

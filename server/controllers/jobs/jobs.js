@@ -161,15 +161,14 @@ module.exports.JobApplicationJobSeeker = async (req, res) => {
 };
 
 module.exports.getJobsPage = async (req, res, next) => {
+  
   const offset = req.query.offset;
   const limit = 12;
-
   try {
     const db = await dbPromise;
-    const [jobs] = await db.execute(
-      `SELECT * FROM jobs LIMIT ${limit} OFFSET ${offset} `
-    );
-
+    const textSqlJobs = `SELECT jobs.*, users.id as userId, users.blacklist  FROM jobs LEFT JOIN users ON jobs.employer_id  = users.id WHERE users.blacklist = ? LIMIT ${limit} OFFSET ${offset} `
+    const [jobs] = await db.execute(textSqlJobs, ['no']);
+ 
     if (req.isAuthenticated()) {
       const userType = req.user.type;
 

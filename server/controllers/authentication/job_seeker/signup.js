@@ -107,7 +107,9 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
         ip_adress: req.ip,
         software: req.headers["user-agent"],
         preferred_lang: req.acceptsLanguages().toString(),
-        job_seeker_location: city
+        job_seeker_location: city,
+        blacklist:'no',
+        checked:'no'
       };
 
       await db.query("insert into users set ?", user);
