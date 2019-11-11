@@ -103,10 +103,11 @@ module.exports = function (app) {
   app.get('/api/contact-us', accessController.ensureAuthenticated, contactUs.getContactUs);
 
    //dashboard
-  app.get('/api/admin/users', adminController.getAllUsers )
-  app.get('/api/admin/black-list', adminController.getAllBlackListedUsers)
-  app.post('/api/admin/black-list', adminController.postBlackListeddUsers )
-  app.get('/api/admin/reported', adminController.getAllUsers )
+  app.get('/api/admin/users', accessController.ensureAuthenticated,  adminController.getAllUsers )
+  app.get('/api/admin/check',accessController.ensureAuthenticated, adminController.getCheckUsers )
+  app.get('/api/admin/black-list',accessController.ensureAuthenticated,  adminController.getAllBlackListedUsers)
+  app.post('/api/admin/black-list', accessController.ensureAuthenticated, adminController.postBlackListeddUsers )
+  app.get('/api/admin/reported', accessController.ensureAuthenticated, adminController.getAllUsers )
   
   //reports
   app.get('/api/report/:id', accessController.ensureAuthenticated, settingsController.getReportUser)

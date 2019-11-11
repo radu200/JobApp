@@ -6,8 +6,6 @@ import Button from "@material-ui/core/Button";
 const styles = theme => ({
   button: {
     width: "100%",
-    background: "#2552c7",
-    color: "#FFFFFF",
     marginBottom: 20,
     "&:hover": {
       backgroundColor: "#2552c7",
@@ -16,9 +14,15 @@ const styles = theme => ({
   }
 });
 
-const ButtonContained = ({ classes, buttonText }) => {
+const ButtonContained = ({ classes, buttonText, color, onClick}) => {
   return (
-    <Button variant="contained" type="submit" className={classes.button}>
+    <Button 
+      variant="contained" 
+      color={color ? color : "primary" } 
+      type="submit" 
+      className={classes.button}
+      onClick={onClick}
+      >
       {buttonText}{" "}
     </Button>
   );

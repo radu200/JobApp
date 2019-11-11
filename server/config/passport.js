@@ -23,7 +23,7 @@ module.exports = function(passport) {
         //validation login
 
         db.query(
-          "SELECT id, password,type, email,first_name, last_name FROM users WHERE email = ?",
+          "SELECT id, blacklist, password,type, email,first_name, last_name FROM users WHERE email = ?",
           [username],
           function(error, results, fileds) {
             if (error) {
@@ -37,6 +37,16 @@ module.exports = function(passport) {
                 req.flash("error_msg", {
                   msg:
                     "E-mailul sau parola dvs. sunt incorecte. Vă rugăm să încercați din nou "
+                })
+              );
+
+            } else if(results[0].blacklist === 'yes'){
+              return done(
+                null,
+                false,
+                req.flash("error_msg", {
+                  msg:
+                    "Contul dvs. a fost dezactivat pentru încălcarea condițiilor noastre"
                 })
               );
             } else {

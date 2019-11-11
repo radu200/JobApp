@@ -8,6 +8,7 @@ module.exports.searchJobs = async (req, res, next) => {
   const city = req.query.location;
   const limit = 12;
 
+  
   try {
     //validation
     if (searchVal === "" || searchVal.length > 70) {

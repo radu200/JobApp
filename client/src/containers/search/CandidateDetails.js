@@ -4,7 +4,6 @@ import CandidateDetailsCard from "../../components/Cards/CandidateDetailsCard";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core";
 import MainNav from "../../components/NavBars/MainNav/MainNav";
-import CreateChatForm from "../../components/Forms/createChatRoom"
 
 const styles = theme => ({
   root: {
