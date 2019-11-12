@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Admin from '../../components/adminDashboard/Admin'
+import Admin from '../../components/adminDashboard/Admin/AdminUsers'
 import axios from "axios";
 
 class CheckUser extends Component {
@@ -7,7 +7,7 @@ class CheckUser extends Component {
      super()
        this.state = {
           users:[],
-          blackListBtn:null,
+          blackListBtn:'null',
           offset:0
        }
      
@@ -21,7 +21,7 @@ class CheckUser extends Component {
       const res =  await axios.get(url)
       this.setState({
         users:res.data, 
-        blackListBtn:true,
+        blackListBtn:'true',
         offset: offset + 12
       })
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Admin from '../../components/adminDashboard/Admin'
+import Admin from '../../components/adminDashboard/Admin/AdminUsers'
 import axios from "axios";
 
 class AdminDashboard extends Component {
@@ -7,7 +7,7 @@ class AdminDashboard extends Component {
      super()
        this.state = {
           users:[],
-          blackListBtn:null,
+          blackListBtn:'null',
           offset:0
        }
      
@@ -21,9 +21,11 @@ class AdminDashboard extends Component {
       const res =  await axios.get(url)
       this.setState({
         users:res.data, 
-        blackListBtn:true,
+        blackListBtn:'true',
         offset: offset + 12
       })
+
+
 
     } catch(err){
         console.log(err)
@@ -43,6 +45,7 @@ class AdminDashboard extends Component {
         users: [...users, ...data],
         offset: offset + 12
       });
+      
     } catch (error) {
       console.error(error);
     }

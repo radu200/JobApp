@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import Admin from '../../components/adminDashboard/Admin'
+import AdminReported from '../../components/adminDashboard/Admin/AdminReportedUsers'
 import axios from "axios";
 
 class ReportedUsers extends Component {
    constructor(){
      super()
        this.state = {
-          users:[],
-          blackListBtn:null,
+          reports:[],
+          blackListBtn:'null',
           offset:0
        }
      
@@ -20,8 +20,8 @@ class ReportedUsers extends Component {
     try {
       const res =  await axios.get(url)
       this.setState({
-        users:res.data, 
-        blackListBtn:true,
+        reports:res.data, 
+        blackListBtn:'true',
         offset: offset + 12
       })
 
@@ -33,14 +33,14 @@ class ReportedUsers extends Component {
 
      
   getMore = async () => {
-    const { users, offset } = this.state;
+    const { reports, offset } = this.state;
     const url = `/api/admin/reported?offset=${offset}`
     try {
       const response = await axios.get(url);
       
       const data = response.data;
       this.setState({
-        users: [...users, ...data],
+        reports: [...reports, ...data],
         offset: offset + 12
       });
     } catch (error) {
@@ -48,12 +48,27 @@ class ReportedUsers extends Component {
     }
   };
 
+
+  async handleBlock (id) {
+    try{
+      const res =  await axios.post('/api/admin/black-list',{
+        data:{
+           id:id
+        }
+      })
+ 
+    } catch(err){
+      console.log(err)
+    }
+ 
+  }
+
  render () {
-   const { users, blackListBtn } = this.state
-   const { getMore } = this
+   const { reports, blackListBtn } = this.state
+   const { getMore, handleBlock} = this
    return (
      <div>
-      <Admin users={users} blackListBtn={blackListBtn} getMore={getMore}/>
+      <AdminReported reports={reports} blackListBtn={blackListBtn} getMore={getMore} handleBlock={handleBlock.bind(this)}/>
      </div>
     )
   }

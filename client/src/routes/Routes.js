@@ -11,7 +11,7 @@ import Chat from '../containers/chat/Chat';
 import ChatRoom from '../containers/chat/ChatRoom';
 import AllUsers from '../containers/adminDashboard/AllUsers'
 import Unchecked from '../containers/adminDashboard/UncheckedUsers'
-import Reported from '../containers/adminDashboard/Reportedusers'
+import Reported from '../containers/adminDashboard/ReportedUsers'
 import BlackList from '../containers/adminDashboard/BlackListedUsers'
 
 const Routes = () => (
@@ -33,7 +33,7 @@ const Routes = () => (
         <Route exact path='/admin/o2' component={AllUsers} />
         <Route exact path='/admin/o2/unchecked' component={Unchecked} />
         <Route exact path='/admin/o2/reported' component={Reported} />
-        <Route exact path='/admin/o2/blacklist' component={Unchecked} />
+        <Route exact path='/admin/o2/blacklist' component={BlackList} />
       </Switch>
   </BrowserRouter>
   </main>

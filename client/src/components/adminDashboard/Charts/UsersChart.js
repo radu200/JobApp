@@ -6,14 +6,15 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Title from './Title';
 import {Link} from "react-router-dom";
-import  Button from '../Buttons/ButtonContained'
+import  Button from '../../Buttons/ButtonContained'
 
 
 const useStyles = makeStyles(theme => ({
   seeMore: {
     marginTop: theme.spacing(3),
+    marginLeft:10,
+    marginRight:10
   },
 }));
 
@@ -21,7 +22,6 @@ export default function Users({users, blackListBtn, getMore}) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Users</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -43,13 +43,13 @@ export default function Users({users, blackListBtn, getMore}) {
               <TableCell>{user.email}</TableCell>
               <TableCell>
                   {user.type === 'employer' ? 
-                  <Link to={`/api/company/${user.id}`} rel="noreferrer" target={"_blank"}>Account: {user.first_name}</Link>
+                  <Link to={`/api/company/${user.id}`} rel="noreferrer" target={"_blank"}> {user.first_name}</Link>
                   : user.type === 'jobseeker' ? 
-                  <Link to={`/candidate-details/${user.id}` }  rel="noreferrer" target={"_blank"}>Account: {user.first_name}</Link> : null}
+                  <Link to={`/candidate-details/${user.id}` }  rel="noreferrer" target={"_blank"}> {user.first_name}</Link> : null}
              </TableCell>
               <TableCell >{user.type}</TableCell>
                 <TableCell>
-                  {blackListBtn && <Button buttonText='Block' color="secondary"/>}
+                  {blackListBtn === 'true' ?  <Button buttonText='Block' color="secondary"/> : ''}
                 </TableCell>
             </TableRow>
 
