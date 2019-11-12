@@ -13,17 +13,20 @@ const useStyles = makeStyles(theme => ({
     marginRight: "auto",
     marginBottom: 0,
     marginLeft: "auto"
-  }
+  },
+ 
+
 }));
 
 
-const AdminReported = ({blackListBtn, reports, getMore, handleBlock}) => {
+const AdminReported = ({blackListBtn, reports, getMore, handleBlock, msg}) => {
   const classes = useStyles();
 
    return (
       <>
       <AdminNav/>
       <div className={classes.root}>
+       <h2 >{msg}</h2> 
       <Grid container spacing={2}>
          <Grid item xs={12} sm={12} md={12}>
            <Paper container spacing={2}>

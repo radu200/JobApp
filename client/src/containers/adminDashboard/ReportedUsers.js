@@ -8,7 +8,8 @@ class ReportedUsers extends Component {
        this.state = {
           reports:[],
           blackListBtn:'null',
-          offset:0
+          offset:0,
+          msg:''
        }
      
    }
@@ -53,9 +54,15 @@ class ReportedUsers extends Component {
     try{
       const res =  await axios.post('/api/admin/black-list',{
         data:{
-           id:id
+           id:id,
+           reported:'reported'
         }
       })
+
+    if(res.data.msg){
+      const msg = res.data.msg
+      this.setState({msg:msg})
+    }
  
     } catch(err){
       console.log(err)
@@ -64,11 +71,18 @@ class ReportedUsers extends Component {
   }
 
  render () {
-   const { reports, blackListBtn } = this.state
+   const { reports, blackListBtn, msg } = this.state
    const { getMore, handleBlock} = this
+   console.log(reports)
    return (
      <div>
-      <AdminReported reports={reports} blackListBtn={blackListBtn} getMore={getMore} handleBlock={handleBlock.bind(this)}/>
+      <AdminReported 
+       reports={reports} 
+       blackListBtn={blackListBtn} 
+       getMore={getMore} 
+       handleBlock={handleBlock.bind(this)}
+       msg={msg}
+       />
      </div>
     )
   }

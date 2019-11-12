@@ -8,7 +8,8 @@ class AdminDashboard extends Component {
        this.state = {
           users:[],
           blackListBtn:'null',
-          offset:0
+          offset:0,
+          msg:''
        }
      
    }
@@ -33,6 +34,25 @@ class AdminDashboard extends Component {
    }
 
 
+   async handleBlock (id) {
+    try{
+      const res =  await axios.post('/api/admin/black-list',{
+        data:{
+           id:id,
+           reported:''
+        }
+      })
+
+    if(res.data.msg){
+      const msg = res.data.msg
+      this.setState({msg:msg})
+    }
+ 
+    } catch(err){
+      console.log(err)
+    }
+ 
+  }
      
   getMore = async () => {
     const { users, offset } = this.state;

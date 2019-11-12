@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Users({users, blackListBtn, getMore}) {
+export default function Users({users, blackListBtn, getMore, handleBlock, unBlockBtn, handleUnBlock}) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -49,7 +49,9 @@ export default function Users({users, blackListBtn, getMore}) {
              </TableCell>
               <TableCell >{user.type}</TableCell>
                 <TableCell>
-                  {blackListBtn === 'true' ?  <Button buttonText='Block' color="secondary"/> : ''}
+                  {blackListBtn === 'true' ?  <Button buttonText='Block' color="secondary" handleBlock={ e => handleBlock(user.id)}/> : ''}
+                  {unBlockBtn === 'true' ?  <Button buttonText='UnBlock' color="secondary" handleUnBlock={ e => handleBlock(user.id)}/> : ''}
+
                 </TableCell>
             </TableRow>
 

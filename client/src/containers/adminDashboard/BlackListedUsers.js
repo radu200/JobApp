@@ -8,10 +8,13 @@ class BlackListUsers extends Component {
        this.state = {
           users:[],
           blackListBtn:'null',
+          unBlockBtn:'', 
           offset:0
        }
      
    }
+
+
 
 
   async componentDidMount(){
@@ -21,7 +24,8 @@ class BlackListUsers extends Component {
       const res =  await axios.get(url)
       this.setState({
         users:res.data, 
-        blackListBtn:'true',
+        blackListBtn:'false',
+        unBlockBtn:'true',
         offset: offset + 12
       })
 
@@ -48,12 +52,37 @@ class BlackListUsers extends Component {
     }
   };
 
+
+  async handleUnBlock(id){
+     try {
+       const res = await axios.post('/api/admin/o2/unblock',{
+          data:{
+            id:id
+          }
+       })
+
+       if(res.data.msg){
+        const msg = res.data.msg
+        this.setState({msg:msg})
+      }
+   
+      }
+      catch(err){
+        console.log(err)
+      }
+  }
+
  render () {
-   const { users, blackListBtn } = this.state
-   const { getMore } = this
+   const { users, blackListBtn, unBlockBtn } = this.state
+   const { getMore, handleUnBlock } = this
    return (
      <div>
-      <Admin users={users} blackListBtn={blackListBtn} getMore={getMore}/>
+      <Admin 
+        users={users} 
+        blackListBtn={blackListBtn} 
+        getMore={getMore} 
+        unBlockBtn={unBlockBtn}
+        handleUnBlock={handleUnBlock.bind(this)}/>
      </div>
     )
   }

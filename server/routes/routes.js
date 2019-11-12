@@ -107,7 +107,8 @@ module.exports = function (app) {
   app.get('/api/admin/check',accessController.ensureAuthenticated, adminController.getCheckUsers )
   app.get('/api/admin/black-list',accessController.ensureAuthenticated,  adminController.getAllBlackListedUsers)
   app.post('/api/admin/black-list', accessController.ensureAuthenticated, adminController.postBlackListeddUsers )
-  app.get('/api/admin/reported', accessController.ensureAuthenticated, adminController.getAllUsers )
+  app.post('/api/admin/unblock', accessController.ensureAuthenticated, adminController.unblockBlackListeddUsers)
+  app.get('/api/admin/reported', accessController.ensureAuthenticated, adminController.getAllReportedUsers)
   
   //reports
   app.get('/api/report/:id', accessController.ensureAuthenticated, settingsController.getReportUser)

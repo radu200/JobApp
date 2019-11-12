@@ -17,13 +17,13 @@ class Chat extends Component {
 
     async  componentDidMount() {
        
-      try {
-        const res = await axios.get('/api/chat')
-        const chatRooms = res.data
-         this.setState({chatRooms})
-      } catch(err){
-        console.log(err)
-      }
+      // try {
+      //   const res = await axios.get('/api/chat')
+      //   const chatRooms = res.data
+      //    this.setState({chatRooms})
+      // } catch(err){
+      //   console.log(err)
+      // }
 
   
     }
