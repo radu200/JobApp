@@ -32,8 +32,8 @@ module.exports.postCheckUsers = async (req,res) => {
      const userId  = req.body.data.id
      try{
           const db = await dbPromise
-          const [users] = await db.query(`UPDATE users SET checked = ? WHERE id = ?`,['yes', userId])
-          res.json(users)
+           await db.query(`UPDATE users SET checked = ? WHERE id = ?`,['yes', userId])
+          res.json({msg:{success:'Success'}})
      } catch(err){
           res.json({msg:err})
       }
@@ -72,11 +72,11 @@ module.exports.postBlackListeddUsers = async  (req,res) => {
           const [users] = await db.query('UPDATE users SET blacklist = ? WHERE id = ? ',['yes', userId])
          
           if(statusType === 'reported'){
-            const [reports] =  await db.query('UPDATE reports SET blacklist = ? WHERE reported_user_id = ? ',['yes', userId])
+                await db.query('UPDATE reports SET blacklist = ? WHERE reported_user_id = ? ',['yes', userId])
      
            } 
 
-          res.json({msg:'Success'})
+           res.json({msg:{success:'Success'}})
 
      } catch(err){
         res.json({msg:err})
@@ -90,7 +90,7 @@ module.exports.unblockBlackListeddUsers = async  (req,res) => {
      try{
           const db = await dbPromise
           await db.query('UPDATE users SET blacklist = ? WHERE id = ? ',['no', userId])
-          res.json({msg:'Success'})
+          res.json({msg:{success:'Success'}})
 
      } catch(err){
         res.json({msg:err})
