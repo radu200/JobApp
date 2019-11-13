@@ -26,7 +26,7 @@ const Admin = ({
    handleUnBlock, 
    msg,
    handleCheck,
-   checkBtn
+   checkedBtn
    }) => {
   const classes = useStyles();
    return (
@@ -45,7 +45,7 @@ const Admin = ({
                unBlockBtn={unBlockBtn}
                handleUnBlock={handleUnBlock}
                handleCheck={handleCheck}
-               checkBtn={checkBtn}
+               checkedBtn={checkedBtn}
                />
             </Paper>
           </Grid>

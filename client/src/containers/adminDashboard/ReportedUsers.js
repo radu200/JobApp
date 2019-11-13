@@ -1,38 +1,39 @@
 import React, { Component } from "react";
 import AdminReported from '../../components/adminDashboard/Admin/AdminReportedUsers'
 import axios from "axios";
+import {removeById } from './helpers'
 
 class ReportedUsers extends Component {
    constructor(){
      super()
        this.state = {
           reports:[],
-          blackListBtn:'null',
+          blackListBtn:null,
           offset:0,
           msg:''
        }
      
    }
 
-
-  async componentDidMount(){
-    const { offset } = this.state;
-    const url = `/api/admin/reported?offset=${offset}`
-    try {
-      const res =  await axios.get(url)
-      this.setState({
-        reports:res.data, 
-        blackListBtn:'true',
-        offset: offset + 12
-      })
-
-    } catch(err){
+   
+   async componentDidMount(){
+     const { offset } = this.state;
+     const url = `/api/admin/reported?offset=${offset}`
+     try {
+       const res =  await axios.get(url)
+       this.setState({
+         reports:res.data, 
+         blackListBtn:true,
+         offset: offset + 12
+        })
+        
+      } catch(err){
         console.log(err)
+      }
     }
-   }
-
-
-     
+    
+    
+    
   getMore = async () => {
     const { reports, offset } = this.state;
     const url = `/api/admin/reported?offset=${offset}`
@@ -50,20 +51,26 @@ class ReportedUsers extends Component {
   };
 
 
-  async handleBlock (id) {
+
+  async handleBlock (userId, reportId) {
     try{
       const res =  await axios.post('/api/admin/black-list',{
         data:{
-           id:id,
+           id:userId,
            statusType:'reported'
         }
       })
 
-    if(res.data.msg){
-      const msg = res.data.msg
-      this.setState({msg:msg})
-    }
- 
+      const msg = res.data.msg.success
+      if(msg){
+        const { reports } = this.state;
+        const newReports = removeById(reports, reportId)
+     
+        this.setState({
+          msg:msg,
+          reports:newReports
+        })
+      }
     } catch(err){
       console.log(err)
     }
@@ -73,15 +80,14 @@ class ReportedUsers extends Component {
  render () {
    const { reports, blackListBtn, msg } = this.state
    const { getMore, handleBlock} = this
-   console.log(reports)
    return (
      <div>
       <AdminReported 
-       reports={reports} 
-       blackListBtn={blackListBtn} 
-       getMore={getMore} 
-       handleBlock={handleBlock.bind(this)}
-       msg={msg}
+          reports={reports} 
+          blackListBtn={blackListBtn} 
+          getMore={getMore} 
+          handleBlock={handleBlock.bind(this)}
+          msg={msg}
        />
      </div>
     )

@@ -49,7 +49,7 @@ export default function Users({reports, blackListBtn, getMore, handleBlock}) {
              </TableCell>
               <TableCell >{report.type}</TableCell>
                 <TableCell>
-                  {blackListBtn === 'true' ? <Button buttonText='Block' color="secondary" onClick={e => handleBlock(report.reported_user_id)}/> : ''}
+                  {blackListBtn ? <Button buttonText='Block' color="secondary" onClick={e => handleBlock(report.reported_user_id,report.id)}/> : ''}
                 </TableCell>
             </TableRow>
 

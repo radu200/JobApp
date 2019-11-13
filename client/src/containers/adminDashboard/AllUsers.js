@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Admin from '../../components/adminDashboard/Admin/AdminUsers'
+import {removeById } from './helpers'
 import axios from "axios";
 
 class AdminDashboard extends Component {
@@ -11,7 +12,7 @@ class AdminDashboard extends Component {
           offset:0,
           msg:''
        }
-     
+       this.handleBlock = this.handleBlock.bind(this)
    }
 
 
@@ -25,6 +26,8 @@ class AdminDashboard extends Component {
         blackListBtn:'true',
         offset: offset + 12
       })
+
+     
 
     } catch(err){
         console.log(err)
@@ -50,12 +53,44 @@ class AdminDashboard extends Component {
     }
   };
 
+
+  async handleBlock(id) {
+    try {
+      const res = await axios.post("/api/admin/black-list", {
+        data: {
+          id: id,
+        }
+      });
+
+      const msg = res.data.msg.success;
+      if (msg) {
+        const { users } = this.state;
+        const newUsers = removeById(users, id);
+
+        this.setState({
+          msg: msg,
+          users: newUsers
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
  render () {
-   const { users, blackListBtn } = this.state
-   const { getMore } = this
+   const { users, blackListBtn, msg } = this.state
+   const { getMore, handleBlock } = this
+   console.log(users)
    return (
      <div>
-      <Admin users={users} blackListBtn={blackListBtn} getMore={getMore}/>
+      <Admin 
+        users={users} 
+        blackListBtn={blackListBtn} 
+        handleBlock={handleBlock}
+        getMore={getMore}
+        msg={msg}
+        />
      </div>
     )
   }

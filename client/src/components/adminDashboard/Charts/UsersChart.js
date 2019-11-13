@@ -21,12 +21,12 @@ const useStyles = makeStyles(theme => ({
 export default function Users({
   users, 
   blackListBtn, 
+  checkedBtn, 
   getMore, 
   handleBlock, 
   unBlockBtn, 
   handleUnBlock,
-  handleCheck,
-  checkBtn
+  handleCheck
 
 }) {
   const classes = useStyles();
@@ -59,9 +59,9 @@ export default function Users({
              </TableCell>
               <TableCell >{user.type}</TableCell>
                 <TableCell>
-                  {blackListBtn === 'true' ?  <Button buttonText='Block' color="secondary" onClick={e => handleBlock(user.id)}/> : ''}
-                  {unBlockBtn === 'true' ?  <Button buttonText='UnBlock' color="secondary" onClick={e => handleUnBlock(user.id)}/> : ''}
-                  {checkBtn === 'true' ?  <Button buttonText='Checked' color="secondary" onClick={e => handleCheck(user.id)}/> : ''}
+                  {blackListBtn  ?  <Button buttonText='Block' color="secondary" onClick={e => handleBlock(user.id)}/> : ''}
+                  {unBlockBtn  ?  <Button buttonText='UnBlock' color="secondary" onClick={e => handleUnBlock(user.id)}/> : ''}
+                  {checkedBtn  ?  <Button buttonText='Checked' color="primary" onClick={e => handleCheck(user.id)}/> : ''}
                 </TableCell>
             </TableRow>
 

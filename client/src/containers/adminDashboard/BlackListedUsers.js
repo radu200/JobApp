@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import Admin from '../../components/adminDashboard/Admin/AdminUsers'
 import axios from "axios";
-
+import { removeById } from './helpers'
 class BlackListUsers extends Component {
    constructor(){
      super()
        this.state = {
           users:[],
-          blackListBtn:'null',
-          unBlockBtn:'', 
-          offset:0
+          blackListBtn:null,
+          unBlockBtn:null, 
+          offset:0,
+          msg:''
        }
      
    }
@@ -24,8 +25,8 @@ class BlackListUsers extends Component {
       const res =  await axios.get(url)
       this.setState({
         users:res.data, 
-        blackListBtn:'false',
-        unBlockBtn:'true',
+        blackListBtn:false,
+        unBlockBtn:true,
         offset: offset + 12
       })
 
@@ -54,7 +55,6 @@ class BlackListUsers extends Component {
 
 
   async handleUnBlock(id){
-    console.log('click', id)
      try {
        const res = await axios.post('/api/admin/unblock',{
           data:{
@@ -62,19 +62,25 @@ class BlackListUsers extends Component {
           }
        })
 
-       if(res.data.msg){
-        const msg = res.data.msg
-        this.setState({msg:msg})
+       const msg = res.data.msg.success
+      if(msg){
+        const { users } = this.state;
+        const newUsers = removeById(users, id)
+     
+        this.setState({
+          msg:msg,
+          users:newUsers
+        })
       }
-   
-      }
+
+    }
       catch(err){
         console.log(err)
       }
   }
 
  render () {
-   const { users, blackListBtn, unBlockBtn } = this.state
+   const { users, blackListBtn, unBlockBtn, msg } = this.state
    const { getMore, handleUnBlock } = this
    return (
      <div>
@@ -83,6 +89,7 @@ class BlackListUsers extends Component {
         blackListBtn={blackListBtn} 
         getMore={getMore} 
         unBlockBtn={unBlockBtn}
+        msg={msg}
         handleUnBlock={handleUnBlock.bind(this)}/>
      </div>
     )
