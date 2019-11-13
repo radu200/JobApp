@@ -17,12 +17,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const Admin = ({blackListBtn, users, getMore, handleBlock, unBlockBtn , handleUnBlock}) => {
+const Admin = ({
+  blackListBtn,
+   users, 
+   getMore, 
+   handleBlock, 
+   unBlockBtn , 
+   handleUnBlock, 
+   msg,
+   handleCheck,
+   checkBtn
+   }) => {
   const classes = useStyles();
    return (
       <div>
       <AdminNav/>
       <div className={classes.root}>
+      <h2 >{msg}</h2> 
       <Grid container spacing={2}>
          <Grid item xs={12} sm={12} md={12}>
            <Paper container spacing={2}>
@@ -32,7 +43,9 @@ const Admin = ({blackListBtn, users, getMore, handleBlock, unBlockBtn , handleUn
                getMore={getMore}  
                handleBlock={handleBlock}
                unBlockBtn={unBlockBtn}
-               handleUnBlock={handleBlock}
+               handleUnBlock={handleUnBlock}
+               handleCheck={handleCheck}
+               checkBtn={checkBtn}
                />
             </Paper>
           </Grid>

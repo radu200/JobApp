@@ -54,8 +54,9 @@ class BlackListUsers extends Component {
 
 
   async handleUnBlock(id){
+    console.log('click', id)
      try {
-       const res = await axios.post('/api/admin/o2/unblock',{
+       const res = await axios.post('/api/admin/unblock',{
           data:{
             id:id
           }

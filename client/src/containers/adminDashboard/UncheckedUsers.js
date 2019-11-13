@@ -8,7 +8,9 @@ class CheckUser extends Component {
        this.state = {
           users:[],
           blackListBtn:'null',
-          offset:0
+          checkBtn:'null',
+          offset:0,
+          msg:''
        }
      
    }
@@ -22,6 +24,7 @@ class CheckUser extends Component {
       this.setState({
         users:res.data, 
         blackListBtn:'true',
+        checkBtn:'true',
         offset: offset + 12
       })
 
@@ -48,12 +51,66 @@ class CheckUser extends Component {
     }
   };
 
+
+
+  async handleBlock (id) {
+    try{
+      const res =  await axios.post('/api/admin/black-list',{
+        data:{
+           id:id,
+           statusType:'unchecked'
+        }
+      })
+
+    if(res.data.msg){
+      const msg = res.data.msg
+      this.setState({msg:msg})
+    }
+ 
+    } catch(err){
+      console.log(err)
+    }
+ 
+  }
+
+  async handleCheck (id) {
+
+    try{
+      const res =  await axios.post('/api/admin/check',{
+        data:{
+           id:id,
+        }
+      })
+
+    if(res.data.msg){
+      const msg = res.data.msg
+      this.setState({
+        msg:msg,
+      })
+    }
+ 
+    } catch(err){
+      console.log(err)
+    }
+ 
+  }
+
+
  render () {
-   const { users, blackListBtn } = this.state
-   const { getMore } = this
+   const { users, blackListBtn, msg } = this.state
+   const { getMore, handleBlock, handleCheck , checkBtn} = this
    return (
      <div>
-      <Admin users={users} blackListBtn={blackListBtn} getMore={getMore}/>
+      <Admin 
+          users={users} 
+          blackListBtn={blackListBtn} 
+          getMore={getMore} 
+          handleBlock={handleBlock.bind(this)}
+          handleCheck={handleCheck.bind(this)}
+          checkBtn={checkBtn}
+          msg={msg}
+
+       />
      </div>
     )
   }

@@ -21,7 +21,18 @@ module.exports.getCheckUsers = async (req,res) => {
      const offset = req.query.offset
      try{
           const db = await dbPromise
-          const [users] = await db.execute(`SELECT * FROM users WHERE checked   = ? OR checked = ?  LIMIT ${limit} OFFSET ${offset} `,['no', null])
+          const [users] = await db.execute(`SELECT * FROM users WHERE checked   = ? AND blacklist = ?  LIMIT ${limit} OFFSET ${offset} `,['no', 'no'])
+          res.json(users)
+     } catch(err){
+          res.json({msg:err})
+      }
+}
+
+module.exports.postCheckUsers = async (req,res) => {
+     const userId  = req.body.data.id
+     try{
+          const db = await dbPromise
+          const [users] = await db.query(`UPDATE users SET checked = ? WHERE id = ?`,['yes', userId])
           res.json(users)
      } catch(err){
           res.json({msg:err})
@@ -55,16 +66,16 @@ module.exports.getAllBlackListedUsers = async  (req,res) => {
 
 module.exports.postBlackListeddUsers = async  (req,res) => {
      const userId  = req.body.data.id
-     const reported =  req.body.data.reported
+     const statusType =  req.body.data.statusType
      try{
           const db = await dbPromise
           const [users] = await db.query('UPDATE users SET blacklist = ? WHERE id = ? ',['yes', userId])
          
-          if(reported === 'reported'){
+          if(statusType === 'reported'){
             const [reports] =  await db.query('UPDATE reports SET blacklist = ? WHERE reported_user_id = ? ',['yes', userId])
      
-            console.log(reports)
-          }
+           } 
+
           res.json({msg:'Success'})
 
      } catch(err){
@@ -76,7 +87,6 @@ module.exports.postBlackListeddUsers = async  (req,res) => {
 
 module.exports.unblockBlackListeddUsers = async  (req,res) => {
      const userId  = req.body.data.id
-     const reported =  req.body.data.reported
      try{
           const db = await dbPromise
           await db.query('UPDATE users SET blacklist = ? WHERE id = ? ',['no', userId])

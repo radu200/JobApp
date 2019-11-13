@@ -55,7 +55,7 @@ class ReportedUsers extends Component {
       const res =  await axios.post('/api/admin/black-list',{
         data:{
            id:id,
-           reported:'reported'
+           statusType:'reported'
         }
       })
 
