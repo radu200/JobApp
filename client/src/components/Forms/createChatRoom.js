@@ -19,9 +19,9 @@ const createChatRoom = ({onSubmit, classes }) => {
     return (
         <div>
             <form onSubmit={onSubmit} >
-            <Button variant="contained" type="submit" className={classes.button}>
-              Chat   
-           </Button>
+              <Button variant="contained" type="submit" className={classes.button}>
+                Chat   
+            </Button>
             </form>
         </div>
     )

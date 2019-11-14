@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Admin from '../../components/adminDashboard/Admin/AdminUsers'
-import {removeById } from './helpers'
+import {removeById, filterByEmail } from './helpers'
 import axios from "axios";
 
 class AdminDashboard extends Component {
@@ -10,9 +10,11 @@ class AdminDashboard extends Component {
           users:[],
           blackListBtn:'null',
           offset:0,
-          msg:''
+          msg:'',
+          query:''
        }
        this.handleBlock = this.handleBlock.bind(this)
+       this.handleSearch = this.handleSearch.bind(this)
    }
 
 
@@ -76,18 +78,26 @@ class AdminDashboard extends Component {
       console.log(err);
     }
   }
-
+  
+  handleSearch (e){
+    const query  = e.target.value
+     this.setState({
+        query:query
+     })
+   }
 
  render () {
-   const { users, blackListBtn, msg } = this.state
+   const { users, blackListBtn, msg, query } = this.state
    const { getMore, handleBlock } = this
-   console.log(users)
+   const filteredUsers = filterByEmail(users, query)
    return (
      <div>
       <Admin 
-        users={users} 
+        users={filteredUsers} 
         blackListBtn={blackListBtn} 
         handleBlock={handleBlock}
+        onChange={this.handleSearch}
+        value={query}
         getMore={getMore}
         msg={msg}
         />

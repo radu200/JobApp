@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Admin from "../../components/adminDashboard/Admin/AdminUsers";
-import { removeById } from "./helpers";
+import { removeById, filterByEmail } from "./helpers";
 import axios from "axios";
 
 class CheckUser extends Component {
@@ -11,12 +11,16 @@ class CheckUser extends Component {
       blackListBtn: null,
       checkedBtn: null,
       offset: 0,
-      msg: ""
+      msg: "", 
+      query:'',
     };
+     this.handleBlock = this.handleSearch.bind(this)
+     this.handleCheck = this.handleCheck.bind(this)
+     this.handleSearch = this.handleSearch.bind(this)
   }
 
   async componentDidMount() {
-    const { offset, users } = this.state;
+    const { offset } = this.state;
     const url = `/api/admin/check?offset=${offset}`;
     try {
       const res = await axios.get(url);
@@ -94,18 +98,27 @@ class CheckUser extends Component {
     }
   }
 
+  handleSearch (e){
+    const query  = e.target.value
+     this.setState({
+        query:query
+     })
+   }
   render() {
-    const { users, blackListBtn, checkedBtn, msg } = this.state;
-    const { getMore, handleBlock, handleCheck } = this;
+    const { users, blackListBtn, checkedBtn, msg , query} = this.state;
+    const { getMore, handleBlock, handleCheck, handleSearch } = this;
+    const filteredUsers =  filterByEmail(users, query)
     return (
       <div>
         <Admin
-          users={users}
+          users={filteredUsers}
           blackListBtn={blackListBtn}
           checkedBtn={checkedBtn}
           getMore={getMore}
-          handleBlock={handleBlock.bind(this)}
-          handleCheck={handleCheck.bind(this)}
+          handleBlock={handleBlock}
+          handleCheck={handleCheck}
+          onChange={handleSearch}
+          value={query}
           msg={msg}
         />
       </div>

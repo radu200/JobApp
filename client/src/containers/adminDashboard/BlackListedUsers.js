@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Admin from '../../components/adminDashboard/Admin/AdminUsers'
 import axios from "axios";
-import { removeById } from './helpers'
+import { removeById, filterByEmail} from './helpers'
 class BlackListUsers extends Component {
    constructor(){
      super()
@@ -10,9 +10,12 @@ class BlackListUsers extends Component {
           blackListBtn:null,
           unBlockBtn:null, 
           offset:0,
-          msg:''
+          msg:'',
+          query:''
        }
-     
+      
+      this.handleUnBlock = this.handleUnBlock.bind(this)
+      this.handleSearch = this.handleSearch.bind(this)
    }
 
 
@@ -79,18 +82,30 @@ class BlackListUsers extends Component {
       }
   }
 
+  handleSearch (e){
+    const query  = e.target.value
+     this.setState({
+        query:query
+     })
+   }
+
+
  render () {
-   const { users, blackListBtn, unBlockBtn, msg } = this.state
-   const { getMore, handleUnBlock } = this
+   const { users, blackListBtn, unBlockBtn, msg, query } = this.state
+   const { getMore, handleUnBlock, handleSearch} = this
+   const filteredUsers = filterByEmail(users, query)
    return (
      <div>
       <Admin 
-        users={users} 
+        users={filteredUsers} 
         blackListBtn={blackListBtn} 
         getMore={getMore} 
         unBlockBtn={unBlockBtn}
         msg={msg}
-        handleUnBlock={handleUnBlock.bind(this)}/>
+        handleUnBlock={handleUnBlock}
+        onChange={handleSearch}
+        value={query}
+        />
      </div>
     )
   }

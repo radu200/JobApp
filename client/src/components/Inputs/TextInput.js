@@ -31,12 +31,12 @@ const TextInput = ({ onChange, classes, value, error, name, title }) => {
   );
 };
 TextInput.propTypes = {
-  onChange: PropType.func.isRequired,
-  classes: PropType.object.isRequired,
+  onChange: PropType.func,
+  classes: PropType.object,
   value: PropType.string,
   error: PropType.string,
-  name: PropType.string.isRequired,
-  title: PropType.string.isRequired
+  name: PropType.string,
+  title: PropType.string
 };
 
 export default withStyles(styles)(TextInput);

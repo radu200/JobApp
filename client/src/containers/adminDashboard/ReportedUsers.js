@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AdminReported from '../../components/adminDashboard/Admin/AdminReportedUsers'
 import axios from "axios";
-import {removeById } from './helpers'
+import {removeById, filterByEmail } from './helpers'
 
 class ReportedUsers extends Component {
    constructor(){
@@ -10,9 +10,11 @@ class ReportedUsers extends Component {
           reports:[],
           blackListBtn:null,
           offset:0,
-          msg:''
+          msg:'',
+          query:''
        }
-     
+       this.handleBlock = this.handleBlock.bind(this)
+       this.handleSearch = this.handleSearch.bind(this)
    }
 
    
@@ -62,6 +64,7 @@ class ReportedUsers extends Component {
       })
 
       const msg = res.data.msg.success
+
       if(msg){
         const { reports } = this.state;
         const newReports = removeById(reports, reportId)
@@ -76,18 +79,32 @@ class ReportedUsers extends Component {
     }
  
   }
+ 
 
+
+  
+
+  handleSearch (e){
+    const query  = e.target.value
+     this.setState({
+        query:query
+     })
+   }
  render () {
-   const { reports, blackListBtn, msg } = this.state
-   const { getMore, handleBlock} = this
+
+   const { reports, blackListBtn, msg, query } = this.state
+   const { getMore, handleBlock, handleSearch} = this
+   const updatedReports = filterByEmail(reports, query)
    return (
      <div>
       <AdminReported 
-          reports={reports} 
+          reports={updatedReports} 
           blackListBtn={blackListBtn} 
           getMore={getMore} 
-          handleBlock={handleBlock.bind(this)}
+          handleBlock={handleBlock}
           msg={msg}
+          onChange={handleSearch}
+          value={query}
        />
      </div>
     )
