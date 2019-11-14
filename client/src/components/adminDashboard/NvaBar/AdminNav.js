@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import { NavLink } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -72,12 +72,19 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
+
+  NavLink:{
+    fontSize:'16px',
+    textDecoration:'none',
+    width:'100%',
+    color:'black'
+  }
 }));
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -93,7 +100,7 @@ export default function PersistentDrawerLeft() {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: open
         })}
       >
         <Toolbar>
@@ -117,29 +124,39 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.drawerPaper
         }}
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </div>
         <Divider />
-            <List>
-              <ListItem button component="a" href='/admin/o2'>
-                <ListItemText primary="All Users" />
-              </ListItem>
-              <ListItem button component="a" href='/admin/o2/unchecked'>
-                <ListItemText primary="Unchecked" />
-              </ListItem>
-              <ListItem button component="a" href='/admin/o2/reported'>
-                <ListItemText primary="Reported" />
-              </ListItem>
-              <ListItem button component="a" href='/admin/o2/blacklist'>
-                <ListItemText primary="Blacklist" />
-              </ListItem>
-            </List>
+        <ListItem button>
+          <NavLink className={classes.NavLink} to="/admin/o2">
+            All Users
+          </NavLink>
+        </ListItem>
+        <ListItem button>
+          <NavLink className={classes.NavLink} to="/admin/o2/unchecked">
+            Unchecked
+          </NavLink>
+        </ListItem>
+        <ListItem button>
+          <NavLink className={classes.NavLink} to="/admin/o2/reported">
+            Reported
+          </NavLink>
+        </ListItem>
+        <ListItem button>
+          <NavLink className={classes.NavLink} to="/admin/o2/blacklist">
+            Blacklist
+          </NavLink>
+        </ListItem>
       </Drawer>
     </div>
   );

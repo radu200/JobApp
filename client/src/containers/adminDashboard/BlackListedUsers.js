@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Admin from '../../components/adminDashboard/Admin/AdminUsers'
 import axios from "axios";
 import { removeById, filterByEmail} from './helpers'
+
+
 class BlackListUsers extends Component {
    constructor(){
      super()
@@ -18,14 +20,12 @@ class BlackListUsers extends Component {
       this.handleSearch = this.handleSearch.bind(this)
    }
 
-
-
-
   async componentDidMount(){
     const { offset } = this.state;
     const url = `/api/admin/black-list?offset=${offset}`
     try {
       const res =  await axios.get(url)
+
       this.setState({
         users:res.data, 
         blackListBtn:false,
@@ -43,6 +43,7 @@ class BlackListUsers extends Component {
   getMore = async () => {
     const { users, offset } = this.state;
     const url = `/api/admin/black-list?offset=${offset}`
+  
     try {
       const response = await axios.get(url);
       

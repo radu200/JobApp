@@ -8,7 +8,7 @@ class AdminDashboard extends Component {
      super()
        this.state = {
           users:[],
-          blackListBtn:'null',
+          blackListBtn:null,
           offset:0,
           msg:'',
           query:''
@@ -25,7 +25,7 @@ class AdminDashboard extends Component {
       const res =  await axios.get(url)
       this.setState({
         users:res.data, 
-        blackListBtn:'true',
+        blackListBtn:true,
         offset: offset + 12
       })
 

@@ -7,7 +7,7 @@ export const removeById = (payload, id) => {
 export const filterByEmail = (payload, query) => {
     const data = payload.slice()
     return  data.filter(data => {
-        const email = data.email.toLowerCase()
+        const email = data.email
         const queryLowerCase = query.toLowerCase()
         return email.indexOf(queryLowerCase)  !== -1
    })

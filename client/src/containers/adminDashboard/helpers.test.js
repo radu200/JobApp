@@ -1,4 +1,3 @@
-import React from "react";
 import { removeById } from "./helpers";
 import { filterByEmail } from "./helpers";
 
@@ -106,7 +105,7 @@ describe("Filter by email", () => {
 
   it('should return an empty array when provided wrong email', () => {
     const data = [
-        {
+         {
             email: "mail@mail.com",
             name: "John Doe"
           }
