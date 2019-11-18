@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core";
 import MainNav from "../../components/NavBars/MainNav/MainNav";
 import GetMoreButton from "../../components/Buttons/ButtonOutlined";
-import axios from "axios";
+import { getJobseekerApplications } from '../../api/jobs'
 
 const styles = theme => ({
   root: {
@@ -19,26 +19,20 @@ class ApplicantsActive extends Component {
       jobs: [],
       isAuthenticated: "",
       offset: 0,
-      url: ""
     };
   }
 
   async componentDidMount() {
-    const url = `/api/job-application/jobseeker`;
+    
 
     const { offset } = this.state;
 
     try {
-      const response = await axios.post(url, {
-        offset: offset
-      });
-
-      const data = response.data;
+      const data  = await getJobseekerApplications(offset)
       if (data.auth === "jobseeker") {
         this.setState({
           jobs: data.jobs,
           isAuthenticated: data.auth,
-          url,
           offset: offset + 12
         });
       }
@@ -48,13 +42,9 @@ class ApplicantsActive extends Component {
   }
 
   getMoreJobs = async () => {
-    const { url, offset, jobs } = this.state;
+    const { offset, jobs } = this.state;
     try {
-      const res = await axios.post(url, {
-        offset: offset
-      });
-      const data = res.data;
-
+      const data  = await getJobseekerApplications(offset)
       this.setState({ jobs: [...jobs, ...data.jobs], offset: offset + 12 });
     } catch (error) {
       console.error(error);

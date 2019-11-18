@@ -3,7 +3,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CandidateCard from "../../components/Cards/CandidateCard";
 import GetMoreButton from "../../components/Buttons/ButtonOutlined";
-import axios from "axios";
 import MainNav from "../../components/NavBars/MainNav/MainNav";
 import SelectInput from "../../components/Inputs/Select";
 import SearchButton from "../../components/Buttons/ButtonContained";
@@ -11,6 +10,8 @@ import Slider from "../../components/Inputs/Slider";
 import { Years, NoCandFoundMsg } from "../../Utils/messages";
 import { cities } from "../../api/cities";
 import { categories } from "../../api/categories";
+import { searchCandidate } from '../../api/users'
+import { validate } from '../../Utils/validation'
 
 const styles = theme => ({
   root: {
@@ -46,28 +47,23 @@ class CandidatesPage extends Component {
   }
 
   async componentDidMount() {
-    const searchVal = {
-      location: "Chisinau",
-      category: "Frumusete si Bunastare",
-      experienceMax: 10
-    };
+  
 
-    const { location, category, experienceMax } = searchVal;
-    const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
-    const { offset } = this.state;
+    let location, category, experienceMax, offset;
 
     try {
-      const response = await axios.post(url, {
-        offset: offset
-      });
+      const data = await searchCandidate( 
+         location = "Chisinau",
+         category = "Frumusete si Bunastare", 
+         experienceMax = 10,
+         offset = 0
+         );
 
-      const data = response.data;
 
       if (data.auth === "employer") {
         this.setState({
           isAuthenticated: data.auth,
           candidates: [...data.candidates],
-          url,
           offset: offset + 12
         });
       }
@@ -77,14 +73,18 @@ class CandidatesPage extends Component {
   }
 
   getMoreCandidates = async () => {
-    const { url, offset } = this.state;
+    const { offset, candidates, location, category, experienceMax} = this.state;
     try {
-      const response = await axios.post(url, {
-        offset: offset
-      });
+       const data = await searchCandidate( 
+        location,
+        category,
+        experienceMax ,
+        offset,
+        );
 
+       
       this.setState({
-        candidates: [...this.state.candidates, ...response.data.candidates],
+        candidates: [...candidates, ...data.candidates],
         offset: offset + 12
       });
     } catch (error) {
@@ -92,39 +92,8 @@ class CandidatesPage extends Component {
     }
   };
 
-  //   //form validation
-  validate = () => {
-    const { location, category } = this.state;
 
-    let categoryError = "";
-    let locationError = "";
-
-    if (!category || category === "Categoria") {
-      categoryError = "Te rog alege categoria";
-    } else if (category.length > 70) {
-      categoryError = "Categoria are  mai mult de 70 de caractere";
-    }
-
-    if (!location || location === "Alege Orasul") {
-      locationError = "Te rog alege orasul";
-    } else if (location.length > 70) {
-      locationError = "Locatia are mai mult de 70 caracatere";
-    }
-
-    if (categoryError || locationError) {
-      this.setState(prevState => ({
-        formErrors: {
-          ...prevState.formErrors,
-          locationError,
-          categoryError
-        }
-      }));
-      return false;
-    }
-    return true;
-  };
-
-  handleExperienceValue(event, value) {
+  handleExperienceValue(event) {
     this.setState({ experienceMax: event.target.value });
   }
 
@@ -140,35 +109,46 @@ class CandidatesPage extends Component {
   async handleSubmit(event) {
     event.preventDefault();
 
-    const isValid = this.validate();
+    // const isValid = this.validate();
     const { location, category, experienceMax } = this.state;
-
-    if (isValid) {
-      const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
-      const offset = 12;
+    const locationVal = validate(location )
+    const categoryVal = validate(category)
+  
+  
+    if (categoryVal.status && locationVal.status) {
+      let offset
       try {
-        const response = await axios.post(url, {
-          offset: 0
-        });
-        const data = response.data;
-
-        if (data.auth === "employer") {
+       const data =  await searchCandidate(
+         location,
+         category,
+         experienceMax,
+         offset = 0);
+      
+       if (data.auth === "employer") {
           this.setState({
             isAuthenticated: data.auth,
             candidates: [...data.candidates],
-            url,
             offset: offset + 12
           });
         }
       } catch (error) {
         console.error(error);
       }
-
       this.setState(prevState => ({
         formErrors: {
           ...prevState.formErrors,
           locationError: "",
           categoryError: ""
+        }
+      }));
+
+   
+    } else {
+      this.setState(prevState => ({
+        formErrors: {
+          ...prevState.formErrors,
+          locationError: locationVal.error,
+          categoryError: categoryVal.error
         }
       }));
     }

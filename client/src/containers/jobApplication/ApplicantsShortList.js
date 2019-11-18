@@ -5,8 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core";
 import MainNav from "../../components/NavBars/MainNav/MainNav";
 import GetMoreButton from "../../components/Buttons/ButtonOutlined";
-import axios from "axios";
-
+import { applicantShortList } from '../../api/jobs'
 const styles = theme => ({
   root: {
     maxWidth: 960
@@ -21,27 +20,20 @@ class ApplicantsActive extends Component {
       applicantsNum: 0,
       isAuthenticated: "",
       offset: 0,
-      url: ""
     };
   }
 
   async componentDidMount() {
     const jobId = this.props.match.params.id;
-
-    const url = `/api/job-application/applicants/shortlist/${jobId}`;
     const { offset } = this.state;
     try {
-      const response = await axios.post(url, {
-        offset: offset
-      });
-
-      const data = response.data;
-      if (data.auth === "employer") {
+         const data = await applicantShortList(jobId,offset)
+      
+         if (data.auth === "employer") {
         this.setState({
           applicants: data.applicants,
           isAuthenticated: data.auth,
           applicantsNum: data.applicants.length,
-          url,
           offset: offset + 6
         });
       }
@@ -51,13 +43,10 @@ class ApplicantsActive extends Component {
   }
 
   getMoreApplicants = async () => {
-    const { url, offset, applicants } = this.state;
+    const {offset, applicants } = this.state;
+    const jobId = this.props.match.params.id;
     try {
-      const res = await axios.post(url, {
-        offset: offset
-      });
-
-      const data = res.data;
+      const data = await applicantShortList(jobId,offset)
       this.setState({
         applicants: [...applicants, ...data.applicants],
         offset: offset + 6
