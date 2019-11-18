@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AdminNav from "../NvaBar/AdminNav";
+import AdminNav from "../NavBar/AdminNav";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Users from "../Charts/UsersChart";

@@ -1,18 +1,22 @@
 import * as  axios from "axios";
 const instance  = axios.create()
 
-export const  getJobs = (offset) => {
-    const res = instance.get(`/api/jobs?offset=${offset}`)
+export const  getJobs = async (offset) => {
+    const res = await instance.post(`/api/jobs`,{offset})
     return res.data
 }
 
 
-export const  searchJobs = (query, location) => {
-    const res = instance.get(`/api/search/job?search_query=${query}&location=${location}`)
-   return res.data
+export const searchJobs = async  (query, location, offset) => {
+    const url = `/api/search/job?search_query=${query}&location=${location}`
+    const res =  await instance.post(url,{offset:offset})
+    return res.data
 }
 
-
+export const getMoreJobs = async (url) => {
+    const res =  await instance.post(url)
+    return res.data
+}
 
 ///jobseeker applications
 export const getJobseekerApplications = async (offset) => {

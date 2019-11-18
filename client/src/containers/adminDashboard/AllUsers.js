@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Admin from '../../components/adminDashboard/Admin/AdminUsers'
 import {removeById, filterByEmail } from './helpers'
-import axios from "axios";
+import {getAllUsers, blackListUsers} from '../../api/admin'
 
 class AdminDashboard extends Component {
    constructor(){
@@ -20,16 +20,13 @@ class AdminDashboard extends Component {
 
   async componentDidMount(){
     const { offset } = this.state;
-    const url = `/api/admin/users?offset=${offset}`
     try {
-      const res =  await axios.get(url)
+      const data = await getAllUsers(offset)
       this.setState({
-        users:res.data, 
+        users:data, 
         blackListBtn:true,
         offset: offset + 12
       })
-
-     
 
     } catch(err){
         console.log(err)
@@ -40,11 +37,8 @@ class AdminDashboard extends Component {
      
   getMore = async () => {
     const { users, offset } = this.state;
-    const url = `/api/admin/users?offset=${offset}`
     try {
-      const response = await axios.get(url);
-      
-      const data = response.data;
+       const data = await getAllUsers(offset)
       this.setState({
         users: [...users, ...data],
         offset: offset + 12
@@ -58,13 +52,10 @@ class AdminDashboard extends Component {
 
   async handleBlock(id) {
     try {
-      const res = await axios.post("/api/admin/black-list", {
-        data: {
-          id: id,
-        }
-      });
+     
+      const data = await blackListUsers(id)
 
-      const msg = res.data.msg.success;
+      const msg = data.msg.success;
       if (msg) {
         const { users } = this.state;
         const newUsers = removeById(users, id);
@@ -88,7 +79,7 @@ class AdminDashboard extends Component {
 
  render () {
    const { users, blackListBtn, msg, query } = this.state
-   const { getMore, handleBlock } = this
+   const { getMore, handleBlock, handleSearch } = this
    const filteredUsers = filterByEmail(users, query)
    return (
      <div>
@@ -96,7 +87,7 @@ class AdminDashboard extends Component {
         users={filteredUsers} 
         blackListBtn={blackListBtn} 
         handleBlock={handleBlock}
-        onChange={this.handleSearch}
+        onChange={handleSearch}
         value={query}
         getMore={getMore}
         msg={msg}

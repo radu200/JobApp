@@ -11,7 +11,7 @@ import SelectInput from "../../components/Inputs/Select";
 import SearchButton from "../../components/Buttons/ButtonContained";
 import TextInput from "../../components/Inputs/TextInput";
 import { cities } from "../../api/cities";
-import { getJobs } from '../../api/jobs'
+import { getJobs,searchJobs, getMoreJobs } from '../../api/jobs'
 import {validate } from '../../Utils/validation'
 const styles = theme => ({
   root: {
@@ -52,9 +52,8 @@ class JobsPage extends Component {
     const { offset } = this.state;
     const url = `/api/jobs?offset=${offset}`;
     try {
-      const res = await axios.get(url);
-
-       const data = res.data 
+       const data = await getJobs(offset)
+       console.log(data)
       if (data.auth === "employer") {
         this.setState({ jobs: [], isAuthenticated: data.auth });
       } else {
@@ -74,11 +73,7 @@ class JobsPage extends Component {
   getMoreJobs = async () => {
     const { url, offset } = this.state;
     try {
-      const response = await axios.get(url, {
-        offset: offset
-      });
-
-      const data = response.data;
+      const data = await getMoreJobs(url)
       this.setState({
         jobs: [...this.state.jobs, ...data.jobs],
         offset: offset + 12
@@ -102,25 +97,21 @@ class JobsPage extends Component {
   async handleSubmit(event) {
   
     event.preventDefault();
-    const { query, location } = this.state
-  
+   
+    const { query, location,offset } = this.state
     const queryVal = validate(query);
     const locationVal = validate(location)
   
    
     if(queryVal.status && locationVal.status){
       const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`;
-        const offset = 12;
         try {
-          const response = await axios.post(url, {
-            offset: 0
-          });
-          const data = response.data;
+          const data = await searchJobs(query,location,offset)
           const searchLength = data.jobs.length;
           this.setState({ 
             jobs: [...data.jobs], 
             url, 
-            offset,
+            offset:offset + 12,
            searchLength });
 
            this.setState(prevState => ({

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Admin from '../../components/adminDashboard/Admin/AdminUsers'
-import axios from "axios";
 import { removeById, filterByEmail} from './helpers'
+import { getBlackListedUsers, unBlockUsers} from '../../api/admin'
 
 
 class BlackListUsers extends Component {
@@ -22,12 +22,11 @@ class BlackListUsers extends Component {
 
   async componentDidMount(){
     const { offset } = this.state;
-    const url = `/api/admin/black-list?offset=${offset}`
     try {
-      const res =  await axios.get(url)
+      const data  = await getBlackListedUsers(offset)
 
       this.setState({
-        users:res.data, 
+        users:data, 
         blackListBtn:false,
         unBlockBtn:true,
         offset: offset + 12
@@ -42,12 +41,10 @@ class BlackListUsers extends Component {
      
   getMore = async () => {
     const { users, offset } = this.state;
-    const url = `/api/admin/black-list?offset=${offset}`
-  
     try {
-      const response = await axios.get(url);
-      
-      const data = response.data;
+
+      const data  = await getBlackListedUsers(offset)
+
       this.setState({
         users: [...users, ...data],
         offset: offset + 12
@@ -60,13 +57,9 @@ class BlackListUsers extends Component {
 
   async handleUnBlock(id){
      try {
-       const res = await axios.post('/api/admin/unblock',{
-          data:{
-            id:id
-          }
-       })
+      const data = await  unBlockUsers(id)
 
-       const msg = res.data.msg.success
+       const msg = data.msg.success
       if(msg){
         const { users } = this.state;
         const newUsers = removeById(users, id)

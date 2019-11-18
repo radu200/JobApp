@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Admin from "../../components/adminDashboard/Admin/AdminUsers";
 import { removeById, filterByEmail } from "./helpers";
+import { getUncheckedUsers, blackListUsers, postCheckUser} from '../../api/admin'
 import axios from "axios";
 
 class CheckUser extends Component {
@@ -14,18 +15,17 @@ class CheckUser extends Component {
       msg: "", 
       query:'',
     };
-     this.handleBlock = this.handleSearch.bind(this)
+     this.handleBlock = this.handleBlock.bind(this)
      this.handleCheck = this.handleCheck.bind(this)
      this.handleSearch = this.handleSearch.bind(this)
   }
 
   async componentDidMount() {
     const { offset } = this.state;
-    const url = `/api/admin/check?offset=${offset}`;
     try {
-      const res = await axios.get(url);
+      const data  = await getUncheckedUsers(offset)
       this.setState({
-        users: res.data,
+        users: data,
         blackListBtn: true,
         checkedBtn: true,
         offset: offset + 12
@@ -37,11 +37,9 @@ class CheckUser extends Component {
 
   getMore = async () => {
     const { users, offset } = this.state;
-    const url = `/api/admin/check?offset=${offset}`;
     try {
-      const response = await axios.get(url);
+      const data  = await getUncheckedUsers(offset)
 
-      const data = response.data;
       this.setState({
         users: [...users, ...data],
         offset: offset + 12
@@ -51,16 +49,11 @@ class CheckUser extends Component {
     }
   };
 
+  
   async handleBlock(id) {
     try {
-      const res = await axios.post("/api/admin/black-list", {
-        data: {
-          id: id,
-          statusType: "unchecked"
-        }
-      });
-
-      const msg = res.data.msg.success;
+      const data = await blackListUsers(id)
+      const msg = data.msg.success;
       if (msg) {
         const { users } = this.state;
         const newUsers = removeById(users, id);
@@ -77,13 +70,9 @@ class CheckUser extends Component {
 
   async handleCheck(id) {
     try {
-      const res = await axios.post("/api/admin/check", {
-        data: {
-          id: id
-        }
-      });
 
-      const msg = res.data.msg.success;
+      const data = await  postCheckUser(id)
+      const msg = data.msg.success;
       if (msg) {
         const { users } = this.state;
         const newUsers = removeById(users, id);
@@ -101,7 +90,7 @@ class CheckUser extends Component {
   handleSearch (e){
     const query  = e.target.value
      this.setState({
-        query:query
+         query
      })
    }
   render() {
@@ -117,7 +106,7 @@ class CheckUser extends Component {
           getMore={getMore}
           handleBlock={handleBlock}
           handleCheck={handleCheck}
-          onChange={handleSearch}
+          // onChange={handleSearch}
           value={query}
           msg={msg}
         />

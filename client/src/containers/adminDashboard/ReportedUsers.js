@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AdminReported from '../../components/adminDashboard/Admin/AdminReportedUsers'
 import axios from "axios";
 import {removeById, filterByEmail } from './helpers'
+import {reportedUsers, blackListUsers } from '../../api/admin'
 
 class ReportedUsers extends Component {
    constructor(){
@@ -20,11 +21,11 @@ class ReportedUsers extends Component {
    
    async componentDidMount(){
      const { offset } = this.state;
-     const url = `/api/admin/reported?offset=${offset}`
-     try {
-       const res =  await axios.get(url)
+    try {
+
+       const data = await reportedUsers(offset)
        this.setState({
-         reports:res.data, 
+         reports:data, 
          blackListBtn:true,
          offset: offset + 12
         })
@@ -38,11 +39,9 @@ class ReportedUsers extends Component {
     
   getMore = async () => {
     const { reports, offset } = this.state;
-    const url = `/api/admin/reported?offset=${offset}`
     try {
-      const response = await axios.get(url);
-      
-      const data = response.data;
+     const data = reportedUsers(offset)
+
       this.setState({
         reports: [...reports, ...data],
         offset: offset + 12
@@ -56,14 +55,10 @@ class ReportedUsers extends Component {
 
   async handleBlock (userId, reportId) {
     try{
-      const res =  await axios.post('/api/admin/black-list',{
-        data:{
-           id:userId,
-           statusType:'reported'
-        }
-      })
-
-      const msg = res.data.msg.success
+      const statusType = 'reported'
+      const data = await blackListUsers(userId, statusType)
+     
+      const msg = data.msg.success
 
       if(msg){
         const { reports } = this.state;
@@ -79,10 +74,6 @@ class ReportedUsers extends Component {
     }
  
   }
- 
-
-
-  
 
   handleSearch (e){
     const query  = e.target.value

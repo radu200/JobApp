@@ -162,7 +162,8 @@ module.exports.JobApplicationJobSeeker = async (req, res) => {
 
 module.exports.getJobsPage = async (req, res, next) => {
   
-  const offset = req.query.offset;
+  const offset = req.body.offset;
+  console.log(offset)
   const limit = 12;
   try {
     const db = await dbPromise;

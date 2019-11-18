@@ -64,16 +64,17 @@ module.exports.getAllBlackListedUsers = async  (req,res) => {
      }
 }
 
-module.exports.postBlackListeddUsers = async  (req,res) => {
+module.exports.postBlackListedUsers = async  (req,res) => {
      const userId  = req.body.data.id
      const statusType =  req.body.data.statusType
+     console.log(userId)
+     console.log(statusType)
      try{
           const db = await dbPromise
           const [users] = await db.query('UPDATE users SET blacklist = ? WHERE id = ? ',['yes', userId])
          
           if(statusType === 'reported'){
                 await db.query('UPDATE reports SET blacklist = ? WHERE reported_user_id = ? ',['yes', userId])
-     
            } 
 
            res.json({msg:{success:'Success'}})
@@ -85,7 +86,7 @@ module.exports.postBlackListeddUsers = async  (req,res) => {
 
 
 
-module.exports.unblockBlackListeddUsers = async  (req,res) => {
+module.exports.unblockBlackListedUsers = async  (req,res) => {
      const userId  = req.body.data.id
      try{
           const db = await dbPromise

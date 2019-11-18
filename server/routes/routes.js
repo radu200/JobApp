@@ -80,7 +80,7 @@ module.exports = function (app) {
   app.post('/api/room', accessController.ensureAuthenticated, chatController.postRoom)
 
   //jobs controller 
-  app.get('/api/jobs', jobsController.getJobsPage)
+  app.post('/api/jobs', jobsController.getJobsPage)
   app.post('/api/job-application/applicants/active/:id', accessController.ensureAuthenticatedJsonRes, accessController.employer, jobsController.JobApplicationApplicantsActive)
   app.post('/api/job-application/applicants/rejected/:id', accessController.ensureAuthenticatedJsonRes, accessController.employer, jobsController.JobApplicationApplicantsRejected)
   app.post('/api/job-application/applicants/shortlist/:id', accessController.ensureAuthenticatedJsonRes, accessController.employer, jobsController.JobApplicationApplicantsShortList)
@@ -107,8 +107,8 @@ module.exports = function (app) {
   app.get('/api/admin/check',accessController.ensureAuthenticated, adminController.getCheckUsers )
   app.post('/api/admin/check',accessController.ensureAuthenticated, adminController.postCheckUsers )
   app.get('/api/admin/black-list',accessController.ensureAuthenticated,  adminController.getAllBlackListedUsers)
-  app.post('/api/admin/black-list', accessController.ensureAuthenticated, adminController.postBlackListeddUsers )
-  app.post('/api/admin/unblock', accessController.ensureAuthenticated, adminController.unblockBlackListeddUsers)
+  app.post('/api/admin/black-list', accessController.ensureAuthenticated, adminController.postBlackListedUsers )
+  app.post('/api/admin/unblock', accessController.ensureAuthenticated, adminController.unblockBlackListedUsers)
   app.get('/api/admin/reported', accessController.ensureAuthenticated, adminController.getAllReportedUsers)
   
   //reports
