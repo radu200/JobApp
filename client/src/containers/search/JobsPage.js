@@ -134,6 +134,7 @@ class JobsPage extends Component {
     return (
       <div>
         <MainNav />
+        
         <div className={classes.root}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
@@ -149,7 +150,7 @@ class JobsPage extends Component {
 
                 <SelectInput
                   type="search"
-                  title="Cauta"
+                  title="Categorii"
                   onChange={handleInputChange}
                   value={query}
                   name="query"

@@ -60,7 +60,7 @@ class ApplicantsActive extends Component {
               <h3>Joburi Aplicate: {jobs.length}</h3>
               <JobCard job={jobs} />
               {jobs.length >= 12 ? (
-                <GetMoreButton onClick={getMoreJobs} />
+                <GetMoreButton onClick={getMoreJobs} buttonText='Mai Mult' />
               ) : null}
             </Grid>
           </Grid>

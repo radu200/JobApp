@@ -16,6 +16,7 @@ import Button from "@material-ui/core/Button";
 import MainSideNav from "./MainSideNav";
 import { BrandName } from "../../../Utils/BrandName";
 import withAuth from '../../../HOC/auth/Auth'
+import Translator from "../../../Utils/Translator"
 import {
   Profile,
   Settings,
@@ -68,6 +69,10 @@ const styles = theme => ({
     backgroundColor: "#2552C7",
     padding:0,
     boxShadow:'none'
+  },
+  translator:{
+    display:'flex',
+    justifyContent:'flex-end'
   }
 });
 
@@ -95,6 +100,7 @@ class MainNavBar extends React.Component {
   };
 
   render() {
+  
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes, auth, role } = this.props;
   
@@ -121,7 +127,7 @@ class MainNavBar extends React.Component {
         </MenuItem>
       </Menu>
     );
-
+ 
     const renderMobileMenu = (
       <Menu
         anchorEl={mobileMoreAnchorEl}
@@ -158,7 +164,7 @@ class MainNavBar extends React.Component {
          )}
       </Menu>
     );
-
+    
     return (
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
@@ -215,6 +221,7 @@ class MainNavBar extends React.Component {
                 </>
               )}
             </div>
+       
             <div className={classes.sectionMobile}>
               <IconButton
                 aria-haspopup="true"
@@ -227,8 +234,11 @@ class MainNavBar extends React.Component {
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
+         <div className={classes.translator}> <Translator/></div>
       </div>
     );
+
+
   }
 }
 
