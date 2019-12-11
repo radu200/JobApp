@@ -111,7 +111,6 @@ module.exports.JobApplicationApplicantsShortList = async (req, res) => {
   const offset = req.body.offset;
 
   try {
-    if (req.user.type === "employer") {
       const db = await dbPromise;
       const [job] = await db.execute(
         "SELECT category FROM jobs  WHERE jobs.id = ?",
@@ -129,7 +128,7 @@ module.exports.JobApplicationApplicantsShortList = async (req, res) => {
         applicants: results,
         auth: "employer"
       });
-    }
+    
   } catch (err) {
     console.log(err);
   }
@@ -149,12 +148,10 @@ module.exports.JobApplicationJobSeeker = async (req, res) => {
       [req.user.id]
     );
 
-    if (userType === "jobseeker") {
       res.json({
         jobs: results,
         auth: "jobseeker"
       });
-    }
   } catch (err) {
     console.log(err);
   }
@@ -163,33 +160,15 @@ module.exports.JobApplicationJobSeeker = async (req, res) => {
 module.exports.getJobsPage = async (req, res, next) => {
   
   const offset = req.body.offset;
-  console.log(offset)
   const limit = 12;
   try {
     const db = await dbPromise;
     const textSqlJobs = `SELECT jobs.*, users.id as userId, users.blacklist  FROM jobs LEFT JOIN users ON jobs.employer_id  = users.id WHERE users.blacklist = ? LIMIT ${limit} OFFSET ${offset} `
     const [jobs] = await db.execute(textSqlJobs, ['no']);
- 
-    if (req.isAuthenticated()) {
-      const userType = req.user.type;
-
-      if (userType === "jobseeker") {
-        res.json({
-          jobs: jobs,
-          auth: "jobseeker"
-        });
-      } else if (userType === "employer") {
-        res.json({
-          jobs: jobs,
-          auth: "employer"
-        });
-      }
-    } else {
-      res.json({
-        jobs: jobs,
-        auth: "notAuth"
-      });
-    }
+   
+    res.json({
+      jobs: jobs,
+    });
   } catch (err) {
     console.log(err);
   }

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import io from 'socket.io-client';
 import axios from "axios";
 import ChatRoom from './ChatRoom'
+import withAuthEmployer from '../../HOC/auth/Employer'
 const socket = io('http://localhost:8000');
 
 
@@ -40,11 +41,12 @@ class Chat extends Component {
      const { chatRooms, room} = this.state   
       return (
         <div>
-         {chatRooms.map((room, i) => {
+          <p>chat</p>
+         {/* {chatRooms.map((room, i) => {
            return <div onClick={() => this.onChatRoom(room.id)} key={room.id}><a href={`/chat/${room.id}`}>{room.receiverName}</a> </div>
-          })}
+          })} */}
 
-         { room ===  <ChatRoom rooms={chatRooms} />  }
+         {/* { room ===  <ChatRoom rooms={chatRooms} />  } */}
          </div>
       )
   }

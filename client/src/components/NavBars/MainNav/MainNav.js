@@ -15,6 +15,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import MainSideNav from "./MainSideNav";
 import { BrandName } from "../../../Utils/BrandName";
+import withAuth from '../../../HOC/auth/Auth'
 import {
   Profile,
   Settings,
@@ -93,7 +94,8 @@ class MainNavBar extends React.Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes, isAuthenticated } = this.props;
+    const { classes, auth, role } = this.props;
+  
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -126,7 +128,8 @@ class MainNavBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        {isAuthenticated === "employer" || isAuthenticated === "jobseeker" ? (
+        {auth ? (
+         
           <div>
             <MenuItem button component="a" href={Profile}>
               <p>Profil</p>
@@ -138,7 +141,7 @@ class MainNavBar extends React.Component {
               <p>Iesire</p>
             </MenuItem>
           </div>
-        ) : (
+         ) : ( 
           <div>
             <MenuItem button component="a" href={SignUpUrlEmployer}>
               <p>Angajeaza</p>
@@ -150,7 +153,7 @@ class MainNavBar extends React.Component {
               <p>Logare</p>
             </MenuItem>
           </div>
-        )}
+         )}
       </Menu>
     );
 
@@ -158,7 +161,7 @@ class MainNavBar extends React.Component {
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <MainSideNav isAuthenticated={isAuthenticated} />
+            <MainSideNav auth={auth} role={role}/>
             <Typography
               className={classes.title}
               variant="h6"
@@ -171,8 +174,8 @@ class MainNavBar extends React.Component {
             <div className={classes.grow} />
 
             <div className={classes.sectionDesktop}>
-              {isAuthenticated === "employer" ||
-              isAuthenticated === "jobseeker" ? (
+              {auth ?  (
+               
                 <div>
                   <IconButton color="inherit">
                     <Badge badgeContent={4} color="secondary">
@@ -231,4 +234,4 @@ MainNavBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(MainNavBar);
+export default withAuth(withStyles(styles)(MainNavBar));

@@ -1,12 +1,5 @@
 const { db } = require(".././config/database.js");
 
-module.exports.loggedIn = (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.redirect("/api/login");
-  }
-};
 
 //Login required middleware
 module.exports.ensureAuthenticated = function(req, res, next) {
@@ -34,29 +27,14 @@ module.exports.jobSeeker = function(req, res, next) {
   }
 };
 
-//json format
-//Login required middleware
-module.exports.ensureAuthenticatedJsonRes = function(req, res, next) {
-  if (req.isAuthenticated()) {
+module.exports.admin = function(req, res, next) {
+  if (req.user.type === "admin") {
     return next();
   } else {
-    res.json({
-      auth: "notAuthenticated"
-    });
+    res.redirect("/api/login");
   }
 };
 
-module.exports.employerJsonRes = function(req, res, next) {
-  if (req.user.type === "employer") {
-    res.json({
-      auth: "employer"
-    });
-  } else {
-    res.json({
-      auth: "notEmployer"
-    });
-  }
-};
 
 module.exports.ensureEmailChecked = (req, res, next) => {
   db.query(
@@ -77,10 +55,19 @@ module.exports.ensureEmailChecked = (req, res, next) => {
   );
 };
 
-module.exports.userAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    res.redirect("/api/profile");
-  } else {
-    res.redirect("/api/login");
+
+
+module.exports.authRole = (req,res) => {
+  
+  if(req.isAuthenticated()){
+      res.json({
+        'role':req.user.type,
+        'auth':true    
+      })
+   } else {
+      res.json({
+        'role':'Unauthenticated',
+        'auth':false
+      })  
   }
-};
+}

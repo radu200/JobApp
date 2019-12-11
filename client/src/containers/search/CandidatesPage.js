@@ -34,7 +34,6 @@ class CandidatesPage extends Component {
       location: "",
       experienceMax: 1,
       url: "",
-      isAuthenticated: "",
       formErrors: {
         categoryError: "",
         locationError: ""
@@ -59,14 +58,11 @@ class CandidatesPage extends Component {
          offset = 0
          );
 
-
-      if (data.auth === "employer") {
         this.setState({
-          isAuthenticated: data.auth,
           candidates: [...data.candidates],
           offset: offset + 12
         });
-      }
+      
     } catch (error) {
       console.error(error);
     }
@@ -124,13 +120,11 @@ class CandidatesPage extends Component {
          experienceMax,
          offset = 0);
       
-       if (data.auth === "employer") {
           this.setState({
-            isAuthenticated: data.auth,
             candidates: [...data.candidates],
             offset: offset + 12
           });
-        }
+        
       } catch (error) {
         console.error(error);
       }
@@ -172,8 +166,7 @@ class CandidatesPage extends Component {
     } = this;
     return (
       <div>
-        <MainNav isAuthenticated={isAuthenticated} />
-        {isAuthenticated === "employer" ? (
+        <MainNav />
           <div className={classes.root}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={6}>
@@ -234,7 +227,6 @@ class CandidatesPage extends Component {
               </Grid>
             </Grid>
           </div>
-        ) : null}
       </div>
     );
   }

@@ -16,6 +16,9 @@ module.exports = function (app) {
   const filesController = require('../middleware/files_control_middleware');
   const searchController = require('../controllers/search/search');
   const adminController = require('../controllers/dashboard/admin')
+
+
+  
   app.get('/api/home', homeController.getHomePage)
   app.get('/api/success', homeController.getSuccessPage)
   //authetication routes
@@ -81,9 +84,9 @@ module.exports = function (app) {
 
   //jobs controller 
   app.post('/api/jobs', jobsController.getJobsPage)
-  app.post('/api/job-application/applicants/active/:id', accessController.ensureAuthenticatedJsonRes, accessController.employer, jobsController.JobApplicationApplicantsActive)
-  app.post('/api/job-application/applicants/rejected/:id', accessController.ensureAuthenticatedJsonRes, accessController.employer, jobsController.JobApplicationApplicantsRejected)
-  app.post('/api/job-application/applicants/shortlist/:id', accessController.ensureAuthenticatedJsonRes, accessController.employer, jobsController.JobApplicationApplicantsShortList)
+  app.post('/api/job-application/applicants/active/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsActive)
+  app.post('/api/job-application/applicants/rejected/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsRejected)
+  app.post('/api/job-application/applicants/shortlist/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsShortList)
   app.post('/api/job-application/jobseeker', accessController.ensureAuthenticated, accessController.jobSeeker, jobsController.JobApplicationJobSeeker)
   app.post('/api/apply/job/:id', accessController.ensureAuthenticated, accessController.jobSeeker, jobsController.postApplyJobs)
   app.get('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer, accessController.ensureEmailChecked, jobsController.getAddJobs)
@@ -96,24 +99,25 @@ module.exports = function (app) {
   app.get('/api/job/details/:id', jobsController.getJobDetail)
 
   //search
-  app.get('/api/candidate-details/:id', accessController.ensureAuthenticatedJsonRes, searchController.getCandidateDetails)
   app.post('/api/search/job', searchController.searchJobs)
-  app.post('/api/candidate-search', accessController.ensureAuthenticated, searchController.searchCandidates)
+  app.get('/api/candidate-details/:id', accessController.ensureAuthenticated, accessController.employer, searchController.getCandidateDetails)
+  app.post('/api/candidate-search', accessController.ensureAuthenticated,accessController.employer, searchController.searchCandidates)
   ///contact us
   app.get('/api/contact-us', accessController.ensureAuthenticated, contactUs.getContactUs);
 
    //dashboard
-  app.get('/api/admin/users', accessController.ensureAuthenticated,  adminController.getAllUsers )
-  app.get('/api/admin/check',accessController.ensureAuthenticated, adminController.getCheckUsers )
-  app.post('/api/admin/check',accessController.ensureAuthenticated, adminController.postCheckUsers )
-  app.get('/api/admin/black-list',accessController.ensureAuthenticated,  adminController.getAllBlackListedUsers)
-  app.post('/api/admin/black-list', accessController.ensureAuthenticated, adminController.postBlackListedUsers )
-  app.post('/api/admin/unblock', accessController.ensureAuthenticated, adminController.unblockBlackListedUsers)
-  app.get('/api/admin/reported', accessController.ensureAuthenticated, adminController.getAllReportedUsers)
+  app.get('/api/admin/users', accessController.ensureAuthenticated,accessController.admin, adminController.getAllUsers )
+  app.get('/api/admin/check',accessController.ensureAuthenticated, accessController.admin, adminController.getCheckUsers )
+  app.post('/api/admin/check',accessController.ensureAuthenticated,accessController.admin, adminController.postCheckUsers )
+  app.get('/api/admin/black-list',accessController.ensureAuthenticated,accessController.admin,  adminController.getAllBlackListedUsers)
+  app.post('/api/admin/black-list', accessController.ensureAuthenticated,accessController.admin, adminController.postBlackListedUsers )
+  app.post('/api/admin/unblock', accessController.ensureAuthenticated, accessController.admin, adminController.unblockBlackListedUsers)
+  app.get('/api/admin/reported', accessController.ensureAuthenticated, accessController.admin, adminController.getAllReportedUsers)
   
   //reports
   app.get('/api/report/:id', accessController.ensureAuthenticated, settingsController.getReportUser)
   app.post('/api/report', accessController.ensureAuthenticated, settingsController.postReportUser)
 
+  app.get('/api/auth/me', accessController.authRole)
 }
 

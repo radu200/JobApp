@@ -1,18 +1,21 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux'
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { NoJobFoundMsg } from "../../Utils/messages";
 import JobCard from "../../components/Cards/JobCard";
 import GetMoreButton from "../../components/Buttons/ButtonOutlined";
-import axios from "axios";
 import MainNav from "../../components/NavBars/MainNav/MainNav";
 import SelectInput from "../../components/Inputs/Select";
 import SearchButton from "../../components/Buttons/ButtonContained";
 import TextInput from "../../components/Inputs/TextInput";
 import { cities } from "../../api/cities";
 import { getJobs,searchJobs, getMoreJobs } from '../../api/jobs'
-import {validate } from '../../Utils/validation'
+import { validate } from '../../Utils/validation'
+import {compose } from 'redux'
+
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -34,7 +37,6 @@ class JobsPage extends Component {
       location: "",
       url: "",
       searchLength: null,
-      isAuthenticated: "",
       formErrors: {
         searchError: "",
         locationError: ""
@@ -53,17 +55,12 @@ class JobsPage extends Component {
     const url = `/api/jobs?offset=${offset}`;
     try {
        const data = await getJobs(offset)
-       console.log(data)
-      if (data.auth === "employer") {
-        this.setState({ jobs: [], isAuthenticated: data.auth });
-      } else {
+      
         this.setState({
           jobs: data.jobs,
-          isAuthenticated: data.auth,
           url,
           offset: offset + 12
         });
-      }
 
     } catch (error) {
       console.error(error);
@@ -133,8 +130,6 @@ class JobsPage extends Component {
             searchError:queryVal.error
           }
         }));
-       
-
     }
   }
 
@@ -146,12 +141,11 @@ class JobsPage extends Component {
       location,
       jobs,
       searchLength,
-      isAuthenticated
     } = this.state;
     const { handleSubmit, handleInputChange, getMoreJobs } = this;
     return (
       <div>
-        <MainNav isAuthenticated={isAuthenticated} />
+        <MainNav  />
         <div className={classes.root}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
@@ -187,7 +181,6 @@ class JobsPage extends Component {
               <h2>{NoJobFoundMsg}</h2>
             )}
           </Grid>
-
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
               {jobs.length >= 12 ? (
@@ -202,6 +195,6 @@ class JobsPage extends Component {
 }
 
 
-
+   
 
 export default withStyles(styles)(JobsPage)

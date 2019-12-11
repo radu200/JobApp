@@ -22,23 +22,20 @@ class CandidateDetails extends Component {
     this.state = {
       candidate: [],
       experience: [],
-      isAuthenticated: ""
     };
 
   }
 
   async componentDidMount() {
-    const id = this.props.match.params.id;
+    const { match } = this.props
+    const id = match.params.id;
     try {
       const data = await getCandidateDetails(id);
-       console.log(data)
-      if (data.auth) {
         this.setState({
-          isAuthenticated: data.auth,
           candidate: data.details,
           experience: data.experience
         });
-      }
+    
     } catch (err) {
       console.log(err);
     }
@@ -48,10 +45,10 @@ class CandidateDetails extends Component {
 
   render() {
     const { classes } = this.props;
-    const { candidate, experience, isAuthenticated } = this.state;
+    const { candidate, experience } = this.state;
     return (
       <div>
-        <MainNav isAuthenticated={isAuthenticated} />
+        <MainNav/>
         <div className={classes.root}>
           <Grid container spacing={0}>
             <Grid item xs={12} sm={12} md={6}>

@@ -41,7 +41,7 @@ class MainSideNav extends React.Component {
   };
 
   render() {
-    const { classes, isAuthenticated } = this.props;
+    const { classes, role, auth} = this.props;
 
     const sideList = (
       <div className={classes.list}>
@@ -50,7 +50,7 @@ class MainSideNav extends React.Component {
         </ListItem>
         <Divider />
 
-        {isAuthenticated === "employer" ? (
+        {auth && role === "employer" ? (
           <>
             <List>
               <ListItem button component="a" href={Profile}>
@@ -68,7 +68,7 @@ class MainSideNav extends React.Component {
               </ListItem>
             </List>
           </>
-        ) : isAuthenticated === "jobseeker" ? (
+        ) : auth && role === "jobseeker" ? (
           <>
             <List>
               <ListItem button component="a" href={Profile}>

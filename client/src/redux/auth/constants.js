@@ -1,0 +1,3 @@
+export const REQUEST_ROLE = 'REQUEST_ROLE'
+export const RECEIVED_ROLE = 'RECEIVED_ROLE'
+export const FAILURE_ROLE = 'FAILURE_ROLE'

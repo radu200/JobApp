@@ -12,3 +12,5 @@ export const getCandidateDetails = async (id) => {
     const res = await  instance.get(`/api/candidate-details/${id}`)
     return res.data
 }
+
+
