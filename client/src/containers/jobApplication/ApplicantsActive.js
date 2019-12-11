@@ -18,7 +18,6 @@ class ApplicantsActive extends Component {
     super(props);
     this.state = {
       applicants: [],
-      isAuthenticated: "",
       offset: 0,
     };
   }
@@ -29,13 +28,10 @@ class ApplicantsActive extends Component {
     const { offset } = this.state;
     try {
       const data = applicantActive(jobId,offset)
-      if (data.auth === "employer") {
         this.setState({
           applicants: data.applicants,
-          isAuthenticated: data.auth,
           offset: offset + 6
         });
-      }
     } catch (error) {
       console.error(error);
     }
@@ -64,7 +60,7 @@ class ApplicantsActive extends Component {
     const applicantsNum = applicants.length;
     return (
       <div>
-        <MainNav isAuthenticated={isAuthenticated} />
+        <MainNav />
         <div className={classes.root}>
           <Grid container spacing={0} justify="center" alignItems="center">
             <Grid item xs={12} sm={12} md={8}>

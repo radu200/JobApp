@@ -7,8 +7,9 @@ const styles = theme => ({
   button: {
     width: "100%",
     marginBottom: 20,
+    backgroundColor: '#2552C7',
     "&:hover": {
-      backgroundColor: "#2552c7",
+      backgroundColor: '#2552C7',
       opacity: 0.9
     }
   }

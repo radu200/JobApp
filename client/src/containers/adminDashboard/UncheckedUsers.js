@@ -68,6 +68,8 @@ class CheckUser extends Component {
     }
   }
 
+  
+
   async handleCheck(id) {
     try {
 
@@ -95,7 +97,7 @@ class CheckUser extends Component {
    }
   render() {
     const { users, blackListBtn, checkedBtn, msg , query} = this.state;
-    const { getMore, handleBlock, handleCheck, handleSearch } = this;
+    const { getMore, handleBlock, handleCheck} = this;
     const filteredUsers =  filterByEmail(users, query)
     return (
       <div>
@@ -106,7 +108,6 @@ class CheckUser extends Component {
           getMore={getMore}
           handleBlock={handleBlock}
           handleCheck={handleCheck}
-          // onChange={handleSearch}
           value={query}
           msg={msg}
         />

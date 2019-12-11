@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core";
 import MainNav from "../../components/NavBars/MainNav/MainNav";
 import GetMoreButton from "../../components/Buttons/ButtonOutlined";
 import { applicantShortList } from '../../api/jobs'
+
 const styles = theme => ({
   root: {
     maxWidth: 960
@@ -29,14 +30,11 @@ class ApplicantsActive extends Component {
     try {
          const data = await applicantShortList(jobId,offset)
       
-         if (data.auth === "employer") {
         this.setState({
           applicants: data.applicants,
-          isAuthenticated: data.auth,
           applicantsNum: data.applicants.length,
           offset: offset + 6
         });
-      }
     } catch (error) {
       console.error(error);
     }
@@ -58,13 +56,13 @@ class ApplicantsActive extends Component {
 
   render() {
     const { classes } = this.props;
-    const { applicants, isAuthenticated } = this.state;
+    const { applicants } = this.state;
     const jobId = this.props.match.params.id;
     const { getMoreApplicants } = this;
     const applicantsNum = applicants.length;
     return (
       <div>
-        <MainNav isAuthenticated={isAuthenticated} />
+        <MainNav />
         <div className={classes.root}>
           <Grid container spacing={0} justify="center" alignItems="center">
             <Grid item xs={12} sm={12} md={8}>

@@ -13,8 +13,10 @@ export const searchJobs = async  (query, location, offset) => {
     return res.data
 }
 
-export const getMoreJobs = async (url) => {
-    const res =  await instance.post(url)
+export const getMoreJobs = async (url, offset) => {
+    const res =  await instance.post(url, {
+        offset
+    })
     return res.data
 }
 

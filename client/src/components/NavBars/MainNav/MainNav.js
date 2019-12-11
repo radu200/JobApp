@@ -65,7 +65,9 @@ const styles = theme => ({
     }
   },
   appBar: {
-    backgroundColor: "#2552C7"
+    backgroundColor: "#2552C7",
+    padding:0,
+    boxShadow:'none'
   }
 });
 
