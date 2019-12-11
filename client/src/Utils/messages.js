@@ -1,4 +1,4 @@
-const MoreMsg = 'Mai Mult'
+const MoreMsg = 'Vezi Mai Mult'
 const Years = 'ani'
 const Months = 'luni'
 const Days = 'zile'

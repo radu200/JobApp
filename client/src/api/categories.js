@@ -10,7 +10,7 @@ export const categories = [
   "Educaţie",
   "Evenimente și promovare",
   "Bucătărie portar",
-  "Oficiu si Administratre",
+  "Oficiu si Admin",
   "Vanzari si Marketing",
   "Ospătar sau servitoare",
   "Depozit",

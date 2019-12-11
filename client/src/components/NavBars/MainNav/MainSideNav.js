@@ -57,10 +57,10 @@ class MainSideNav extends React.Component {
                 <ListItemText primary="Profil" />
               </ListItem>
               <ListItem button component="a" href={MyJobs}>
-                <ListItemText primary="Joburile Mele" />
+                <ListItemText primary="Locuri de muncă" />
               </ListItem>
               <ListItem button component="a" href={SearchCandidate}>
-                <ListItemText primary="Cauta candidati" />
+                <ListItemText primary="Cautarea lucratori" />
               </ListItem>
               <Divider />
               <ListItem button component="a" href={Help}>

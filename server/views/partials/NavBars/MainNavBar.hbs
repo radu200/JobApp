@@ -23,7 +23,7 @@
               <!--dropdown-->
               <li>
                 <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">
-                  <span class="white-text">Mai mult</span>
+                  <span class="white-text">Profil</span>
                   <i class="material-icons right white-text">arrow_drop_down</i>
                 </a>
               </li>
@@ -47,24 +47,24 @@
         {{#if Employer}}
         <ul id="nav-mobile" class=" right hide-on-med-and-down">
           <li>
-            <a href="/api/my-jobs"> Joburile Mele</a>
+            <a href="/api/my-jobs"> Locuri de muncă</a>
           </li>
           <li>
             <a href="/api/chat">Chats</a>
           </li>
           <li>
-            <a href="/search-candidate">Cauta Candidati</a>
+            <a href="/search-candidate">Căutarea lucratori</a>
           </li>
-
+{{!-- 
           <li>
-            <a href="/api/profile">Compania mea</a>
-          </li>
+            <a href="/api/profile">Profil</a>
+          </li> --}}
 
           <ul id="nav-mobile" class=" right hide-on-med-and-down">
             <!--dropdown-->
             <li>
               <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">
-                <span class="white-text">Mai mult</span>
+                <span class="white-text">Profil</span>
                 <i class="material-icons right white-text">arrow_drop_down</i>
               </a>
             </li>
@@ -133,7 +133,7 @@
       </li>
       <!--dropdown-->
       <li>
-        <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Mai Mult
+        <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Profil
           <i class="material-icons right">arrow_drop_down</i>
         </a>
       </li>
@@ -160,20 +160,20 @@
           <div class="divider"></div>
         </li>
         <li>
-          <a href="/api/my-jobs">Joburile Mele</a>
+          <a href="/api/my-jobs">Locuri de muncă</a>
         </li>
         <li>
           <a href="/api/chat">Chats</a>
         </li>
         <li>
-          <a href="/search-candidate">Cauta Candidati</a>
+          <a href="/search-candidate">Căutarea lucratori</a>
         </li>
-        <li>
-          <a href="/api/profile">Compania mea</a>
-        </li>
+        {{!-- <li>
+          <a href="/api/profile">Profil</a>
+        </li> --}}
         <!--dropdown-->
         <li>
-          <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Mai Mult
+          <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Profil
             <i class="material-icons right">arrow_drop_down</i>
           </a>
         </li>
@@ -189,13 +189,9 @@
         </ul>
 
         <li>
-          <a href="/api/jobs/add" class="btn blue  lighten-1">Posteaza</a>
+          <a href="/api/jobs/add" class="btn blue  lighten-1">Adauga</a>
         </li>
-        <li>
-          <a class="waves-effect waves-light btn orange lighten-1 white-text"><i
-              class="material-icons left">vpn_key</i><span class=" new badge" data-badge-caption="">20</span>
-            Obtine Chei </a>
-        </li>
+        
       </ul>
     {{/if}}
 
