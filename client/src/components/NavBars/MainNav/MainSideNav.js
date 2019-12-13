@@ -64,7 +64,7 @@ class MainSideNav extends React.Component {
               </ListItem>
               <Divider />
               <ListItem button component="a" href={Help}>
-                <ListItemText primary="Ajutor" />
+                <ListItemText primary="Ajutor!" />
               </ListItem>
             </List>
           </>
@@ -79,7 +79,7 @@ class MainSideNav extends React.Component {
               </ListItem>
               <Divider />
               <ListItem button component="a" href={Help}>
-                <ListItemText primary="Ajutor" />
+                <ListItemText primary="Ajutor!" />
               </ListItem>
             </List>
           </>
