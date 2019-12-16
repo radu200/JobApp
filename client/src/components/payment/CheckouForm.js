@@ -41,7 +41,8 @@ const useStyles = makeStyles(theme => ({
   },
   err: {
     color: 'red',
-    fontSize: "16px"
+    fontSize: '16px',
+    textAlign:'center'
   }
 }));
 
@@ -54,6 +55,7 @@ export default function Checkout({
   requestError,
   loading,
   success,
+  memberMsg
 }) {
   const classes = useStyles();
 
@@ -78,6 +80,9 @@ export default function Checkout({
               {loading && <Loading />}
             </Grid>
             <Grid item xs={12}>
+              {memberMsg  && <p className={classes.err}>Abonamentul pe acesta luna a fost platit </p>}
+            </Grid>
+            <Grid item xs={12}>
               {formError && <p className={classes.err}>Detaliile Cardului lipsesc sau  nu sunt sunt valide</p>}
             </Grid>
 
@@ -85,7 +90,7 @@ export default function Checkout({
               {requestError && <p className={classes.err}>A avut loc o eroare la server.Va rog incercati din nou</p>}
             </Grid>
           </Grid>
-          
+
           {success ? <PaySuccess /> :
             <form onSubmit={handleSubmit} className={classes.form} >
               <Grid container spacing={2}>

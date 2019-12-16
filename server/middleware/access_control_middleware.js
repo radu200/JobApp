@@ -85,7 +85,7 @@ module.exports.membershipJob = async (req, res, next) => {
     const jobsId = member.map(job => job.jobId)
     const jobLen = jobsId.length
 
-    if (mDate < presentDate || jobLen > 1) {
+    if (mDate < presentDate && jobLen > 1) {
       req.flash("warning_msg", {
         msg:
           "Pentru a posta mai multe locuri de muncă, trebuie să fii membru"

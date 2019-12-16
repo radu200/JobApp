@@ -19,6 +19,7 @@ class CheckoutForm extends Component {
       requestError:false,
       loading:false,
       success:false,
+      memberMsg:false
     }
     this.submit = this.submit.bind(this);
     this.handleCardChange =  this.handleCardChange.bind(this)
@@ -27,6 +28,11 @@ class CheckoutForm extends Component {
   }
 
 
+  async componentDidMount(){
+    const res = await axios.get('/api/membership')
+    this.setState({memberMsg:res.data.member})
+
+  }
 
   handleCardChange (e){
     this.setState({
@@ -75,7 +81,7 @@ class CheckoutForm extends Component {
 
   
   render() {
-    const { formError, requestError, loading, success} = this.state
+    const { formError, requestError, loading, success, memberMsg} = this.state
     const { submit, handleCardChange, handleInputChange, } = this
     return (
       <div className="checkout">
@@ -87,6 +93,7 @@ class CheckoutForm extends Component {
            requestError={requestError}
            loading={loading}
            success={success}
+           memberMsg={memberMsg}
          />
       </div>
     );

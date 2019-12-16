@@ -49,7 +49,7 @@ const Routes = () => (
         <Route exact path='/admin/o2/blacklist' component={withAuthAdmin(BlackList)} />
        
         {/* payment */}
-        <Route exact path='/checkout' component={withAuthEmployer(withMembership(Checkout))} />
+        <Route exact path='/checkout' component={withAuthEmployer(Checkout)} />
 
 
       </Switch>
