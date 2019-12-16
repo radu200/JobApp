@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import {injectStripe} from 'react-stripe-elements';
 import Checkout  from '../../components/payment/CheckouForm'
+import { validate, validateEmail } from "../../Utils/validation";
+
 import axios from 'axios'
+
+
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -11,8 +15,10 @@ class CheckoutForm extends Component {
       cardCvc:false,
       cardName:'',
       cardEmail:'',
-      err:false
-
+      formError:false,
+      requestError:false,
+      loading:false,
+      success:false,
     }
     this.submit = this.submit.bind(this);
     this.handleCardChange =  this.handleCardChange.bind(this)
@@ -31,8 +37,7 @@ class CheckoutForm extends Component {
  
   handleInputChange (e) {
     //  inputs value other than built in elements
-      const value = e.target.value
-      const name = e.target.name
+    const { name , value } = e.target
       this.setState({
         [name]:value
       })
@@ -43,40 +48,45 @@ class CheckoutForm extends Component {
   async submit(e) {
      e.preventDefault()
      const { cardCvc, cardNumber, cardExpiry, email, cardName} = this.state
+     const emailVal = validateEmail(email)
+     const cardNameVal = validate(cardName)
+    
+     if(cardNumber && cardCvc && cardExpiry && cardNameVal.status && emailVal.status){
+     
+      this.setState({loading:true, formError:false,requestError:false})
 
-
-     if(cardNumber && cardCvc && cardExpiry){
        const {token} = await this.props.stripe.createToken({name: cardName,email:email});
-       const response = await axios.post(
-       "/api/payment",
-        { token }
-      );
+       const response = await axios.post( "/api/payment",{ token });
        const { status } = response.data;
-      console.log("Response:", response.data);
+      
       if (status === "success") {
-        console.log('succes')
+        this.setState({loading:false, success:true})
       } else {
-        console.log('errr')
+        this.setState({requestError:true})
       }
         
      } else { 
-       this.setState({err:true})
+       this.setState({formError:true})
      }
 
   }
 
 
   render() {
-    const { err } = this.state
+    const { formError, requestError, loading, success} = this.state
+    const { submit, handleCardChange, handleInputChange} = this
+
     return (
       <div className="checkout">
          <Checkout  
-           handleSubmit={this.submit}
-           handleCardChange={this.handleCardChange}
-           handleInputChange={this.handleInputChange}
-           err={err}
+           handleSubmit={submit}
+           handleCardChange={handleCardChange}
+           handleInputChange={handleInputChange}
+           formError={formError}
+           requestError={requestError}
+           loading={loading}
+           success={success}
          />
-        {/* <button onClick={this.submit}>Purchase</button> */}
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import AdminReported from '../../components/adminDashboard/Admin/AdminReportedUsers'
-import axios from "axios";
 import {removeById, filterByEmail } from './helpers'
 import {reportedUsers, blackListUsers } from '../../api/admin'
 

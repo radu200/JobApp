@@ -2,15 +2,23 @@ const stripe = require('stripe')(process.env.STRIPE_SKEY);
 
 module.exports.postPayment = async (req,res) => {
 
-   const amount  = 199
+  const amount  = 199
   let error;
   let status;
+  
   try {
     const {  token } = req.body;
+    const email = token.email
+    const source = token.id
+
+    if(!email || source){
+      status = 'failure'
+      return false
+    }
 
     const customer = await stripe.customers.create({
-      email: token.email,
-      source: token.id
+      email,
+      source
     });
 
     const charge = await stripe.charges.create(
@@ -18,7 +26,7 @@ module.exports.postPayment = async (req,res) => {
       {
         amount:amount * 100,
         description: 'membership',
-        receipt_email: token.email,
+        receipt_email: email,
         currency: 'mdl',
         customer: customer.id
       }
@@ -26,7 +34,6 @@ module.exports.postPayment = async (req,res) => {
     console.log("Charge:", { charge });
     status = "success";
   } catch (error) {
-    console.error("Error:", error);
     status = "failure";
   }
 
