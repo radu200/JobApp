@@ -16,7 +16,7 @@ module.exports = function (app) {
   const filesController = require('../middleware/files_control_middleware');
   const searchController = require('../controllers/search/search');
   const adminController = require('../controllers/dashboard/admin')
-
+  const paymentController  = require('../controllers/payment/payment')
 
   
   app.get('/api/home', homeController.getHomePage)
@@ -119,5 +119,10 @@ module.exports = function (app) {
   app.post('/api/report', accessController.ensureAuthenticated, settingsController.postReportUser)
 
   app.get('/api/auth/me', accessController.authRole)
+
+  //payment
+  app.get('/api/payment',accessController.ensureAuthenticated, accessController.employer, paymentController.getPayment )
+  app.post('/api/payment',accessController.ensureAuthenticated, accessController.employer, paymentController.postPayment )
+
 }
 

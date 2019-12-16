@@ -1,0 +1,15 @@
+{{>MainNavBar}}
+<div class="container">
+    <form action="/api/payment" method="POST">
+    <script
+        src="https://checkout.stripe.com/checkout.js"
+         data-locale="pl"
+         class="stripe-button"
+         data-key="{{stripePublishableKey}}"
+         data-name="Membershipt"
+        data-amount="19900"
+        data-currency="mdl">
+
+    </script>
+    <a href="/jobs">jobs</a>
+ </div>

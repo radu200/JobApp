@@ -13,8 +13,13 @@ import AllUsers from '../containers/adminDashboard/AllUsers'
 import Unchecked from '../containers/adminDashboard/UncheckedUsers'
 import Reported from '../containers/adminDashboard/ReportedUsers'
 import BlackList from '../containers/adminDashboard/BlackListedUsers'
-import  withAuthEmployer  from '../HOC/auth/Employer'
 import LoginErr from '../components/Pages/LoginErr'
+
+import Checkout from '../containers/payment/Checkout'
+
+// auth
+import  withAuth from '../HOC/auth/Auth'
+import  withAuthEmployer  from '../HOC/auth/Employer'
 import withAuthJobSeeker  from '../HOC/auth/JobSeeker'
 import  withAuthAdmin  from '../HOC/auth/Admin'
 
@@ -41,6 +46,11 @@ const Routes = () => (
         <Route exact path='/admin/o2/unchecked' component={withAuthAdmin(Unchecked)} />
         <Route exact path='/admin/o2/reported' component={withAuthAdmin(Reported)} />
         <Route exact path='/admin/o2/blacklist' component={withAuthAdmin(BlackList)} />
+       
+        {/* payment */}
+        <Route exact path='/checkout' component={withAuthEmployer(Checkout)} />
+
+
       </Switch>
    </BrowserRouter>
   </main>
