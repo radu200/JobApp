@@ -11,7 +11,6 @@ class Auth  extends Component {
    }
 
    render(){
-       const  { auth, role} = this.props
        return <Wrap {...this.props}  />
       }
    }

@@ -1,0 +1,3 @@
+export const REQUEST_MEMBERSHIP = 'membership/REQUEST_MEMBERSHIP'
+export const RECEIVED_MEMBERSHIP = 'membership/RECEIVED_MEMBERSHIP'
+export const FAILURE_MEMBERSHIP = 'membership/FAILURE_MEMBERSHIP'

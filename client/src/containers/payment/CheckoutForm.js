@@ -23,6 +23,7 @@ class CheckoutForm extends Component {
     this.submit = this.submit.bind(this);
     this.handleCardChange =  this.handleCardChange.bind(this)
     this.handleInputChange =  this.handleInputChange.bind(this)
+
   }
 
 
@@ -51,16 +52,17 @@ class CheckoutForm extends Component {
      const emailVal = validateEmail(email)
      const cardNameVal = validate(cardName)
     
+     
      if(cardNumber && cardCvc && cardExpiry && cardNameVal.status && emailVal.status){
      
-      this.setState({loading:true, formError:false,requestError:false})
+      this.setState({loading:true})
 
        const {token} = await this.props.stripe.createToken({name: cardName,email:email});
        const response = await axios.post( "/api/payment",{ token });
        const { status } = response.data;
-      
+       console.log(status)
       if (status === "success") {
-        this.setState({loading:false, success:true})
+        this.setState({loading:false, success:true,formError:false,requestError:false})
       } else {
         this.setState({requestError:true})
       }
@@ -71,11 +73,10 @@ class CheckoutForm extends Component {
 
   }
 
-
+  
   render() {
     const { formError, requestError, loading, success} = this.state
-    const { submit, handleCardChange, handleInputChange} = this
-
+    const { submit, handleCardChange, handleInputChange, } = this
     return (
       <div className="checkout">
          <Checkout  

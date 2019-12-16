@@ -1,0 +1,1 @@
+export const  getMemberSelector = state => state.member.member

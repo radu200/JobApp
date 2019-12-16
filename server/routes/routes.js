@@ -19,7 +19,7 @@ module.exports = function (app) {
   const paymentController  = require('../controllers/payment/payment')
 
   
-  app.get('/api/home', homeController.getHomePage)
+  app.get('/api/home',accessController.ensureAuthenticated, accessController.membershipJob,homeController.getHomePage)
   app.get('/api/success', homeController.getSuccessPage)
   //authetication routes
   app.get('/api/signup/employer', signupEmployerController.getSignUpEmployer)
@@ -89,8 +89,8 @@ module.exports = function (app) {
   app.post('/api/job-application/applicants/shortlist/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsShortList)
   app.post('/api/job-application/jobseeker', accessController.ensureAuthenticated, accessController.jobSeeker, jobsController.JobApplicationJobSeeker)
   app.post('/api/apply/job/:id', accessController.ensureAuthenticated, accessController.jobSeeker, jobsController.postApplyJobs)
-  app.get('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer, accessController.ensureEmailChecked, jobsController.getAddJobs)
-  app.post('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer, filesController.uploadJobImage, jobsController.postAddJobs)
+  app.get('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer, accessController.ensureEmailChecked, accessController.membershipJob,jobsController.getAddJobs)
+  app.post('/api/jobs/add', accessController.ensureAuthenticated, accessController.employer, filesController.uploadJobImage,  accessController.membershipJob,jobsController.postAddJobs)
   app.get('/api/job_image/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.getJobImageEdit)
   app.post('/api/job_image/edit/:id', accessController.ensureAuthenticated, accessController.employer, filesController.editJobImage, jobsController.postJobImageEdit)
   app.get('/api/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.getEmployerJobEdit)
@@ -119,10 +119,11 @@ module.exports = function (app) {
   app.post('/api/report', accessController.ensureAuthenticated, settingsController.postReportUser)
 
   app.get('/api/auth/me', accessController.authRole)
-
+  app.get('/api/membership',accessController.ensureAuthenticated, accessController.employer, accessController.membership)
   //payment
   app.get('/api/payment',accessController.ensureAuthenticated, accessController.employer, paymentController.getPayment )
   app.post('/api/payment',accessController.ensureAuthenticated, accessController.employer, paymentController.postPayment )
+  
 
 }
 

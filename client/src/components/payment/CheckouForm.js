@@ -85,6 +85,7 @@ export default function Checkout({
               {requestError && <p className={classes.err}>A avut loc o eroare la server.Va rog incercati din nou</p>}
             </Grid>
           </Grid>
+          
           {success ? <PaySuccess /> :
             <form onSubmit={handleSubmit} className={classes.form} >
               <Grid container spacing={2}>

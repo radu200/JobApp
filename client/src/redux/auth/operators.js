@@ -7,7 +7,7 @@ export const fetchRole = () => dispatch => {
   const url = `/api/auth/me`;
 
   dispatch(requestRole());
-    axios.get(url)
+    instance.get(url)
  
     .then(res => {
       const role = res.data.role

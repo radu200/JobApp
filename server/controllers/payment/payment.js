@@ -1,17 +1,18 @@
 const stripe = require('stripe')(process.env.STRIPE_SKEY);
+const { dbPromise } = require("../.././config/database.js");
 
 module.exports.postPayment = async (req,res) => {
 
   const amount  = 199
   let error;
   let status;
-  
+
   try {
     const {  token } = req.body;
     const email = token.email
     const source = token.id
 
-    if(!email || source){
+    if(!email || !source){
       status = 'failure'
       return false
     }
@@ -31,7 +32,11 @@ module.exports.postPayment = async (req,res) => {
         customer: customer.id
       }
     );
-    console.log("Charge:", { charge });
+     
+    const db = dbPromise;
+    const userId = req.user.id
+    await db.query('UPDATE users SET member = ?,membership_approved_date = TIMESTAMPADD(MONTH, 1, NOW()) WHERE id = ?', [true, userId])    
+
     status = "success";
   } catch (error) {
     status = "failure";
