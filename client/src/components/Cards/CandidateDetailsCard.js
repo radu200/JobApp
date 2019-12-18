@@ -7,7 +7,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Months, Days, Years } from "./../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
-import CreateChatForm from "../Forms/createChatRoom"
 import Button from '@material-ui/core/Button';
 
 const styles = {
@@ -53,7 +52,7 @@ const styles = {
   }
 };
 
-const CandidateDetailsCard = ({ candidate, experience, classes , onSubmit}) => {
+const CandidateDetailsCard = ({ candidate, experience, classes}) => {
   return (
     <Card className={classes.card}>
       {candidate.map((candidate, index) => {
@@ -133,7 +132,6 @@ const CandidateDetailsCard = ({ candidate, experience, classes , onSubmit}) => {
       })}
       
          <CardContent>
-           <CreateChatForm onSubmit={onSubmit}/>
         </CardContent>
     </Card>
   );

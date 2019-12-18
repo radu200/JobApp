@@ -1,39 +1,12 @@
 const { dbPromise } = require("./../../config/database.js");
 
-
+// get user list
+//get rooms with messages where user id 
 
 
 module.exports.postRoom = async (req,res) => {
    
-   try {
-      //  const io = req.app.get('socketio')
-    
-      const receiverId = req.body.userId
-      const senderId = req.user.id
-      const db = await dbPromise  
-      const textSqlUser =`SELECT sender, receiver FROM chatRooms WHERE sender AND receiver IN (?,?)`
-      const textSqlReceiverName = 'SELECT first_name FROM users WHERE id = ?'
-      const textSqlRooms = 'SELECT id FROM chatRooms WHERE sender AND receiver IN (?,?)'
-      const textSqlInsert = 'INSERT INTO chatRooms(receiver,sender, receiverName) VALUES(?,?, ?) '
-     
-      const [users] = await db.execute(textSqlUser,[senderId, receiverId])
-      const [receiverName] = await db.execute(textSqlReceiverName, [receiverId])
-    
-      if(users.length === 0){
-         const [room] = await db.query(textSqlInsert,[receiverId, senderId, receiverName[0].first_name])
-         const roomName = room.insertId
-         res.redirect(`/api/room/${roomName}`)
-        } else {
-          const [room]  = await db.execute(textSqlRooms,[senderId, receiverId] )
-          const roomName = room[0].id
-       
-          res.redirect(`/api/room/${roomName}`)
 
-        }          
-
-    } catch(e){
-        console.log(e)
-    }
 
 }
 

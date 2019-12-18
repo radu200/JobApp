@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import io from 'socket.io-client';
-import axios from "axios";
-import ChatRoom from './ChatRoom'
-import withAuthEmployer from '../../HOC/auth/Employer'
+import ChatForm from '../../components/Forms/ChatForm'
 const socket = io('http://localhost:8000');
 
 
@@ -11,43 +9,63 @@ class Chat extends Component {
     constructor(){
          super()
          this.state = {
-           chatRooms:[],
-           room: null
+           msg:[],
+           count:0,
+           msgInput:''
           }
+          
+       this.handleChange = this.handleChange.bind(this)
+       this.onSubmit = this.onSubmit.bind(this)
     }
 
-    async  componentDidMount() {
-       
-      // try {
-      //   const res = await axios.get('/api/chat')
-      //   const chatRooms = res.data
-      //    this.setState({chatRooms})
-      // } catch(err){
-      //   console.log(err)
-      // }
-
+    // componentDidMount(){
+    //   socket.on('message', msg => {
+    //     this.setState({msg})
+    //   })
+     
+    // }
   
+    handleChange(e){
+      const { value } = e.target
+      this.setState({
+        msgInput:value
+      })
     }
-
-
-   onChatRoom(id) {
-     this.setState({
-       room:id
-     })
-    //  console.log("click", id)
-   }
+    
+    async onSubmit(e){
+      e.preventDefault();
+      const { msgInput} = this.state
+       
+      await socket.emit('sendMessage', msgInput,(err) => {
+         if(err){
+            console.log(err)
+         }
+        //  console.log('message delivered')
+      })
+      await socket.on('message', msg => {
+        this.setState(prev => ({
+          msg:[...this.state.msg,msg],
+          // msgInput:''
+        }))
+      })
+    }
+ 
 
   render(){ 
-     const { chatRooms, room} = this.state   
+      const { msg, msgInput} = this.state
+      const { handleChange, onSubmit } = this
+      console.log('my',msg)
       return (
         <div>
           <p>chat</p>
-         {/* {chatRooms.map((room, i) => {
-           return <div onClick={() => this.onChatRoom(room.id)} key={room.id}><a href={`/chat/${room.id}`}>{room.receiverName}</a> </div>
-          })} */}
-
-         {/* { room ===  <ChatRoom rooms={chatRooms} />  } */}
+          <ChatForm
+           handleChange={handleChange}
+           onSubmit={onSubmit}
+           value={msgInput}
+          />
+           {msg && msg.map((m,i) => <p key={i}>{m}</p>)}
          </div>
+
       )
   }
 } 

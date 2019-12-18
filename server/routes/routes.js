@@ -83,7 +83,7 @@ module.exports = function (app) {
   app.post('/api/room', accessController.ensureAuthenticated, chatController.postRoom)
 
   //jobs controller 
-  app.post('/api/jobs', jobsController.getJobsPage)
+  app.get('/api/jobs', jobsController.getJobsPage)
   app.post('/api/job-application/applicants/active/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsActive)
   app.post('/api/job-application/applicants/rejected/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsRejected)
   app.post('/api/job-application/applicants/shortlist/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsShortList)
@@ -121,7 +121,6 @@ module.exports = function (app) {
   app.get('/api/auth/me', accessController.authRole)
   app.get('/api/membership',accessController.ensureAuthenticated, accessController.employer, accessController.membership)
   //payment
-  app.get('/api/payment',accessController.ensureAuthenticated, accessController.employer, paymentController.getPayment )
   app.post('/api/payment',accessController.ensureAuthenticated, accessController.employer, paymentController.postPayment )
   
 

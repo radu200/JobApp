@@ -11,7 +11,9 @@ import { cities } from "../../api/cities";
 import { getJobs, searchJobs, getMoreJobs } from "../../api/jobs";
 import { validate } from "../../Utils/validation";
 import { categories } from "../../api/categories";
-
+import {fetchJobs } from '../../redux/jobs/operators'
+import { connect } from 'react-redux';
+import {compose } from 'redux'
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -45,6 +47,8 @@ class JobsPage extends Component {
   }
 
   async componentDidMount() {
+    const page =  1
+    this.props.fetchJobs(page)
     const { offset } = this.state;
     const url = `/api/jobs?offset=${offset}`;
     try {
@@ -59,6 +63,8 @@ class JobsPage extends Component {
       console.error(error);
     }
   }
+
+
 
   getMoreJobs = async () => {
     const { url, offset, jobs } = this.state;
@@ -126,11 +132,16 @@ class JobsPage extends Component {
       }));
     }
   }
+   handleClick(id){
+   //job card click
+   console.log(id)
+   }
 
   render() {
+    console.log(this.props.jobs)
     const { classes } = this.props;
     const { query, formErrors, location, jobs, searchLen} = this.state;
-    const { handleSubmit, handleInputChange, getMoreJobs } = this;
+    const { handleSubmit, handleInputChange, getMoreJobs , handleClick} = this;
     return (
       <div>
         <MainNav />
@@ -164,7 +175,7 @@ class JobsPage extends Component {
           {searchLen !== null ? <h2>Rezultat: {jobs.length}</h2> : null}
           <Grid container spacing={2}>
             {jobs.length > 0 ? (
-              <JobCard job={jobs} />
+              <JobCard job={jobs} handleClick={handleClick} />
             ) : (
               <h2>{NoJobFoundMsg}</h2>
             )}
@@ -182,4 +193,13 @@ class JobsPage extends Component {
   }
 }
 
-export default withStyles(styles)(JobsPage);
+
+const mapState = state => ({
+  jobs:state.jobs
+})
+
+export default 
+compose(
+  withStyles(styles),
+  connect(mapState,{fetchJobs})  
+)(JobsPage);

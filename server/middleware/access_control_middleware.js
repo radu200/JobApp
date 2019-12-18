@@ -111,13 +111,13 @@ module.exports.membership = async (req, res, next) => {
     const mDate = member[0].membership_approved_date
 
     if (mDate < presentDate) {
-      res.json({'member': false })
+      res.json({member: false })
 
     } else if (mDate > presentDate) {
-      res.json({ 'member': true })
+      res.json({member: true })
     } 
   } catch (e) {
-    console.log(e)
+     res.status(500)
   }
 }
 

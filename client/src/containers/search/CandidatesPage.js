@@ -46,8 +46,6 @@ class CandidatesPage extends Component {
   }
 
   async componentDidMount() {
-  
-
     let location, category, experienceMax, offset;
 
     try {
@@ -57,6 +55,7 @@ class CandidatesPage extends Component {
          experienceMax = 10,
          offset = 0
          );
+
 
         this.setState({
           candidates: [...data.candidates],
@@ -156,7 +155,6 @@ class CandidatesPage extends Component {
       candidates,
       location,
       formErrors,
-      isAuthenticated
     } = this.state;
     const {
       handleSubmit,

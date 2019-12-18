@@ -1,19 +1,16 @@
 import {requestMembership, receivedMembership, failureMembership} from "./actions";
-import axios from "axios";
-const instance = axios.create()
+import { membership} from '../../api/membership'
 
-export const fetchMembership = () => dispatch => {
-  
-  const url = `/api/membership`;
 
-  dispatch(requestMembership());
-    instance.get(url)
+export const fetchMembership = () => async  dispatch => {
+
+  try{
+    dispatch(requestMembership());
+    const data = await  membership()
+    const { member } = data
+    dispatch(receivedMembership(member));
+  } catch(err){
+    dispatch(failureMembership(err));
+  }
  
-    .then(res => {
-      const member = res.data.member
-      dispatch(receivedMembership(member));
-    })
-    .catch(err => {
-      dispatch(failureMembership(err));
-    });
 };

@@ -119,7 +119,7 @@ app.use(function(req, res, next) {
 });  
 
 
-///middleware to restrict access in ui in dependece of user
+///middleware to restrict access in ui in dependence of user
 app.use(function(req, res, next) {
     if(req.isAuthenticated() === true){
         res.locals.Employer = function(){
@@ -148,9 +148,11 @@ app.use(function(req, res, next) {
 });
 
 
- app.set('socketio', io)
- require('./routes/routes.js')(app);
- const SoketIo = require("./controllers/chat/socketIo.js")(io)
+
+require('./routes/routes.js')(app);
+
+// socket.io
+require("./controllers/chat/socketIo.js")(io)
 
 app.get('*', (req,res) => {
      res.sendFile(path.resolve(__dirname, '../client/build/index.html'))

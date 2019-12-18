@@ -45,9 +45,5 @@ module.exports.postPayment = async (req,res) => {
   res.json({ error, status });
  
 }
-module.exports.getPayment = (req, res) => {
-    res.render('./payment/stripe', {
-      stripePublishableKey: process.env.STRIPE_PKEY
-    });
-  }
+
   

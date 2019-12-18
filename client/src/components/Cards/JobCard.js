@@ -28,13 +28,13 @@ const styles = {
   }
 };
 
-const JobCard = ({ job, classes }) => {
-  return job.map((job, index) => {
+const JobCard = ({ job, classes, handleClick}) => {
+  return job.map(job => {
     const jobDetailPath = `${JobDetailsUrl}${job.id}`;
 
     return (
-      <Grid key={index} item xs={12} sm={6} md={4}>
-        <Card className={classes.card}>
+      <Grid key={job.id} item xs={12} sm={6} md={4}>
+        <Card className={classes.card} onClick={() => handleClick(job.id)}>
           <CardActionArea>
             {job.image ? (
               <CardMedia
@@ -46,6 +46,7 @@ const JobCard = ({ job, classes }) => {
                 title={job.category}
               />
             ) : (
+              // no image
               <CardMedia
                 component="img"
                 alt={job.category}
@@ -72,7 +73,7 @@ const JobCard = ({ job, classes }) => {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              <a className={classes.JobDetails} href={jobDetailPath}>
+              <a className={classes.JobDetails} href={'/checkout'}>
                 {MoreMsg}
               </a>
             </Button>

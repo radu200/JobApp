@@ -1,20 +1,14 @@
 import {requestRole, receivedRole, failureRole} from "./actions";
-import axios from "axios";
-const instance = axios.create()
+import {authRole} from '../../api/auth'
 
-export const fetchRole = () => dispatch => {
-  
-  const url = `/api/auth/me`;
 
-  dispatch(requestRole());
-    instance.get(url)
- 
-    .then(res => {
-      const role = res.data.role
-      const auth = res.data.auth
-      dispatch(receivedRole(role, auth));
-    })
-    .catch(err => {
-      dispatch(failureRole(err));
-    });
+export const fetchRole = () => async dispatch => {  
+   try{
+     dispatch(requestRole());
+     const data = await authRole()
+     const { role, auth } = data
+     dispatch(receivedRole(role, auth));
+   } catch(err){
+     dispatch(failureRole(err));
+   }
 };

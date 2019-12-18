@@ -234,7 +234,7 @@ class MainNavBar extends React.Component {
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
-         <div className={classes.translator}> <Translator/></div>
+       <div className={classes.translator}> <Translator/></div>
       </div>
     );
 

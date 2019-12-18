@@ -13,15 +13,13 @@ const useStyles = makeStyles(theme => ({
 
 const PaySuccess = () => {
     const classes = useStyles();
-
     return (
       <Paper className={classes.root}>
         <Typography variant="h5" component="h3">
           Va multumim ca ne-ati ales pe noi.
         </Typography>
-          Comanda dvs. a fost procesat cu succes.
          <Typography component="p">
-
+          Comanda dvs. a fost procesat cu succes.
         </Typography>
       </Paper>)
 }

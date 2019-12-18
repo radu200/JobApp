@@ -1,19 +1,25 @@
+const {addUser, removeUser,getUser, getUserInRoom} = require('./user')
+
 module.exports = (io) => {
-    io.on('connection', function(socket){
-       socket.on('join-room', (room) => {
-          socket.join(room)
-          socket.broadcast.emit('user-connected', 'lall')
+    io.on('connection', (socket) => {
+        //create room
+        //join room
+        //broadcast messages in room
+        socket.on('join', (room) => {
+            ///create uniqueq room
+            //save sender receiver id and messages
 
-      })
-
-        socket.on('front', msg => {
-            console.log(msg)
         })
+        console.log('new websocket', socket.id)
 
+        socket.on('sendMessage',(msg, callback) => {
+            const messages = []
+             messages.push(msg)
+             io.emit('message', messages)
+             callback()
+         })         
         socket.on('disconnect', () => {
             console.log('user disconnected')
         })
     }) 
-
-
 } 

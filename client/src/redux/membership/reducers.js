@@ -1,7 +1,7 @@
 import { REQUEST_MEMBERSHIP, RECEIVED_MEMBERSHIP, FAILURE_MEMBERSHIP } from './constants'
  
 const initialState = {
-    member:null,
+    member:false,
     loading:null,
     err:null
 }

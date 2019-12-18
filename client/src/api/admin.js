@@ -1,14 +1,14 @@
-import * as  axios from "axios";
-const instance  = axios.create()
+import {instanceAPI } from './InstanceApi'
+
 
 export const  getAllUsers = async  (offset) => {
-    const res = await instance.get(`/api/admin/users?offset=${offset}`)
+    const res = await instanceAPI.get(`/api/admin/users?offset=${offset}`)
     return res.data
 }
 
 export const blackListUsers = async (id,statusType = '') => {
     
-    const res = await instance.post("/api/admin/black-list", {
+    const res = await instanceAPI.post("/api/admin/black-list", {
         data: {
             id:id,
             statusType:statusType
@@ -18,12 +18,12 @@ export const blackListUsers = async (id,statusType = '') => {
 }
 
  export const getBlackListedUsers = async (offset) => {
-     const res = await instance.get(`/api/admin/black-list?offset=${offset}`)
+     const res = await instanceAPI.get(`/api/admin/black-list?offset=${offset}`)
      return res.data
  }
 
  export const unBlockUsers = async (id) => {
-    const res = await instance.post("/api/admin/unblock", {
+    const res = await instanceAPI.post("/api/admin/unblock", {
         data:{
             id:id
         }
@@ -33,17 +33,17 @@ export const blackListUsers = async (id,statusType = '') => {
 
 
 export const  reportedUsers = async  (offset) => {
-    const res = await instance.get(`/api/admin/reported?offset=${offset}`)
+    const res = await instanceAPI.get(`/api/admin/reported?offset=${offset}`)
     return res.data
 }
 
 export const getUncheckedUsers = async  (offset) => {
-    const res = await instance.get(`/api/admin/check?offset=${offset}`)
+    const res = await instanceAPI.get(`/api/admin/check?offset=${offset}`)
     return res.data
 }
 
 export const postCheckUser = async  (id) => {
-    const res = await instance.post("/api/admin/check", {
+    const res = await instanceAPI.post("/api/admin/check", {
         data:{
             id:id
         }

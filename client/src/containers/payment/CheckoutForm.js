@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {injectStripe} from 'react-stripe-elements';
 import Checkout  from '../../components/payment/CheckouForm'
 import { validate, validateEmail } from "../../Utils/validation";
-
+import {postPayment } from '../../api/payment'
 import axios from 'axios'
-
-
+import { connect } from 'react-redux'
+import { fetchMembership } from '../../redux/membership/operators'
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,6 @@ class CheckoutForm extends Component {
       requestError:false,
       loading:false,
       success:false,
-      memberMsg:false
     }
     this.submit = this.submit.bind(this);
     this.handleCardChange =  this.handleCardChange.bind(this)
@@ -29,9 +28,7 @@ class CheckoutForm extends Component {
 
 
   async componentDidMount(){
-    const res = await axios.get('/api/membership')
-    this.setState({memberMsg:res.data.member})
-
+     this.props.fetchMembership()
   }
 
   handleCardChange (e){
@@ -58,21 +55,25 @@ class CheckoutForm extends Component {
      const emailVal = validateEmail(email)
      const cardNameVal = validate(cardName)
     
-     
+  
      if(cardNumber && cardCvc && cardExpiry && cardNameVal.status && emailVal.status){
      
       this.setState({loading:true})
 
        const {token} = await this.props.stripe.createToken({name: cardName,email:email});
-       const response = await axios.post( "/api/payment",{ token });
-       const { status } = response.data;
-       console.log(status)
+       const response = await postPayment(token)
+       const { status } = response;
+
       if (status === "success") {
-        this.setState({loading:false, success:true,formError:false,requestError:false})
+        this.setState({
+          loading:false, 
+          success:true,
+          formError:false,
+          requestError:false
+        })
       } else {
         this.setState({requestError:true})
       }
-        
      } else { 
        this.setState({formError:true})
      }
@@ -81,8 +82,9 @@ class CheckoutForm extends Component {
 
   
   render() {
-    const { formError, requestError, loading, success, memberMsg} = this.state
-    const { submit, handleCardChange, handleInputChange, } = this
+    const { formError, requestError, loading, success} = this.state
+    const { submit, handleCardChange, handleInputChange} = this
+    const {member } = this.props
     return (
       <div className="checkout">
          <Checkout  
@@ -93,11 +95,15 @@ class CheckoutForm extends Component {
            requestError={requestError}
            loading={loading}
            success={success}
-           memberMsg={memberMsg}
+           memberMsg={member}
          />
       </div>
     );
   }
 }
 
-export default injectStripe(CheckoutForm);
+const mapState = state => ({
+  member:state.member.member
+})
+
+export default connect(mapState, {fetchMembership})(injectStripe(CheckoutForm));

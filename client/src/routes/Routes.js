@@ -30,7 +30,7 @@ const Routes = () => (
       <Switch>
         <Route exact path='/' component={Jobs} />
         <Route exact path='/jobs' component={Jobs} />
-        <Route exact path='/chat' component={withAuthEmployer(Chat)} />
+        <Route exact path='/chat' component={Chat} />
         <Route exact path='/chat/:room' component={ChatRoom} />
         <Route exact path='/candidate-details/:id' component={withAuthEmployer(CandidateDetails)} />
         <Route exact path='/search-candidate' component={withAuthEmployer(Candidates)} />
