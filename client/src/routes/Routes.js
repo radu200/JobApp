@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter,Switch, Route } from 'react-router-dom';
-import Jobs from '../containers/search/JobsPage';
+import Jobs from '../containers/search/JobsContainer';
 import Candidates from '../containers/search/CandidatesPage';
 import CandidateDetails from '../containers/search/CandidateDetails';
 import ApplicantsActive from '../containers/jobApplication/ApplicantsActive';
@@ -16,7 +16,7 @@ import BlackList from '../containers/adminDashboard/BlackListedUsers'
 import LoginErr from '../components/Pages/LoginErr'
 
 import Checkout from '../containers/payment/Checkout'
-import  withMembership  from '../HOC/membership/withMembership'
+
 
 // auth
 import  withAuth from '../HOC/auth/Auth'

@@ -40,7 +40,7 @@ const SelectInput = ({
         value={value}
         onChange={onChange}
         input={
-          <OutlinedInput labelWidth={70} name={name} id="outlined-age-simple" />
+          <OutlinedInput labelWidth={70} name={name} />
         }>
         {elements.map((element, index) => {
           return (

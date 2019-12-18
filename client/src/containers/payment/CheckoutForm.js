@@ -3,9 +3,10 @@ import {injectStripe} from 'react-stripe-elements';
 import Checkout  from '../../components/payment/CheckouForm'
 import { validate, validateEmail } from "../../Utils/validation";
 import {postPayment } from '../../api/payment'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import { fetchMembership } from '../../redux/membership/operators'
+import { getMemberSelector } from "../../redux/membership/selectors";
+
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -84,7 +85,7 @@ class CheckoutForm extends Component {
   render() {
     const { formError, requestError, loading, success} = this.state
     const { submit, handleCardChange, handleInputChange} = this
-    const {member } = this.props
+    const { member } = this.props
     return (
       <div className="checkout">
          <Checkout  
@@ -103,7 +104,7 @@ class CheckoutForm extends Component {
 }
 
 const mapState = state => ({
-  member:state.member.member
+  member:getMemberSelector(state)
 })
 
 export default connect(mapState, {fetchMembership})(injectStripe(CheckoutForm));
