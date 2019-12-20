@@ -7,7 +7,7 @@ import { removeState } from './Utils/persistState'
 class App extends Component {
   
   render() {
-    // remove state from local storage with socket.io
+    //remove state from local storage with socket.io
     removeState()
     return (
       <div className="App">
