@@ -25,7 +25,7 @@ const JobsPage = ({
     classes,
     handleSubmit,
     handleInputChange,
-    handleClick,
+    getJobId ,
     formErrors,
     query,
     jobs,
@@ -69,7 +69,7 @@ const JobsPage = ({
           <Grid container spacing={2}>
            {loading && <Loading/>}
             {jobs.length > 0 ? (
-              <JobCard job={jobs} handleClick={handleClick} />
+              <JobCard job={jobs} getJobId={getJobId} />
             ) : (
               <h2>Nu ma gasit nici un post de munca</h2>
             )}

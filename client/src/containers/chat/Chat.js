@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import io from 'socket.io-client';
 import ChatForm from '../../components/Forms/ChatForm'
-const socket = io('http://localhost:8000');
+const socket = io();
 
 
 
@@ -18,12 +18,12 @@ class Chat extends Component {
        this.onSubmit = this.onSubmit.bind(this)
     }
 
-    // componentDidMount(){
-    //   socket.on('message', msg => {
-    //     this.setState({msg})
-    //   })
+    componentDidMount(){
+      socket.on('msg', msg => {
+         console.log(msg)
+      })
      
-    // }
+    }
   
     handleChange(e){
       const { value } = e.target
@@ -43,6 +43,7 @@ class Chat extends Component {
         //  console.log('message delivered')
       })
       await socket.on('message', msg => {
+        console.log(msg)
         this.setState(prev => ({
           msg:[...this.state.msg,msg],
           // msgInput:''

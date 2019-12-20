@@ -1,4 +1,4 @@
-import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS } from './constants'
+import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID } from './constants'
 
 
 
@@ -23,3 +23,9 @@ export const failureJobs = err => {
     }
 }
 
+export const getJobId = id => {
+    return {
+         type:GET_JOB_ID,
+         id
+    }
+}

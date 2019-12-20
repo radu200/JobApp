@@ -148,6 +148,7 @@ app.use(function(req, res, next) {
 });
 
 
+app.set('socketio', io);
 
 require('./routes/routes.js')(app);
 

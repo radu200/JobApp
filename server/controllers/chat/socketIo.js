@@ -10,6 +10,8 @@ module.exports = (io) => {
             //save sender receiver id and messages
 
         })
+        socket.emit('msg', 'some msg')
+        
         console.log('new websocket', socket.id)
 
         socket.on('sendMessage',(msg, callback) => {

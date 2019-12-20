@@ -2,18 +2,27 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './rootReducer';
+import {loadState, saveState } from '../Utils/persistState'
+import throttle from 'lodash/throttle'
 
-const initialState = {};
+const persistedState = loadState()
+
 
 const middleware = [thunk];
 
 const store = createStore(
   rootReducer,
-  initialState,
+  persistedState,
   compose(
-      applyMiddleware(...middleware),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    )
   )
-)
+
+  //with throttle only writes to localstorage at most once in a second
+  store.subscribe(throttle(() => {
+    saveState(store.getState())  
+
+  },1000))
 
 export default store;

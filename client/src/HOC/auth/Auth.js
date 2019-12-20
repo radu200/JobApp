@@ -2,14 +2,25 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {fetchRole } from '../../redux/auth/operators'
 import {getAuthSelector, getRoleSelector } from '../../redux/auth/selectors'
+import { loadState } from '../../Utils/persistState'
 
 const withAuth = (Wrap) => {
-
-class Auth  extends Component {
+  class Auth  extends Component {
    componentDidMount(){
-      this.props.fetchRole()
+      this.getAuth()
    }
 
+   getAuth = () => {
+      const data = loadState()
+      if(data && data.auth.role!== null && data.auth.auth !== null){
+          return{ role: data.auth.role, auth:data.auth.auth}
+       } else {
+         const {fetchRole, role,auth } = this.props
+         fetchRole()
+         return { auth, role}
+        }
+      }
+   
    render(){
        return <Wrap {...this.props}  />
       }

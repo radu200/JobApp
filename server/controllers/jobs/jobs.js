@@ -202,7 +202,6 @@ module.exports.getJobsPage = async (req, res, next) => {
   const [jobs] = await db.execute(textSqlJobs, [false]);
  
   results.jobs =  jobs
-   
   res.json(results);
   } catch (err) {
     res.status(500).json(err)

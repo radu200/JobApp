@@ -1,10 +1,12 @@
 const passport = require("passport");
 const urlPaths = require("../../utils/url-paths");
-
+  
 module.exports.getLogin = (req, res, next) => {
+
   if (req.isAuthenticated()) {
     res.redirect(urlPaths.profile);
   } else {
+     
     res.render("authentication/common/login");
   }
 };
@@ -32,13 +34,17 @@ module.exports.postLogin = (req, res, next) => {
 
 module.exports.getLogout = function(req, res, next) {
   req.logout();
+  let io = req.app.get('socketio');
+  io.emit('removeLocalStorage')
+
+
   req.session.destroy(function(err) {
     if (err) {
       return next(err);
     } else {
       // destroy session data
       req.session = null;
-
+ 
       res.redirect(urlPaths.login);
     }
   });

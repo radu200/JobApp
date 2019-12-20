@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { cities } from "../../api/cities";
-import { getJobs, searchJobs, getMoreJobs } from "../../api/jobs";
+import { getJobs, searchJobs } from "../../api/jobs";
 import { validate } from "../../Utils/validation";
 import { categories } from "../../api/categories";
 import {fetchJobs } from '../../redux/jobs/operators'
 import { connect } from 'react-redux';
 import {compose } from 'redux'
-import { getJobsSelector, getLaodingSelector} from  '../../redux/jobs/selectors'
+import { getJobId } from '../../redux/jobs/actions'
+import { getJobsSelector, getLoadingSelector, getCurrentPageSelector, getNextPageSelector, getPrevPageSelector} from  '../../redux/jobs/selectors'
 import JobsPage from '../../components/Pages/Jobs/JobsPage'
-import { getLoadingSelector } from "../../redux/auth/selectors";
+import queryString from 'query-string'
+import Pagination from '../../components/Pagination/Pagination'
+
+
 
 class JobsContainer extends Component {
   constructor(props) {
@@ -24,47 +28,23 @@ class JobsContainer extends Component {
         searchError: "",
         locationError: ""
       },
-      error: ""
+       error: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleNextPage = this.handleNextPage.bind(this)
+    this.handlePrevPage= this.handlePrevPage.bind(this)
+    this.getJobId = this.getJobId.bind(this)
   }
 
   async componentDidMount() {
-    const page =  1
-    this.props.fetchJobs(page)
-    // const { offset } = this.state;
-    // const url = `/api/jobs?offset=${offset}`;
-    // try {
-    //   const data = await getJobs(offset);
-
-    //   this.setState({
-    //     jobs: data.jobs,
-    //     url,
-    //     offset: offset + 12
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    const {currentPage, fetchJobs,history} = this.props
+    await history.push(`/jobs/?page=${currentPage}`)
+    const value=queryString.parse(this.props.location.search);
+    fetchJobs(value.page)
   }
 
-
-
-  getMoreJobs = async () => {
-    const { url, offset, jobs } = this.state;
-
-    try {
-      const data = await getMoreJobs(url, offset);
-      this.setState({
-        jobs: [...jobs, ...data.jobs],
-        offset: offset + 12
-
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   handleInputChange(event) {
     const target = event.target;
@@ -117,15 +97,34 @@ class JobsContainer extends Component {
       }));
     }
   }
-   handleClick(id){
-   //job card click
-   console.log(id)
+
+
+   getJobId(id){
+     const { history, getJobId } = this.props
+     getJobId(id)
+     history.push(`/job/details`)
    }
+
+ 
+
+  handleNextPage(){
+   const {nextPage, fetchJobs, history} = this.props
+   history.push(`/jobs/?page=${nextPage}`)
+   fetchJobs(nextPage)
+
+  }
+
+  handlePrevPage(){
+    const { prevPage, fetchJobs, history} = this.props
+    history.push(`/jobs/?page=${prevPage}`)
+    fetchJobs(prevPage)
+  }
+ 
 
   render() {
     const { query, formErrors, location, searchLen} = this.state;
-    const { handleSubmit, handleInputChange, getMoreJobs , handleClick} = this;
-    const {jobs,loading } = this.props
+    const { handleSubmit, handleInputChange, getMoreJobs , getJobId, handleNextPage, handlePrevPage, } = this;
+    const {jobs,loading, currentPage, prevPage, nextPage, totalPages} = this.props
 
     return (
       <>
@@ -135,14 +134,24 @@ class JobsContainer extends Component {
             location={location}
             jobs={jobs}
             searchLen={searchLen}
-            handleClick={handleClick}
+            getJobId={getJobId}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
             getMoreJobs={getMoreJobs}
             cities={cities}
             categories={categories}
             loading={loading}
+            
         />
+       <Pagination
+          currentPage={currentPage}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          pages={totalPages}
+       />
+     
       </>
     );
   }
@@ -150,8 +159,11 @@ class JobsContainer extends Component {
 
 
 const mapState = state => ({
-  jobs:getJobsSelector(state),
-  loading:getLoadingSelector(state)
-})
+    jobs:getJobsSelector(state),
+    loading:getLoadingSelector(state),
+    currentPage:getCurrentPageSelector(state),
+    nextPage:getNextPageSelector(state),
+    prevPage:getPrevPageSelector(state),
+  })
 
-export default compose(connect(mapState,{fetchJobs}))(JobsContainer);
+export default compose(connect(mapState,{fetchJobs, getJobId}))(JobsContainer);

@@ -2,23 +2,39 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {fetchRole } from '../../redux/auth/operators'
 import {getAuthSelector, getRoleSelector } from '../../redux/auth/selectors'
+import { loadState } from '../../Utils/persistState'
 
 const withAuthJobSeeker = (Wrap) => {
-
-class JobSeeker extends Component {
+   class JobSeeker extends Component {
    componentDidMount(){
-      this.props.fetchRole()
+      this.getUserData()
    }
 
    componentDidUpdate() {
-      this.shouldNavigateAway();
+      this.getUserData()
+
     }
 
-    shouldNavigateAway() {
-      const { role, auth , history} = this.props
+    shouldNavigateAway(auth,role){
+      const { history } = this.props
       if (!auth || role !== 'jobseeker' ) {
-         history.push('/login-err');
+         return history.push('/login-err');
       }
+    }
+
+    async getUserData() {
+      //  loading state from local storage
+       const data = loadState()
+       
+       if(data && data.auth.role !== null && data.auth.auth !== null){
+          const { auth, role } = data.auth 
+          this.shouldNavigateAway(auth, role)
+         } else {
+            const { role,auth, } = this.props
+            this.props.fetchRole()
+            this.shouldNavigateAway(auth,role)
+       }
+
     }
 
    render(){

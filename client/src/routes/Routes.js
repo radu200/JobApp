@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter,Switch, Route } from 'react-router-dom';
-import Jobs from '../containers/search/JobsContainer';
+import JobsList from '../containers/search/JobsListContainer';
+import JobDetails from '../containers/search/JobDetailsContainer';
+
 import Candidates from '../containers/search/CandidatesPage';
 import CandidateDetails from '../containers/search/CandidateDetails';
 import ApplicantsActive from '../containers/jobApplication/ApplicantsActive';
@@ -28,8 +30,9 @@ const Routes = () => (
   <main>
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={Jobs} />
-        <Route exact path='/jobs' component={Jobs} />
+        <Route exact path='/' component={JobsList} />
+        <Route exact path='/jobs' component={JobsList} />
+        <Route exact path='/job/details' component={JobDetails} />
         <Route exact path='/chat' component={Chat} />
         <Route exact path='/chat/:room' component={ChatRoom} />
         <Route exact path='/candidate-details/:id' component={withAuthEmployer(CandidateDetails)} />

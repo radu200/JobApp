@@ -63,11 +63,6 @@ module.exports.authRole = (req, res) => {
       'role': req.user.type,
       'auth': true
     })
-  } else {
-    res.json({
-      'role': 'Unauthenticated',
-      'auth': false
-    })
   }
 }
 

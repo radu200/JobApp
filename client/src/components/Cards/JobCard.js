@@ -10,8 +10,10 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { JobDetailsUrl } from "../../Utils/Paths/UrlPaths";
-import { SalaryCurrency, MoreMsg } from "./../../Utils/messages";
+import { SalaryCurrency,} from "./../../Utils/messages";
 import NoJobImage from "../../images/no_job_image.png";
+
+
 const styles = {
   JobDetails: {
     textDecoration: "none",
@@ -28,13 +30,11 @@ const styles = {
   }
 };
 
-const JobCard = ({ job, classes, handleClick}) => {
+const JobCard = ({ job, classes, getJobId}) => {
   return job.map(job => {
-    const jobDetailPath = `${JobDetailsUrl}${job.id}`;
-
     return (
       <Grid key={job.id} item xs={12} sm={6} md={4}>
-        <Card className={classes.card} onClick={() => handleClick(job.id)}>
+        <Card className={classes.card} onClick={() => getJobId(job.id)}>
           <CardActionArea>
             {job.image ? (
               <CardMedia
@@ -72,11 +72,6 @@ const JobCard = ({ job, classes, handleClick}) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary">
-              <a className={classes.JobDetails} href={'/checkout'}>
-                {MoreMsg}
-              </a>
-            </Button>
           </CardActions>
         </Card>
       </Grid>
