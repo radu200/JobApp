@@ -1,4 +1,4 @@
-import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID } from './constants'
+import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID} from './constants'
  
 const initialState = {
     jobs:[],

@@ -1,3 +1,1 @@
-GET http://localhost:8000/api/jobs?page=2
-
-
+post http://localhost:8000/api/search/job

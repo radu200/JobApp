@@ -20,9 +20,9 @@ const store = createStore(
   )
 
   //with throttle only writes to localstorage at most once in a second
-  store.subscribe(throttle(() => {
-    saveState(store.getState())  
+  // store.subscribe(throttle(() => {
+  //   saveState(store.getState())  
 
-  },1000))
+  // },1000))
 
 export default store;

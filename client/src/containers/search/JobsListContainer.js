@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { cities } from "../../api/cities";
-import { getJobs, searchJobs } from "../../api/jobs";
 import { validate } from "../../Utils/validation";
 import { categories } from "../../api/categories";
-import {fetchJobs } from '../../redux/jobs/operators'
+import {fetchJobs} from '../../redux/jobs/operators'
 import { connect } from 'react-redux';
 import {compose } from 'redux'
 import { getJobId } from '../../redux/jobs/actions'
-import { getJobsSelector, getLoadingSelector, getCurrentPageSelector, getNextPageSelector, getPrevPageSelector} from  '../../redux/jobs/selectors'
+import { 
+   getJobsSelector, 
+   getLoadingSelector, 
+   getCurrentPageSelector, 
+   getNextPageSelector, 
+   getPrevPageSelector 
+  } from  '../../redux/jobs/selectors'
 import JobsPage from '../../components/Pages/Jobs/JobsPage'
 import queryString from 'query-string'
 import Pagination from '../../components/Pagination/Pagination'
@@ -18,17 +23,8 @@ class JobsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobs: [],
-      offset: 0,
-      query: "",
-      location: "",
-      searchLen: null,
-      url: "",
-      formErrors: {
-        searchError: "",
-        locationError: ""
-      },
-       error: ""
+       category: "",
+       location: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,10 +35,11 @@ class JobsContainer extends Component {
   }
 
   async componentDidMount() {
-    const {currentPage, fetchJobs,history} = this.props
-    await history.push(`/jobs/?page=${currentPage}`)
-    const value=queryString.parse(this.props.location.search);
-    fetchJobs(value.page)
+    const {currentPage,history,fetchJobs} = this.props
+    const { location, category } = this.state
+    await history.push(`/jobs?location=${location}&category=${category}&page=${currentPage}`)
+    const value= await queryString.parse(this.props.location.search);
+    fetchJobs(value.location,value.category,value.page)
   }
 
 
@@ -58,44 +55,13 @@ class JobsContainer extends Component {
   //submit form
   async handleSubmit(event) {
     event.preventDefault();
+    const {currentPage,history} = this.props
+    const { category, location } = this.state;
 
-    const { query, location } = this.state;
-    const queryVal = validate(query);
-    const locationVal = validate(location);
+     await this.props.fetchJobs(location,category)
+     
+     await history.push(`/jobs?location=${location}&category=${category}&page=${currentPage}`)
 
-    if (queryVal.status && locationVal.status) {
-      const url = `/api/search/job?search_query=${this.state.query}&location=${this.state.location}`;
-
-      try {
-        const offset = 0;
-        const data = await searchJobs(query, location, offset);
-        const searchLen = data.jobs.length;
-        this.setState({
-          jobs: [...data.jobs],
-          url,
-          offset: offset + 12,
-          searchLen
-        });
-
-        this.setState(prevState => ({
-          formErrors: {
-            ...prevState.formErrors,
-            locationError: "",
-            searchError: ""
-          }
-        }));
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      this.setState(prevState => ({
-        formErrors: {
-          ...prevState.formErrors,
-          locationError: locationVal.error,
-          searchError: queryVal.error
-        }
-      }));
-    }
   }
 
 
@@ -107,37 +73,38 @@ class JobsContainer extends Component {
 
  
 
-  handleNextPage(){
-   const {nextPage, fetchJobs, history} = this.props
-   history.push(`/jobs/?page=${nextPage}`)
-   fetchJobs(nextPage)
+  async handleNextPage(){
+   const {nextPage, history, fetchJobs} = this.props
+   const value= await queryString.parse(this.props.location.search);
+   const { location, category } = value
+   await fetchJobs(location,category,nextPage)
+    history.push(`/jobs?location=${location}&category=${category}&page=${nextPage}`)
 
   }
 
-  handlePrevPage(){
-    const { prevPage, fetchJobs, history} = this.props
-    history.push(`/jobs/?page=${prevPage}`)
-    fetchJobs(prevPage)
+ async  handlePrevPage(){
+    const {fetchJobs, history, prevPage} = this.props
+    const value = await queryString.parse(this.props.location.search);
+    const { location, category } = value
+     await fetchJobs(location,category,prevPage)
+     history.push(`/jobs?location=${location}&category=${category}&page=${prevPage}`)
   }
  
 
   render() {
-    const { query, formErrors, location, searchLen} = this.state;
-    const { handleSubmit, handleInputChange, getMoreJobs , getJobId, handleNextPage, handlePrevPage, } = this;
+    const { category, location} = this.state;
+    const { handleSubmit, handleInputChange, getJobId, handleNextPage, handlePrevPage, } = this;
     const {jobs,loading, currentPage, prevPage, nextPage, totalPages} = this.props
 
     return (
       <>
         <JobsPage
-            query={query}
-            formErrors={formErrors}
+            category={category}
             location={location}
             jobs={jobs}
-            searchLen={searchLen}
             getJobId={getJobId}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
-            getMoreJobs={getMoreJobs}
             cities={cities}
             categories={categories}
             loading={loading}
@@ -163,7 +130,7 @@ const mapState = state => ({
     loading:getLoadingSelector(state),
     currentPage:getCurrentPageSelector(state),
     nextPage:getNextPageSelector(state),
-    prevPage:getPrevPageSelector(state),
+    prevPage:getPrevPageSelector(state)
   })
 
 export default compose(connect(mapState,{fetchJobs, getJobId}))(JobsContainer);

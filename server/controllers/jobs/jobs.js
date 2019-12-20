@@ -134,6 +134,7 @@ module.exports.JobApplicationApplicantsShortList = async (req, res) => {
   }
 };
 
+
 //list of jobs that jobseeker applied, appear on jobseeker profile
 module.exports.JobApplicationJobSeeker = async (req, res) => {
   const userType = req.user.type;
@@ -157,6 +158,9 @@ module.exports.JobApplicationJobSeeker = async (req, res) => {
   }
 };
 
+
+
+
 module.exports.getJobsPage = async (req, res, next) => {
   
   // const page = req.body.page;
@@ -171,6 +175,7 @@ module.exports.getJobsPage = async (req, res, next) => {
     const db = await dbPromise;
     const [rows ] = await db.execute("select count(*) total from jobs")
     const totalJobs = rows[0].total
+
     results.total = {
       jobs:totalJobs,
       limit: limit
@@ -203,6 +208,7 @@ module.exports.getJobsPage = async (req, res, next) => {
  
   results.jobs =  jobs
   res.json(results);
+
   } catch (err) {
     res.status(500).json(err)
   }

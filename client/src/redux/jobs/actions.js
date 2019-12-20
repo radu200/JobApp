@@ -1,4 +1,4 @@
-import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID } from './constants'
+import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID, SEARCH_JOBS } from './constants'
 
 
 
@@ -29,3 +29,4 @@ export const getJobId = id => {
          id
     }
 }
+

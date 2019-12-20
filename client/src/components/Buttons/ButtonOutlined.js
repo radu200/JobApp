@@ -27,7 +27,7 @@ const ButtonOutlined = ({ onClick, classes, buttonText }) => {
 };
 
 ButtonOutlined.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  onClick: PropTypes.func,
+  classes: PropTypes.object
 };
 export default withStyles(styles)(ButtonOutlined);

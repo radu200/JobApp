@@ -26,11 +26,8 @@ const JobsPage = ({
     handleSubmit,
     handleInputChange,
     getJobId ,
-    formErrors,
-    query,
+    category,
     jobs,
-    getMoreJobs,
-    searchLen,
     categories,
     location,
     cities,
@@ -46,7 +43,6 @@ const JobsPage = ({
                 <SelectInput
                   onChange={handleInputChange}
                   value={location}
-                  error={formErrors.locationError}
                   elements={cities}
                   title="Locatie"
                   name="location"
@@ -56,16 +52,14 @@ const JobsPage = ({
                   type="search"
                   title="Categorii"
                   onChange={handleInputChange}
-                  value={query}
-                  name="query"
+                  value={category}
+                  name="category"
                   elements={categories}
-                  error={formErrors.searchError}
                 />
                 <SearchButton buttonText="Cauta" />
               </form>
             </Grid>
           </Grid> 
-          {searchLen !== null ? <h2>Rezultat: {jobs.length}</h2> : null}
           <Grid container spacing={2}>
            {loading && <Loading/>}
             {jobs.length > 0 ? (
@@ -74,13 +68,7 @@ const JobsPage = ({
               <h2>Nu ma gasit nici un post de munca</h2>
             )}
           </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12}>
-              {jobs.length >= 12 ? (
-                <GetMoreButton onClick={getMoreJobs} buttonText="Mai Mult" />
-              ) : null}
-            </Grid>
-          </Grid>
+         
         </div>
     </>
     )

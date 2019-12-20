@@ -2,24 +2,75 @@ const { dbPromise } = require("../.././config/database.js");
 const msg = require(".././utils/messages");
 
 module.exports.searchJobs = async (req, res, next) => {
-  const searchVal = req.query.search_query;
-  const offset = req.body.offset;
-  const city = req.query.location;
-  const limit = 12;
+  const searchVal = req.query.search_query || null;
+  const page = parseInt(req.query.page) || 1;
+  const city = req.query.location || null;
+  const limit = 6;
+
+  const startIndex = (page - 1) * limit
+  const endIndex = page * limit
+  const results = {}
+
   try {
-    //validation
-    if (searchVal === "" || searchVal.length > 70 || city === "" || city.length > 70) {
-      return false;
+   
+    const db = await dbPromise;
+     
+
+     const sqlCity = `AND city  LIKE '%${city}%'`
+     const sqlCategory = `AND  category LIKE '%${searchVal}%'`
+     const sqlLimit =  `LIMIT ${limit} OFFSET ${startIndex}`
+     let sqlCount = `SELECT count(*) total FROM jobs WHERE blacklist = ?`;
+     let sqlJobs  = `SELECT * from  jobs  WHERE blacklist = ?`
+      if(searchVal !== null && city !== null){
+        sqlCount = `${sqlCount} ${sqlCity} ${sqlCategory}`
+        sqlJobs  = `${sqlJobs} ${sqlCity} ${sqlCategory} ${sqlLimit}`
+      }
+      else if(searchVal !== null){
+        sqlCount = `${sqlCount} ${sqlCategory}`
+        sqlJobs = `${sqlJobs} ${sqlCategory} ${sqlLimit}`
+
+     } else if(city !== null){
+        sqlCount = `${sqlCount} ${sqlCity} `
+        sqlJobs  = `${sqlJobs} ${sqlCity} ${sqlLimit}`
+     } else {
+         sqlJobs = `${sqlJobs} ${sqlLimit}`
+     }
+ 
+      const [rows ] = await await db.query(sqlCount, ["no"]);
+      const [jobs] = await db.query(sqlJobs, ["no"]);
+      
+      const totalJobs = rows[0].total
+
+      results.total = {
+        jobs:totalJobs,
+        limit: limit
+  
+      }
+      results.current = {
+        page:page,
+        limit: limit
+  
+      }
+      if (endIndex  < totalJobs) {
+      results.next = {
+        page: page + 1,
+        limit: limit
+      }
     }
-      const db = await dbPromise;
-      const sql = `SELECT jobs.*, users.id, users.blacklist FROM jobs LEFT JOIN users ON jobs.employer_id = users.id WHERE users.blacklist = ? AND  jobs.category LIKE '%${searchVal}%' AND jobs.city  LIKE '%${city}%'  LIMIT ${limit} OFFSET ${offset}`;
-      const [results] = await db.query(sql, ["no"]);
-      res.json({
-        jobs: results,
-      });
+
+    if (startIndex > 0 ) {
+      results.previous = {
+        page: page - 1,
+        limit: limit
+      }
+    }
+
+      
+      results.jobs =  jobs
+      res.json(results);
     
   } catch (err) {
-    res.json(msg.error);
+    res.status(500).json(err)
   }
 };
 

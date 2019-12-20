@@ -7,9 +7,9 @@ export const  getJobs = async (page) => {
 }
 
 
-export const searchJobs = async  (query, location, offset) => {
-    const url = `/api/search/job?search_query=${query}&location=${location}`
-    const res =  await instanceAPI.post(url,{offset:offset})
+export const postSearchJobs = async  (location,category, page) => {
+    const url = `/api/search/job?location=${location}&search_query=${category}&page=${page}`
+    const res =  await instanceAPI.post(url)
     return res.data
 }
 
