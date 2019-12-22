@@ -13,9 +13,6 @@ export const getNextPageSelector = state => state.jobs.nextPage;
 
 export const getPrevPageSelector = state => state.jobs.prevPage;
 
-export const getApplyJobStatus = state => state.jobs.jobApplication
-
-
 
 const  appliedJobs = state => state.jobs.appliedJobs
 

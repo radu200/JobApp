@@ -15,7 +15,7 @@ const styles = theme => ({
     }
   });
   
-const JobDetailsPage =  ({job, classes,handleApplyJob, loading, error, jobStatus, appliedJob}) => {
+const JobDetailsPage =  ({job, classes,handleApplyJob, loading, error, appliedJob}) => {
     return (
         <>
            <MainNav/>
@@ -25,7 +25,6 @@ const JobDetailsPage =  ({job, classes,handleApplyJob, loading, error, jobStatus
                     <JobDetailsCard 
                           job={job} 
                           handleApplyJob={handleApplyJob}
-                          jobStatus={jobStatus}
                           appliedJob={appliedJob}
                           error={error}
                           loading={loading}

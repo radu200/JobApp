@@ -11,7 +11,6 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import CardActions from "@material-ui/core/CardActions";
 import Loading from '../../Utils/Loading'
-import Err from '../../Utils/Err'
 const styles = {
   
   card: {
@@ -23,11 +22,8 @@ const JobDetail = ({
    classes,
    handleApplyJob,
    loading,
-   jobStatus,
    appliedJob,
-   error
   }) => {
-    console.log(jobStatus)
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -53,16 +49,27 @@ const JobDetail = ({
         )}
       </CardActionArea>
       <CardActions>
-        {loading ? <Loading/> :
-
-        <Button variant="contained" color="secondary" size="large"  disabled={jobStatus} fullWidth onClick={() => handleApplyJob(job.id)}>
-          Aplica acum
-        </Button> }
-       
+        {loading ? (
+          <Loading />
+        ) : (
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            disabled={appliedJob}
+            fullWidth
+            onClick={() => handleApplyJob(job.id)}
+          >
+            {appliedJob ? (
+              <Box component="span">Aplicat</Box>
+            ) : (
+              <Box component="span">Aplica acum</Box>
+            )}
+          </Button>
+        )}
       </CardActions>
       <CardActionArea>
         <CardContent>
-        
           <Typography gutterBottom variant="h5" component="h2">
             {job.position}
           </Typography>
