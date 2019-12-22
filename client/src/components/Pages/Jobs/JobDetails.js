@@ -15,14 +15,21 @@ const styles = theme => ({
     }
   });
   
-const JobDetailsPage =  ({job, classes}) => {
+const JobDetailsPage =  ({job, classes,handleApplyJob, loading, error, jobStatus, appliedJob}) => {
     return (
         <>
            <MainNav/>
            <div className={classes.root} >
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={6}>
-                    <JobDetailsCard job={job}/>
+                    <JobDetailsCard 
+                          job={job} 
+                          handleApplyJob={handleApplyJob}
+                          jobStatus={jobStatus}
+                          appliedJob={appliedJob}
+                          error={error}
+                          loading={loading}
+                       />
                 </Grid>
             </Grid>
           </div>

@@ -1,24 +1,23 @@
 import { instanceAPI} from './InstanceApi'
 
-
-export const  getJobs = async (page) => {
-    const res = await instanceAPI.get(`/api/jobs?page=${page}`)
-    return res.data
-}
-
-
-export const postSearchJobs = async  (location,category, page) => {
+export const getJobs = async  (location,category, page) => {
     const url = `/api/search/job?location=${location}&search_query=${category}&page=${page}`
     const res =  await instanceAPI.post(url)
     return res.data
 }
 
-export const getMoreJobs = async (url, offset) => {
-    const res =  await instanceAPI.post(url, {
-        offset
-    })
+export const postApplyJob = async  (jobId) => {
+    const url = `/api/apply/job?job_id=${jobId}`
+    const res =  await instanceAPI.post(url)
+    return res
+}
+
+export const checkAppliedJobs = async  () => {
+    const url = `/api/job/applied`
+    const res =  await instanceAPI.get(url)
     return res.data
 }
+
 
 ///jobseeker applications
 export const getJobseekerApplications = async (offset) => {

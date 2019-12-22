@@ -12,7 +12,7 @@ const withAuth = (Wrap) => {
 
    getAuth = () => {
       const data = loadState()
-      if(data && data.auth.role!== null && data.auth.auth !== null){
+      if(data && data.auth.role !== null && data.auth.auth !== null){
           return{ role: data.auth.role, auth:data.auth.auth}
        } else {
          const {fetchRole, role,auth } = this.props

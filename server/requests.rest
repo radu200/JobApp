@@ -1,1 +1,1 @@
-post http://localhost:8000/api/search/job
+GET http://localhost:8000/api/job/applied

@@ -1,7 +1,8 @@
-import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID} from './constants'
+import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID, APPLY_JOB_SUCCESS, CHECK_APPLIED_JOBS} from './constants'
  
 const initialState = {
     jobs:[],
+    appliedJobs:[],
     loading:null,
     err:null,
     totalCount:0,
@@ -9,7 +10,8 @@ const initialState = {
     nextPage:0,
     prevPage:0,
     pageSize:0,
-    jobId:null
+    jobId:null,
+    jobApplication:'applied'
 }
 
 export const  jobsReducer = (state = initialState, action) => { 
@@ -29,6 +31,10 @@ export const  jobsReducer = (state = initialState, action) => {
             return {...state, loading:false, err:true}
         case GET_JOB_ID:
              return {...state, jobId:action.id}
+        case APPLY_JOB_SUCCESS:
+             return {...state, loading:false, jobApplication:action.data}
+        case  CHECK_APPLIED_JOBS:
+             return {...state, loading:false, appliedJobs:action.data}
         default:
             return state
     }

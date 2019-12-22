@@ -39,13 +39,15 @@ const JobsPage = ({
          <div className={classes.root}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
-              <form onSubmit={handleSubmit}>
+             
+              <form onSubmit={handleSubmit} data-test="jobs-form">
                 <SelectInput
                   onChange={handleInputChange}
                   value={location}
                   elements={cities}
                   title="Locatie"
                   name="location"
+                  dataTest="location"
                 />
 
                 <SelectInput
@@ -55,18 +57,20 @@ const JobsPage = ({
                   value={category}
                   name="category"
                   elements={categories}
+                  dataTest="category"
                 />
-                <SearchButton buttonText="Cauta" />
-              </form>
+                <SearchButton data-test="submit-jobs" buttonText="Cauta" />
+              </form> 
             </Grid>
           </Grid> 
+          {loading && <Loading/> }
           <Grid container spacing={2}>
-           {loading && <Loading/>}
             {jobs.length > 0 ? (
               <JobCard job={jobs} getJobId={getJobId} />
             ) : (
               <h2>Nu ma gasit nici un post de munca</h2>
             )}
+           
           </Grid>
          
         </div>

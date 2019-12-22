@@ -1,4 +1,4 @@
-import {instanceAPI } from './InstanceApi'
+import { instanceAPI } from './InstanceApi'
 
 export const  membership = async () => {
     const url = `/api/membership`;

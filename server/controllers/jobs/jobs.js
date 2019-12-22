@@ -5,11 +5,28 @@ const sharp = require("sharp");
 const urlPaths = require(".././utils/url-paths");
 const msg = require(".././utils/messages");
 
+
+
+module.exports.checkAppliedJobs = async (req,res) => {
+  try {
+    // if(req.isAuthenticated()){
+      // if(req.user.type === 'jobseeker'){
+          const db = await dbPromise;
+          const jobseeker_id = req.user.id
+          const [result] =  await db.execute('SELECT * FROM job_application WHERE jobseeker_id = ?', [jobseeker_id]);
+          res.status(200).json(result)
+      //  } 
+    //     res.status(404).json('Not Found') 
+    //  } 
+    //  res.status(404).json('Not Found') 
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
 ///apply jobs
 module.exports.postApplyJobs = async (req, res, next) => {
-  const jobseeker_id = req.user.id;
-  const job_id = req.params.id;
-
+  const jobseeker_id = req.user.id
+  const job_id = req.query.job_id;
   let job = {
     jobseeker_id: jobseeker_id,
     job_id: job_id,
@@ -18,26 +35,10 @@ module.exports.postApplyJobs = async (req, res, next) => {
 
   try {
     const db = await dbPromise;
-
-    const [response] = await db.execute(
-      "select job_id from  job_application where jobseeker_id = ? and job_id = ?",
-      [jobseeker_id, job_id]
-    );
-
-    if (response.length > 0) {
-      req.flash("warning_msg", {
-        msg: "Ai aplicat deja la acest post de munca!"
-      });
-      res.redirect("back");
-    } else {
-      await db.query(`insert into job_application set ?`, job);
-      req.flash("success_msg", {
-        msg: "Ai aplicat cu success! Multa Bafta!"
-      });
-      res.redirect("back");
-    }
+    await db.query(`insert into job_application set ?`, job);
+    res.status(200).json('success')
   } catch (err) {
-    console.log(err);
+    res.status(500).json(err)
   }
 };
 

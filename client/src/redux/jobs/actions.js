@@ -1,4 +1,12 @@
-import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID, SEARCH_JOBS } from './constants'
+import {
+     REQUEST_JOBS,
+     RECEIVED_JOBS, 
+     FAILURE_JOBS, 
+     GET_JOB_ID,
+     APPLY_JOB, 
+     APPLY_JOB_SUCCESS, 
+     CHECK_APPLIED_JOBS
+} from './constants'
 
 
 
@@ -30,3 +38,24 @@ export const getJobId = id => {
     }
 }
 
+export const applyJob = id => {
+    return {
+        type:APPLY_JOB,
+        id
+    }
+}
+
+export const applyJobSuccess = data => {
+    return {
+        type:APPLY_JOB_SUCCESS,
+        data
+    }
+}
+
+
+export const appliedJobs = data => {
+    return {
+       type:CHECK_APPLIED_JOBS,
+       data
+    }
+}

@@ -31,7 +31,8 @@ const SelectInput = ({
   error,
   elements,
   name,
-  title
+  title,
+  dataTest
 }) => {
   return (
     <FormControl variant="outlined" className={classes.formControl}>
@@ -39,6 +40,7 @@ const SelectInput = ({
       <Select
         value={value}
         onChange={onChange}
+        data-test={dataTest}
         input={
           <OutlinedInput labelWidth={70} name={name} />
         }>
@@ -49,6 +51,7 @@ const SelectInput = ({
             </MenuItem>
           );
         })}
+
       </Select>
       <div className={classes.error}>{error}</div>
     </FormControl>
