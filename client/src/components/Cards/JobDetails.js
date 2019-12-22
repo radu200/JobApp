@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import CardActions from "@material-ui/core/CardActions";
 import Loading from '../../Utils/Loading'
+import withAuthJobSeeker from '../../HOC/auth/JobSeeker'
 const styles = {
   
   card: {
@@ -67,6 +68,7 @@ const JobDetail = ({
             )}
           </Button>
         )}
+
       </CardActions>
       <CardActionArea>
         <CardContent>

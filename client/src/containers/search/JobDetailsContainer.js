@@ -3,13 +3,20 @@ import JobDetails from '../../components/Pages/Jobs/JobDetails'
 import { getSingleJob, getLoadingSelector, getErrSelector,appliedJobSelector} from '../../redux/jobs/selectors'
 import { applyJob, fetchAppliedJobs } from '../../redux/jobs/operators'
 import {connect } from 'react-redux'
+import withAuthJobSeeker from '../../HOC/auth/JobSeeker'
 
 
-const JobDetailsContainer = ({job, applyJob,error, loading, jobStatus, appliedJob,  fetchAppliedJobs}) => {
+const JobDetailsContainer = ({job, applyJob,error, loading, jobStatus, appliedJob,  fetchAppliedJobs, history}) => {
     
     const handleApplyJob = async (id) => {
+        //check fo auth
+        const data = JSON.parse(localStorage.getItem('state'))
+        if(data.auth && data.auth.role === 'jobseeker'){
             await applyJob(id)
-            fetchAppliedJobs()
+            await fetchAppliedJobs() 
+        } else {
+           history.push('/login-err')
+        }
 
     }
  

@@ -36,7 +36,7 @@ export const appliedJobSelector = createSelector(
     getSingleJob,
     appliedJobs,
     (job,appliedJob) => {
-       const jobId =  appliedJob.find(j => j && j.job_id === job.id ? j.job_id : null )
+       const jobId =  appliedJobs && appliedJob.find(j => j.job_id === job.id ? j.job_id : null )
        if(jobId !== undefined && jobId !== null){
            return true
        } else {
