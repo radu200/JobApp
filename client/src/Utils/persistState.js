@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-const socket = io();
+const socket = io('http://localhost:8000');
 
 export const loadState = () => {
   try {
@@ -23,7 +23,7 @@ export const saveState = (state) => {
     }
 }
 
-// remove state from local storage with socket.io
+// // remove state from local storage with socket.io
 export const removeState = () => {
   try {
     socket.on('removeLocalStorage', (callback) => {

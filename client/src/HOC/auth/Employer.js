@@ -18,9 +18,10 @@ const withAuthEmployer = (Wrap) => {
 
       shouldNavigateAway(auth, role) {
          const { history } = this.props
-         if (!auth || role !== "employer") {
+         console.log(role)
+         if (auth && role !== "employer") {
             return history.push('/login-err');
-         }
+         } 
       }
 
       async getUserData() {

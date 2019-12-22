@@ -37,10 +37,10 @@ class JobsContainer extends Component {
   }
 
   async componentDidMount() {
-    const {fetchJobs, fetchAppliedJobs} = this.props
-    const value= await queryString.parse(this.props.location.search);
-    fetchJobs(value.location,value.category,value.page)
-    fetchAppliedJobs()
+    const {fetchJobs, fetchAppliedJobs, location} = this.props
+    const value = queryString.parse(location.search);
+     fetchJobs(value.location,value.category,value.page)
+      fetchAppliedJobs()
   }
 
  
@@ -58,7 +58,6 @@ class JobsContainer extends Component {
     event.preventDefault();
     const {currentPage,history, fetchJobs } = this.props
     const { category, location } = this.state;
-
      await fetchJobs(location,category)
      history.push(`/jobs?location=${location}&category=${category}&page=${currentPage}`)
 
@@ -112,7 +111,7 @@ class JobsContainer extends Component {
    this.checkforUrl(location, category, prevPage, fetchJobs, history)
 
   }
- 
+  
 
   render() {
     const { category, location} = this.state;

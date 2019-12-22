@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import io from 'socket.io-client';
 import ChatForm from '../../components/Forms/ChatForm'
-const socket = io();
+// const socket = io('http://localhost:8000');
 
 
 
@@ -19,9 +19,9 @@ class Chat extends Component {
     }
 
     componentDidMount(){
-      socket.on('msg', msg => {
-         console.log(msg)
-      })
+      // socket.on('msg', msg => {
+      //    console.log(msg)
+      // })
      
     }
   
@@ -36,19 +36,19 @@ class Chat extends Component {
       e.preventDefault();
       const { msgInput} = this.state
        
-      await socket.emit('sendMessage', msgInput,(err) => {
-         if(err){
-            console.log(err)
-         }
-        //  console.log('message delivered')
-      })
-      await socket.on('message', msg => {
-        console.log(msg)
-        this.setState(prev => ({
-          msg:[...this.state.msg,msg],
-          // msgInput:''
-        }))
-      })
+      // await socket.emit('sendMessage', msgInput,(err) => {
+      //    if(err){
+      //       console.log(err)
+      //    }
+      //   //  console.log('message delivered')
+      // })
+      // await socket.on('message', msg => {
+      //   console.log(msg)
+      //   this.setState(prev => ({
+      //     msg:[...this.state.msg,msg],
+      //     // msgInput:''
+      //   }))
+      // })
     }
  
 

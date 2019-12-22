@@ -8,7 +8,7 @@ class App extends Component {
   
   render() {
     //remove state from local storage with socket.io
-    removeState()
+     removeState()
     return (
       <div className="App">
         <Routes />

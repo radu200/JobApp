@@ -3,7 +3,7 @@ import { BrowserRouter,Switch, Route } from 'react-router-dom';
 import JobsList from '../containers/search/JobsListContainer';
 import JobDetails from '../containers/search/JobDetailsContainer';
 
-import Candidates from '../containers/search/CandidatesPage';
+import Candidates from '../containers/search/CandidatesContainer';
 import CandidateDetails from '../containers/search/CandidateDetails';
 import ApplicantsActive from '../containers/jobApplication/ApplicantsActive';
 import ApplicantsRejected from '../containers/jobApplication/ApplicantsRejected';
@@ -21,7 +21,6 @@ import Checkout from '../containers/payment/Checkout'
 
 
 // auth
-import  withAuth from '../HOC/auth/Auth'
 import  withAuthEmployer  from '../HOC/auth/Employer'
 import withAuthJobSeeker  from '../HOC/auth/JobSeeker'
 import  withAuthAdmin  from '../HOC/auth/Admin'
@@ -36,7 +35,7 @@ const Routes = () => (
         <Route exact path='/chat' component={Chat} />
         <Route exact path='/chat/:room' component={ChatRoom} />
         <Route exact path='/candidate-details/:id' component={withAuthEmployer(CandidateDetails)} />
-        <Route exact path='/search-candidate' component={withAuthEmployer(Candidates)} />
+        <Route exact path='/search-candidate' component={Candidates} />
         <Route exact path='/job-application/applicants/active/:id' component={withAuthEmployer(ApplicantsActive)} />
         <Route exact path='/job-application/applicants/rejected/:id' component={withAuthEmployer(ApplicantsRejected)} />
         <Route exact path='/job-application/applicants/shortlist/:id' component={withAuthEmployer(ApplicantsShortList)} />

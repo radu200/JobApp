@@ -1,30 +1,14 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import CandidateCard from "../../components/Cards/CandidateCard";
-import GetMoreButton from "../../components/Buttons/ButtonOutlined";
-import MainNav from "../../components/NavBars/MainNav/MainNav";
-import SelectInput from "../../components/Inputs/Select";
-import SearchButton from "../../components/Buttons/ButtonContained";
-import Slider from "../../components/Inputs/Slider";
-import { Years, NoCandFoundMsg } from "../../Utils/messages";
 import { cities } from "../../api/cities";
 import { categories } from "../../api/categories";
 import { searchCandidate } from '../../api/users'
 import { validate } from '../../Utils/validation'
+import  withAuthEmployer  from '../../HOC/auth/Employer'
+import CandidatesPage from '../../components/Pages/candidates/CandidatesPage'
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 1200,
-    marginTop: 0,
-    marginRight: "auto",
-    marginBottom: 0,
-    marginLeft: "auto"
-  }
-});
 
-class CandidatesPage extends Component {
+
+class CandidatesContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -148,7 +132,6 @@ class CandidatesPage extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     const {
       category,
       experienceMax,
@@ -164,70 +147,22 @@ class CandidatesPage extends Component {
     } = this;
     return (
       <div>
-        <MainNav />
-          <div className={classes.root}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={6}>
-                <form onSubmit={handleSubmit}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={12} md={12}>
-                      <SelectInput
-                        onChange={handleInputChange}
-                        value={location}
-                        error={formErrors.locationError}
-                        elements={cities}
-                        title="Locatie"
-                        name="location"
-                      />
-                      <SelectInput
-                        onChange={handleInputChange}
-                        value={category}
-                        error={formErrors.categoryError}
-                        elements={categories}
-                        title="Categorie"
-                        name="category"
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} sm={12} md={12}>
-                      <Slider
-                        min="0"
-                        max="50"
-                        value={experienceMax}
-                        onChange={handleExperienceValue}
-                        step="1"
-                        valueType={Years}
-                        title="Experienta"
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12}>
-                      <SearchButton buttonText="Cauta" />
-                    </Grid>
-                  </Grid>
-                </form>
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={6}>
-                {candidates.length > 0 ? (
-                  <CandidateCard candidate={candidates} />
-                ) : (
-                  <h1>{NoCandFoundMsg}</h1>
-                )}
-              </Grid>
-            </Grid>
-
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={6}>
-                {candidates.length >= 12 ? (
-                  <GetMoreButton onClick={getMoreCandidates} />
-                ) : null}
-              </Grid>
-            </Grid>
-          </div>
+        <CandidatesPage
+            formErrors={formErrors}
+            candidates={candidates}
+            category={category}
+            location={location}
+            cities={cities}
+            categories={categories}
+            experienceMax={experienceMax}
+            getMoreCandidates={getMoreCandidates}
+            handleExperienceValue={handleExperienceValue}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit} 
+        />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(CandidatesPage);
+export default withAuthEmployer(CandidatesContainer);
