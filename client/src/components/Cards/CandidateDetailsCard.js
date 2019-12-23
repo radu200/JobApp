@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,7 +9,7 @@ import { Months, Days, Years } from "./../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
 import Button from '@material-ui/core/Button';
 
-const styles = {
+const useStyles = makeStyles ({
   media: {
     // ⚠️ object-fit is not supported by IE 11.
     objectFit: "cover"
@@ -50,12 +50,13 @@ const styles = {
   RoomIcon: {
     fontSize: 17
   }
-};
+})
 
-const CandidateDetailsCard = ({ candidate, experience, classes}) => {
+const CandidateDetailsCard = ({ candidate, experience}) => {
+  const classes  = useStyles()
   return (
     <Card className={classes.card}>
-      {candidate.map((candidate, index) => {
+      {candidate.map((candidate) => {
         return (
           <CardActionArea key={candidate.id}>
             <img
@@ -154,4 +155,4 @@ CandidateDetailsCard.propTypes = {
   )
 };
 
-export default withStyles(styles)(CandidateDetailsCard);
+export default CandidateDetailsCard

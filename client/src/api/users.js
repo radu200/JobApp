@@ -1,11 +1,9 @@
 import {instanceAPI } from './InstanceApi'
 
 
-export const searchCandidate = async (location, category, experienceMax, offset) => {
-    const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}`;
-     const res = await instanceAPI.post(url, {
-        offset: offset
-    })
+export const getCandidates = async (location, category, experienceMax, page) => {
+    const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}&page${page}`;
+     const res = await instanceAPI.post(url)
      return res.data
 }
 export const getCandidateDetails = async (id) => {

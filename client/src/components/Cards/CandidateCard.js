@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import {makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { MoreMsg, Years } from "./../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
 
-const styles = theme => ({
+const useStyles = makeStyles ({
   bigAvatar: {
     margin: 10,
     width: 80,
@@ -19,7 +19,6 @@ const styles = theme => ({
   },
   root: {
     width: "100%",
-    backgroundColor: theme.palette.background.paper
   },
 
   breakWord: {
@@ -39,12 +38,13 @@ const styles = theme => ({
   }
 });
 
-const CandidateCard = ({ classes, candidate }) => {
+const CandidateCard = ({  candidate, handleCandidateDetails}) => {
+  const classes = useStyles()
   return candidate.map(candidate => {
     return (
-      <div key={candidate.userID}>
+      <div  onClick={() => handleCandidateDetails(candidate.userID)} key={candidate.userID}>
         <List className={classes.root}>
-          <Paper>
+          <Paper >
             <ListItem>
               <Avatar
                 className={classes.bigAvatar}
@@ -114,4 +114,4 @@ CandidateCard.propTypes = {
     })
   )
 };
-export default withStyles(styles)(CandidateCard);
+export default CandidateCard

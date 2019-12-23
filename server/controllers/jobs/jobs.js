@@ -160,61 +160,6 @@ module.exports.JobApplicationJobSeeker = async (req, res) => {
 };
 
 
-
-
-module.exports.getJobsPage = async (req, res, next) => {
-  
-  // const page = req.body.page;
-  const page = parseInt(req.query.page)
-  const limit = 6;
-  const startIndex = (page - 1) * limit
-  const endIndex = page * limit
-  const results = {}
-
- 
-    try {
-    const db = await dbPromise;
-    const [rows ] = await db.execute("select count(*) total from jobs")
-    const totalJobs = rows[0].total
-
-    results.total = {
-      jobs:totalJobs,
-      limit: limit
-
-    }
-    results.current = {
-      page:page,
-      limit: limit
-
-    }
-    if (endIndex  < totalJobs) {
-    results.next = {
-      page: page + 1,
-      limit: limit
-    }
-  }
-
-  
-  if (startIndex > 0 ) {
-    results.previous = {
-      page: page - 1,
-      limit: limit
-    }
-  } else if(startIndex < 0 ){
-    return res.status(404).json("Page Not Found")
-  }
-
-  const textSqlJobs = `SELECT * from jobs where blacklist = ? LIMIT ${limit} OFFSET ${startIndex} `
-  const [jobs] = await db.execute(textSqlJobs, [false]);
- 
-  results.jobs =  jobs
-  res.json(results);
-
-  } catch (err) {
-    res.status(500).json(err)
-  }
-};
-
 module.exports.getAddJobs = (req, res, next) => {
   res.render("jobs/add_job");
 };

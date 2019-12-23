@@ -18,7 +18,6 @@ const withAuthEmployer = (Wrap) => {
 
       shouldNavigateAway(auth, role) {
          const { history } = this.props
-         console.log(role)
          if (auth && role !== "employer") {
             return history.push('/login-err');
          } 

@@ -40,7 +40,7 @@ class JobsContainer extends Component {
     const {fetchJobs, fetchAppliedJobs, location} = this.props
     const value = queryString.parse(location.search);
      fetchJobs(value.location,value.category,value.page)
-      fetchAppliedJobs()
+     fetchAppliedJobs()
   }
 
  

@@ -1,0 +1,3 @@
+export const REQUEST_CANDIDATE = ' candidate/REQUEST_CANDIDATE'
+export const RECEIVED_CANDIDATE = 'candidate/RECEIVED_CANDIDATE'
+export const FAILURE_CANDIDATE = ' candidate/FAILURE_CANDIDATE'
