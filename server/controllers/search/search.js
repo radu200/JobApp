@@ -68,26 +68,32 @@ module.exports.searchJobs = async (req, res, next) => {
 };
 
 module.exports.searchCandidates = async (req, res) => {
-  const { location, category, experienceMax, page} = req.query
-  const experienceMin = 0;
+  // const { location, category, experienceMax, page} = req.query
+  const location = 'Chisinau'
+  const category = 'Barista și Barman'
+  const experience_max = 50;
+  const page = 0
+  const experience_min = 0;
   const limit = 12;
 
   try {
     ///validation
-    if (
-      location === "" ||
-      location.length > 70 ||
-      category === "" ||
-      category.length > 70 ||
-      experienceMax > 50
-    ) {
-      return false;
-    }
+    // if (
+    //   location === "" ||
+    //   location.length > 70 ||
+    //   category === "" ||
+    //   category.length > 70 ||
+    //   experienceMax > 50
+    // ) {
+    //   return false;
+    // }
 
     const db = await dbPromise;
+
+
     const jobseeker_experience = `jobseeker_experience.category AS category, jobseeker_experience.jobseeker_id AS userID, sum(jobseeker_experience.years) AS total_ex_years `;
     const user_details = `users.first_name, users.blacklist, users.last_name,users.type, users.avatar,users.job_seeker_location,users.job_seeker_about_me,users.job_seeker_location `;
-    const sql = `SELECT ${jobseeker_experience}, ${user_details}  FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id WHERE users.blacklist = ? AND lower(category ) LIKE '%${category}%'  AND lower(users.job_seeker_location) LIKE '%${location}%' AND jobseeker_experience.years BETWEEN ${experienceMin} AND ${experienceMax} GROUP BY category,userID  LIMIT ${limit} OFFSET ${page}`;
+    const sql = `SELECT ${jobseeker_experience}, ${user_details}  FROM users LEFT JOIN jobseeker_experience ON jobseeker_experience.jobseeker_id = users.id WHERE users.blacklist = ? AND lower(category ) LIKE '%${category}%'  AND lower(users.job_seeker_location) LIKE '%${location}%' AND jobseeker_experience.years BETWEEN ${experience_min} AND ${experience_max} GROUP BY category,userID  LIMIT ${limit} OFFSET ${page}`;
     const [results] = await db.query(sql, ["no"]);
     res.status(200).json({ candidates: results});
   } catch (err) {
@@ -96,9 +102,9 @@ module.exports.searchCandidates = async (req, res) => {
 };
 
 module.exports.getCandidateDetails = async (req, res) => {
-  const id = req.params.id;
+   const id = req.query.id;
 
-  try {
+   try {
     const db = await dbPromise;
 
     const [
@@ -114,9 +120,11 @@ module.exports.getCandidateDetails = async (req, res) => {
       "select * from jobseeker_experience where jobseeker_id = ? ",
       [id]
     );
+
+    
     res.json({
-      details: candidate,
-      experience: experience
+      candidate,
+       experience
     });
   } catch (err) {
     res.status(500).json(err);

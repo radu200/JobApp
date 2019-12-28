@@ -7,18 +7,18 @@ const msg = require(".././utils/messages");
 
 
 
-module.exports.checkAppliedJobs = async (req,res) => {
+module.exports.checkAppliedJobs = async (req, res) => {
   try {
-    if(req.isAuthenticated()){
-      if(req.user.type === 'jobseeker'){
-          const db = await dbPromise;
-          const jobseeker_id = 16
-          const [result] =  await db.execute('SELECT * FROM job_application WHERE jobseeker_id = ?', [jobseeker_id]);
-          res.status(200).json(result)
-       } 
-     } else{
-       res.status(404).json('Not Found') 
-     }
+    if (req.isAuthenticated()) {
+      if (req.user.type === 'jobseeker') {
+        const db = await dbPromise;
+        const jobseeker_id = 16
+        const [result] = await db.execute('SELECT * FROM job_application WHERE jobseeker_id = ?', [jobseeker_id]);
+        res.status(200).json(result)
+      }
+    } else {
+      res.status(404).json('Not Found')
+    }
   } catch (err) {
     res.status(500).json(err)
   }

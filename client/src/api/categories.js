@@ -14,5 +14,5 @@ export const categories = [
   "Vanzari si Marketing",
   "Ospătar sau servitoare",
   "Depozit",
-  "Alte"
+  "Alte",
 ];

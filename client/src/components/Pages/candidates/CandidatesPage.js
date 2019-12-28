@@ -8,10 +8,13 @@ import MainNav from "../../NavBars/MainNav/MainNav";
 import { NoCandFoundMsg } from "../../../Utils/messages";
 import SearchCandidateForm from "../../Forms/SearchCandidate";
 
+import CandidateDetailsCard from "../../Cards/CandidateDetailsCard"
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     maxWidth: 1200,
+    // display:'flex',
     marginTop: 0,
     marginRight: "auto",
     marginBottom: 0,
@@ -31,12 +34,15 @@ const CandidatesPage = ({
     handleExperienceValue,
     candidates,
     getMoreCandidates,
-    handleCandidateDetails
+    handleCandidateDetails,
+    candidateDetails,
+    experience,
+    
 }) => {
   const classes = useStyles();
   return (
     <>
-      <MainNav />
+     <MainNav />
       <div className={classes.root}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6}>
@@ -51,28 +57,23 @@ const CandidatesPage = ({
               handleExperienceValue={handleExperienceValue}
               experienceMax={experienceMax}
             />
-          </Grid>
-        </Grid>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={6}>
-            {candidates.length > 0 ? (
               <CandidateCard 
                 candidate={candidates} 
                 handleCandidateDetails={handleCandidateDetails}
                 />
-            ) : (
-              <h1>{NoCandFoundMsg}</h1>
-            )}
-          </Grid>
-        </Grid>
 
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={6}>
             {candidates.length >= 12 ? (
               <GetMoreButton onClick={getMoreCandidates} />
             ) : null}
           </Grid>
-        </Grid>
+
+          <Grid item xs={12} sm={12} md={6}>
+            <CandidateDetailsCard 
+                candidate = {candidateDetails}
+                experience = {experience}
+              />
+            </Grid>
+          </Grid>
       </div>
     </>
   );

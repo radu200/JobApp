@@ -100,8 +100,8 @@ module.exports = function (app) {
 
   //search
   app.post('/api/search/job', searchController.searchJobs)
-  app.get('/api/candidate-details/:id', accessController.ensureAuthenticated, accessController.employer, searchController.getCandidateDetails)
-  app.post('/api/candidate-search', accessController.ensureAuthenticated,accessController.employer, searchController.searchCandidates)
+  app.get('/api/candidate-details', searchController.getCandidateDetails)
+  app.post('/api/candidate-search', searchController.searchCandidates)
   ///contact us
   app.get('/api/contact-us', accessController.ensureAuthenticated, contactUs.getContactUs);
 
