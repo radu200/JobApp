@@ -1,26 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CandidateCard from "../../Cards/CandidateCard";
 import GetMoreButton from "../../Buttons/ButtonOutlined";
 import MainNav from "../../NavBars/MainNav/MainNav";
-import { NoCandFoundMsg } from "../../../Utils/messages";
 import SearchCandidateForm from "../../Forms/SearchCandidate";
-
 import CandidateDetailsCard from "../../Cards/CandidateDetailsCard"
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     maxWidth: 1200,
-    // display:'flex',
     marginTop: 0,
     marginRight: "auto",
     marginBottom: 0,
     marginLeft: "auto"
   }
 });
+
+
 
 const CandidatesPage = ({
     handleSubmit,
@@ -37,9 +36,18 @@ const CandidatesPage = ({
     handleCandidateDetails,
     candidateDetails,
     experience,
-    
 }) => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false)
+
+  const handleClose = () => {
+    setOpen(false)
+   }
+
+
+  const handleOpen = () => {
+     setOpen(true)
+  }
   return (
     <>
      <MainNav />
@@ -58,19 +66,22 @@ const CandidatesPage = ({
               experienceMax={experienceMax}
             />
               <CandidateCard 
+                handleOpen={handleOpen}
                 candidate={candidates} 
                 handleCandidateDetails={handleCandidateDetails}
                 />
 
-            {candidates.length >= 12 ? (
+            {/* {candidates.length >= 12 ? (
               <GetMoreButton onClick={getMoreCandidates} />
-            ) : null}
+              ) : null} */}
           </Grid>
 
           <Grid item xs={12} sm={12} md={6}>
             <CandidateDetailsCard 
                 candidate = {candidateDetails}
                 experience = {experience}
+                handleClose= {handleClose}
+                isOpen={open}
               />
             </Grid>
           </Grid>

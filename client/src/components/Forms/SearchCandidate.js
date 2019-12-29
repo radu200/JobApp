@@ -5,6 +5,7 @@ import SearchButton from "./../Buttons/ButtonContained";
 import Slider from "./../Inputs/Slider";
 import { Years, } from "../../Utils/messages";
 
+
 const SearchCandidate = ({
     handleSubmit,
     handleInputChange,
