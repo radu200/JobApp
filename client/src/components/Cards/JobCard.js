@@ -6,31 +6,28 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import { JobDetailsUrl } from "../../Utils/Paths/UrlPaths";
-import { SalaryCurrency,} from "./../../Utils/messages";
+import { SalaryCurrency } from "./../../Utils/messages";
 import NoJobImage from "../../images/no_job_image.png";
-
 
 const styles = {
   JobDetails: {
     textDecoration: "none",
-    color: "blue"
+    color: "blue",
   },
 
   media: {
     // ⚠️ object-fit is not supported by IE 11.
-    objectFit: "cover"
+    objectFit: "cover",
   },
 
   heading: {
-    opacity: 0.7
-  }
+    opacity: 0.7,
+  },
 };
 
-const JobCard = ({ job, classes, getJobId}) => {
+const JobCard = ({ job, classes, getJobId }) => {
   return job.map(job => {
     return (
       <Grid key={job.id} item xs={12} sm={6} md={4}>
@@ -71,8 +68,7 @@ const JobCard = ({ job, classes, getJobId}) => {
               <Typography component="p">{job.city}</Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-          </CardActions>
+          <CardActions></CardActions>
         </Card>
       </Grid>
     );
@@ -94,9 +90,9 @@ JobCard.propTypes = {
       position: PropTypes.string.isRequired,
       category: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired
-    })
-  )
+      city: PropTypes.string.isRequired,
+    }),
+  ),
 };
 
 export default withStyles(styles)(JobCard);

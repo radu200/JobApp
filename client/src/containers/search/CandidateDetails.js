@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import CandidateDetailsCard from "../../components/Cards/CandidateDetailsCard";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core";
 import MainNav from "../../components/NavBars/MainNav/MainNav";
-import {getCandidateDetails} from '../../api/users'
+import { getCandidateDetails } from "../../api/users";
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -11,8 +10,8 @@ const styles = theme => ({
     marginTop: 0,
     marginRight: "auto",
     marginBottom: 0,
-    marginLeft: "auto"
-  }
+    marginLeft: "auto",
+  },
 });
 
 class CandidateDetails extends Component {
@@ -23,39 +22,35 @@ class CandidateDetails extends Component {
       candidate: [],
       experience: [],
     };
-
   }
 
   async componentDidMount() {
-    const { match } = this.props
-    const id = match.params.id;
-    try {
-      const data = await getCandidateDetails(id);
-        this.setState({
-          candidate: data.details,
-          experience: data.experience
-        });
-    
-    } catch (err) {
-      console.log(err);
-    }
+    // const { match } = this.props
+    // const id = match.params.id;
+    // try {
+    //   const data = await getCandidateDetails(id);
+    //     this.setState({
+    //       candidate: data.details,
+    //       experience: data.experience
+    //     });
+    // } catch (err) {
+    //   console.log(err);
+    // }
   }
-
-   
 
   render() {
     const { classes } = this.props;
     const { candidate, experience } = this.state;
     return (
       <div>
-        <MainNav/>
+        <MainNav />
         <div className={classes.root}>
           <Grid container spacing={0}>
             <Grid item xs={12} sm={12} md={6}>
-              <CandidateDetailsCard
+              {/* <CandidateDetailsCard
                 candidate={candidate}
                 experience={experience}
-                />
+              /> */}
             </Grid>
           </Grid>
         </div>

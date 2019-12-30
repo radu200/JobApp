@@ -1,6 +1,6 @@
 import { REQUEST_JOBS, RECEIVED_JOBS, FAILURE_JOBS, GET_JOB_ID, APPLY_JOB_SUCCESS, CHECK_APPLIED_JOBS} from './constants'
  
-const initialState = {
+const jobsState = {
     jobs:[],
     appliedJobs:[],
     loading:false,
@@ -14,21 +14,22 @@ const initialState = {
     
 }
 
-export const  jobsReducer = (state = initialState, action) => { 
+export const  jobsReducer = (state = jobsState, action) => { 
     switch(action.type){
        case  REQUEST_JOBS:
            return {...state, loading:true}
         case RECEIVED_JOBS:
+            const { jobs, total, current, next, previous } = action.jobs
             return {...state, loading:false, 
-                    jobs:action.jobs.jobs, 
-                    totalCount:action.jobs.total.jobs,
-                    pageSize:action.jobs.total.limit,
-                    currentPage:action.jobs.current.page,
-                    nextPage:action.jobs.next ? action.jobs.next.page : null,
-                    prevPage:action.jobs.previous ? action.jobs.previous.page : null}
+                    jobs:jobs, 
+                    totalCount:total.jobs,
+                    pageSize:total.limit,
+                    currentPage:current.page,
+                    nextPage:next ? next.page : null,
+                    prevPage:previous ? previous.page : null}
 
         case FAILURE_JOBS:
-            return {...state, loading:false, err:true}
+            return {...state, loading:false, err:action.err}
         case GET_JOB_ID:
              return {...state, jobId:action.id}
         case APPLY_JOB_SUCCESS:

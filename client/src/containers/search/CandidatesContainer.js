@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import queryString from "query-string";
 import { cities } from "../../api/cities";
 import { categories } from "../../api/categories";
 import { getCandidates, getCandidateDetails } from "../../api/users";
@@ -7,7 +8,10 @@ import withAuthEmployer from "../../HOC/auth/Employer";
 import CandidatesPage from "../../components/Pages/candidates/CandidatesPage";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { fetchCandidates } from "../../redux/candidates/operators";
+import {
+  fetchCandidates,
+  fetchCandidatesDetails,
+} from "../../redux/candidates/operators";
 
 class CandidatesContainer extends Component {
   constructor(props) {
@@ -23,8 +27,8 @@ class CandidatesContainer extends Component {
       url: "",
       formErrors: {
         categoryError: "",
-        locationError: ""
-      }
+        locationError: "",
+      },
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,20 +37,24 @@ class CandidatesContainer extends Component {
     this.handleCandidateDetails = this.handleCandidateDetails.bind(this);
   }
 
-  async componentDidMount() {
-    const { location, category, experienceMax } = this.state;
-   let offset
-    const data = await getCandidates(
-      location,
-      category,
-      experienceMax,
-       offset = 0
-    );
+  componentDidMount() {
+    const { fetchCandidates } = this.props;
+    fetchCandidates();
+    // fetchCandidatesDetails(parseInt(data.id));
 
-    this.setState({
-      candidates: [...data.candidates],
-      offset: offset + 12
-    });
+    // const { location, category, experienceMax } = this.state;
+    // let offset;
+    // // const data = await getCandidates(
+    // //   location,
+    // //   category,
+    // //   experienceMax,
+    // //   (offset = 0),
+    // // );
+
+    // this.setState({
+    //   candidates: [...data.candidates],
+    //   offset: offset + 12,
+    // });
     // let location, category, experienceMax, offset;
     // try {
     //   const data = await getCandidates(
@@ -70,19 +78,19 @@ class CandidatesContainer extends Component {
       candidates,
       location,
       category,
-      experienceMax
+      experienceMax,
     } = this.state;
     try {
       const data = await getCandidates(
         location,
         category,
         experienceMax,
-        offset
+        offset,
       );
 
       this.setState({
         candidates: [...candidates, ...data.candidates],
-        offset: offset + 12
+        offset: offset + 12,
       });
     } catch (error) {
       console.error(error);
@@ -98,23 +106,26 @@ class CandidatesContainer extends Component {
     const value = target.value;
     const name = target.name;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
-async handleCandidateDetails(id) {
-    try {
-      const data = await getCandidateDetails(id);
-       console.log(data)
-      this.setState({
-          candidateDetails: data.candidate,
-          experience: data.experience
-        });
-    
-    } catch (err) {
-      console.log(err);
-    }
+  async handleCandidateDetails(id) {
+    const { fetchCandidatesDetails } = this.props;
+    fetchCandidatesDetails(id);
+    // try {
+    //   const data = await getCandidateDetails(id);
+    //    console.log(data)
+    //   this.setState({
+    //       candidateDetails: data.candidate,
+    //       experience: data.experience
+    //     });
+
+    // } catch (err) {
+    //   console.log(err);
+    // }
   }
+
   async handleSubmit(event) {
     event.preventDefault();
 
@@ -124,29 +135,29 @@ async handleCandidateDetails(id) {
     const categoryVal = validate(category);
 
     // if (categoryVal.status && locationVal.status) {
-      let offset;
-      try {
-        const data = await getCandidates(
-          location,
-          category,
-          experienceMax,
-           offset = 0
-        );
+    let offset;
+    try {
+      const data = await getCandidates(
+        location,
+        category,
+        experienceMax,
+        (offset = 0),
+      );
 
-        this.setState({
-          candidates: [...data.candidates],
-          offset: offset + 12
-        });
-      } catch (error) {
-        console.error(error);
-      }
-      // this.setState(prevState => ({
-      //   formErrors: {
-      //     ...prevState.formErrors,
-      //     locationError: "",
-      //     categoryError: ""
-      //   }
-      // }));
+      this.setState({
+        candidates: [...data.candidates],
+        offset: offset + 12,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    // this.setState(prevState => ({
+    //   formErrors: {
+    //     ...prevState.formErrors,
+    //     locationError: "",
+    //     categoryError: ""
+    //   }
+    // }));
     // } else {
     //   this.setState(prevState => ({
     //     formErrors: {
@@ -162,27 +173,33 @@ async handleCandidateDetails(id) {
     const {
       category,
       experienceMax,
-      candidates,
+      // candidates,
       location,
       formErrors,
-      candidateDetails,
-      experience
     } = this.state;
+
     const {
       handleSubmit,
       handleInputChange,
       handleExperienceValue,
       getMoreCandidates,
-      handleCandidateDetails
+      handleCandidateDetails,
     } = this;
-    console.log(candidateDetails)
-    console.log(experience)
+
+    const {
+      candidates,
+      loadingCl,
+      candidate,
+      experience,
+      loadingCd,
+    } = this.props;
     return (
       <div>
         <CandidatesPage
           formErrors={formErrors}
-          candidateDetails={candidateDetails}
+          candidateDetails={candidate}
           experience={experience}
+          loadingCd={loadingCd}
           candidates={candidates}
           category={category}
           location={location}
@@ -194,15 +211,20 @@ async handleCandidateDetails(id) {
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           handleCandidateDetails={handleCandidateDetails}
+          loadingCl={loadingCl}
         />
       </div>
     );
   }
 }
 const mapState = state => ({
-  candidates: state.candidates
+  candidates: state.candidates.candidates.candidates,
+  candidate: state.candidate.candidate,
+  experience: state.candidate.experience,
+  loadingCd: state.candidate.loading,
+  loadingCl: state.candidates.loading,
 });
 export default compose(
   withAuthEmployer,
-  connect(mapState, { fetchCandidates })
+  connect(mapState, { fetchCandidates, fetchCandidatesDetails }),
 )(CandidatesContainer);

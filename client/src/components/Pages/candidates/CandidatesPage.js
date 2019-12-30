@@ -6,7 +6,9 @@ import CandidateCard from "../../Cards/CandidateCard";
 import GetMoreButton from "../../Buttons/ButtonOutlined";
 import MainNav from "../../NavBars/MainNav/MainNav";
 import SearchCandidateForm from "../../Forms/SearchCandidate";
-import CandidateDetailsCard from "../../Cards/CandidateDetailsCard"
+import CandidateDetailsD from "../../Cards/CandidateDetailsD";
+import CandidateDetailsM from "../../Cards/CandidateDetailsM";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles({
   root: {
@@ -15,42 +17,44 @@ const useStyles = makeStyles({
     marginTop: 0,
     marginRight: "auto",
     marginBottom: 0,
-    marginLeft: "auto"
-  }
+    marginLeft: "auto",
+  },
 });
 
-
-
 const CandidatesPage = ({
-    handleSubmit,
-    handleInputChange,
-    category,
-    categories,
-    location,
-    cities,
-    formErrors,
-    experienceMax,
-    handleExperienceValue,
-    candidates,
-    getMoreCandidates,
-    handleCandidateDetails,
-    candidateDetails,
-    experience,
+  handleSubmit,
+  handleInputChange,
+  category,
+  categories,
+  location,
+  cities,
+  formErrors,
+  experienceMax,
+  handleExperienceValue,
+  candidates,
+  getMoreCandidates,
+  handleCandidateDetails,
+  candidateDetails,
+  experience,
+  loadingCl,
+  loadingCd,
 }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false)
-
+  const [open, setOpen] = useState(false);
+  //open and close for candidate details
   const handleClose = () => {
-    setOpen(false)
-   }
-
+    setOpen(false);
+  };
 
   const handleOpen = () => {
-     setOpen(true)
-  }
+    setOpen(true);
+  };
+
+  const matches960 = useMediaQuery("(max-width:960px)");
+
   return (
     <>
-     <MainNav />
+      <MainNav />
       <div className={classes.root}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6}>
@@ -65,26 +69,35 @@ const CandidatesPage = ({
               handleExperienceValue={handleExperienceValue}
               experienceMax={experienceMax}
             />
-              <CandidateCard 
-                handleOpen={handleOpen}
-                candidate={candidates} 
-                handleCandidateDetails={handleCandidateDetails}
-                />
+            <CandidateCard
+              handleOpen={handleOpen}
+              candidate={candidates}
+              handleCandidateDetails={handleCandidateDetails}
+              loading={loadingCl}
+            />
 
             {/* {candidates.length >= 12 ? (
               <GetMoreButton onClick={getMoreCandidates} />
               ) : null} */}
           </Grid>
-
-          <Grid item xs={12} sm={12} md={6}>
-            <CandidateDetailsCard 
-                candidate = {candidateDetails}
-                experience = {experience}
-                handleClose= {handleClose}
-                isOpen={open}
+          {matches960 ? (
+            <CandidateDetailsM
+              candidate={candidateDetails}
+              experience={experience}
+              handleClose={handleClose}
+              open={open}
+            />
+          ) : (
+            <Grid item xs={12} sm={12} md={6}>
+              <CandidateDetailsD
+                candidate={candidateDetails}
+                experience={experience}
+                handleClose={handleClose}
+                loading={loadingCd}
               />
             </Grid>
-          </Grid>
+          )}
+        </Grid>
       </div>
     </>
   );
@@ -100,6 +113,6 @@ CandidatesPage.propTypes = {
   cities: PropTypes.array,
   categories: PropTypes.array,
   candidates: PropTypes.array,
-  formErrors: PropTypes.object
+  formErrors: PropTypes.object,
 };
 export default CandidatesPage;
