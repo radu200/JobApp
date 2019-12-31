@@ -43,7 +43,7 @@ const JobCard = ({ job, classes, getJobId }) => {
             />
             <CardContent>
               <Typography gutterBottom component="p" color="primary">
-                {job.salary ? `${job.salary} ${SalaryCurrency}` : null}
+                {job.salary_from && job.salary_to ? `${job.salary_from} - ${job.salary_to} ${job.salary_currency}` : null}
               </Typography>
               <Typography component="p">{job.employment_type}</Typography>
               <Typography gutterBottom variant="h5" component="h2">

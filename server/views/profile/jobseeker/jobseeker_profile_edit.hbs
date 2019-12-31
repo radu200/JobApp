@@ -2,8 +2,8 @@
 {{>alerts}}
 <div class="container">
   <div class="row">
+    <div  class="col s12 m6 card-panel " >
     <form id="employee_info_form" method="POST" action="/api/profile-edit/jobseeker">
-
       <!--employee personal info --->
       <h5 class="center"><b>Informatia personala</b> </h5>
 
@@ -83,9 +83,7 @@
             {{/if}}
           </select>
         </div>
-        {{!-- <div class="input-field">
-                    <input type="text" placeholder="Exemplue:Engleza, Franceza, Germana, Spaniola" maxlength="100" name="language" value="{{result.job_seeker_languages}}">
-                </div> --}}
+
       </div>
       <h5 class="center"><b>Educatie</b> </h5>
       <div class="col s12 m12">
@@ -95,9 +93,9 @@
           <span for="description"></span>
         </div>
       </div>
-      <button type="submit" class="btn blue right full-width-btn">Posteaza<i class="material-icons right">send</i>
-      </button>
+      <button type="submit" class="btn blue right btn-margin">Adauga </button>
       <form>
+    </div>
   </div>
   <!--row ends-->
 </div>

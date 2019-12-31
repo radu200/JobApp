@@ -171,7 +171,9 @@ module.exports.postAddJobs = async (req, res, next) => {
   const city = req.body.city;
   const employment_type = req.body.employment_type;
   const start_time = req.body.immediate_start;
-  const salary = req.body.salary;
+  const salary_from = req.body.salary_from;
+  const salary_to = req.body.salary_to;
+  const salary_currency = req.body.salary_currency
   const experience = req.body.experience;
   const language = req.body.language;
 
@@ -246,7 +248,9 @@ module.exports.postAddJobs = async (req, res, next) => {
       city: city,
       employment_type: employment_type,
       start_time: start_time,
-      salary: salary,
+      salary_from:salary_from,
+      salary_to: salary_to,
+      salary_currency:salary_currency,
       experience: experience,
       language: lang,
       image: job_image
@@ -254,14 +258,13 @@ module.exports.postAddJobs = async (req, res, next) => {
 
     //     //creat employer
     await db.query("INSERT INTO jobs SET ?", jobs);
-
-    res.redirect(urlPaths.MyJobs);
-  } catch (err) {
-    console.log(err);
-    req.flash("error_msg", {
-      msg: msg.error
+    req.flash("success_msg", {
+      msg: "A fost adaugat cu success. Va multumim!"
     });
-    res.redirect(urlPaths.back);
+    res.redirect(urlPaths.MyJobs);
+
+  } catch (err) {
+    res.redirect('back');
   }
 };
 
@@ -348,12 +351,7 @@ module.exports.getEmployerJobEdit = async (req, res, next) => {
       result: jobs[0]
     });
   } catch (err) {
-    req.flash("error_msg", {
-      msg: msg.error
-    });
     res.redirect(urlPaths.back);
-
-    console.log("getEmployerJobEdit", err);
   }
 };
 
@@ -365,10 +363,12 @@ module.exports.postEmployerJobEdit = async (req, res, next) => {
   const city = req.body.city;
   const employment_type = req.body.employment_type;
   const start_time = req.body.immediate_start;
-  const salary = req.body.salary;
+  const salary_from = req.body.salary_from;
+  const salary_to = req.body.salary_to;
   const experience = req.body.experience;
   const language = req.body.language;
-  const currency = req.body.currency;
+  const salary_currency = req.body.salary_currency;
+
 
   req.checkBody("category", "Alege Categoria").notEmpty();
   req.checkBody("position", "Poziția  este necesară").notEmpty();
@@ -423,10 +423,11 @@ module.exports.postEmployerJobEdit = async (req, res, next) => {
     city: city,
     employment_type: employment_type,
     start_time: start_time,
-    salary: salary,
+    salary_to: salary_to,
+    salary_from: salary_from,
+    salary_currency:salary_currency,
     experience: experience,
     language: lang,
-    currency: currency
   };
 
   try {
@@ -435,12 +436,10 @@ module.exports.postEmployerJobEdit = async (req, res, next) => {
     await db.query(`UPDATE jobs SET  ?  WHERE id = ?`, [job, req.params.id]);
 
     res.redirect(urlPaths.MyJobs);
-  } catch (err) {
-    console.log("postEmployerJobEdit", err);
-
-    req.flash("error_msg", {
-      msg: msg.error
+    req.flash("success_msg", {
+      msg: 'Post de munca a fost editata cu success'
     });
+  } catch (err) {
     res.redirect(urlPaths.back);
   }
 };
