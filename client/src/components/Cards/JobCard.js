@@ -33,26 +33,14 @@ const JobCard = ({ job, classes, getJobId }) => {
       <Grid key={job.id} item xs={12} sm={6} md={4}>
         <Card className={classes.card} onClick={() => getJobId(job.id)}>
           <CardActionArea>
-            {job.image ? (
-              <CardMedia
-                component="img"
-                alt={job.category}
-                className={classes.media}
-                height="140"
-                image={job.image}
-                title={job.category}
-              />
-            ) : (
-              // no image
-              <CardMedia
-                component="img"
-                alt={job.category}
-                className={classes.media}
-                height="140"
-                image={NoJobImage}
-                title={job.category}
-              />
-            )}
+            <CardMedia
+              component="img"
+              alt={job.category}
+              className={classes.media}
+              height="140"
+              image={job.image ? job.image : NoJobImage}
+              title={job.category}
+            />
             <CardContent>
               <Typography gutterBottom component="p" color="primary">
                 {job.salary ? `${job.salary} ${SalaryCurrency}` : null}

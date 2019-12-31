@@ -29,7 +29,6 @@ const useStyles = makeStyles(theme => ({
   },
 
   card: {
-    // marginTop: 2,
     overflowY: "auto",
   },
   media: {
@@ -49,16 +48,6 @@ export default function FullScreenDialog({
   experience,
 }) {
   const classes = useStyles();
-  // const [open, setOpen] = React.useState(false);
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
   return (
     <div>
       <Dialog
@@ -77,9 +66,6 @@ export default function FullScreenDialog({
             >
               <CloseIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Sound
-            </Typography>
           </Toolbar>
         </AppBar>
         {/* {loading && <Loading />} */}

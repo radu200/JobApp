@@ -8,22 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import { Months, Days, Years } from "./../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
 import Button from "@material-ui/core/Button";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import CloseIcon from "@material-ui/icons/Close";
-import Grid from "@material-ui/core/Grid";
 import Loading from "../../Utils/Loading";
 
 const useStyles = makeStyles({
-  // rootM: {
-  //   top: 0,
-  //   zIndex: 999,
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignContent: "center",
-  //   position: "absolute",
-  //   width: "95%",
-  // },
-
   media: {
     // ⚠️ object-fit is not supported by IE 11.
     objectFit: "cover",
@@ -47,7 +34,6 @@ const useStyles = makeStyles({
     marginTop: 10,
     maxHeight: "840px",
     overflowY: "auto",
-    padding: "10px",
   },
 
   avatar: {
@@ -68,10 +54,6 @@ const useStyles = makeStyles({
   RoomIcon: {
     fontSize: 17,
   },
-  btnClose: {
-    zIndex: 999,
-    position: "absolute",
-  },
 });
 
 const CandidateDetailsCard = ({ candidate, experience, loading }) => {
@@ -80,7 +62,6 @@ const CandidateDetailsCard = ({ candidate, experience, loading }) => {
     <>
       {loading && <Loading />}
       <Card className={classes.card}>
-        <Grid container item justify="flex-end"></Grid>
         {candidate.map(candidate => {
           return (
             <CardActionArea key={candidate.id}>

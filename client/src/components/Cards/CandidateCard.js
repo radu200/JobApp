@@ -12,6 +12,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Loading from "../../Utils/Loading";
+import GetMoreButton from "../Buttons/ButtonOutlined";
+import { getMoreCandidates } from "../../redux/candidates/actions";
 
 const useStyles = makeStyles({
   bigAvatar: {
@@ -46,6 +48,7 @@ const CandidateCard = ({
   handleCandidateDetails,
   handleOpen,
   loading,
+  getMoreCandidates,
 }) => {
   const matches600 = useMediaQuery("(max-width:600px)");
   const classes = useStyles();
@@ -111,6 +114,7 @@ const CandidateCard = ({
               </div>
             );
           })}
+        <GetMoreButton onClick={getMoreCandidates} buttonText="Mai Mult" />
       </div>
     </>
   );

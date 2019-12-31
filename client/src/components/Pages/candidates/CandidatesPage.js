@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CandidateCard from "../../Cards/CandidateCard";
-import GetMoreButton from "../../Buttons/ButtonOutlined";
 import MainNav from "../../NavBars/MainNav/MainNav";
 import SearchCandidateForm from "../../Forms/SearchCandidate";
 import CandidateDetailsD from "../../Cards/CandidateDetailsD";
@@ -50,7 +49,7 @@ const CandidatesPage = ({
     setOpen(true);
   };
 
-  const matches960 = useMediaQuery("(max-width:960px)");
+  const matches768 = useMediaQuery("(max-width:768px)");
 
   return (
     <>
@@ -74,13 +73,10 @@ const CandidatesPage = ({
               candidate={candidates}
               handleCandidateDetails={handleCandidateDetails}
               loading={loadingCl}
+              getMoreCandidates={getMoreCandidates}
             />
-
-            {/* {candidates.length >= 12 ? (
-              <GetMoreButton onClick={getMoreCandidates} />
-              ) : null} */}
           </Grid>
-          {matches960 ? (
+          {matches768 ? (
             <CandidateDetailsM
               candidate={candidateDetails}
               experience={experience}
