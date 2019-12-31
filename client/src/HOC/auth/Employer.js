@@ -31,7 +31,7 @@ const withAuthEmployer = (Wrap) => {
             const { auth, role } = data.auth
             this.shouldNavigateAway(auth, role)
          } else {
-            this.props.fetchRole()
+            await this.props.fetchRole()
             const { role, auth } = this.props
             this.shouldNavigateAway(auth, role)
          }

@@ -23,7 +23,7 @@ export const getJobseekerApplications = async offset => {
   const res = await instanceAPI.post(`/api/job-application/jobseeker`, {
     offset: offset,
   });
-  return res.data;
+  return res;
 };
 
 //candidate applied for job

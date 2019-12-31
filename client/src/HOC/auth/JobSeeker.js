@@ -17,7 +17,7 @@ const withAuthJobSeeker = (Wrap) => {
 
     shouldNavigateAway(auth,role){
       const { history } = this.props
-      if (!auth || role !== 'jobseeker' ) {
+      if (!auth && role !== 'jobseeker' ) {
          return history.push('/login-err');
       }
     }
@@ -30,8 +30,8 @@ const withAuthJobSeeker = (Wrap) => {
           const { auth, role } = data.auth 
           this.shouldNavigateAway(auth, role)
          } else {
+            await this.props.fetchRole()
             const { role,auth, } = this.props
-            this.props.fetchRole()
             this.shouldNavigateAway(auth,role)
        }
 

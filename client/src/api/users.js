@@ -7,7 +7,6 @@ export const getCandidates = async (
   page,
 ) => {
   const url = `/api/candidate-search?location=${location}&category=${category}&experience_max=${experienceMax}&page=${page}`;
-  //  const url = `/api/candidate-search`
   const res = await instanceAPI.get(url);
   return res.data;
 };

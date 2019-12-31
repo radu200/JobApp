@@ -139,23 +139,20 @@ module.exports.JobApplicationApplicantsShortList = async (req, res) => {
 //list of jobs that jobseeker applied, appear on jobseeker profile
 module.exports.JobApplicationJobSeeker = async (req, res) => {
   const userType = req.user.type;
-  const page = req.body.page;
+  const offset = req.body.offset;
   const limit = 12;
-
+  const userId = req.user.id
   try {
     const db = await dbPromise;
 
     const [results] = await db.execute(
-      `select job_application.id as appliedJobsId, job_application.job_id, job_application.jobseeker_id ,jobs.id, jobs.category,jobs.position,jobs.image,jobs.employment_type,jobs.city from  job_application LEFT JOIN jobs on job_application.job_id = jobs.id where job_application.jobseeker_id = ? LIMIT ${limit} OFFSET ${page} `,
-      [req.user.id]
+      `select job_application.id as appliedJobsId, job_application.job_id, job_application.date, job_application.jobseeker_id ,jobs.id, jobs.category,jobs.position,jobs.image,jobs.employment_type,jobs.city from  job_application LEFT JOIN jobs on job_application.job_id = jobs.id where job_application.jobseeker_id = ? LIMIT ${limit} OFFSET ${offset} `,
+      [userId]
     );
+      res.status(200).json({jobs:results});
 
-      res.json({
-        jobs: results,
-        auth: "jobseeker"
-      });
   } catch (err) {
-    console.log(err);
+     res.status(500).json('Server Err')
   }
 };
 
