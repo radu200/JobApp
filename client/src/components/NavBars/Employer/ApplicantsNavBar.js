@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
+import { Link } from 'react-router-dom'
 
 const styles = {
   root: {
@@ -41,19 +42,13 @@ function applicantsNavBar(props) {
       <AppBar position="static" className={classes.AppBar}>
         <Toolbar className={classes.toolbar}>
           <Button color="inherit">
-            <a className={classes.links} href={applicantActive}>
-              Aplicanti
-            </a>
+            <Link to={applicantActive}>Aplicanti</Link>
+          </Button>
+          <Button color="inhz">
+          <Link to={applicantShortList}>Lista Scurta</Link>
           </Button>
           <Button color="inherit">
-            <a className={classes.links} href={applicantShortList}>
-              Lista Scurta
-            </a>
-          </Button>
-          <Button color="inherit">
-            <a className={classes.links} href={applicantRejected}>
-              Respins
-            </a>
+          <Link to={applicantRejected}> Respinsi </Link>
           </Button>
         </Toolbar>
       </AppBar>

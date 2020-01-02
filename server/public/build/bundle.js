@@ -11619,6 +11619,9 @@ var _main8 = _interopRequireDefault(_main7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//remove redux state from local storage
+localStorage.removeItem('state');
+
 /***/ }),
 
 /***/ "./public/src/js/utility/alerts.js":

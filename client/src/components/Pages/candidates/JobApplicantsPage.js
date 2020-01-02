@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Grid from "@material-ui/core/Grid";
 import CandidateCard from "../../Cards/CandidateCard";
 import MainNav from "../../NavBars/MainNav/MainNav";
-import SearchCandidateForm from "../../Forms/SearchCandidate";
 import CandidateDetailsD from "../../Cards/CandidateDetailsD";
 import CandidateDetailsM from "../../Cards/CandidateDetailsM";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import ApplicantNav from '../../NavBars/Employer/ApplicantsNavBar'
 
 const useStyles = makeStyles({
   root: {
@@ -20,15 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CandidatesPage = ({
-  handleSubmit,
-  handleInputChange,
-  category,
-  categories,
-  location,
-  cities,
-  experienceMax,
-  handleExperienceValue,
+const ApplicantsPage = ({
   candidates,
   getMoreCandidates,
   handleCandidateDetails,
@@ -55,17 +47,8 @@ const CandidatesPage = ({
       <div className={classes.root}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6}>
-            <SearchCandidateForm
-              handleSubmit={handleSubmit}
-              handleInputChange={handleInputChange}
-              category={category}
-              location={location}
-              categories={categories}
-              cities={cities}
-              handleExperienceValue={handleExperienceValue}
-              experienceMax={experienceMax}
-            />
             {candidates.length === 0 &&  <h2>Rezultat: 0</h2>}
+            <ApplicantNav jobId={72} />
             <CandidateCard
               handleOpen={handleOpen}
               candidate={candidates}
@@ -99,16 +82,8 @@ const CandidatesPage = ({
   );
 };
 
-CandidatesPage.propTypes = {
-  handleInputChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  handleExperienceValue: PropTypes.func,
+ApplicantsPage.propTypes = {
   getMoreCandidates: PropTypes.func,
-  category: PropTypes.string,
-  location: PropTypes.string,
-  cities: PropTypes.array,
-  categories: PropTypes.array,
   candidates: PropTypes.array,
-  formErrors: PropTypes.object,
 };
-export default CandidatesPage;
+export default ApplicantsPage;

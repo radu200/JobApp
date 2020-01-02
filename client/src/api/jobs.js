@@ -26,32 +26,7 @@ export const getJobseekerApplications = async offset => {
   return res;
 };
 
-//candidate applied for job
-export const applicantShortList = async (jobId, offset) => {
-  const res = await instanceAPI.post(
-    `/api/job-application/applicants/shortlist/${jobId}`,
-    {
-      offset: offset,
-    },
-  );
-  return res.data;
-};
-
-export const applicantRejected = async (jobId, offset) => {
-  const res = await instanceAPI.post(
-    `/api/job-application/applicants/rejected/${jobId}`,
-    {
-      offset: offset,
-    },
-  );
-  return res.data;
-};
-export const applicantActive = async (jobId, offset) => {
-  const res = await instanceAPI.post(
-    `/api/job-application/applicants/active/${jobId}`,
-    {
-      offset: offset,
-    },
-  );
+export const  getJobApplicants = async (jobId, offset, status) => {
+  const res = await instanceAPI.get(`/api/job-applicants?job_id=${jobId}&offset=${offset}&status=${status}`);
   return res.data;
 };

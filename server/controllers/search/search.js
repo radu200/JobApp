@@ -5,7 +5,7 @@ module.exports.searchJobs = async (req, res, next) => {
   const searchVal = req.query.search_query || null;
   const page = parseInt(req.query.page) || 1;
   const city = req.query.location || null;
-  const limit = 6;
+  const limit = 12;
 
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
@@ -69,21 +69,15 @@ module.exports.searchJobs = async (req, res, next) => {
 
 module.exports.searchCandidates = async (req, res) => {
   const { location, category, experience_max, page } = req.query;
-  console.log(location);
   const experience_min = 0;
   const limit = 6;
 
   try {
     ///validation
-    // if (
-    //   location === "" ||
-    //   location.length > 70 ||
-    //   category === "" ||
-    //   category.length > 70 ||
-    //   experienceMax > 50
-    // ) {
-    //   return false;
-    // }
+    if (
+      location === undefined || category === undefined ) {
+      return res.status(404).json('Not Found')
+    }
 
     const db = await dbPromise;
 

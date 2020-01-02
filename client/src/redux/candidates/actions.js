@@ -6,7 +6,6 @@ import {
   RECEIVED_CANDIDATE_D,
   FAILURE_CANDIDATE_D,
   GET_MORE_CANDIDATES,
-  NO_MORE_CANDIDATES,
 } from "./constants";
 
 //candidate list
@@ -57,11 +56,7 @@ export const getMoreCandidates = (
   };
 };
 
-export const noMoreCandidates = () => {
-  return {
-    type: NO_MORE_CANDIDATES,
-  };
-};
+
 ///candidate details
 export const requestCandidateD = () => {
   return {

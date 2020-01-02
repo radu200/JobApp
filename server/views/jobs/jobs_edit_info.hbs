@@ -40,7 +40,7 @@
         <h5>Functia <span class="red-text text-darken-2">*</span></h5>
         <p class="position_error_edit error"></p>
         <div class="input-field">
-          <input id="position_edit" type="text" placeholder="Pozitie.Te rog nu inlude numere." data-length="70"
+          <input id="position_edit" type="text"  data-length="70"
             class="validate" maxlength="70" name="position" value={{result.position}}>
         </div>
       </div>
@@ -49,7 +49,7 @@
         <p class="description_error_edit error"></p>
         <div class="input-field">
           <textarea id="description_edit" class="materialize-textarea" data-length="300"
-            placeholder="ex.Descriere.Te rog nu inlude numere" name="job_description" maxlength="300"
+             name="job_description" maxlength="300"
             pattern="[a-zA-Z]*">{{result.description}}</textarea>
           <span for="description_edit"></span>
         </div>

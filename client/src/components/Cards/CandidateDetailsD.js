@@ -9,6 +9,8 @@ import { Months, Days, Years } from "./../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
 import Button from "@material-ui/core/Button";
 import Loading from "../../Utils/Loading";
+import CloseIcon from '@material-ui/icons/Close';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
   media: {
@@ -54,14 +56,22 @@ const useStyles = makeStyles({
   RoomIcon: {
     fontSize: 17,
   },
+  btnClose: {
+    zIndex: 999,
+    position: "absolute",
+  }
 });
 
-const CandidateDetailsCard = ({ candidate, experience, loading }) => {
+const CandidateDetailsCard = ({ candidate, experience, loading, open, handleClose}) => {
   const classes = useStyles();
   return (
     <>
       {loading && <Loading />}
+      {open && 
       <Card className={classes.card}>
+         <Grid container item justify="flex-end">
+            <Button className={classes.btnClose} align='right' variant="outlined" onClick={() => handleClose()}> <CloseIcon/></Button>
+         </Grid>
         {candidate.map(candidate => {
           return (
             <CardActionArea key={candidate.id}>
@@ -141,8 +151,8 @@ const CandidateDetailsCard = ({ candidate, experience, loading }) => {
               </CardActionArea>
             );
           })}
-      </Card>
-    </>
+      </Card>}
+    </> 
   );
 };
 

@@ -94,6 +94,8 @@ class JobsContainer extends Component {
     const { location, category } = val;
     const { nextPage, fetchJobs, history } = this.props;
     this.checkforUrl(location, category, nextPage, fetchJobs, history);
+    window.scrollTo(0, 0);
+
   }
 
   async handlePrevPage() {
@@ -101,6 +103,8 @@ class JobsContainer extends Component {
     const { location, category } = val;
     const { prevPage, fetchJobs, history } = this.props;
     this.checkforUrl(location, category, prevPage, fetchJobs, history);
+    window.scrollTo(0, 0);
+
   }
 
   render() {

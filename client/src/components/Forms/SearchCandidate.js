@@ -13,7 +13,6 @@ const SearchCandidate = ({
     categories,
     location,
     cities,
-    formErrors,
     experienceMax,
     handleExperienceValue,
 }) => {
@@ -23,7 +22,7 @@ const SearchCandidate = ({
         <SelectInput
           onChange={handleInputChange}
           value={location}
-          error={formErrors.locationError}
+          error={''}
           elements={cities}
           title="Locatie"
           name="location"
@@ -31,7 +30,7 @@ const SearchCandidate = ({
         <SelectInput
           onChange={handleInputChange}
           value={category}
-          error={formErrors.categoryError}
+          error={''}
           elements={categories}
           title="Categorie"
           name="category"

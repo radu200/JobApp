@@ -54,7 +54,9 @@ const CandidateCard = ({
   return (
     <>
       {loading && <Loading />}
-      <div className={matches600 ? classes.cardContainerM : classes.cardContainerD} >
+      <div
+        className={matches600 ? classes.cardContainerM : classes.cardContainerD}
+      >
         {candidate &&
           candidate.map(candidate => {
             return (
@@ -111,7 +113,6 @@ const CandidateCard = ({
               </div>
             );
           })}
-       {candidate.length > 0 && <GetMoreButton onClick={getMoreCandidates} buttonText="Mai Mult" />}
       </div>
     </>
   );

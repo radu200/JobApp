@@ -18,11 +18,7 @@ class CandidatesContainer extends Component {
     this.state = {
       category: "",
       location: "",
-      experienceMax: 50,
-      formErrors: {
-        categoryError: "",
-        locationError: "",
-      },
+      experienceMax: 0,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,31 +28,7 @@ class CandidatesContainer extends Component {
     this.getMore = this.getMore.bind(this);
   }
 
-  componentDidMount() {
-    const { fetchCandidates, history } = this.props;
-
-    fetchCandidates("Chisinau", "Barista si Barman", 50, 0);
-  }
-
-  getMore() {
-    const {
-      currLocation,
-      currPage,
-      currCategory,
-      currExperienceMax,
-      limit,
-    } = this.props.candidatesState;
-
-    const nextPage = currPage + limit;
-
-    this.props.fetchMoreCandidates(
-      currLocation,
-      currCategory,
-      currExperienceMax,
-      nextPage,
-    );
-  }
-
+ 
   handleExperienceValue(event) {
     this.setState({ experienceMax: event.target.value });
   }
@@ -77,23 +49,36 @@ class CandidatesContainer extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-
-    // const isValid = this.validate();
     const { location, category, experienceMax } = this.state;
-    this.props.fetchCandidates(location, category, experienceMax, 0);
+    this.props.fetchCandidates(location, category, experienceMax,0);
 
-    const locationVal = validate(location);
-    const categoryVal = validate(category);
   }
 
+  getMore() {
+    const {
+      currLocation,
+      currPage,
+      currCategory,
+      currExperienceMax,
+      limit,
+    } = this.props.candidatesState;
+     
+    const nextPage = currPage + limit;
+
+    this.props.fetchMoreCandidates(
+      currLocation,
+      currCategory,
+      currExperienceMax,
+      nextPage,
+    );
+
+  }
   render() {
     const {
       category,
       experienceMax,
-      // candidates,
       location,
-      formErrors,
-    } = this.state;
+        } = this.state;
 
     const {
       handleSubmit,
@@ -113,7 +98,6 @@ class CandidatesContainer extends Component {
     return (
       <>
         <CandidatesPage
-          formErrors={formErrors}
           candidateDetails={candidate}
           experience={experience}
           loadingCd={loadingCd}
@@ -129,7 +113,7 @@ class CandidatesContainer extends Component {
           handleSubmit={handleSubmit}
           handleCandidateDetails={handleCandidateDetails}
           loadingCl={loadingCl}
-        />
+          />
       </>
     );
   }
@@ -141,9 +125,10 @@ const mapState = state => ({
   experience: state.candidate.experience,
   loadingCd: state.candidate.loading,
   loadingCl: state.candidates.loading,
+  disable:state.candidates.disable
 });
 export default compose(
-  // withAuthEmployer,
+   withAuthEmployer,
   connect(mapState, {
     fetchCandidates,
     fetchCandidatesDetails,

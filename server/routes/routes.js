@@ -83,9 +83,7 @@ module.exports = function (app) {
   app.post('/api/room', accessController.ensureAuthenticated, chatController.postRoom)
 
   //jobs controller 
-  app.post('/api/job-application/applicants/active/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsActive)
-  app.post('/api/job-application/applicants/rejected/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsRejected)
-  app.post('/api/job-application/applicants/shortlist/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.JobApplicationApplicantsShortList)
+  app.get('/api/job-applicants', jobsController.applicantsActive)
   app.post('/api/job-application/jobseeker', accessController.ensureAuthenticated, accessController.jobSeeker, jobsController.JobApplicationJobSeeker)
   app.get('/api/job/applied', jobsController.checkAppliedJobs)
   app.post('/api/apply/job', accessController.ensureAuthenticated, accessController.jobSeeker, jobsController.postApplyJobs)
@@ -96,12 +94,11 @@ module.exports = function (app) {
   app.get('/api/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.getEmployerJobEdit)
   app.post('/api/job/edit/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.postEmployerJobEdit)
   app.delete('/api/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
-  app.get('/api/job/details/:id', jobsController.getJobDetail)
 
   //search
   app.post('/api/search/job', searchController.searchJobs)
-  app.get('/api/candidate-details', searchController.getCandidateDetails)
-  app.get('/api/candidate-search', searchController.searchCandidates)
+  app.get('/api/candidate-details',accessController.ensureAuthenticated, accessController.employer, searchController.getCandidateDetails)
+  app.get('/api/candidate-search', accessController.ensureAuthenticated, accessController.employer, searchController.searchCandidates)
   ///contact us
   app.get('/api/contact-us', accessController.ensureAuthenticated, contactUs.getContactUs);
 
