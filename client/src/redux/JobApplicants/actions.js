@@ -6,6 +6,8 @@ import {
   RECEIVED_APPLICANT_D,
   FAILURE_APPLICANT_D,
   GET_MORE_APPLICANTS,
+  NO_MORE_APPLICANTS,
+  APPLICANT_STATUS
 } from "./constants";
 
 //candidate list
@@ -42,6 +44,18 @@ export const getMoreApplicants = (data, jobId, offset, status) => {
   };
 };
 
+export const finished = () => {
+  return {
+     type:NO_MORE_APPLICANTS
+  }
+}
+
+export const applicantStatus = (userId) => {
+  return {
+    type:APPLICANT_STATUS,
+    userId
+  }
+}
 ///candidate details
 export const requestApplicantD = () => {
   return {

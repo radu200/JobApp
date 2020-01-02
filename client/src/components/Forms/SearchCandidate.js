@@ -4,8 +4,15 @@ import SelectInput from "./../Inputs/Select";
 import SearchButton from "./../Buttons/ButtonContained";
 import Slider from "./../Inputs/Slider";
 import { Years, } from "../../Utils/messages";
+import { makeStyles } from "@material-ui/styles";
 
 
+const useStyles = makeStyles({
+  root:{
+    background:'white',
+    padding:'10px'
+  }
+})
 const SearchCandidate = ({
     handleSubmit,
     handleInputChange,
@@ -16,9 +23,10 @@ const SearchCandidate = ({
     experienceMax,
     handleExperienceValue,
 }) => {
+  const classes = useStyles()
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className={classes.root} onSubmit={handleSubmit}>
         <SelectInput
           onChange={handleInputChange}
           value={location}

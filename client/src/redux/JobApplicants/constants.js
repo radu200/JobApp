@@ -8,3 +8,4 @@ export const FAILURE_APPLICANT_D = " applicant/FAILURE_APPLICANT_D";
 
 export const GET_MORE_APPLICANTS = "applicant/GET_MORE";
 export const NO_MORE_APPLICANTS = "applicant/GET_MORE";
+export const APPLICANT_STATUS = "applicant/APPLICANT_STATUS"

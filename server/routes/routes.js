@@ -83,7 +83,8 @@ module.exports = function (app) {
   app.post('/api/room', accessController.ensureAuthenticated, chatController.postRoom)
 
   //jobs controller 
-  app.get('/api/job-applicants', jobsController.applicantsActive)
+  app.get('/api/job-applicants',accessController.ensureAuthenticated, accessController.employer, jobsController.jobApplicants)
+  app.post('/api/applicants/status', jobsController.jobApplicantsStatus)
   app.post('/api/job-application/jobseeker', accessController.ensureAuthenticated, accessController.jobSeeker, jobsController.JobApplicationJobSeeker)
   app.get('/api/job/applied', jobsController.checkAppliedJobs)
   app.post('/api/apply/job', accessController.ensureAuthenticated, accessController.jobSeeker, jobsController.postApplyJobs)

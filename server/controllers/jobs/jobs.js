@@ -46,7 +46,7 @@ module.exports.postApplyJobs = async (req, res, next) => {
 };
 
 ///employers see who applied for job
-module.exports.applicantsActive = async (req, res) => {
+module.exports.jobApplicants = async (req, res) => {
   const { job_id, offset, status } = req.query
   const limit = 6;
 
@@ -67,7 +67,18 @@ module.exports.applicantsActive = async (req, res) => {
   }
 };
 
-
+//change appllicants status
+module.exports.jobApplicantsStatus = async (req,res) => {
+  const { status, id} = req.query
+  try {
+    const db = await dbPromise;
+    await db.query(`UPDATE job_application SET status = ?  WHERE jobseeker_id = ?`, [status, id])
+    res.json('success')
+  }catch(err){
+    console.log(err)
+    res.status(500).json('Server Error')
+  }
+}
 //list of jobs that jobseeker applied, appear on jobseeker profile
 module.exports.JobApplicationJobSeeker = async (req, res) => {
   const offset = req.body.offset;

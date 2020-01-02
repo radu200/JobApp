@@ -5,6 +5,7 @@ import {
   fetchApplicants,
   fetchApplicantDetails,
   fetchMoreApplicants,
+  postApplicantStatus
 } from "../../redux/JobApplicants/operators";
 
 class Applicants extends Component {
@@ -16,6 +17,8 @@ class Applicants extends Component {
     };
     this.handleApplicantDetails = this.handleApplicantDetails.bind(this);
     this.getMore = this.getMore.bind(this);
+    this.handleReject = this.handleReject.bind(this);
+    this.handleShortList = this.handleShortList.bind(this);
   }
 
   async componentDidMount() {
@@ -49,6 +52,16 @@ class Applicants extends Component {
     this.props.fetchMoreApplicants(jobId, nextPage, status);
   }
 
+  handleReject(userId) {
+    const status = 'rejected'
+    this.props.postApplicantStatus(userId,status)
+  }
+
+  handleShortList(userId) {
+    const status = 'shortlist'
+    this.props.postApplicantStatus(userId,status)
+
+  }
   render() {
     const {
       applicants,
@@ -56,8 +69,15 @@ class Applicants extends Component {
       experience,
       loadingAd,
       loadingAl,
+      disable,
+      applicantsState,
     } = this.props;
-    const { getMore, handleApplicantDetails } = this;
+    const {
+      getMore,
+      handleApplicantDetails,
+      handleReject,
+      handleShortList,
+    } = this;
     return (
       <div>
         <ApplicantsPage
@@ -68,6 +88,10 @@ class Applicants extends Component {
           handleCandidateDetails={handleApplicantDetails}
           loadingCd={loadingAd}
           loadingCl={loadingAl}
+          disable={disable}
+          jobId={applicantsState.jobId}
+          reject={handleReject}
+          shortList={handleShortList}
         />
       </div>
     );
@@ -81,10 +105,12 @@ const mapState = state => ({
   experience: state.applicant.experience,
   loadingAd: state.applicant.loading,
   loadingAl: state.applicants.loading,
+  disable: state.applicants.disable,
 });
 
 export default connect(mapState, {
   fetchApplicants,
   fetchApplicantDetails,
   fetchMoreApplicants,
+  postApplicantStatus
 })(Applicants);

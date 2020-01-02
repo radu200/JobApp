@@ -6,6 +6,8 @@ import {
   RECEIVED_APPLICANT_D,
   FAILURE_APPLICANT_D,
   GET_MORE_APPLICANTS,
+  NO_MORE_APPLICANTS,
+  APPLICANT_STATUS
 } from "./constants";
 
 const applicantLState = {
@@ -14,6 +16,7 @@ const applicantLState = {
   jobId:null,
   status:"",
   limit: 6,
+  disable:false,
   loading: false,
   err: null,
 };
@@ -29,19 +32,24 @@ export const applicantsReducer = (state = applicantLState, action) => {
         applicants: action.data,
         currOffset: action.offset,
         jobId: action.jobId,
-        status:action.status
+        status:action.status,
+        disable:false,
       };
     case GET_MORE_APPLICANTS:
       return {
         ...state,
         loading: false,
-        applicant: [...state.applicant, ...action.data],
+        applicants: [...state.applicants, ...action.data],
         currOffset: action.offset,
         jobId: action.jobId,
         status:action.status
       };
+    case NO_MORE_APPLICANTS:
+      return {...state, loading:false, disable:true}
+    case APPLICANT_STATUS:
+        return {...state, loading:false, applicants: state.applicants.filter(a => a.userID !== action.userId)}
     case FAILURE_APPLICANT:
-      return { ...state, loading: false, err: action.err };
+      return { ...state, loading: false, err: action.err, disable:true };
     default:
       return state;
   }
@@ -59,7 +67,6 @@ export const applicantDReducer = (state = applicantDState, action) => {
     case REQUEST_APPLICANT_D:
       return { ...state, loading: true };
     case RECEIVED_APPLICANT_D:
-       console.log(action.data)
       const { experience, candidate } = action.data;
       return {
         ...state,

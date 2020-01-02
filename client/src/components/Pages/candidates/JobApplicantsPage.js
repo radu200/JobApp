@@ -28,6 +28,10 @@ const ApplicantsPage = ({
   experience,
   loadingCl,
   loadingCd,
+  disable,
+  jobId,
+  shortList,
+  reject
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -39,25 +43,27 @@ const ApplicantsPage = ({
   const handleOpen = () => {
     setOpen(true);
   };
-
-  const matches768 = useMediaQuery("(max-width:768px)");
+  const matchespx = useMediaQuery("(max-width:960px)");
   return (
     <>
       <MainNav />
       <div className={classes.root}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6}>
-            {candidates.length === 0 &&  <h2>Rezultat: 0</h2>}
-            <ApplicantNav jobId={72} />
+            <ApplicantNav jobId={jobId} />
+            {candidates.length === 0 &&  <h2>Aici vor aparea aplicantii</h2>}
             <CandidateCard
               handleOpen={handleOpen}
               candidate={candidates}
               handleCandidateDetails={handleCandidateDetails}
               loading={loadingCl}
               getMoreCandidates={getMoreCandidates}
+              disable={disable}
+              shortList={shortList}
+              reject={reject}
             />
           </Grid>
-          {matches768 ? (
+          {matchespx ? (
             <CandidateDetailsM
             candidate={candidateDetails}
             experience={experience}

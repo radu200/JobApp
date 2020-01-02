@@ -1,18 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { Link } from 'react-router-dom'
 
-const styles = {
+const styles = makeStyles({
   root: {
     flexGrow: 1
   },
   AppBar: {
-    background: "#E0E0E0",
-    marginTop: 20
+    background: "white",
+    marginTop: 20,
+    color:'black'
   },
   grow: {
     flexGrow: 1
@@ -30,10 +31,11 @@ const styles = {
     display: "flex",
     flexWrap: "nowrap"
   }
-};
+});
 
 function applicantsNavBar(props) {
-  const { classes, jobId } = props;
+  const classes = styles()
+  const { jobId } = props;
   const applicantActive = `/job-application/applicants/active/${jobId}`;
   const applicantRejected = `/job-application/applicants/rejected/${jobId}`;
   const applicantShortList = `/job-application/applicants/shortlist/${jobId}`;
@@ -42,13 +44,13 @@ function applicantsNavBar(props) {
       <AppBar position="static" className={classes.AppBar}>
         <Toolbar className={classes.toolbar}>
           <Button color="inherit">
-            <Link to={applicantActive}>Aplicanti</Link>
-          </Button>
-          <Button color="inhz">
-          <Link to={applicantShortList}>Lista Scurta</Link>
+            <Link className={classes.links} to={applicantActive}>Aplicanti</Link>
           </Button>
           <Button color="inherit">
-          <Link to={applicantRejected}> Respinsi </Link>
+          <Link className={classes.links} to={applicantShortList}>Lista Scurta</Link>
+          </Button>
+          <Button color="inherit">
+          <Link className={classes.links} to={applicantRejected}> Respinsi </Link>
           </Button>
         </Toolbar>
       </AppBar>
@@ -57,7 +59,7 @@ function applicantsNavBar(props) {
 }
 
 applicantsNavBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object
 };
 
-export default withStyles(styles)(applicantsNavBar);
+export default applicantsNavBar

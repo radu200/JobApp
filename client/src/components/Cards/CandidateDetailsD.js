@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     maxHeight: "840px",
     overflowY: "auto",
   },
-
+  
   avatar: {
     marginTop: 10,
     marginLeft: 20,

@@ -30,3 +30,9 @@ export const  getJobApplicants = async (jobId, offset, status) => {
   const res = await instanceAPI.get(`/api/job-applicants?job_id=${jobId}&offset=${offset}&status=${status}`);
   return res.data;
 };
+
+//change status fro job applicants
+export const  postStatusApplicant = async (userId, status) => {
+  const res = await instanceAPI.post(`/api/applicants/status?id=${userId}&status=${status}`);
+  return res
+};

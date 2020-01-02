@@ -28,7 +28,7 @@ class CandidatesContainer extends Component {
     this.getMore = this.getMore.bind(this);
   }
 
- 
+
   handleExperienceValue(event) {
     this.setState({ experienceMax: event.target.value });
   }
@@ -94,6 +94,7 @@ class CandidatesContainer extends Component {
       candidate,
       experience,
       loadingCd,
+      disable
     } = this.props;
     return (
       <>
@@ -113,6 +114,7 @@ class CandidatesContainer extends Component {
           handleSubmit={handleSubmit}
           handleCandidateDetails={handleCandidateDetails}
           loadingCl={loadingCl}
+          disable={disable}
           />
       </>
     );

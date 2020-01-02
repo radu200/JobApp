@@ -36,6 +36,7 @@ const CandidatesPage = ({
   experience,
   loadingCl,
   loadingCd,
+  disable
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -48,7 +49,7 @@ const CandidatesPage = ({
     setOpen(true);
   };
 
-  const matches768 = useMediaQuery("(max-width:768px)");
+  const matchespx = useMediaQuery("(max-width:960px)");
   return (
     <>
       <MainNav />
@@ -72,9 +73,10 @@ const CandidatesPage = ({
               handleCandidateDetails={handleCandidateDetails}
               loading={loadingCl}
               getMoreCandidates={getMoreCandidates}
+              disable={disable}
             />
           </Grid>
-          {matches768 ? (
+          {matchespx ? (
             <CandidateDetailsM
             candidate={candidateDetails}
             experience={experience}

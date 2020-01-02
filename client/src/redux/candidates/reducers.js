@@ -6,6 +6,7 @@ import {
   RECEIVED_CANDIDATE_D,
   FAILURE_CANDIDATE_D,
   GET_MORE_CANDIDATES,
+  NO_MORE_CANDIDATES
 } from "./constants";
 
 const candidatesLState = {
@@ -33,6 +34,7 @@ export const candidatesReducer = (state = candidatesLState, action) => {
         currLocation: action.location,
         currCategory: action.category,
         currExperienceMax: action.experienceMax,
+        disable:false
       };
     case GET_MORE_CANDIDATES:
       return {
@@ -45,7 +47,9 @@ export const candidatesReducer = (state = candidatesLState, action) => {
         currExperienceMax: action.experienceMax,
       };
     case FAILURE_CANDIDATE:
-      return { ...state, loading: false, err: action.err, disable: true };
+      return { ...state, loading: false, err: action.err, disable:true };
+    case NO_MORE_CANDIDATES:
+        return {...state, disable:true}
     default:
       return state;
   }

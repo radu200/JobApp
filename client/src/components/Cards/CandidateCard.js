@@ -11,8 +11,9 @@ import RoomIcon from "@material-ui/icons/Room";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
 import Loading from "../../Utils/Loading";
-import GetMoreButton from "../Buttons/ButtonOutlined";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   bigAvatar: {
@@ -48,24 +49,31 @@ const CandidateCard = ({
   handleOpen,
   loading,
   getMoreCandidates,
+  disable,
+  shortList,
+  reject
 }) => {
   const matches600 = useMediaQuery("(max-width:600px)");
   const classes = useStyles();
   return (
     <>
       {loading && <Loading />}
-      <div className={matches600 ? classes.cardContainerM : classes.cardContainerD} >
+      <div
+        className={matches600 ? classes.cardContainerM : classes.cardContainerD}
+      >
         {candidate &&
           candidate.map(candidate => {
             return (
-              <div
-                onClick={() => handleCandidateDetails(candidate.userID)}
-                key={candidate.userID}
-              >
-                <List className={classes.root} onClick={handleOpen}>
+              <div key={candidate.userID}>
+                <List >
                   <Card>
-                    <CardActionArea>
-                      <ListItem>
+                    <CardActionArea
+                      className={classes.root}
+                      onClick={handleOpen}
+                    >
+                      <ListItem
+                        onClick={() => handleCandidateDetails(candidate.userID)}
+                      >
                         <Avatar
                           className={classes.bigAvatar}
                           alt={candidate.first_name}
@@ -77,13 +85,16 @@ const CandidateCard = ({
                               <Typography>
                                 {candidate.first_name} {candidate.last_name}
                               </Typography>
-                              <Typography
-                                className={classes.textBold}
-                                color="textPrimary"
-                              >
-                                {candidate.category} -{" "}
-                                {candidate.total_ex_years} {Years}
-                              </Typography>
+
+                              {candidate.total_ex_years && (
+                                <Typography
+                                  className={classes.textBold}
+                                  color="textPrimary"
+                                >
+                                  {candidate.category} -{" "}
+                                  {candidate.total_ex_years} {Years}
+                                </Typography>
+                              )}
                               <Typography color="textSecondary">
                                 {candidate.position}
                               </Typography>
@@ -105,13 +116,37 @@ const CandidateCard = ({
                           }
                         />
                       </ListItem>
+
                     </CardActionArea>
+                    {candidate.status && candidate.status === 'active' &&
+                    <CardActions>
+                      <Button size="small" color="primary"
+                        onClick={() => shortList(candidate.userID)}
+                      >
+                        List Scurta
+                      </Button>
+                      <Button size="small" color="secondary"
+                       onClick={() => reject(candidate.userID)} >
+                        Respinge
+                      </Button>
+                    </CardActions>} 
                   </Card>
                 </List>
               </div>
             );
           })}
-       {candidate.length > 0 && <GetMoreButton onClick={getMoreCandidates} buttonText="Mai Mult" />}
+        {candidate.length > 0 && (
+          <Button
+            onClick={getMoreCandidates}
+            variant="contained"
+            color={"primary"}
+            type="submit"
+            fullWidth
+            disabled={disable}
+          >
+            Mai Mult
+          </Button>
+        )}
       </div>
     </>
   );

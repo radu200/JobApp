@@ -23,6 +23,7 @@ const ButtonContained = ({ classes, buttonText, color, onClick }) => {
       type="submit"
       className={classes.button}
       onClick={onClick}
+      
     >
       {buttonText}{" "}
     </Button>

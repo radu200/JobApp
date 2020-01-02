@@ -6,10 +6,12 @@ import {
   requestApplicantD,
   failureApplicantD,
   getMoreApplicants,
+  finished,
+  applicantStatus,
 } from "./actions";
 
 import { getCandidateDetails } from "../../api/users";
-import { getJobApplicants } from "../../api/jobs";
+import { getJobApplicants, postStatusApplicant } from "../../api/jobs";
 
 export const fetchApplicants = (jobId, offset, status) => async dispatch => {
   try {
@@ -38,9 +40,24 @@ export const fetchMoreApplicants = (
   try {
     dispatch(requestApplicant());
     const data = await getJobApplicants(jobId, offset, status);
-
-    dispatch(getMoreApplicants(data, jobId, offset, status));
+     if(data.length === 0){
+       dispatch(finished())
+     }else{
+       dispatch(getMoreApplicants(data, jobId, offset, status));
+     }
   } catch (err) {
     dispatch(failureApplicant(err));
   }
 };
+
+export const postApplicantStatus = (userId, status) => async dispatch => {
+  try {
+    dispatch(requestApplicant());
+    const res = await postStatusApplicant(userId, status)
+    if(res.status === 200){
+      dispatch(applicantStatus(userId))
+    }
+  } catch (err) {
+    dispatch(failureApplicant(err));
+  }   
+}
