@@ -78,9 +78,9 @@ module.exports.membershipJob = async (req, res, next) => {
 
     const mDate = member[0].membership_approved_date
     const jobsId = member.map(job => job.jobId)
-    const jobLen = jobsId &&  jobsId.length
+    const jobLen = jobsId && jobsId.length
 
-    if (mDate < presentDate &&  jobLen > 1) {
+    if (mDate < presentDate && jobLen > 1) {
       req.flash("warning_msg", {
         msg:
           "Pentru a posta mai multe locuri de muncă, trebuie să fii membru"
@@ -108,15 +108,57 @@ module.exports.membership = async (req, res, next) => {
     const mDate = member[0].membership_approved_date
 
     if (mDate < presentDate) {
-      res.json({member: false })
+      res.json({ member: false })
 
     } else if (mDate > presentDate) {
-      res.json({member: true })
-    } 
+      res.json({ member: true })
+    }
   } catch (e) {
-     res.status(500)
+    res.status(500)
   }
 }
 
 
 
+///auth json res
+module.exports.ensureAuthenticatedJ = function (req, res, next) {
+  try {
+    if (req.isAuthenticated()) {
+      return next();
+    } else {
+      res.status(404).json('Te rog logheaza-te');
+    }
+
+  } catch (err) {
+    res.status(500).json("Server Error")
+  }
+};
+
+/// middleware for user access controll
+module.exports.employerJ = function (req, res, next) {
+  try {
+    if (req.user.type === "employer") {
+      return next();
+    } else {
+      res.status(404).json('Te rog logheaza-te');
+    }
+
+  } catch (err) {
+    res.status(500).json("Server Error")
+
+  };
+}
+
+module.exports.jobSeekerJ = function (req, res, next) {
+  try {
+    if (req.user.type === "jobseeker") {
+      return next();
+    } else {
+      res.status(404).json('Te rog logheaza-te');
+    }
+
+  } catch (err) {
+    res.status(500).json("Server Error")
+
+  }
+}

@@ -98,8 +98,8 @@ module.exports = function (app) {
 
   //search
   app.post('/api/search/job', searchController.searchJobs)
-  app.get('/api/candidate-details',accessController.ensureAuthenticated, accessController.employer, searchController.getCandidateDetails)
-  app.get('/api/candidate-search', accessController.ensureAuthenticated, accessController.employer, searchController.searchCandidates)
+  app.get('/api/candidate-details',accessController.ensureAuthenticatedJ, accessController.employerJ, searchController.getCandidateDetails)
+  app.get('/api/candidate-search', accessController.ensureAuthenticatedJ, accessController.employerJ, searchController.searchCandidates)
   ///contact us
   app.get('/api/contact-us', accessController.ensureAuthenticated, contactUs.getContactUs);
 

@@ -29,7 +29,7 @@ const Routes = () => (
         <Route exact path='/job/details' component={JobDetails} />
         <Route exact path='/chat' component={Chat} />
         <Route exact path='/chat/:room' component={ChatRoom} />
-        <Route exact path='/search-candidate' component={Candidates} />
+        <Route exact path='/search-candidate' component={withAuthEmployer(Candidates)} />
         <Route exact path='/job-application/applicants/:status/:id' component={withAuthEmployer(Applicants)} />
         <Route exact path='/my/applications' component={withAuthJobSeeker(JobSeekerApplications)} />
         

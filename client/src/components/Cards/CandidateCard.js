@@ -44,7 +44,7 @@ const useStyles = makeStyles({
 });
 
 const CandidateCard = ({
-  candidate,
+  candidates,
   handleCandidateDetails,
   handleOpen,
   loading,
@@ -58,11 +58,9 @@ const CandidateCard = ({
   return (
     <>
       {loading && <Loading />}
-      <div
-        className={matches600 ? classes.cardContainerM : classes.cardContainerD}
-      >
-        {candidate &&
-          candidate.map(candidate => {
+      <div className={matches600 ? classes.cardContainerM : classes.cardContainerD} >
+        {candidates &&
+          candidates.map(candidate => {
             return (
               <div key={candidate.userID}>
                 <List >
@@ -135,7 +133,7 @@ const CandidateCard = ({
               </div>
             );
           })}
-        {candidate.length > 0 && (
+        {candidates.length > 0 && (
           <Button
             onClick={getMoreCandidates}
             variant="contained"

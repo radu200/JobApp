@@ -14,6 +14,21 @@ export const validate = value => {
     return {error,status}
 };
 
+export const validateNum = num => {
+  let error;
+  let status = true
+  if (num < 0 ||  num === 0) {
+    error = "Alege Experienta";
+    status = false
+  } 
+
+  if(num > 50){
+      error = "Numar prea mare";
+      status = false
+  }
+  return {error,status}
+}
+
 export const validateEmail = (value) =>  {
   let error ;
   let status = true

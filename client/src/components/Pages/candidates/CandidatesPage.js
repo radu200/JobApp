@@ -36,7 +36,8 @@ const CandidatesPage = ({
   experience,
   loadingCl,
   loadingCd,
-  disable
+  disable,
+  formErrors
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -65,11 +66,12 @@ const CandidatesPage = ({
               cities={cities}
               handleExperienceValue={handleExperienceValue}
               experienceMax={experienceMax}
+              formErrors={formErrors}
             />
             {candidates.length === 0 &&  <h2>Rezultat: 0</h2>}
             <CandidateCard
               handleOpen={handleOpen}
-              candidate={candidates}
+              candidates={candidates}
               handleCandidateDetails={handleCandidateDetails}
               loading={loadingCl}
               getMoreCandidates={getMoreCandidates}

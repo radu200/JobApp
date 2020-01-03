@@ -26,7 +26,8 @@ const JobsPage = ({
   categories,
   location,
   cities,
-  loading
+  loading,
+  formErrors
 }) => {
   const classes = useStyles();
   return (
@@ -42,6 +43,7 @@ const JobsPage = ({
               categories={categories}
               category={category}
               location={location}
+              formErrors={formErrors}
             />
           </Grid>
         </Grid>

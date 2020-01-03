@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { cities } from "../../api/cities";
 import { categories } from "../../api/categories";
-import { validate } from "../../Utils/validation";
-import withAuthEmployer from "../../HOC/auth/Employer";
+import { validate, validateNum } from "../../Utils/validation";
 import CandidatesPage from "../../components/Pages/candidates/CandidatesPage";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -19,6 +18,11 @@ class CandidatesContainer extends Component {
       category: "",
       location: "",
       experienceMax: 0,
+      offset:0,
+      formErrors: {
+        location: "",
+        category: "",
+      },
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,8 +53,32 @@ class CandidatesContainer extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const { location, category, experienceMax } = this.state;
-    this.props.fetchCandidates(location, category, experienceMax,0);
+    const { location, category, experienceMax , offset} = this.state;
+    const categoryVal = validate(category);
+    const locationVal = validate(location);
+    const expMax = validateNum(experienceMax)
+    console.log(expMax)
+    if (locationVal.status && categoryVal.status && expMax.status) {
+      this.props.fetchCandidates(location, category, experienceMax,offset);
+     
+      this.setState(prevState => ({
+        formErrors: {
+          ...prevState.formErrors,
+          location: "",
+          category: "",
+          experienceMax:0
+        },
+      }));
+    }
+
+    this.setState(prevState => ({
+      formErrors: {
+        ...prevState.formErrors,
+        location: locationVal.error,
+        category: categoryVal.error,
+        experienceMax:expMax.error
+      },
+    }));
 
   }
 
@@ -78,6 +106,7 @@ class CandidatesContainer extends Component {
       category,
       experienceMax,
       location,
+      formErrors
         } = this.state;
 
     const {
@@ -115,6 +144,7 @@ class CandidatesContainer extends Component {
           handleCandidateDetails={handleCandidateDetails}
           loadingCl={loadingCl}
           disable={disable}
+          formErrors={formErrors}
           />
       </>
     );
@@ -130,7 +160,6 @@ const mapState = state => ({
   disable:state.candidates.disable
 });
 export default compose(
-   withAuthEmployer,
   connect(mapState, {
     fetchCandidates,
     fetchCandidatesDetails,

@@ -15,6 +15,7 @@ import {
 import JobsPage from "../../components/Pages/Jobs/JobsPage";
 import queryString from "query-string";
 import Pagination from "../../components/Pagination/Pagination";
+import { validate } from "../../Utils/validation";
 
 class JobsContainer extends Component {
   constructor(props) {
@@ -23,6 +24,10 @@ class JobsContainer extends Component {
       category: "",
       location: "",
       url: "/jobs",
+      formErrors: {
+        location: "",
+        category: "",
+      },
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,10 +59,31 @@ class JobsContainer extends Component {
     event.preventDefault();
     const { currentPage, history, fetchJobs } = this.props;
     const { category, location } = this.state;
-    await fetchJobs(location, category);
-    history.push(
-      `/jobs?location=${location}&category=${category}&page=${currentPage}`,
-    );
+    const categoryVal = validate(category);
+    const locationVal = validate(location);
+   
+    if (locationVal.status && categoryVal.status) {
+      fetchJobs(location, category);
+      history.push(
+        `/jobs?location=${location}&category=${category}&page=${currentPage}`,
+      );
+
+      this.setState(prevState => ({
+        formErrors: {
+          ...prevState.formErrors,
+          location: "",
+          category: "",
+        },
+      }));
+    } 
+      this.setState(prevState => ({
+        formErrors: {
+          ...prevState.formErrors,
+          location: locationVal.error,
+          category: categoryVal.error,
+        },
+      }));
+
   }
 
   getJobId(id) {
@@ -95,7 +121,6 @@ class JobsContainer extends Component {
     const { nextPage, fetchJobs, history } = this.props;
     this.checkforUrl(location, category, nextPage, fetchJobs, history);
     window.scrollTo(0, 0);
-
   }
 
   async handlePrevPage() {
@@ -104,11 +129,10 @@ class JobsContainer extends Component {
     const { prevPage, fetchJobs, history } = this.props;
     this.checkforUrl(location, category, prevPage, fetchJobs, history);
     window.scrollTo(0, 0);
-
   }
 
   render() {
-    const { category, location } = this.state;
+    const { category, location, formErrors } = this.state;
     const {
       handleSubmit,
       handleInputChange,
@@ -136,6 +160,7 @@ class JobsContainer extends Component {
           cities={cities}
           categories={categories}
           loading={loading}
+          formErrors={formErrors}
         />
         <Pagination
           currentPage={currentPage}

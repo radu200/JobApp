@@ -54,7 +54,7 @@ const ApplicantsPage = ({
             {candidates.length === 0 &&  <h2>Aici vor aparea aplicantii</h2>}
             <CandidateCard
               handleOpen={handleOpen}
-              candidate={candidates}
+              candidates={candidates}
               handleCandidateDetails={handleCandidateDetails}
               loading={loadingCl}
               getMoreCandidates={getMoreCandidates}
