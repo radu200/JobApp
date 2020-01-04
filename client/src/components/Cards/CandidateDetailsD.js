@@ -9,8 +9,9 @@ import { Months, Days, Years } from "./../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
 import Button from "@material-ui/core/Button";
 import Loading from "../../Utils/Loading";
-import CloseIcon from '@material-ui/icons/Close';
-import Grid from '@material-ui/core/Grid';
+import CloseIcon from "@material-ui/icons/Close";
+import Grid from "@material-ui/core/Grid";
+import NoUser from "../../images/no_user.png";
 
 const useStyles = makeStyles({
   media: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles({
     maxHeight: "840px",
     overflowY: "auto",
   },
-  
+
   avatar: {
     marginTop: 10,
     marginLeft: 20,
@@ -59,100 +60,118 @@ const useStyles = makeStyles({
   btnClose: {
     zIndex: 999,
     position: "absolute",
-  }
+  },
 });
 
-const CandidateDetailsCard = ({ candidate, experience, loading, open, handleClose}) => {
+const CandidateDetailsCard = ({
+  candidate,
+  experience,
+  loading,
+  open,
+  handleClose,
+}) => {
   const classes = useStyles();
   return (
     <>
       {loading && <Loading />}
-      {open && 
-      <Card className={classes.card}>
-         <Grid container item justify="flex-end">
-            <Button className={classes.btnClose} align='right' variant="outlined" onClick={() => handleClose()}> <CloseIcon/></Button>
-         </Grid>
-        {candidate.map(candidate => {
-          return (
-            <CardActionArea key={candidate.id}>
-              <img
-                alt="Candidate Details"
-                src={candidate.avatar}
-                className={classes.avatar}
-              />
-              <CardContent>
-                <Button
-                  href={`/api/report/${candidate.id}`}
-                  size="small"
-                  color="primary"
-                >
-                  Raporteaza acest utilizator
-                </Button>
-                <Typography
-                  gutterBottom
-                  component="p"
-                  className={classes.availability}
-                >
-                  {candidate.job_seeker_availability}
-                </Typography>
-                <Typography component="p">
-                  {candidate.job_seeker_employment_type}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {candidate.first_name} {candidate.last_name}
-                </Typography>
-
-                {candidate.job_seeker_about_me ? (
-                  <Typography component="p" className={classes.candidateAbout}>
-                    <b>Despre: </b> {candidate.job_seeker_about_me}
-                  </Typography>
-                ) : null}
-                {candidate.job_seeker_languages ? (
-                  <Typography gutterBottom component="p">
-                    <b> Limbi: </b>
-                    {candidate.job_seeker_languages}
-                  </Typography>
-                ) : null}
-
-                <Typography component="p">
-                  <RoomIcon className={classes.RoomIcon} />{" "}
-                  {candidate.job_seeker_location}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          );
-        })}
-
-        {experience &&
-          experience.map((experience, index) => {
+      {open && (
+        <Card className={classes.card}>
+          <Grid container item justify="flex-end">
+            <Button
+              className={classes.btnClose}
+              align="right"
+              variant="outlined"
+              onClick={() => handleClose()}
+            >
+              {" "}
+              <CloseIcon />
+            </Button>
+          </Grid>
+          {candidate.map(candidate => {
             return (
-              <CardActionArea key={index}>
+              <CardActionArea key={candidate.id}>
+                <img
+                  alt="Candidate Details"
+                  src={candidate.avatar ? candidate.avatar : NoUser}
+                  className={classes.avatar}
+                />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {experience.position}
-                  </Typography>
-                  <Typography component="p">{experience.category}</Typography>
-                  <Typography component="p" className={classes.companyName}>
-                    {experience.company_name}
-                  </Typography>
-                  <Typography gutterBottom component="p" color="primary">
-                    {experience.start_date}- {experience.end_date} -{" "}
-                    {experience.years} {Years} {experience.months} {Months}{" "}
-                    {experience.days} {Days}
-                  </Typography>
+                  <Button
+                    href={`/api/report/${candidate.id}`}
+                    size="small"
+                    color="primary"
+                  >
+                    Raporteaza acest utilizator
+                  </Button>
                   <Typography
                     gutterBottom
                     component="p"
-                    className={classes.responsibilities}
+                    className={classes.availability}
                   >
-                    {experience.responsibilities}
+                    {candidate.job_seeker_availability}
+                  </Typography>
+                  <Typography component="p">
+                    {candidate.job_seeker_employment_type}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {candidate.first_name} {candidate.last_name}
+                  </Typography>
+
+                  {candidate.job_seeker_about_me ? (
+                    <Typography
+                      component="p"
+                      className={classes.candidateAbout}
+                    >
+                      <b>Despre: </b> {candidate.job_seeker_about_me}
+                    </Typography>
+                  ) : null}
+                  {candidate.job_seeker_languages ? (
+                    <Typography gutterBottom component="p">
+                      <b> Limbi: </b>
+                      {candidate.job_seeker_languages}
+                    </Typography>
+                  ) : null}
+
+                  <Typography component="p">
+                    <RoomIcon className={classes.RoomIcon} />{" "}
+                    {candidate.job_seeker_location}
                   </Typography>
                 </CardContent>
               </CardActionArea>
             );
           })}
-      </Card>}
-    </> 
+
+          {experience &&
+            experience.map((experience, index) => {
+              return (
+                <CardActionArea key={index}>
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {experience.position}
+                    </Typography>
+                    <Typography component="p">{experience.category}</Typography>
+                    <Typography component="p" className={classes.companyName}>
+                      {experience.company_name}
+                    </Typography>
+                    <Typography gutterBottom component="p" color="primary">
+                      {experience.start_date}- {experience.end_date} -{" "}
+                      {experience.years} {Years} {experience.months} {Months}{" "}
+                      {experience.days} {Days}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      component="p"
+                      className={classes.responsibilities}
+                    >
+                      {experience.responsibilities}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              );
+            })}
+        </Card>
+      )}
+    </>
   );
 };
 

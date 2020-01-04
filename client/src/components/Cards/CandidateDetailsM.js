@@ -15,6 +15,7 @@ import { Months, Days, Years } from "../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
 import CardMedia from "@material-ui/core/CardMedia";
 import Loading from "../../Utils/Loading";
+import NoUser from "../../images/no_user.png";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -76,7 +77,7 @@ export default function FullScreenDialog({
                   alt={candidate.first_name}
                   className={classes.media}
                   height="140"
-                  image={candidate.avatar}
+                  image={candidate.avatar ? candidate.avatar : NoUser}
                 />
                 <CardContent>
                   <Button

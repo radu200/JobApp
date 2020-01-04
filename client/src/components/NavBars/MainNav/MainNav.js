@@ -68,8 +68,7 @@ const styles = theme => ({
   },
   appBar: {
     backgroundColor: "#2552C7",
-    padding: 0,
-    boxShadow: "none",
+    margin:0
   },
   translator: {
     display: "flex",
@@ -220,8 +219,10 @@ class MainNavBar extends React.Component {
                 <MenuItem button component="a" href={"api/my-jobs"}>
                   Locuri de muncă
                 </MenuItem>
-                <MenuItem button component="a" href={"/chat"}>
-                  Chat
+                <MenuItem button>
+                  <Link className={classes.links} to="/chat">
+                    Chat
+                  </Link>
                 </MenuItem>
                 <MenuItem button>
                   <Link className={classes.links} to="/search-candidate">

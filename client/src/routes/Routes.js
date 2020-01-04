@@ -15,6 +15,7 @@ import BlackList from '../containers/adminDashboard/BlackListedUsers'
 import LoginErr from '../components/Pages/LoginErr'
 
 import Checkout from '../containers/payment/Checkout'
+
 // auth
 import  withAuthEmployer  from '../HOC/auth/Employer'
 import withAuthJobSeeker  from '../HOC/auth/JobSeeker'

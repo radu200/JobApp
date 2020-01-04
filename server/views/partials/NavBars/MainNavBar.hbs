@@ -1,9 +1,9 @@
 <nav class="blue white-text">
-  <div class="container">
+  <div class="nav-container">
     <div class="nav-wrapper  lighten-4 ">
       <a href="/api/profile" class="brand-logo red-text text-lighten-1">Logo</a>
       {{#if isAuthenticated}}
-      
+
       {{#if JobSeeker}}
        {{>JobSeekerAppBar}}
        {{>JobSeekerSideNav}}
@@ -24,6 +24,3 @@
   {{>accountPremium}}
 </div>
 <div class="right" id="ytWidget"></div>
-<script
-  src="https://translate.yandex.net/website-widget/v1/widget.js?widgetId=ytWidget&pageLang=ro&widgetTheme=light&autoMode=true"
-  type="text/javascript"></script>

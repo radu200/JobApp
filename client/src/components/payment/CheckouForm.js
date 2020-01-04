@@ -3,13 +3,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { CardNumberElement, CardExpiryElement, CardCvcElement, } from 'react-stripe-elements';
 import Loading from '../../Utils/Loading'
 import PaySuccess from './PaySuccess'
-import MainNav from "../NavBars/MainNav/MainNav";
+import Visa from '../../assets/cards/visa.svg'
+import MasterCard from '../../assets/cards/mastercard.svg'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -37,13 +37,19 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '10px',
     outline: "none",
     backgroundColor: "#ffffff",
-    fontSize: "1.5vh"
+    fontSize: "16px"
   },
   err: {
     color: 'red',
     fontSize: '16px',
     textAlign:'center'
+  },
+  paymentCards:{
+    width:'100px',
+    display:'flex',
+    justifyContent:'space-between'
   }
+
 }));
 
 
@@ -60,16 +66,14 @@ export default function Checkout({
   const classes = useStyles();
 
   return (
-    <>
-      <MainNav />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Grid container spacing={2}>
+           <div className={classes.paymentCards}>
+            <Avatar variant="square" alt="visa" src={Visa} />
+            <Avatar variant="square" alt="mastercard" src={MasterCard} />
+          </div>
+          <Grid container >
             <Grid item xs={12}
               container
               spacing={0}
@@ -80,7 +84,7 @@ export default function Checkout({
               {loading && <Loading />}
             </Grid>
             <Grid item xs={12}>
-              {memberMsg  && <p className={classes.err}>Abonamentul pe acesta luna a fost platit </p>}
+              {/* {memberMsg  && <p className={classes.err}>Abonamentul pe acesta luna a fost platit </p>} */}
             </Grid>
             <Grid item xs={12}>
               {formError && <p className={classes.err}>Detaliile Cardului lipsesc sau  nu sunt sunt valide</p>}
@@ -93,8 +97,9 @@ export default function Checkout({
 
           {success ? <PaySuccess /> :
             <form onSubmit={handleSubmit} className={classes.form} >
-              <Grid container spacing={2}>
+              <Grid container >
                 <Grid item xs={12}>
+                  <label>Adresa de mail</label>
                   <input
                     name="email"
                     placeholder="Adresa de mail"
@@ -103,8 +108,18 @@ export default function Checkout({
                     type="email"
                   />
                 </Grid>
-
                 <Grid item xs={12}>
+                   <label>Numele Cardului</label>
+                  <input
+                    name="cardName"
+                    placeholder="Numele Cardului"
+                    onChange={handleInputChange}
+                    className={classes.cardDetails}
+                    type="text"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                <label>Numarul Cardului</label>
                   <CardNumberElement
                     onChange={handleCardChange}
                     className={classes.cardDetails}
@@ -116,24 +131,13 @@ export default function Checkout({
                     onChange={handleCardChange}
                     className={classes.cardDetails} />
                 </Grid>
-
                 <Grid item xs={12} sm={6}>
                   <CardCvcElement
                     onChange={handleCardChange}
                     className={classes.cardDetails}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <input
-                    name="cardName"
-                    placeholder="Numele Cardului"
-                    onChange={handleInputChange}
-                    className={classes.cardDetails}
-                    type="text"
-                  />
+                    />
                 </Grid>
               </Grid>
-
               <Button
                 type="submit"
                 fullWidth
@@ -141,12 +145,12 @@ export default function Checkout({
                 color="primary"
                 className={classes.submit}
               >
-                Achita 199 LEI
+                Achita 299 LEI
           </Button>
             </form>}
+            <p>Platile sunt procesate de Stripe unul din cele mai securizate procesor de plată din lume. Pentru securitatea dvs. noi nu salvam date-le cardului. </p>
         </div>
 
       </Container>
-    </>
   );
 }

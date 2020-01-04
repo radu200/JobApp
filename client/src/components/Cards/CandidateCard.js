@@ -14,6 +14,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import Loading from "../../Utils/Loading";
 import Button from "@material-ui/core/Button";
+import NoUser from '../../images/no_user.png'
 
 const useStyles = makeStyles({
   bigAvatar: {
@@ -75,7 +76,7 @@ const CandidateCard = ({
                         <Avatar
                           className={classes.bigAvatar}
                           alt={candidate.first_name}
-                          src={candidate.avatar}
+                          src={candidate.avatar ? candidate.avatar : NoUser}
                         />
                         <ListItemText
                           primary={
