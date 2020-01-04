@@ -33,11 +33,7 @@ module.exports.postLogin = (req, res, next) => {
 };
 
 module.exports.getLogout = function(req, res, next) {
-  let io = req.app.get('socketio');
-  io.emit('removeLocalStorage')
   req.logout();
-
-
   req.session.destroy(function(err) {
     if (err) {
       return next(err);

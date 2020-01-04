@@ -33,7 +33,8 @@ const hbs = exphbs.create({
     partialsDir: [
         'views/partials/',
         'views/partials/NavBars',
-        'views/partials/Alerts'
+        'views/partials/Alerts',
+        'views/partials/premiumAccount'
     ]
 });
 

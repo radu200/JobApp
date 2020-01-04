@@ -1,5 +1,3 @@
-import io from 'socket.io-client';
-const socket = io('http://localhost:8000');
 
 export const loadState = () => {
   try {
@@ -21,19 +19,4 @@ export const saveState = (state) => {
     } catch(err){
       return undefined
     }
-}
-
-// // remove state from local storage with socket.io
-export const removeState = () => {
-  try {
-    socket.on('removeLocalStorage', (callback) => {
-      const serializeState =  localStorage.removeItem('state')
-      if(serializeState === null){
-        return undefined
-      }
-      return serializeState
-    })
-  } catch (err) {
-     return undefined
-  }
 }

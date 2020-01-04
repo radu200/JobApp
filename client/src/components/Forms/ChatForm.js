@@ -4,7 +4,6 @@ import {Button, TextField}from "@material-ui/core";
 
 const styles = theme => ({
   button: {
-    // width: "100%",
     background: "#2552c7",
     color: "#FFFFFF",
     marginBottom: 20,

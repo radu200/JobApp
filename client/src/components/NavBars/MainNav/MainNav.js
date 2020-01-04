@@ -1,108 +1,113 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { withStyles } from "@material-ui/core/styles";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
 import Divider from "@material-ui/core/Divider";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import MainSideNav from "./MainSideNav";
 import { BrandName } from "../../../Utils/BrandName";
-import withAuth from '../../../HOC/auth/Auth'
-import Translator from "../../../Utils/Translator"
-import ModalPremium  from '../../payment/ModalPremium'
+import withAuth from "../../../HOC/auth/Auth";
+import Translator from "../../../Utils/Translator";
+import ModalPremium from "../../payment/ModalPremium";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {
   Profile,
   Settings,
   LogOut,
   SignUpUrlJobSeeker,
   SignUpUrlEmployer,
-  LoginUrl
+  LoginUrl,
 } from "../../../Utils/Paths/UrlPaths";
 
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: "100%",
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
+    marginRight: 20,
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
+      display: "block",
+    },
   },
 
   logIn: {
     color: "white",
-    textDecoration: "none"
+    textDecoration: "none",
   },
   inputRoot: {
     color: "inherit",
-    width: "100%"
+    width: "100%",
   },
 
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+      display: "flex",
+    },
   },
   sectionMobile: {
     display: "flex",
     [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   appBar: {
     backgroundColor: "#2552C7",
-    padding:0,
-    boxShadow:'none'
+    padding: 0,
+    boxShadow: "none",
   },
-  translator:{
-    display:'flex',
-    justifyContent:'flex-end'
+  translator: {
+    display: "flex",
+    justifyContent: "flex-end",
   },
-  links:{
-    color:'white',
-    textDecoration:'none'
+  links: {
+    color: "white",
+    textDecoration: "none",
   },
-  btnPremium:{
-    backgroundColor:'#ffd54f',
-    color:'blue',
-    borderRadius:'15px',
-    '&:hover':{
-      backgroundColor:'#ffd54f',
-    }
-  }
+  btnPremium: {
+    backgroundColor: "#ffd54f",
+    color: "blue",
+    borderRadius: "15px",
+    "&:hover": {
+      backgroundColor: "#ffd54f",
+    },
+  },
+
+  employerNavItems: {
+    display: "flex",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  },
 });
 
 class MainNavBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
-    open:false
+    open: false,
   };
 
-
-   handleModalOpen = () => {
-     this.setState({open:true})
+  handleModalOpen = () => {
+    this.setState({ open: true });
   };
   handleClose = () => {
-     this.setState({open:false})
+    this.setState({ open: false });
   };
 
   handleProfileMenuOpen = event => {
@@ -123,10 +128,9 @@ class MainNavBar extends React.Component {
   };
 
   render() {
-  
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes, auth, role } = this.props;
-  
+
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -148,11 +152,9 @@ class MainNavBar extends React.Component {
         <MenuItem button component="a" href={LogOut}>
           <p>Iesire</p>
         </MenuItem>
-
-
       </Menu>
     );
- 
+
     const renderMobileMenu = (
       <Menu
         anchorEl={mobileMoreAnchorEl}
@@ -161,8 +163,7 @@ class MainNavBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        {auth ? (
-         
+        {(role && role === "employer") || role === "jobseeker" ? (
           <div>
             <MenuItem button component="a" href={Profile}>
               <p>Profil</p>
@@ -174,7 +175,7 @@ class MainNavBar extends React.Component {
               <p>Iesire</p>
             </MenuItem>
           </div>
-         ) : ( 
+        ) : (
           <div>
             <MenuItem button component="a" href={SignUpUrlEmployer}>
               <p>Angajeaza</p>
@@ -186,15 +187,15 @@ class MainNavBar extends React.Component {
               <p>Logare</p>
             </MenuItem>
           </div>
-         )}
+        )}
       </Menu>
     );
-    
+
     return (
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <MainSideNav auth={auth} role={role}/>
+            <MainSideNav auth={auth} role={role} handleModalOpen={this.handleModalOpen} />
             <Typography
               className={classes.title}
               variant="h6"
@@ -205,25 +206,33 @@ class MainNavBar extends React.Component {
             </Typography>
 
             <div className={classes.grow} />
-             {role === 'employer' ? (
-              <>
-              <Button className={classes.btnPremium} onClick={this.handleModalOpen} variant="contained" color="primary">
-                Descopera Premium
-              </Button>
-              <MenuItem button component="a" href={"api/my-jobs"}>
-                Locuri  de muncă 
-              </MenuItem>
-              <MenuItem button component="a" href={"/chat"}>
-                Chat
-              </MenuItem>
-              <MenuItem button >
-                 <Link className={classes.links} to="/search-candidate">Căutarea lucratori</Link>
-             </MenuItem> 
-             </> ) 
-             : null }
+
+            {role && role === "employer" ? (
+              <div className={classes.employerNavItems}>
+                <Button
+                  className={classes.btnPremium}
+                  onClick={this.handleModalOpen}
+                  variant="contained"
+                  color="primary"
+                >
+                  Descopera Premium
+                </Button>
+                <MenuItem button component="a" href={"api/my-jobs"}>
+                  Locuri de muncă
+                </MenuItem>
+                <MenuItem button component="a" href={"/chat"}>
+                  Chat
+                </MenuItem>
+                <MenuItem button>
+                  <Link className={classes.links} to="/search-candidate">
+                    Căutarea lucratori
+                  </Link>
+                </MenuItem>
+              </div>
+            ) : null}
+
             <div className={classes.sectionDesktop}>
-              {auth ?  (
-               
+              {(role && role === "employer") || role === "jobseeker" ? (
                 <div>
                   <IconButton
                     aria-owns={isMenuOpen ? "material-appbar" : undefined}
@@ -234,7 +243,6 @@ class MainNavBar extends React.Component {
                     <AccountCircle />
                   </IconButton>
                   {renderMenu}
-             
                 </div>
               ) : (
                 <>
@@ -256,7 +264,7 @@ class MainNavBar extends React.Component {
                 </>
               )}
             </div>
-       
+
             <div className={classes.sectionMobile}>
               <IconButton
                 aria-haspopup="true"
@@ -269,20 +277,15 @@ class MainNavBar extends React.Component {
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
-        <ModalPremium
-         open={this.state.open}
-         handleClose={this.handleClose}
-        />
-       {/* <div className={classes.translator}> <Translator/></div> */}
+        <ModalPremium open={this.state.open} handleClose={this.handleClose} />
+        {/* <div className={classes.translator}> <Translator/></div> */}
       </div>
     );
-
-  
   }
 }
 
 MainNavBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withAuth(withStyles(styles)(MainNavBar));

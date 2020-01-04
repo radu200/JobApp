@@ -7,5 +7,3 @@ import Utility from './utility/main';
 import Jobs from './jobs/main';
 import FrontEndValidation from './front_end_validation/main'
 
-//remove redux state from local storage
-localStorage.removeItem('state')

@@ -16,26 +16,14 @@ const withAuthEmployer = (Wrap) => {
 
       }
 
-      shouldNavigateAway(auth, role) {
-         const { history } = this.props
-         if (!auth && role !== "employer") {
-            return history.push('/login-err');
-         } 
-      }
 
       async getUserData() {
-         //  loading state from local storage
-         const data = loadState()
-
-         if (data && data.auth.role && data.auth.auth) {
-            const { auth, role } = data.auth
-            this.shouldNavigateAway(auth, role)
-         } else {
-            const { role, auth } = this.props
-            this.props.fetchRole()
-            this.shouldNavigateAway(auth, role)
-         }
-
+         const { role, auth , fetchRole, history} = this.props
+         await fetchRole()
+         if (role && role !== "employer") {
+            return history.push('/login-err');
+         } 
+       
       }
 
       render() {

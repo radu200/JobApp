@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom'
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -9,8 +10,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import { BrandName } from "../../../Utils/BrandName";
+import Button from '@material-ui/core/Button'
+
 import {
-  SearchCandidate,
   Jobs,
   SignUpUrlEmployer,
   SignUpUrlJobSeeker,
@@ -26,7 +28,17 @@ const styles = {
   },
   fullList: {
     width: "auto"
-  }
+  },
+  btnPremium: {
+    backgroundColor: "#ffd54f",
+    color: "blue",
+    borderRadius: "15px",
+    marginLeft:'10px',
+    width:'90%',
+    "&:hover": {
+      backgroundColor: "#ffd54f",
+    },
+  },
 };
 
 class MainSideNav extends React.Component {
@@ -41,7 +53,7 @@ class MainSideNav extends React.Component {
   };
 
   render() {
-    const { classes, role, auth} = this.props;
+    const { classes, role, handleModalOpen} = this.props;
 
     const sideList = (
       <div className={classes.list}>
@@ -53,20 +65,33 @@ class MainSideNav extends React.Component {
         {role && role === "employer" ? (
           <>
             <List>
+                <Button
+                  className={classes.btnPremium}
+                  onClick={handleModalOpen}
+                  variant="contained"
+                  color="primary"
+                  
+                >
+                  Descopera Premium
+                </Button>
               <ListItem button component="a" href={Profile}>
                 <ListItemText primary="Profil" />
               </ListItem>
               <ListItem button component="a" href={MyJobs}>
                 <ListItemText primary="Locuri de muncă" />
               </ListItem>
-              <ListItem button component="a" href={SearchCandidate}>
+              <ListItem button component={Link} to="/search-candidate">
                 <ListItemText primary="Cautarea lucratori" />
               </ListItem>
+              <ListItem button component={Link} to="/chat">
+                <ListItemText primary="Chat" />
+              </ListItem>
               <Divider />
+                <Divider />
               <ListItem button component="a" href={Help}>
                 <ListItemText primary="Ajutor!" />
               </ListItem>
-              
+            
             </List>
           </>
         ) : role && role === "jobseeker" ? (

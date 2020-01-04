@@ -1,0 +1,73 @@
+{{! navbar not authenticated}}
+<ul id="nav-mobile" class="right hide-on-med-and-down">
+  <li>
+    <a href="/jobs">
+      Exploreaza joburi
+    </a>
+  </li>
+  <li>
+    <a href="/api/signup/employer">
+      Căutarea lucratori
+    </a>
+  </li>
+  <li>
+    <a href="/api/signup/jobseeker">
+      Creaza Cv
+    </a>
+  </li>
+  <li>
+    <a href="/api/login" class="waves-effect waves-light  btn">
+      Intra
+    </a>
+  </li>
+</ul>
+
+{{! side not authenticated}}
+<ul id="slide-out" class="sidenav">
+  <li>
+    <a href="/jobs">
+      Exploreaza joburi
+    </a>
+  </li>
+  <li>
+    <a href="/api/my-jobs">
+      Căutarea lucratori
+    </a>
+  </li>
+  <li>
+    <a href="/api/chat">
+      Creaza Cv
+    </a>
+  </li>
+  <li>
+    <a href="/api/login" class="waves-effect waves-light  btn">
+      Intra
+    </a>
+  </li>
+  <li>
+    <a class="dropdown-trigger btn" href="#!" data-target="registerSideNav">
+      <span>
+        înregistrare
+      </span>
+    </a>
+  </li>
+  <ul id="registerSideNav" class="dropdown-content">
+    <li>
+      <a href="/api/signup/jobseeker">
+        Sunt In cautare de munca
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="/api/signup/employer">
+        Sunt Angajator
+      </a>
+    </li>
+  </ul>
+</ul>
+<!-- hamburger -->
+<a href="#" data-target="slide-out" class="sidenav-trigger">
+  <i class="material-icons grey-text text-darken-4">
+    menu
+  </i>
+</a>

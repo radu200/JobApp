@@ -14,6 +14,7 @@ import CardContent from "@material-ui/core/CardContent";
 import { Months, Days, Years } from "../../Utils/messages";
 import RoomIcon from "@material-ui/icons/Room";
 import CardMedia from "@material-ui/core/CardMedia";
+import Loading from "../../Utils/Loading";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -42,6 +43,7 @@ export default function FullScreenDialog({
   open,
   candidate,
   experience,
+  loading,
 }) {
   const classes = useStyles();
   return (
@@ -64,18 +66,17 @@ export default function FullScreenDialog({
             </IconButton>
           </Toolbar>
         </AppBar>
-        {/* {loading && <Loading />} */}
+        {loading && <Loading />}
         <Card className={classes.card}>
           {candidate.map(candidate => {
             return (
               <CardActionArea key={candidate.id}>
                 <CardMedia
                   component="img"
-                  // alt={job.category}
+                  alt={candidate.first_name}
                   className={classes.media}
                   height="140"
                   image={candidate.avatar}
-                  // title={job.category}
                 />
                 <CardContent>
                   <Button

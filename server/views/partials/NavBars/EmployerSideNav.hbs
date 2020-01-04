@@ -1,0 +1,44 @@
+<ul id="slide-out" class="sidenav">
+  <li>
+    <div class="divider"></div>
+  </li>
+  <li>
+    <a href="/api/my-jobs">
+      Locuri de muncă
+    </a>
+  </li>
+  <li>
+    <a href="/chat">
+      Chats
+    </a>
+  </li>
+  <li>
+    <a href="/search-candidate">
+      Căutarea lucratori
+    </a>
+  </li>
+
+  <li>
+    <a class="dropdown-trigger" href="#!" data-target="moreSideNav">
+      Profil
+      <i class="material-icons right">
+        arrow_drop_down
+      </i>
+    </a>
+  </li>
+  <ul id="moreSideNav" class="dropdown-content">
+    <li>
+      <a href="/api/settings">
+        Setari
+      </a>
+    </li>
+    <li>
+      <a href="/api/logout" class="waves-effect waves-light btn">
+        Iesire
+      </a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+  <!-- Modal Trigger -->
+       {{>premiumBtn}}
+</ul>

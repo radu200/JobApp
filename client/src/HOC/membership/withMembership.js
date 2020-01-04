@@ -8,10 +8,9 @@ const withAuthMembership = Wrap => {
     componentDidMount() {
       this.props.fetchMembership();
     }
+   
 
-    render() {
-      const { member } = this.props;
-    
+    render() {    
       return <Wrap {...this.props} />;
     }
   }
