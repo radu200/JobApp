@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/styles";
 const useStyles = makeStyles({
   root: {
     background: "white",
-    padding: "10px",
+    padding: "5px",
   },
   error: {
     color: "red",

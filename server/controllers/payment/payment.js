@@ -39,6 +39,7 @@ module.exports.postPayment = async (req,res) => {
 
     status = "success";
   } catch (error) {
+    console.log(err)
     status = "failure";
   }
 

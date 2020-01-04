@@ -34,11 +34,11 @@ const useStyles = makeStyles({
     fontSize: 17,
   },
   cardContainerM: {
-    height: "300px",
+    height: "250px",
     overflowY: "auto",
   },
   cardContainerD: {
-    height: "600px",
+    height: "550px",
     overflowY: "auto",
   },
 });

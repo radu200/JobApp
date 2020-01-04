@@ -119,7 +119,7 @@ module.exports = function (app) {
   app.get('/api/auth/me', accessController.authRole)
   app.get('/api/membership',accessController.ensureAuthenticated, accessController.employer, accessController.membership)
   //payment
-  app.post('/api/payment',accessController.ensureAuthenticated, accessController.employer, paymentController.postPayment )
+  app.post('/api/payment',accessController.ensureAuthenticatedJ, accessController.employerJ, paymentController.postPayment )
   
 
 }

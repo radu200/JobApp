@@ -50,7 +50,7 @@ class MainSideNav extends React.Component {
         </ListItem>
         <Divider />
 
-        {auth && role === "employer" ? (
+        {role && role === "employer" ? (
           <>
             <List>
               <ListItem button component="a" href={Profile}>
@@ -66,9 +66,10 @@ class MainSideNav extends React.Component {
               <ListItem button component="a" href={Help}>
                 <ListItemText primary="Ajutor!" />
               </ListItem>
+              
             </List>
           </>
-        ) : auth && role === "jobseeker" ? (
+        ) : role && role === "jobseeker" ? (
           <>
             <List>
               <ListItem button component="a" href={Profile}>

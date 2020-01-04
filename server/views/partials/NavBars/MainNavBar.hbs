@@ -3,86 +3,89 @@
     <div class="nav-wrapper  lighten-4 ">
       <a href="/api/profile" class="brand-logo red-text text-lighten-1">Logo</a>
       {{#if isAuthenticated}}
-       {{#if JobSeeker}}
-        {{!--Navbar jobseeker --}}
-          <ul id="nav-mobile" class=" right hide-on-med-and-down">
-            <li>
-              <a href="/jobs">Exploreaza joburi</a>
-            </li>
-            <li>
-              <a href="/my/applications">Aplicațiile mele</a>
-            </li>
-            <li>
-              <a href="/api/chat">Chats</a>
-            </li>
-            <li>
-              <a href="/api/profile">Cv meu</a>
-            </li>
+      {{#if JobSeeker}}
+      {{!--Navbar jobseeker --}}
+      <ul id="nav-mobile" class=" right hide-on-med-and-down">
+        <li>
+          <a href="/jobs">Exploreaza joburi</a>
+        </li>
+        <li>
+          <a href="/my/applications">Aplicațiile mele</a>
+        </li>
+        <li>
+          <a href="/api/chat">Chats</a>
+        </li>
+        <li>
+          <a href="/api/profile">Cv meu</a>
+        </li>
 
-            <ul id="nav-mobile" class=" right hide-on-med-and-down">
-              <!--dropdown-->
-              <li>
-                <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">
-                  <span class="white-text">Profil</span>
-                  <i class="material-icons right white-text">arrow_drop_down</i>
-                </a>
-              </li>
-              <ul id="moreNavBar" class="dropdown-content">
-                <li>
-                  <a href="/api/settings">Setari</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <a href="/api/logout">Iesire</a>
-                </li>
-              </ul>
-            </ul>
-          </ul>
-          <!-- hamburger -->
-          <a href="#" data-target="slide-out" class="sidenav-trigger">
-            <i class="material-icons white-text ">menu</i>
-          </a>
-        <!--right side-->
-        {{/if}}
-        {{#if Employer}}
         <ul id="nav-mobile" class=" right hide-on-med-and-down">
+          <!--dropdown-->
           <li>
-            <a href="/api/my-jobs"> Locuri de muncă</a>
+            <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">
+              <span class="white-text">Profil</span>
+              <i class="material-icons right white-text">arrow_drop_down</i>
+            </a>
           </li>
-          <li>
-            <a href="/api/chat">Chats</a>
-          </li>
-          <li>
-            <a href="/search-candidate">Căutarea lucratori</a>
-          </li>
-{{!-- 
-          <li>
-            <a href="/api/profile">Profil</a>
-          </li> --}}
-
-          <ul id="nav-mobile" class=" right hide-on-med-and-down">
-            <!--dropdown-->
+          <ul id="moreNavBar" class="dropdown-content">
             <li>
-              <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">
-                <span class="white-text">Profil</span>
-                <i class="material-icons right white-text">arrow_drop_down</i>
-              </a>
+              <a href="/api/settings">Setari</a>
             </li>
-            <ul id="moreNavBar" class="dropdown-content ">
-              <li>
-                <a href="/api/settings">Setari</a>
-              </li>
-              <li class="divider"></li>
-
-              <li>
-                <a href="/api/logout">Iesire</a>
-              </li>
-            </ul>
+            <li class="divider"></li>
+            <li>
+              <a href="/api/logout">Iesire</a>
+            </li>
           </ul>
         </ul>
-        <a href="#" data-target="slide-out" class="sidenav-trigger">
-          <i class="material-icons white-text ">menu</i>
-        </a>
+      </ul>
+      <!-- hamburger -->
+      <a href="#" data-target="slide-out" class="sidenav-trigger">
+        <i class="material-icons white-text ">menu</i>
+      </a>
+      <!--right side-->
+      {{/if}}
+      {{#if Employer}}
+
+      <ul id="nav-mobile" class=" right hide-on-med-and-down">
+        <li>
+           <!-- Modal Trigger -->
+           {{>premiumBtn}}
+        </li>
+        <li>
+          <a href="/api/my-jobs"> Locuri de muncă</a>
+        </li>
+        <li>
+          <a href="/api/chat">Chats</a>
+        </li>
+        <li>
+          <a href="/search-candidate">Căutarea lucratori</a>
+
+        </li>
+
+
+        <ul id="nav-mobile" class=" right hide-on-med-and-down">
+          <!--dropdown-->
+          <li>
+            <a class="dropdown-trigger black-text" href="#!" data-target="moreNavBar">
+              <span class="white-text">Profil</span>
+              <i class="material-icons right white-text">arrow_drop_down</i>
+            </a>
+          </li>
+          <ul id="moreNavBar" class="dropdown-content ">
+            <li>
+              <a href="/api/settings">Setari</a>
+            </li>
+            <li class="divider"></li>
+
+            <li>
+              <a href="/api/logout">Iesire</a>
+            </li>
+          </ul>
+        </ul>
+      </ul>
+      <a href="#" data-target="slide-out" class="sidenav-trigger">
+        <i class="material-icons white-text ">menu</i>
+      </a>
       {{/if}}
 
       {{else}}
@@ -109,8 +112,49 @@
 
   <!---SideNav --->
   {{#if isAuthenticated}}
-   {{#if JobSeeker}}
+  {{#if JobSeeker}}
   {{!--sidenav jobseeker --}}
+  <ul id="slide-out" class="sidenav">
+    <li>
+      <a href="#!">Salut numele</a>
+    </li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li>
+      <a href="/jobs">Exploreaza joburi</a>
+    </li>
+    <li>
+      <a href="/api/application">Aplicațiile mele</a>
+    </li>
+    <li>
+      <a href="/api/chat">Chats</a>
+    </li>
+
+    <li>
+      <a href="/api/profile">Cv meu</a>
+    </li>
+    <!--dropdown-->
+    <li>
+      <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Profil
+        <i class="material-icons right">arrow_drop_down</i>
+      </a>
+    </li>
+
+    <ul id="moreSideNav" class="dropdown-content">
+      <li>
+        <a href="/api/settings">Setari</a>
+      </li>
+      <li>
+        <a href="/api/logout" class="waves-effect waves-light btn ">Iesire</a>
+      </li>
+      <li class="divider"></li>
+
+    </ul>
+    {{/if}}
+
+    <!-- side-nav  employer-->
+    {{#if Employer}}
     <ul id="slide-out" class="sidenav">
       <li>
         <a href="#!">Salut numele</a>
@@ -119,19 +163,15 @@
         <div class="divider"></div>
       </li>
       <li>
-        <a href="/jobs">Exploreaza joburi</a>
-      </li>
-      <li>
-        <a href="/api/application">Aplicațiile mele</a>
+        <a href="/api/my-jobs">Locuri de muncă</a>
       </li>
       <li>
         <a href="/api/chat">Chats</a>
       </li>
-
       <li>
-        <a href="/api/profile">Cv meu</a>
+        <a href="/search-candidate">Căutarea lucratori</a>
       </li>
-      <!--dropdown-->
+
       <li>
         <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Profil
           <i class="material-icons right">arrow_drop_down</i>
@@ -146,53 +186,14 @@
           <a href="/api/logout" class="waves-effect waves-light btn ">Iesire</a>
         </li>
         <li class="divider"></li>
-
       </ul>
-      {{/if}}
 
-      <!-- side-nav  employer-->
-      {{#if Employer}}
-      <ul id="slide-out" class="sidenav">
-        <li>
-          <a href="#!">Salut numele</a>
-        </li>
-        <li>
-          <div class="divider"></div>
-        </li>
-        <li>
-          <a href="/api/my-jobs">Locuri de muncă</a>
-        </li>
-        <li>
-          <a href="/api/chat">Chats</a>
-        </li>
-        <li>
-          <a href="/search-candidate">Căutarea lucratori</a>
-        </li>
-        {{!-- <li>
-          <a href="/api/profile">Profil</a>
-        </li> --}}
-        <!--dropdown-->
-        <li>
-          <a class="dropdown-trigger " href="#!" data-target="moreSideNav">Profil
-            <i class="material-icons right">arrow_drop_down</i>
-          </a>
-        </li>
+      <li>
+        <!-- Modal Trigger -->
+       {{>premiumBtn}}
+      </li>
 
-        <ul id="moreSideNav" class="dropdown-content">
-          <li>
-            <a href="/api/settings">Setari</a>
-          </li>
-          <li>
-            <a href="/api/logout" class="waves-effect waves-light btn ">Iesire</a>
-          </li>
-          <li class="divider"></li>
-        </ul>
-
-        <li>
-          <a href="/api/jobs/add" class="btn blue  lighten-1">Adauga</a>
-        </li>
-        
-      </ul>
+    </ul>
     {{/if}}
 
     {{else}}
@@ -233,7 +234,13 @@
     <a href="#" data-target="slide-out" class="sidenav-trigger">
       <i class="material-icons grey-text text-darken-4">menu</i>
     </a>
- {{/if}}
+    {{/if}}
 
 </nav>
-<div  class="right" id="ytWidget"></div><script src="https://translate.yandex.net/website-widget/v1/widget.js?widgetId=ytWidget&pageLang=ro&widgetTheme=light&autoMode=true" type="text/javascript"></script>
+<div>
+  {{>accountPremium}}
+</div>
+<div class="right" id="ytWidget"></div>
+<script
+  src="https://translate.yandex.net/website-widget/v1/widget.js?widgetId=ytWidget&pageLang=ro&widgetTheme=light&autoMode=true"
+  type="text/javascript"></script>

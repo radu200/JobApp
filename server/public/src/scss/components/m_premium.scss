@@ -1,0 +1,25 @@
+.modal-premium{
+    background-color: #3c6feb;
+}
+
+
+.m-container{
+    width: 50%;
+    margin:0 auto;
+    font-weight:bold
+}
+.price-account{
+    padding: 1em;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+
+@media(max-width:600px){
+    .m-container{
+        width: 100%;
+        margin:0 auto;
+        font-weight:bold
+    }
+}

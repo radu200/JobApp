@@ -10,7 +10,7 @@ const middleware = [thunk];
 
 const store = createStore(
   rootReducer,
-   persistedState,
+  //  persistedState,
   compose(
     applyMiddleware(...middleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -18,9 +18,9 @@ const store = createStore(
   ),
 );
 
-store.subscribe(throttle(() => {
-  saveState(store.getState())
+// store.subscribe(throttle(() => {
+//   saveState(store.getState())
 
-}, 1000))
+// }, 1000))
 
 export default store;

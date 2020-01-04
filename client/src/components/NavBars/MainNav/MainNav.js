@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom'
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -17,6 +18,7 @@ import MainSideNav from "./MainSideNav";
 import { BrandName } from "../../../Utils/BrandName";
 import withAuth from '../../../HOC/auth/Auth'
 import Translator from "../../../Utils/Translator"
+import ModalPremium  from '../../payment/ModalPremium'
 import {
   Profile,
   Settings,
@@ -73,13 +75,34 @@ const styles = theme => ({
   translator:{
     display:'flex',
     justifyContent:'flex-end'
+  },
+  links:{
+    color:'white',
+    textDecoration:'none'
+  },
+  btnPremium:{
+    backgroundColor:'#ffd54f',
+    color:'blue',
+    borderRadius:'15px',
+    '&:hover':{
+      backgroundColor:'#ffd54f',
+    }
   }
 });
 
 class MainNavBar extends React.Component {
   state = {
     anchorEl: null,
-    mobileMoreAnchorEl: null
+    mobileMoreAnchorEl: null,
+    open:false
+  };
+
+
+   handleModalOpen = () => {
+     this.setState({open:true})
+  };
+  handleClose = () => {
+     this.setState({open:false})
   };
 
   handleProfileMenuOpen = event => {
@@ -125,6 +148,8 @@ class MainNavBar extends React.Component {
         <MenuItem button component="a" href={LogOut}>
           <p>Iesire</p>
         </MenuItem>
+
+
       </Menu>
     );
  
@@ -180,17 +205,26 @@ class MainNavBar extends React.Component {
             </Typography>
 
             <div className={classes.grow} />
-
+             {role === 'employer' ? (
+              <>
+              <Button className={classes.btnPremium} onClick={this.handleModalOpen} variant="contained" color="primary">
+                Descopera Premium
+              </Button>
+              <MenuItem button component="a" href={"api/my-jobs"}>
+                Locuri  de muncă 
+              </MenuItem>
+              <MenuItem button component="a" href={"/chat"}>
+                Chat
+              </MenuItem>
+              <MenuItem button >
+                 <Link className={classes.links} to="/search-candidate">Căutarea lucratori</Link>
+             </MenuItem> 
+             </> ) 
+             : null }
             <div className={classes.sectionDesktop}>
               {auth ?  (
                
                 <div>
-                  <IconButton color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
-
                   <IconButton
                     aria-owns={isMenuOpen ? "material-appbar" : undefined}
                     aria-haspopup="true"
@@ -200,6 +234,7 @@ class MainNavBar extends React.Component {
                     <AccountCircle />
                   </IconButton>
                   {renderMenu}
+             
                 </div>
               ) : (
                 <>
@@ -234,11 +269,15 @@ class MainNavBar extends React.Component {
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
+        <ModalPremium
+         open={this.state.open}
+         handleClose={this.handleClose}
+        />
        {/* <div className={classes.translator}> <Translator/></div> */}
       </div>
     );
 
-
+  
   }
 }
 
