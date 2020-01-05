@@ -1,35 +1,64 @@
 const { dbPromise } = require("./../../config/database.js");
 
-// get user list
-//get rooms with messages where user id 
+ module.exports.getRooms = async (req, res) => {
+    
+  try {
+    const user_id = req.user.id;
+    const user_role = req.user.type
+    const db = await dbPromise
+    if(user_role === 'employer'){
+      const [ rooms ] = await db.execute('SELECT chat_room.*, users.first_name, users.last_name  FROM chat_room LEFT JOIN users ON  users.id = chat_room.jobseeker_id WHERE employer_id = ?',[user_id])
+     res.status(200).json(rooms)
+    } else if(user_role === 'jobseeker'){
+      const [ rooms ] = await db.execute('SELECT chat_room.*, users.first_name, users.last_name, users.company_name FROM chat_room LEFT JOIN users ON  users.id = chat_room.employer_id WHERE jobseeker_id = ?',[user_id])
+      res.status(200).json(rooms)
+    }
+  } catch(err){
+     res.status(500).json('Server Err')
+  }
+ } 
 
+module.exports.getRoomDetails = async (req, res) => {
+  
+  try{
+    const room_id = req.query.r_id;
+    const jobseeker_id = req.query.j_id;
+    const employer_id = req.query.e_id;
+    const user_role = req.user.type
 
-module.exports.postRoom = async (req,res) => {
+    const db = await dbPromise
+    const [ jobseeker ] = await db.execute('SELECT * FROM chat_message WHERE message_user_id = ? AND room_id = ?',[jobseeker_id, room_id])
+    const [ employer] = await db.execute('SELECT * FROM chat_message WHERE message_user_id = ? AND room_id = ?',[employer_id, room_id])
+    
+    if(user_role === 'employer'){
+       const results = {
+           sender:employer,
+           receiver:jobseeker
+        }
+
+     res.status(200).json(results)
+    } else if(user_role === 'jobseeker'){
+      const results = {
+        receiver:employer,
+        sender:jobseeker
+     }
+     res.status(200).json(results)
+    }
+    console.log(room_id)
+    console.log(jobseeker_id)
+    console.log(employer_id)
+  } catch(err){
+    console.log(err)
+  }
+}
+// creare 2 table 1 for employer  1 for jobseeker
+
+module.exports.createRoom = async (req,res) => {
    
 
 
 }
 
-
-module.exports.getChat = async (req, res, next) => {
-  const userId = req.user.id
-  try {
-     const db = await dbPromise;
-     const textSqlRoom = 'SELECT id, receiverName FROM chatRooms WHERE sender = ? OR receiver = ?'
-     const [room] = await db.execute(textSqlRoom, [userId, userId])
-     res.json(room)
-    //  res.render("pages/chat", {
-    //     room:room
-    //  });
-    } catch (err) {
-      console.log(err);
-    }
-};
-module.exports.getRoom = (req, res) => {
-  const roomName = req.params.name
- const io = req.app.get('socketio')
-
-
-  res.render("./pages/roomChat", {roomName:roomName})
+module.exports.postMessage = async (req, res) => {
 
 }

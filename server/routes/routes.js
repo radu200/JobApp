@@ -77,10 +77,7 @@ module.exports = function (app) {
   app.post('/api/jobseeker/experience/edit/:id', accessController.ensureAuthenticated, accessController.jobSeeker, JobSeekerProfileController.postJobSeekerEditExperience)
   app.delete('/api/jobseeker/experience/delete/:id', accessController.ensureAuthenticated, accessController.jobSeeker, JobSeekerProfileController.deleteJobSeekerExperience)
 
-  //chat 
-  app.get('/api/chat', accessController.ensureAuthenticated, chatController.getChat)
-  app.get('/api/room/:name', accessController.ensureAuthenticated, chatController.getRoom)
-  app.post('/api/room', accessController.ensureAuthenticated, chatController.postRoom)
+
 
   //jobs controller 
   app.get('/api/job-applicants',accessController.ensureAuthenticated, accessController.employer, jobsController.jobApplicants)
@@ -121,6 +118,12 @@ module.exports = function (app) {
   //payment
   app.post('/api/payment',accessController.ensureAuthenticatedJ, accessController.employerJ, paymentController.postPayment )
   
+
+    //chat 
+    app.get('/api/chat',accessController.ensureAuthenticatedJ, chatController.getRooms)
+    app.get('/api/chat/room',accessController.ensureAuthenticatedJ, chatController.getRoomDetails)
+    app.post('/api/chat/room', accessController.ensureAuthenticatedJ, chatController.createRoom)
+    app.post('/api/chat/message', accessController.ensureAuthenticatedJ, chatController.postMessage)
 
 }
 
