@@ -44,11 +44,9 @@ module.exports.getRoomDetails = async (req, res) => {
      }
      res.status(200).json(results)
     }
-    console.log(room_id)
-    console.log(jobseeker_id)
-    console.log(employer_id)
+ 
   } catch(err){
-    console.log(err)
+    res.status(500).json('Server Err')
   }
 }
 // creare 2 table 1 for employer  1 for jobseeker

@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import io from 'socket.io-client';
+import { connect } from  'react-redux'
+import { compose } from 'redux'
+import { fetchRooms, fetchRoomDetails } from '../../redux/chat/operators'
 import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core"
-import * as axios from 'axios'
 import ChatForm from '../../components/Forms/ChatForm'
- const socket = io('http://localhost:8000');
+
+const socket = io('http://localhost:8000');
 
 const styles = {
   rooms:{
@@ -41,21 +44,12 @@ class Chat extends Component {
     }
 
    async componentDidMount(){
-     try{
-       const res = await axios.get('/api/chat')
-       this.setState({rooms:res.data})
-     }catch(err){
-       console.log(err)
-     }     
+     this.props.fetchRooms()    
     }
   
    async handleRoomDetails(room_id, j_id, e_id) {
-      const res = await axios.get(`/api/chat/room?r_id=${room_id}&j_id=${j_id}&e_id=${e_id}`)
-      if(res.status === 200){
-        const { receiver, sender } = res.data
-        this.setState({receiver, sender})
+     this.props.fetchRoomDetails(room_id, j_id, e_id)
 
-      }
     }
 
     handleChange(e){
@@ -86,9 +80,11 @@ class Chat extends Component {
  
 
   render(){ 
-      const { rooms, receiver, sender  } = this.state
+      const { receiver, sender  } = this.state
       const { handleChange, onSubmit } = this
       const  { classes } = this.props
+      const { rooms,room } = this.props
+      console.log(room)
       return (
         <div>
           {rooms.map(r => {
@@ -96,12 +92,12 @@ class Chat extends Component {
                <Paper onClick={() => this.handleRoomDetails(r.room_id, r.jobseeker_id, r.employer_id)} className={classes.rooms} key={r.room_id}>{r.first_name} {r.last_name}</Paper>
              )
           })}
-          {receiver && receiver.map(m => {
+          {room.receiver && room.receiver.map(m => {
              return(
                <Paper className={classes.msgReceiver} key={m.message_id}>{m.time} {m.message_text}</Paper>
              )
           })}
-           {sender && sender.map(m => {
+           {room.sender && room.sender.map(m => {
              return(
                <Paper className={classes.msgSender} key={m.message_id}>{m.time} {m.message_text}</Paper>
              )
@@ -116,6 +112,12 @@ class Chat extends Component {
       )
   }
 } 
+const mapState = state => ({
+   rooms:state.chatRooms.rooms,
+   room: state.chatRoomD.room
+})
 
-
-export default withStyles(styles)(Chat);
+export default compose(
+  withStyles(styles),
+  connect(mapState, {fetchRooms, fetchRoomDetails})
+)(Chat);
