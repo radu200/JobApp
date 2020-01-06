@@ -12,6 +12,7 @@ import Loading from "../../Utils/Loading";
 import CloseIcon from "@material-ui/icons/Close";
 import Grid from "@material-ui/core/Grid";
 import NoUser from "../../images/no_user.png";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const useStyles = makeStyles({
   media: {
@@ -61,6 +62,12 @@ const useStyles = makeStyles({
     zIndex: 999,
     position: "absolute",
   },
+  reportBtn:{
+    marginTop:'10px',
+    '&:hover':{
+      color:'red'
+    }
+  }
 });
 
 const CandidateDetailsCard = ({
@@ -69,6 +76,7 @@ const CandidateDetailsCard = ({
   loading,
   open,
   handleClose,
+  handleChat
 }) => {
   const classes = useStyles();
   return (
@@ -89,19 +97,22 @@ const CandidateDetailsCard = ({
           </Grid>
           {candidate.map(candidate => {
             return (
-              <CardActionArea key={candidate.id}>
+              <div key={candidate.id}>
                 <img
                   alt="Candidate Details"
                   src={candidate.avatar ? candidate.avatar : NoUser}
                   className={classes.avatar}
                 />
                 <CardContent>
+                   
+                <Button variant="contained" color="primary" fullWidth onClick={() => handleChat(candidate.id)}> Deschide Chat <LockOutlinedIcon /></Button>
                   <Button
+                    className={classes.reportBtn}
                     href={`/api/report/${candidate.id}`}
                     size="small"
                     color="primary"
-                  >
-                    Raporteaza acest utilizator
+                    >
+                    Raportea-za 
                   </Button>
                   <Typography
                     gutterBottom
@@ -137,7 +148,7 @@ const CandidateDetailsCard = ({
                     {candidate.job_seeker_location}
                   </Typography>
                 </CardContent>
-              </CardActionArea>
+              </div>
             );
           })}
 

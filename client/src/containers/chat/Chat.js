@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import io from 'socket.io-client';
 import { connect } from  'react-redux'
 import { compose } from 'redux'
-import { fetchRooms, fetchRoomDetails } from '../../redux/chat/operators'
+import { fetchRooms, fetchRoomDetails, } from '../../redux/chat/operators'
 import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core"
 import ChatForm from '../../components/Forms/ChatForm'
@@ -114,7 +114,7 @@ class Chat extends Component {
 } 
 const mapState = state => ({
    rooms:state.chatRooms.rooms,
-   room: state.chatRoomD.room
+   room: state.chatRoomD.room,
 })
 
 export default compose(

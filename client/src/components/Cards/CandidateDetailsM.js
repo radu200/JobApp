@@ -16,6 +16,7 @@ import RoomIcon from "@material-ui/icons/Room";
 import CardMedia from "@material-ui/core/CardMedia";
 import Loading from "../../Utils/Loading";
 import NoUser from "../../images/no_user.png";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -33,6 +34,12 @@ const useStyles = makeStyles(theme => ({
     // ⚠️ object-fit is not supported by IE 11.
     objectFit: "cover",
   },
+  reportBtn: {
+    marginTop: "10px",
+    "&:hover": {
+      color: "red",
+    },
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -45,6 +52,7 @@ export default function FullScreenDialog({
   candidate,
   experience,
   loading,
+  handleChat,
 }) {
   const classes = useStyles();
   return (
@@ -71,7 +79,7 @@ export default function FullScreenDialog({
         <Card className={classes.card}>
           {candidate.map(candidate => {
             return (
-              <CardActionArea key={candidate.id}>
+              <div key={candidate.id}>
                 <CardMedia
                   component="img"
                   alt={candidate.first_name}
@@ -81,11 +89,21 @@ export default function FullScreenDialog({
                 />
                 <CardContent>
                   <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => handleChat(candidate.id)}
+                  >
+                    {" "}
+                    Deschide Chat <LockOutlinedIcon />
+                  </Button>
+                  <Button
+                    className={classes.reportBtn}
                     href={`/api/report/${candidate.id}`}
                     size="small"
                     color="primary"
                   >
-                    Raporteaza acest utilizator
+                    Raportea-za
                   </Button>
                   <Typography
                     gutterBottom
@@ -121,7 +139,7 @@ export default function FullScreenDialog({
                     {candidate.job_seeker_location}
                   </Typography>
                 </CardContent>
-              </CardActionArea>
+              </div>
             );
           })}
 

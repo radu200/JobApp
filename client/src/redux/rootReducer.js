@@ -4,7 +4,7 @@ import { membershipReducer } from "./membership/reducers";
 import { jobsReducer } from "./jobs/reducers";
 import { candidatesReducer, candidatesDReducer } from "./candidates/reducers";
 import { applicantsReducer, applicantDReducer } from "./JobApplicants/reducers";
-import { roomsReducer, roomDReducer } from "./chat/reducers"
+import { roomsReducer, roomDReducer, createRoomReducer } from "./chat/reducers"
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,7 +15,8 @@ const rootReducer = combineReducers({
   applicants: applicantsReducer,
   applicant: applicantDReducer,
   chatRooms : roomsReducer,
-  chatRoomD : roomDReducer
+  chatRoomD : roomDReducer,
+  createRoom: createRoomReducer
 });
 
 export default rootReducer;

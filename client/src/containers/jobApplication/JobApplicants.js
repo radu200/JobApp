@@ -5,8 +5,9 @@ import {
   fetchApplicants,
   fetchApplicantDetails,
   fetchMoreApplicants,
-  postApplicantStatus
+  postApplicantStatus,
 } from "../../redux/JobApplicants/operators";
+import { fetchCreateRoom } from "../../redux/chat/operators";
 
 class Applicants extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class Applicants extends Component {
     this.getMore = this.getMore.bind(this);
     this.handleReject = this.handleReject.bind(this);
     this.handleShortList = this.handleShortList.bind(this);
+    this.handleChat = this.handleChat.bind(this);
   }
 
   async componentDidMount() {
@@ -53,13 +55,17 @@ class Applicants extends Component {
   }
 
   handleReject(userId) {
-    const status = 'rejected'
-    this.props.postApplicantStatus(userId,status)
+    const status = "rejected";
+    this.props.postApplicantStatus(userId, status);
   }
 
   handleShortList(userId) {
-    const status = 'shortlist'
-    this.props.postApplicantStatus(userId,status)
+    const status = "shortlist";
+    this.props.postApplicantStatus(userId, status);
+  }
+  handleChat(userId) {
+    this.props.fetchCreateRoom(userId);
+    this.props.history.push('/chat')
 
   }
   render() {
@@ -77,6 +83,7 @@ class Applicants extends Component {
       handleApplicantDetails,
       handleReject,
       handleShortList,
+      handleChat,
     } = this;
     return (
       <div>
@@ -92,6 +99,7 @@ class Applicants extends Component {
           jobId={applicantsState.jobId}
           reject={handleReject}
           shortList={handleShortList}
+          handleChat={handleChat}
         />
       </div>
     );
@@ -112,5 +120,6 @@ export default connect(mapState, {
   fetchApplicants,
   fetchApplicantDetails,
   fetchMoreApplicants,
-  postApplicantStatus
+  postApplicantStatus,
+  fetchCreateRoom,
 })(Applicants);

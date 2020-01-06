@@ -7,7 +7,7 @@ import CandidateCard from "../../Cards/CandidateCard";
 import MainNav from "../../NavBars/MainNav/MainNav";
 import CandidateDetailsD from "../../Cards/CandidateDetailsD";
 import CandidateDetailsM from "../../Cards/CandidateDetailsM";
-import ApplicantNav from '../../NavBars/Employer/ApplicantsNavBar'
+import ApplicantNav from "../../NavBars/Employer/ApplicantsNavBar";
 
 const useStyles = makeStyles({
   root: {
@@ -31,7 +31,8 @@ const ApplicantsPage = ({
   disable,
   jobId,
   shortList,
-  reject
+  reject,
+  handleChat,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -51,7 +52,7 @@ const ApplicantsPage = ({
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6}>
             <ApplicantNav jobId={jobId} />
-            {candidates.length === 0 &&  <h2>Aici vor aparea aplicantii</h2>}
+            {candidates.length === 0 && <h2>Aici vor aparea aplicantii</h2>}
             <CandidateCard
               handleOpen={handleOpen}
               candidates={candidates}
@@ -65,12 +66,13 @@ const ApplicantsPage = ({
           </Grid>
           {matchespx ? (
             <CandidateDetailsM
-            candidate={candidateDetails}
-            experience={experience}
-            handleClose={handleClose}
-            open={open}
+              candidate={candidateDetails}
+              experience={experience}
+              handleClose={handleClose}
+              open={open}
+              handleChat={handleChat}
             />
-            ) : (
+          ) : (
             <Grid item xs={12} sm={12} md={6}>
               <CandidateDetailsD
                 candidate={candidateDetails}
@@ -78,8 +80,8 @@ const ApplicantsPage = ({
                 handleClose={handleClose}
                 loading={loadingCd}
                 open={open}
-
-                />
+                handleChat={handleChat}
+              />
             </Grid>
           )}
         </Grid>

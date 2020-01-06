@@ -37,7 +37,8 @@ const CandidatesPage = ({
   loadingCl,
   loadingCd,
   disable,
-  formErrors
+  formErrors,
+  handleChat
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -84,6 +85,7 @@ const CandidatesPage = ({
             experience={experience}
             handleClose={handleClose}
             open={open}
+            handleChat={handleChat}
             />
             ) : (
             <Grid item xs={12} sm={12} md={6}>
@@ -93,6 +95,7 @@ const CandidatesPage = ({
                 handleClose={handleClose}
                 loading={loadingCd}
                 open={open}
+                handleChat={handleChat}
 
                 />
             </Grid>

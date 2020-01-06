@@ -1,25 +1,42 @@
-import {requestRooms, receivedRooms, failureRooms,requestRoom_d, receivedRoom_d, failureRoom_d} from "./actions";
-import { getRooms, getRoomDetails } from '../../api/chat'
+import {
+  requestRooms,
+  receivedRooms,
+  failureRooms,
+  requestRoom_d,
+  receivedRoom_d,
+  failureRoom_d,
+  requestcreateRoom,
+  successCreateRoom,
+  failureCreateRoom,
+} from "./actions";
+import { getRooms, getRoomDetails, createRoom  } from "../../api/chat";
 
-
-export const fetchRooms = () => async  dispatch => {
-  try{
+export const fetchRooms = () => async dispatch => {
+  try {
     dispatch(requestRooms());
-    const data = await  getRooms()
+    const data = await getRooms();
     dispatch(receivedRooms(data));
-  } catch(err){
+  } catch (err) {
     dispatch(failureRooms(err));
   }
- 
 };
 
-export const fetchRoomDetails = (room_id, j_id, e_id) => async  dispatch => {
-  try{
+export const fetchRoomDetails = (room_id, j_id, e_id) => async dispatch => {
+  try {
     dispatch(requestRoom_d());
-    const data = await  getRoomDetails(room_id, j_id, e_id)
+    const data = await getRoomDetails(room_id, j_id, e_id);
     dispatch(receivedRoom_d(data));
-  } catch(err){
+  } catch (err) {
     dispatch(failureRoom_d(err));
   }
- 
+};
+
+export const fetchCreateRoom = (user_id) => async dispatch => {
+  try {
+    dispatch(requestcreateRoom());
+    const data = await createRoom(user_id);
+    dispatch(successCreateRoom(data));
+  } catch (err) {
+    dispatch(failureCreateRoom(err));
+  }
 };

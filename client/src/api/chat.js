@@ -1,8 +1,9 @@
 import { instanceAPI } from './InstanceApi'
 
 
-export const createRoom = async () => {
-    const url = `/api/chat`;
+//receiver id
+export const createRoom = async (user_id,) => {
+    const url = `/api/chat/room?id=${user_id}`;
     const res = await instanceAPI.post(url)
     return res
 }

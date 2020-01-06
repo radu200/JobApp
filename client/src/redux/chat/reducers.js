@@ -5,6 +5,9 @@ import {
   REQUEST_ROOM_D,
   RECEIVED_ROOM_D,
   FAILURE_ROOM_D,
+  REQUEST_CREATE_ROOM,
+  SUCCESS_CREATE_ROOM,
+  FAILURE_CREATE_ROOM,
 } from "./constants";
 
 const roomsState = {
@@ -44,3 +47,22 @@ export const roomDReducer = (state = roomDState, action) => {
       return state;
   }
 };
+
+
+const createRoomState = {
+    loading: false,
+    err: null,
+  };
+export const createRoomReducer = (state = createRoomState, action) => {
+    switch (action.type) {
+      case REQUEST_CREATE_ROOM:
+        return { ...state, loading: true };
+      case SUCCESS_CREATE_ROOM:
+        return { ...state, loading: false, };
+      case FAILURE_CREATE_ROOM:
+        return { ...state, loading: false, err: action.err };
+      default:
+        return state;
+    }
+  };
+  

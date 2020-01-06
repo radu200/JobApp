@@ -11,6 +11,8 @@ import {
   fetchMoreCandidates,
 } from "../../redux/candidates/operators";
 
+import { fetchCreateRoom } from "../../redux/chat/operators";
+
 class CandidatesContainer extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,7 @@ class CandidatesContainer extends Component {
       category: "",
       location: "",
       experienceMax: 0,
-      offset:0,
+      offset: 0,
       formErrors: {
         location: "",
         category: "",
@@ -30,8 +32,8 @@ class CandidatesContainer extends Component {
     this.handleExperienceValue = this.handleExperienceValue.bind(this);
     this.handleCandidateDetails = this.handleCandidateDetails.bind(this);
     this.getMore = this.getMore.bind(this);
+    this.handleChat = this.handleChat.bind(this);
   }
-
 
   handleExperienceValue(event) {
     this.setState({ experienceMax: event.target.value });
@@ -53,20 +55,20 @@ class CandidatesContainer extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const { location, category, experienceMax , offset} = this.state;
+    const { location, category, experienceMax, offset } = this.state;
     const categoryVal = validate(category);
     const locationVal = validate(location);
-    const expMax = validateNum(experienceMax)
-    console.log(expMax)
+    const expMax = validateNum(experienceMax);
+
     if (locationVal.status && categoryVal.status && expMax.status) {
-      this.props.fetchCandidates(location, category, experienceMax,offset);
-     
+      this.props.fetchCandidates(location, category, experienceMax, offset);
+
       this.setState(prevState => ({
         formErrors: {
           ...prevState.formErrors,
           location: "",
           category: "",
-          experienceMax:0
+          experienceMax: 0,
         },
       }));
     }
@@ -76,10 +78,9 @@ class CandidatesContainer extends Component {
         ...prevState.formErrors,
         location: locationVal.error,
         category: categoryVal.error,
-        experienceMax:expMax.error
+        experienceMax: expMax.error,
       },
     }));
-
   }
 
   getMore() {
@@ -90,7 +91,7 @@ class CandidatesContainer extends Component {
       currExperienceMax,
       limit,
     } = this.props.candidatesState;
-     
+
     const nextPage = currPage + limit;
 
     this.props.fetchMoreCandidates(
@@ -99,15 +100,13 @@ class CandidatesContainer extends Component {
       currExperienceMax,
       nextPage,
     );
-
+  }
+  async handleChat(userId) {
+    this.props.fetchCreateRoom(userId)
+    this.props.history.push('/chat')
   }
   render() {
-    const {
-      category,
-      experienceMax,
-      location,
-      formErrors
-        } = this.state;
+    const { category, experienceMax, location, formErrors } = this.state;
 
     const {
       handleSubmit,
@@ -115,6 +114,7 @@ class CandidatesContainer extends Component {
       handleExperienceValue,
       getMore,
       handleCandidateDetails,
+      handleChat,
     } = this;
 
     const {
@@ -123,7 +123,7 @@ class CandidatesContainer extends Component {
       candidate,
       experience,
       loadingCd,
-      disable
+      disable,
     } = this.props;
     return (
       <>
@@ -145,7 +145,8 @@ class CandidatesContainer extends Component {
           loadingCl={loadingCl}
           disable={disable}
           formErrors={formErrors}
-          />
+          handleChat={handleChat}
+        />
       </>
     );
   }
@@ -157,12 +158,13 @@ const mapState = state => ({
   experience: state.candidate.experience,
   loadingCd: state.candidate.loading,
   loadingCl: state.candidates.loading,
-  disable:state.candidates.disable
+  disable: state.candidates.disable,
 });
 export default compose(
   connect(mapState, {
     fetchCandidates,
     fetchCandidatesDetails,
     fetchMoreCandidates,
+    fetchCreateRoom,
   }),
 )(CandidatesContainer);
