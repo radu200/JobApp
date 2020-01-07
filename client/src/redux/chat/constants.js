@@ -11,3 +11,7 @@ export const FAILURE_ROOM_D = 'chat/FAILURE_ROOM_D'
 export const REQUEST_CREATE_ROOM = 'chat/REQUEST_CREATE_ROOM'
 export const SUCCESS_CREATE_ROOM = 'chat/SUCCES_CREATE_ROOM'
 export const FAILURE_CREATE_ROOM = 'chat/FAILURE_CREATE_ROOM'
+
+export const REQUEST_NEW_MSG = 'chat/REQUEST_NEW_MSG'
+export const RECEIVED_NEW_MSG = 'chat/RECEIVED_NEW_MSG'
+export const FAILURE_NEW_MSG = 'chat/FAILURE_NEW_MSG'

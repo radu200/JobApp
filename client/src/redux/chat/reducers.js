@@ -8,6 +8,9 @@ import {
   REQUEST_CREATE_ROOM,
   SUCCESS_CREATE_ROOM,
   FAILURE_CREATE_ROOM,
+  REQUEST_NEW_MSG,
+  RECEIVED_NEW_MSG,
+  FAILURE_NEW_MSG,
 } from "./constants";
 
 const roomsState = {

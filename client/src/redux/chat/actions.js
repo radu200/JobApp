@@ -8,6 +8,9 @@ import {
   REQUEST_CREATE_ROOM,
   SUCCESS_CREATE_ROOM,
   FAILURE_CREATE_ROOM,
+  REQUEST_NEW_MSG,
+  RECEIVED_NEW_MSG,
+  FAILURE_NEW_MSG,
 } from "./constants";
 
 
@@ -74,3 +77,25 @@ export const requestcreateRoom = () => {
       err,
     };
   };
+
+
+  ///new messages
+export const requestNewMsg = () => {
+  return {
+    type: REQUEST_NEW_MSG,
+  };
+};
+
+export const receivedNewMsg = msg => {
+  return {
+    type: RECEIVED_NEW_MSG,
+    msg,
+  };
+};
+
+export const failureNewMsg = err => {
+  return {
+    type: FAILURE_NEW_MSG,
+    err,
+  };
+};

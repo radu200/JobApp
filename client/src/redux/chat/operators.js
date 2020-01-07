@@ -8,6 +8,9 @@ import {
   requestcreateRoom,
   successCreateRoom,
   failureCreateRoom,
+  requestNewMsg,
+  receivedNewMsg,
+  failureNewMsg,
 } from "./actions";
 import { getRooms, getRoomDetails, createRoom  } from "../../api/chat";
 
@@ -31,6 +34,14 @@ export const fetchRoomDetails = (room_id, j_id, e_id) => async dispatch => {
   }
 };
 
+export const fetchNewMessages = (data) => async dispatch => {
+  try {
+    dispatch(requestNewMsg());
+    dispatch(receivedNewMsg(data));
+  } catch (err) {
+    dispatch(failureNewMsg(err));
+  }
+}
 export const fetchCreateRoom = (user_id) => async dispatch => {
   try {
     dispatch(requestcreateRoom());
