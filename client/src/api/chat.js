@@ -13,8 +13,8 @@ export const getRooms = async () => {
     const res = await instanceAPI.get(url)
     return res.data 
 }
-export const getRoomDetails =  async (room_id, j_id, e_id) => {
-    const url = `/api/chat/room?r_id=${room_id}&j_id=${j_id}&e_id=${e_id}`
+export const getRoomDetails =  async (room_id) => {
+    const url = `/api/chat/room?r_id=${room_id}`
     const res = await instanceAPI.get(url)
     return res.data
 }

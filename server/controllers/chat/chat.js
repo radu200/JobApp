@@ -64,29 +64,10 @@ module.exports.getRoomDetails = async (req, res) => {
 
   try {
     const room_id = req.query.r_id;
-    const jobseeker_id = req.query.j_id;
-    const employer_id = req.query.e_id;
-    const user_role = req.user.type
     const limit = 100;
     const db = await dbPromise
-    const [jobseeker] = await db.execute(`SELECT * FROM chat_message WHERE message_user_id = ? AND room_id = ? LIMIT ${limit}`, [jobseeker_id, room_id])
-    const [employer] = await db.execute(`SELECT * FROM chat_message WHERE message_user_id = ? AND room_id = ? LIMIT ${limit}`, [employer_id, room_id])
-
-    if (user_role === 'employer') {
-      const results = {
-        sender: employer,
-        receiver: jobseeker
-      }
-
+    const [results] = await db.execute(`SELECT * FROM chat_message WHERE  room_id = ? LIMIT ${limit}`, [room_id])
       res.status(200).json(results)
-    } else if (user_role === 'jobseeker') {
-      const results = {
-        receiver: employer,
-        sender: jobseeker
-      }
-      res.status(200).json(results)
-    }
-
   } catch (err) {
     res.status(500).json('Server Err')
   }

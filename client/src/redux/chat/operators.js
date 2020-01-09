@@ -24,10 +24,10 @@ export const fetchRooms = () => async dispatch => {
   }
 };
 
-export const fetchRoomDetails = (room_id, j_id, e_id) => async dispatch => {
+export const fetchRoomDetails = (room_id) => async dispatch => {
   try {
     dispatch(requestRoom_d());
-    const data = await getRoomDetails(room_id, j_id, e_id);
+    const data = await getRoomDetails(room_id);
     dispatch(receivedRoom_d(data));
   } catch (err) {
     dispatch(failureRoom_d(err));
