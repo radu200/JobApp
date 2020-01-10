@@ -123,7 +123,6 @@ module.exports = function (app) {
   app.get('/api/chat',accessController.ensureAuthenticatedJ, chatController.getRooms)
   app.get('/api/chat/room',accessController.ensureAuthenticatedJ, chatController.getRoomDetails)
   app.post('/api/chat/room', accessController.ensureAuthenticatedJ, chatController.createRoom)
-  app.post('/api/chat/message', accessController.ensureAuthenticatedJ, chatController.postMessage)
 
 }
 

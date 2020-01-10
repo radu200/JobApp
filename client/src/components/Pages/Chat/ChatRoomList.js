@@ -1,54 +1,49 @@
-import React , { useState }from 'react';
-import { makeStyles} from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from '@material-ui/core/Avatar';
 
 const styles = makeStyles({
-    root:{
-      maxHeight:'91vh',
-      overflowY:'auto'
+  root: {
+    maxHeight: "91vh",
+    overflowY: "auto",
+  },
+  rooms: {
+    maxWidth: "100%",
+    padding:'10px',
+    minHeight: "50px",
+    borderBottom: "1px solid #D3D3D3",
+    backgroundColor: "#fff",
+    display:'flex',
+    alignItems:'center',
+    "&:hover": {
+      backgroundColor: "#DCDCDC",
     },
-    rooms: {
-      marginTop: "5px",
-      maxWidth: "100%",
-      height: "100px",
-      border:'1px solid grey',
-      textAlign: "center",
-      '&::before':{
-         borderColor:'red'
-      },
-      '&::after':{
-        borderColor:'green'
-     },
-     
-    },
-    
-  });
-  
-  
+  },
+  userName:{
+      marginLeft:'10px', 
+  }
+});
 
-
-const ChatRoomsList = ({ chatRoomList, handleRoom }) => {   
-    const classes = styles()
-    return (
-        <div className={classes.root}>
-         {chatRoomList.rooms &&
-           chatRoomList.rooms.map(r => {
-            return (
-              <div
-                onClick={() =>
-                   handleRoom(
-                    r.room_id
-                  )
-                }
-                className={classes.rooms}
-                key={r.room_id}
-              >
-                {r.first_name} {r.last_name}
-              </div>
-            );
-          })}
-        </div>
-    )
-}
+const ChatRoomsList = ({ chatRoomList, handleRoom }) => {
+    console.log(chatRoomList)
+  const classes = styles();
+  return (
+    <div className={classes.root}>
+      {chatRoomList.rooms &&
+        chatRoomList.rooms.map(r => {
+          return (
+            <div
+              onClick={() => handleRoom(r.room_id)}
+              className={classes.rooms}
+              key={r.room_id}
+            >
+              <Avatar alt="Travis Howard" src={r.avatar} />
+              <span className={classes.userName}>{r.first_name} {r.last_name}</span>
+            </div>
+          );
+        })}
+    </div>
+  );
+};
 
 export default ChatRoomsList;

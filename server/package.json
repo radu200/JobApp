@@ -74,6 +74,7 @@
     "passport-local": "1.0.0",
     "paypal-rest-sdk": "1.8.1",
     "sharp": "0.20.5",
+    "short-id": "^0.1.0-1",
     "socket.io": "^2.3.0",
     "stripe": "^7.14.0",
     "stylelint": "9.3.0",

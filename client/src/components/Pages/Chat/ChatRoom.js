@@ -10,7 +10,8 @@ const styles = makeStyles({
     height: "86vh",
     overflowY: "auto",
     display:'flex',
-    flexDirection:'column'
+    flexDirection:'column',
+    borderLeft:'1px solid 	#D3D3D3'
 },
 
 msgReceiver: {

@@ -1,4 +1,5 @@
 const { dbPromise } = require("./../../config/database.js");
+const shortId = require('short-id');
 
 
 
@@ -14,7 +15,8 @@ module.exports.createRoom = async (req, res) => {
       if (check.length > 0) {
         return res.status(409).json('Room already exist')
       }
-      await db.query('INSERT INTO chat_room (jobseeker_id, employer_id) VALUES(?,?)', [receiver_id, sender_id])
+      const room_id = shortId.generate(); 
+      await db.query('INSERT INTO chat_room (jobseeker_id, employer_id, room_id) VALUES(?,?,?)', [receiver_id, sender_id, room_id])
       res.status(200).json('Success')
 
     } else if (user_role === 'jobseeker') {
@@ -22,7 +24,8 @@ module.exports.createRoom = async (req, res) => {
       if (check.length > 0) {
        return  res.status(409).json('Room already exist')
       }
-      await db.query('INSERT INTO chat_room (employer_id,jobseeker_id) VALUES(?,?)', [receiver_id, sender_id])
+      const room_id = shortId.generate(); 
+      await db.query('INSERT INTO chat_room (employer_id,jobseeker_id, room_id) VALUES(?,?,?)', [receiver_id, sender_id, room_id])
       res.status(200).json('Success')
 
     }
@@ -31,10 +34,7 @@ module.exports.createRoom = async (req, res) => {
   }
 }
 
-module.exports.postMessage = async (req, res) => {
 
- 
-}
 
 module.exports.getRooms = async (req, res) => {
 
@@ -43,13 +43,13 @@ module.exports.getRooms = async (req, res) => {
     const user_role = req.user.type
     const db = await dbPromise
     if (user_role === 'employer') {
-      const [rooms] = await db.execute('SELECT chat_room.*, users.first_name, users.last_name FROM chat_room LEFT JOIN users ON  users.id = chat_room.jobseeker_id WHERE employer_id = ?', [user_id])
+      const [rooms] = await db.execute('SELECT chat_room.*, users.first_name, users.last_name, users.avatar  FROM chat_room LEFT JOIN users ON  users.id = chat_room.jobseeker_id WHERE employer_id = ?', [user_id])
       const results = {}
       results.sender_id =  user_id
       results.rooms = rooms
       res.status(200).json(results)
     } else if (user_role === 'jobseeker') {
-      const [rooms] = await db.execute('SELECT chat_room.*, users.first_name, users.last_name, users.company_name FROM chat_room LEFT JOIN users ON  users.id = chat_room.employer_id WHERE jobseeker_id = ?', [user_id])
+      const [rooms] = await db.execute('SELECT chat_room.*, users.first_name, users.last_name, users.avatar, users.company_name FROM chat_room LEFT JOIN users ON  users.id = chat_room.employer_id WHERE jobseeker_id = ?', [user_id])
       const results = {}
       results.sender_id =  user_id
       results.rooms = rooms
