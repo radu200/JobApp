@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter,Switch, Route } from 'react-router-dom';
 import JobsList from '../containers/search/JobsListContainer';
 import JobDetails from '../containers/search/JobDetailsContainer';
-
 import Candidates from '../containers/search/CandidatesContainer';
 import Applicants from '../containers/jobApplication/JobApplicants';
 import JobSeekerApplications from '../containers/jobApplication/JobSeekerApplications';
@@ -30,7 +29,7 @@ const Routes = () => (
         <Route exact path='/job/details' component={JobDetails} />
         <Route exact path='/chat' component={Chat} />
         <Route exact path='/chat/:room' component={ChatRoom} />
-        <Route exact path='/search-candidate' component={withAuthEmployer(Candidates)} />
+        <Route exact path='/search-candidate' component={Candidates} />
         <Route exact path='/job-application/applicants/:status/:id' component={withAuthEmployer(Applicants)} />
         <Route exact path='/my/applications' component={withAuthJobSeeker(JobSeekerApplications)} />
         

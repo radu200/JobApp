@@ -38,7 +38,7 @@ const CandidatesPage = ({
   loadingCd,
   disable,
   formErrors,
-  handleChat
+  handleChat,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -69,7 +69,7 @@ const CandidatesPage = ({
               experienceMax={experienceMax}
               formErrors={formErrors}
             />
-            {candidates.length === 0 &&  <h2>Rezultat: 0</h2>}
+            {candidates.length === 0 && <h2>Rezultat: 0</h2>}
             <CandidateCard
               handleOpen={handleOpen}
               candidates={candidates}
@@ -81,13 +81,13 @@ const CandidatesPage = ({
           </Grid>
           {matchespx ? (
             <CandidateDetailsM
-            candidate={candidateDetails}
-            experience={experience}
-            handleClose={handleClose}
-            open={open}
-            handleChat={handleChat}
+              candidate={candidateDetails}
+              experience={experience}
+              handleClose={handleClose}
+              open={open}
+              handleChat={handleChat}
             />
-            ) : (
+          ) : (
             <Grid item xs={12} sm={12} md={6}>
               <CandidateDetailsD
                 candidate={candidateDetails}
@@ -96,8 +96,7 @@ const CandidatesPage = ({
                 loading={loadingCd}
                 open={open}
                 handleChat={handleChat}
-
-                />
+              />
             </Grid>
           )}
         </Grid>
