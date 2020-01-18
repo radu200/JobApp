@@ -18,7 +18,7 @@ const withAuthEmployer = (Wrap) => {
 
 
       async getUserData() {
-         const { role, auth , fetchRole, history} = this.props
+         const { role, fetchRole, history} = this.props
          await fetchRole()
          if (role && role !== "employer") {
             return history.push('/login-err');

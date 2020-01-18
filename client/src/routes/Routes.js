@@ -6,7 +6,6 @@ import Candidates from '../containers/search/CandidatesContainer';
 import Applicants from '../containers/jobApplication/JobApplicants';
 import JobSeekerApplications from '../containers/jobApplication/JobSeekerApplications';
 import Chat from '../containers/chat/Chat';
-import ChatRoom from '../containers/chat/ChatRoom';
 import AllUsers from '../containers/adminDashboard/AllUsers'
 import Unchecked from '../containers/adminDashboard/UncheckedUsers'
 import Reported from '../containers/adminDashboard/ReportedUsers'
@@ -28,7 +27,6 @@ const Routes = () => (
         <Route exact path='/jobs' component={JobsList} />
         <Route exact path='/job/details' component={JobDetails} />
         <Route exact path='/chat' component={Chat} />
-        <Route exact path='/chat/:room' component={ChatRoom} />
         <Route exact path='/search-candidate' component={Candidates} />
         <Route exact path='/job-application/applicants/:status/:id' component={withAuthEmployer(Applicants)} />
         <Route exact path='/my/applications' component={withAuthJobSeeker(JobSeekerApplications)} />

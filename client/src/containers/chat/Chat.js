@@ -6,30 +6,22 @@ import {
   fetchRooms,
   fetchRoomDetails,
   fetchNewMessages,
+  fetchNotification
+ 
 } from "../../redux/chat/operators";
+import {
+   getRooms
+} from "../../redux/chat/selectors";
 import ChatPage from '../../components/Pages/Chat/ChatPage'
 import queryString from 'query-string'
-const styles = {
-  rooms: {
-    margin: "5px",
-    width: "200px",
-    height: "100px",
-    textAlign: "center",
-  },
-  msgSender: {
-    backgroundColor: "white",
-    color: "black",
-  },
-  msgReceiver: {
-    backgroundColor: "blue",
-    color: "white",
-  },
-};
+
+
 
 class Chat extends Component {
   constructor() {
     super();
     this.state = {
+      new_msg:[],
       chatMessage:'',
       room_id: null,
       updateChat:null,
@@ -45,17 +37,23 @@ class Chat extends Component {
     this.props.fetchRooms();
     const room = queryString.parse(this.props.location.search)
     const room_id = room.id
+    
     this.props.fetchRoomDetails(room_id);
      this.socket = io("http://localhost:8000");
      this.socket.on('chatMessage', msg => {
           this.props.fetchNewMessages(msg)
      })
+     
+      this.socket.on('notification', (notification) => {
+        this.props.fetchNotification(notification)
+      })
      this.socket.on('updateChat', data => {
        this.setState({updateChat:data})
      })
-   
   }
 
+ 
+ 
   componentDidUpdate(props, state) {
      if(state.room_id !== this.state.room_id){
        if(state.room_id !== null || state.room_id !== undefined){
@@ -88,28 +86,31 @@ class Chat extends Component {
     e.preventDefault();
 
      const { chatMessage, room_id } = this.state;
-     const { chatRooms } = this.props;
+     const { chatRooms, rooms } = this.props;
+     console.log(rooms)
      const s_id = chatRooms.sender_id;
      this.socket.emit("chatMessage", { chatMessage, room_id, s_id });
      this.setState({chatMessage:''})
- 
+    
   }
 
   render() {
-    const {chatMessage} = this.state;
+    const { chatMessage, new_msg} = this.state;
     const { handleChange, onSubmit, handleRoomDetails } = this;
-    const { chatRooms, room } = this.props;
+    const { chatRooms, room, rooms} = this.props;
     const sender_id = chatRooms.sender_id
+    
     return (
       <div>
         <ChatPage
           room={room}
-          chatRoomList={chatRooms}
+          chatRoomList={rooms}
           sender_id={sender_id}
           handleRoom={handleRoomDetails}
           handleChange={handleChange}
           onSubmit={onSubmit}
           value={chatMessage}
+          new_msg={new_msg}
         />
         {this.state.updateChat}
         
@@ -118,10 +119,11 @@ class Chat extends Component {
   }
 }
 const mapState = state => ({
+  rooms:getRooms(state),
   chatRooms: state.chatRooms.rooms,
   room: state.chatRoomD.room,
 });
 
 export default compose(
-  connect(mapState, { fetchRooms, fetchRoomDetails, fetchNewMessages }),
+  connect(mapState, { fetchRooms, fetchRoomDetails, fetchNewMessages, fetchNotification }),
 )(Chat);

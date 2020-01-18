@@ -11,6 +11,9 @@ import {
   REQUEST_NEW_MSG,
   RECEIVED_NEW_MSG,
   FAILURE_NEW_MSG,
+  REQUEST_NOTIFICATION,
+  RECEIVED_NOTIFICATION,
+  FAILURE_NOTIFICATION,
 } from "./constants";
 
 const roomsState = {
@@ -53,11 +56,29 @@ export const roomDReducer = (state = roomDState, action) => {
   }
 };
 
+const notificationState = {
+     notification: [],
+     loading:false,
+     err:false
+}
 
+export const notificationReducer = (state = notificationState, action) => {
+     switch(action.type){
+       case REQUEST_NOTIFICATION:
+         return {...state, loading:true}
+      case RECEIVED_NOTIFICATION:
+         return {...state, loading: false, notification:action.data}
+      case FAILURE_NOTIFICATION:
+         return {...state, loading:false, err:true}
+      default:
+        return state
+     }
+}
 const createRoomState = {
     loading: false,
     err: null,
   };
+
 export const createRoomReducer = (state = createRoomState, action) => {
     switch (action.type) {
       case REQUEST_CREATE_ROOM:
@@ -71,3 +92,4 @@ export const createRoomReducer = (state = createRoomState, action) => {
     }
   };
   
+

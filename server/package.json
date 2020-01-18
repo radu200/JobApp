@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@material-ui/lab": "^4.0.0-alpha.38",
+    "@rodrigogs/mysql-events": "^0.6.0",
     "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
     "bluebird": "^3.5.3",

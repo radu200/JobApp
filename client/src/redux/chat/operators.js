@@ -11,6 +11,9 @@ import {
   requestNewMsg,
   receivedNewMsg,
   failureNewMsg,
+  requestNotification,
+  receivedNotification,
+  failureNotification
 } from "./actions";
 import { getRooms, getRoomDetails, createRoom  } from "../../api/chat";
 
@@ -51,3 +54,13 @@ export const fetchCreateRoom = (user_id) => async dispatch => {
     dispatch(failureCreateRoom(err));
   }
 };
+
+
+export const fetchNotification = (notification) => async dispatch =>  {
+  try{
+     dispatch(requestNotification())
+     dispatch(receivedNotification(notification))
+  } catch(err){
+    dispatch(failureNotification(err))
+  }
+}

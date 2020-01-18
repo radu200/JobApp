@@ -92,7 +92,7 @@ const sessionStore = new MySQLStore(options);
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hou r
 
 
-app.use(session({ 
+const sessionMiddleware = session({ 
     secret: 'cat', 
     store: sessionStore,
     resave:false, //session will be saved each time no matter if exist or not
@@ -100,7 +100,8 @@ app.use(session({
     expires: expiryDate //1 hour
     // cookie: {   secure: true, // httpOnly: true, // domain: 'example.com',  //path: 'foo/bar', 
     //},
-}));
+});
+app.use(sessionMiddleware)
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -151,7 +152,9 @@ app.use(function(req, res, next) {
 });
 
 
-app.set('socketio', io);
+io.use(function(socket, next) {
+    sessionMiddleware(socket.request, socket.request.res, next);
+});
 
 require('./routes/routes.js')(app);
 

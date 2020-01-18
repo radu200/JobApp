@@ -11,6 +11,9 @@ import {
   REQUEST_NEW_MSG,
   RECEIVED_NEW_MSG,
   FAILURE_NEW_MSG,
+  RECEIVED_NOTIFICATION,
+  REQUEST_NOTIFICATION,
+  FAILURE_NOTIFICATION
 } from "./constants";
 
 
@@ -99,3 +102,26 @@ export const failureNewMsg = err => {
     err,
   };
 };
+
+
+  ///new messages
+  export const requestNotification = () => {
+    return {
+      type: REQUEST_NOTIFICATION,
+    };
+  };
+  
+  export const receivedNotification = data => {
+    return {
+      type: RECEIVED_NOTIFICATION,
+      data,
+    };
+  };
+  
+  export const failureNotification = err => {
+    return {
+      type: FAILURE_NOTIFICATION,
+      err,
+    };
+  };
+  

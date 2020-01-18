@@ -1,9 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
-import ChatFrom from "../../Forms/ChatForm";
 import {formatDate} from '../../../Utils/formatDate'
-import { green } from "@material-ui/core/colors";
 
 const styles = makeStyles({
   root: {
