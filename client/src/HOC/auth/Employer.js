@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchRole } from '../../redux/auth/operators'
-import { getAuthSelector, getRoleSelector } from '../../redux/auth/selectors'
-import { loadState } from '../../Utils/persistState'
+import { getAuthSelector, getRoleSelector, getUserIdSelector } from '../../redux/auth/selectors'
 
 const withAuthEmployer = (Wrap) => {
 
@@ -33,8 +32,8 @@ const withAuthEmployer = (Wrap) => {
 
    const mapState = state => ({
       role: getRoleSelector(state),
-      auth: getAuthSelector(state)
-
+      auth: getAuthSelector(state),
+      user_id:getUserIdSelector(state)
    })
 
    return connect(mapState, { fetchRole })(Employer)

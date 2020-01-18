@@ -104,7 +104,6 @@ export const failureNewMsg = err => {
 };
 
 
-  ///new messages
   export const requestNotification = () => {
     return {
       type: REQUEST_NOTIFICATION,

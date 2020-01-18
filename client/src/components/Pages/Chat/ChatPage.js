@@ -5,16 +5,16 @@ import ChatRoomList from "./ChatRoomList";
 import ChatRoom from "./ChatRoom";
 import ChatFrom from "../../Forms/ChatForm";
 
-const ChatPage = ({ chatRoomList, room, sender_id, handleRoom, onSubmit, handleChange, value, new_msg}) => {
+const ChatPage = ({ chatRoomList,room, user_id, handleRoom, onSubmit, handleChange, value}) => {
   return (
      <>
       <MainNav />
       <Grid container >
           <Grid item xs={12} sm={12} md={2}>
-            <ChatRoomList chatRoomList={chatRoomList} handleRoom={handleRoom} new_msg={new_msg} />
+            <ChatRoomList chatRoomList={chatRoomList} handleRoom={handleRoom}  />
          </Grid>
          <Grid item xs={12} sm={12} md={10}>
-              <ChatRoom room={room} sender_id={sender_id} handleChange={handleChange} onSubmit={onSubmit} value={value}  />
+              <ChatRoom room={room}  handleChange={handleChange} onSubmit={onSubmit} value={value} user_id={user_id}  />
          <ChatFrom
               handleChange={handleChange} onSubmit={onSubmit} value={value}
             />

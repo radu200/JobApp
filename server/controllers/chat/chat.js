@@ -63,59 +63,16 @@ module.exports.getRooms = async (req, res) => {
 module.exports.getRoomDetails = async (req, res) => {
 
   try {
-    const room_id = req.query.r_id;
-    const limit = 100;
+    const room_id = req.query.r_id
+    const user_id = req.user.id
+    const limit = 100
     const db = await dbPromise
-    const [results] = await db.execute(`SELECT * FROM chat_message WHERE  room_id = ? LIMIT ${limit}`, [room_id])
-      res.status(200).json(results)
+    const [room] = await db.execute(`SELECT * FROM chat_message WHERE  room_id = ? LIMIT ${limit}`, [room_id])
+    res.status(200).json(room)
   } catch (err) {
     res.status(500).json('Server Err')
   }
 }
 
 
-export const getNotifications = async (user_role_msg, user_role_id, user_id) => {
-  const db = await dbPromise;
-  const [
-    msg,
-  ] = await db.execute(
-    `SELECT ${user_role_msg}, room_id from chat_room where ${user_role_id} = ?`,
-    [user_id],
-  );
-
-  const result = msg.map(m => {
-    return {
-      new_msg: m.employer_new_msg,
-      room_id: m.room_id,
-    };
-  });
-  return result
-}
-
-export const addMessage = async (room_id, s_id, chatMessage) => {
-  const db = await dbPromise;
-  await db.query('INSERT  INTO chat_message (room_id, message_user_id, message_text) VALUES(?,?,?)', [room_id, s_id, chatMessage])
-}
-export const addNotifications = async (user_role_msg, room_id) => {
-  try {
-    const db = await dbPromise
-    const [n] = await db.execute(`SELECT ${user_role_msg} FROM chat_room where room_id = ?`, [room_id])
-
-    const notification = Object.values(n[0])[0]
-    const notificationNum = 1
-
-    let counter = 0
-
-    if (notification !== null || notification !== undefined) {
-      counter = notification + notificationNum
-    } else {
-      counter = notificationNum
-    }
-    await db.query(`UPDATE  chat_room SET ${user_role_msg}  = ? WHERE room_id = ?`, [counter, room_id])
-
-  } catch (err) {
-    console.log(err)
-    return err
-  }
-}
 

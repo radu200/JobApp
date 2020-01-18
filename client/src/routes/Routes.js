@@ -15,6 +15,7 @@ import LoginErr from '../components/Pages/LoginErr'
 import Checkout from '../containers/payment/Checkout'
 
 // auth
+import  withAuth  from '../HOC/auth/Auth'
 import  withAuthEmployer  from '../HOC/auth/Employer'
 import withAuthJobSeeker  from '../HOC/auth/JobSeeker'
 import  withAuthAdmin  from '../HOC/auth/Admin'
@@ -26,7 +27,7 @@ const Routes = () => (
         <Route exact path='/' component={JobsList} />
         <Route exact path='/jobs' component={JobsList} />
         <Route exact path='/job/details' component={JobDetails} />
-        <Route exact path='/chat' component={Chat} />
+        <Route exact path='/chat' component={withAuth(Chat)} />
         <Route exact path='/search-candidate' component={Candidates} />
         <Route exact path='/job-application/applicants/:status/:id' component={withAuthEmployer(Applicants)} />
         <Route exact path='/my/applications' component={withAuthJobSeeker(JobSeekerApplications)} />

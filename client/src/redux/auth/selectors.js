@@ -8,6 +8,11 @@ const getRole = state => state.auth.role;
 
  const getAuth = state => state.auth.auth
 
+ const getUserId = state => state.auth.user_id
+
+ export const getUserIdSelector = createSelector(getUserId, (user_id) => {
+    return  user_id
+   })
  export const getRoleSelector = createSelector(getRole, (role) => {
      return role
     })

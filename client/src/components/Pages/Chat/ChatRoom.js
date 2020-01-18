@@ -46,8 +46,8 @@ time:{
     opacity:0.6,
 }
 });
-const ChatRoom = ({ room, sender_id }) => {
-  const classes = styles();
+const ChatRoom = ({ room, user_id }) => {
+  const classes = styles();  
   return (
     <>
       <div className={classes.root}>
@@ -55,7 +55,7 @@ const ChatRoom = ({ room, sender_id }) => {
           room.map((m)=> {
             return (
               <div key={m.message_id} className={classes.msgContainer}>
-                {sender_id === m.message_user_id ? (
+                {user_id === m.message_user_id ? (
                   <div className={classes.msgSender}>
                       <div className={classes.msgTextSender}>{m.message_text}</div>
                      <div className={classes.time}>{formatDate(m.time)}</div>

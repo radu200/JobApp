@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {fetchRole } from '../../redux/auth/operators'
-import {getAuthSelector, getRoleSelector } from '../../redux/auth/selectors'
-import { loadState } from '../../Utils/persistState'
+import {getAuthSelector, getRoleSelector, getUserIdSelector } from '../../redux/auth/selectors'
 
 const withAuthJobSeeker = (Wrap) => {
    class JobSeeker extends Component {
@@ -17,7 +16,7 @@ const withAuthJobSeeker = (Wrap) => {
 
     async getUserData() {
          await this.props.fetchRole()
-         const { role,auth, history } = this.props
+         const { role, history } = this.props
          if (role && role !== 'jobseeker' ) {
             return history.push('/login-err');
          }
@@ -31,6 +30,8 @@ const withAuthJobSeeker = (Wrap) => {
   const mapState = state => ({
        role:getRoleSelector(state),
        auth:getAuthSelector(state),
+       user_id:getUserIdSelector(state)
+
     
  })
 

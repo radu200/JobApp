@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import io from "socket.io-client";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { socket } from '../../config/socket.io'
 import {
   fetchRooms,
   fetchRoomDetails,
   fetchNewMessages,
   fetchNotification
- 
 } from "../../redux/chat/operators";
 import {
    getRooms
@@ -37,19 +36,25 @@ class Chat extends Component {
     this.props.fetchRooms();
     const room = queryString.parse(this.props.location.search)
     const room_id = room.id
-    
+
     this.props.fetchRoomDetails(room_id);
-     this.socket = io("http://localhost:8000");
-     this.socket.on('chatMessage', msg => {
+
+     socket.on('chatMessage', msg => {
+          console.log('message',msg)
           this.props.fetchNewMessages(msg)
      })
-     
-      this.socket.on('notification', (notification) => {
+     socket.on('notification', (notification) => {
         this.props.fetchNotification(notification)
       })
-     this.socket.on('updateChat', data => {
+     socket.on('updateChat', data => {
        this.setState({updateChat:data})
      })
+    
+     window.scrollTo({
+      bottom: 0,
+      left: 0,
+      behavior: "smooth"
+    });
   }
 
  
@@ -59,20 +64,20 @@ class Chat extends Component {
        if(state.room_id !== null || state.room_id !== undefined){
           const newRoom = this.state.room_id;
           const oldRoom = state.room_id
-           this.socket.emit('switchRoom', {newRoom, oldRoom})
+           socket.emit('switchRoom', {newRoom, oldRoom})
            this.setState({chatMessages:[]})
        }
      }
+     
   }
 
   async handleRoomDetails(room_id) {
-    const { chatRooms } = this.props;
+
      this.props.fetchRoomDetails(room_id);
      this.props.history.push(`/chat?id=${room_id}`)
-     const sender_id = chatRooms.sender_id;
-     this.socket.emit("join", {room_id, sender_id});
-
-      this.setState({room_id})
+     socket.emit('join', {room_id});
+     socket.emit('removeNotification', {room_id})
+     this.setState({room_id})
   }
 
   handleChange(e) {
@@ -84,35 +89,27 @@ class Chat extends Component {
 
   async onSubmit(e) {
     e.preventDefault();
-
      const { chatMessage, room_id } = this.state;
-     const { chatRooms, rooms } = this.props;
-     console.log(rooms)
-     const s_id = chatRooms.sender_id;
-     this.socket.emit("chatMessage", { chatMessage, room_id, s_id });
+     socket.emit("chatMessage", { chatMessage, room_id});
      this.setState({chatMessage:''})
     
   }
 
   render() {
-    const { chatMessage, new_msg} = this.state;
+    const { chatMessage} = this.state;
     const { handleChange, onSubmit, handleRoomDetails } = this;
-    const { chatRooms, room, rooms} = this.props;
-    const sender_id = chatRooms.sender_id
-    
+    const { room, rooms, user_id} = this.props;
     return (
       <div>
         <ChatPage
           room={room}
           chatRoomList={rooms}
-          sender_id={sender_id}
           handleRoom={handleRoomDetails}
           handleChange={handleChange}
           onSubmit={onSubmit}
           value={chatMessage}
-          new_msg={new_msg}
+          user_id={user_id}
         />
-        {this.state.updateChat}
         
       </div>
     );
@@ -120,7 +117,6 @@ class Chat extends Component {
 }
 const mapState = state => ({
   rooms:getRooms(state),
-  chatRooms: state.chatRooms.rooms,
   room: state.chatRoomD.room,
 });
 

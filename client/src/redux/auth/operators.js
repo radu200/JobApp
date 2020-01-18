@@ -6,8 +6,7 @@ export const fetchRole = () => async dispatch => {
    try{
      dispatch(requestRole());
      const data = await authRole()
-     const { role, auth } = data
-     dispatch(receivedRole(role, auth));
+     dispatch(receivedRole(data));
    } catch(err){
      dispatch(failureRole(err));
    }

@@ -61,6 +61,7 @@ module.exports.authRole = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({
       'role': req.user.type,
+      'user_id':req.user.id,
       'auth': true
     })
   }

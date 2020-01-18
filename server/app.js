@@ -159,7 +159,7 @@ io.use(function(socket, next) {
 require('./routes/routes.js')(app);
 
 // socket.io
-require("./controllers/chat/socketIo.js")(io)
+require("./controllers/chat/chat_socket.js")(io)
 
 app.get('*', (req,res) => {
      res.sendFile(path.resolve(__dirname, '../client/build/index.html'))

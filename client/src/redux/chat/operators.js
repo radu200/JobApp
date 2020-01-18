@@ -42,6 +42,7 @@ export const fetchNewMessages = (data) => async dispatch => {
     dispatch(requestNewMsg());
     dispatch(receivedNewMsg(data));
   } catch (err) {
+    console.log(err)
     dispatch(failureNewMsg(err));
   }
 }

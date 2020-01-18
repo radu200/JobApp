@@ -9,11 +9,10 @@ export const requestRole = () => {
  }
  
  
-export const receivedRole = (role, auth) => {
+export const receivedRole = (data) => {
    return {
        type:RECEIVED_ROLE,
-       role,
-       auth
+       data
    }
 }
 
