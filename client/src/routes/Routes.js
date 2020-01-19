@@ -28,6 +28,7 @@ const Routes = () => (
         <Route exact path='/jobs' component={JobsList} />
         <Route exact path='/job/details' component={JobDetails} />
         <Route exact path='/chat' component={withAuth(Chat)} />
+        {/* <Route exact path='/chat/:room/:name' component={withAuth(ChatRoom)} /> */}
         <Route exact path='/search-candidate' component={Candidates} />
         <Route exact path='/job-application/applicants/:status/:id' component={withAuthEmployer(Applicants)} />
         <Route exact path='/my/applications' component={withAuthJobSeeker(JobSeekerApplications)} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
 import Grid from "@material-ui/core/Grid";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import MainNav from "../../NavBars/MainNav/MainNav";
@@ -6,7 +6,13 @@ import ChatRoomList from "./ChatRoomList";
 import ChatRoomD from "./ChatRoomD";
 import ChatRoomM from "./ChatRoomM";
 import ChatForm from "../../Forms/ChatForm";
+import { makeStyles } from "@material-ui/styles";
 
+const useStyle = makeStyles({
+  roomStatusText:{
+    textAlign:'center'
+  }
+})
 const ChatPage = ({
   chatRoomList,
   room,
@@ -16,6 +22,7 @@ const ChatPage = ({
   handleChange,
   value,
   receiverName,
+  roomStatus,
 }) => {
   const [open, setOpen] = useState(true);
   //open and close for candidate details
@@ -26,44 +33,58 @@ const ChatPage = ({
   const handleOpen = () => {
     setOpen(true);
   };
-
+  
+  const classes = useStyle()
   const matchespx = useMediaQuery("(max-width:960px)");
+
   return (
     <>
       <MainNav />
       <Grid container>
         <Grid item xs={12} sm={12} md={2}>
-          <ChatRoomList chatRoomList={chatRoomList} handleRoom={handleRoom}  handleRoomM={handleOpen} />
+          <ChatRoomList
+            chatRoomList={chatRoomList}
+            handleRoom={handleRoom}
+            handleRoomM={handleOpen}
+          />
         </Grid>
+
         {matchespx ? (
-          <ChatRoomM  
-              handleClose={handleClose} 
-              open={open}
-              room={room}
-              handleChange={handleChange}
-              onSubmit={onSubmit}
-              value={value}
-              user_id={user_id}
-              handleChange={handleChange}
-              onSubmit={onSubmit}
-              value={value}
-              receiverName={receiverName}
-            />
+          <ChatRoomM
+            handleClose={handleClose}
+            open={open}
+            room={room}
+            handleChange={handleChange}
+            onSubmit={onSubmit}
+            value={value}
+            user_id={user_id}
+            handleChange={handleChange}
+            onSubmit={onSubmit}
+            value={value}
+            receiverName={receiverName}
+            roomStatus={roomStatus}
+          />
         ) : (
           <Grid item xs={12} sm={12} md={10}>
-            <ChatRoomD
-              room={room}
-              handleChange={handleChange}
-              onSubmit={onSubmit}
-              value={value}
-              user_id={user_id}
-              receiverName={receiverName}
-            />
-            <ChatForm
-              handleChange={handleChange}
-              onSubmit={onSubmit}
-              value={value}
-            />
+            {roomStatus ? (
+              <>
+                <ChatRoomD
+                  room={room}
+                  handleChange={handleChange}
+                  onSubmit={onSubmit}
+                  value={value}
+                  user_id={user_id}
+                  receiverName={receiverName}
+                />
+                <ChatForm
+                  handleChange={handleChange}
+                  onSubmit={onSubmit}
+                  value={value}
+                />
+              </>
+            ) : (
+             <h2 className={classes.roomStatusText} >Aici vor aparea mesajele</h2>
+            )}
           </Grid>
         )}
       </Grid>

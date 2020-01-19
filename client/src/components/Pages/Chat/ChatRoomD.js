@@ -5,7 +5,7 @@ import ChatHeader from './ChatHeader'
 
 const styles = makeStyles({
   root: {
-    height: "85vh",
+    height: "84vh",
     overflowY: "auto",
     display:'flex',
     flexDirection:'column',

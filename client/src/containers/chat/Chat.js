@@ -20,7 +20,7 @@ class Chat extends Component {
       chatMessage: "",
       room_id: null,
       receiverName: "",
-    
+      roomStatus: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,34 +34,41 @@ class Chat extends Component {
     const room_id = url.id;
     const receiverName = url.name;
 
-    this.setState({ receiverName });
-
-    this.props.fetchRoomDetails(room_id);
-
-    socket.on("chatMessage", msg => {
-      this.props.fetchNewMessages(msg);
-    });
     socket.on("notification", notification => {
       this.props.fetchNotification(notification);
     });
-    socket.on("updateChat", data => {
-      this.setState({ updateChat: data });
-    });
 
-    if (room_id !== null || room_id !== undefined) {
+    if (room_id !== undefined) {
+      this.setState({ receiverName, roomStatus: true });
+      this.props.fetchRoomDetails(room_id);
+
+      socket.on("chatMessage", msg => {
+        this.props.fetchNewMessages(msg);
+      });
+      socket.on("updateChat", data => {
+        this.setState({ updateChat: data });
+      });
+
       socket.emit("join", { room_id });
-    }
 
-    this.scrollToBottom();
+      this.scrollToBottom();
+    }
   }
 
   componentDidUpdate(props) {
     if (props.location.search !== this.props.location.search) {
       const url = queryString.parse(this.props.location.search);
       const receiverName = url.name;
-      this.setState({ receiverName });
+      const room_id = url.id;
+      if (room_id === undefined) {
+        this.setState({ roomStatus: false });
+      } else {
+        this.setState({ receiverName, roomStatus: true });
+      }
     }
-    this.scrollToBottom();
+    if(props.room !== this.props.room) {
+      this.scrollToBottom();
+    }
   }
 
   async handleRoomDetails(room_id, receiverFn, receiverLn) {
@@ -101,14 +108,15 @@ class Chat extends Component {
   scrollToBottom() {
     animateScroll.scrollToBottom({
       containerId: "chatRoom",
-      smooth: true,
+      linear:true
     });
   }
 
   render() {
-    const { chatMessage, receiverName, formErrors } = this.state;
+    const { chatMessage, receiverName, roomStatus } = this.state;
     const { handleChange, onSubmit, handleRoomDetails } = this;
     const { room, rooms, user_id } = this.props;
+    console.log(roomStatus);
     return (
       <>
         <ChatPage
@@ -120,6 +128,7 @@ class Chat extends Component {
           value={chatMessage}
           user_id={user_id}
           receiverName={receiverName}
+          roomStatus={roomStatus}
         />
       </>
     );

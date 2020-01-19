@@ -64,6 +64,9 @@ const useStyles = makeStyles(theme => ({
   messageInput: {
     position: "fixed",
   },
+  roomStatusText:{
+    textAlign:'center'
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -79,7 +82,7 @@ export default function ChatRoomM({
   value,
   handleChange,
   receiverName,
-  formErros,
+  roomStatus
 }) {
   const classes = useStyles();
 
@@ -104,6 +107,8 @@ export default function ChatRoomM({
             {receiverName}
           </Toolbar>
         </AppBar>
+        {roomStatus ? 
+        <>
         <DialogContent className={classes.content} id="chatRoom">
           {room &&
             room.map(m => {
@@ -131,9 +136,10 @@ export default function ChatRoomM({
             onSubmit={onSubmit}
             value={value}
             handleChange={handleChange}
-            formErros={formErros}
           />
         </DialogActions>
+       </>
+       : <h2 className={classes.roomStatusText}>Aici vor aparea mesajele</h2>}
       </Dialog>
     </>
   );

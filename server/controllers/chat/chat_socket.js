@@ -22,7 +22,6 @@ module.exports = io => {
       });
 
       socket.on("chatMessage", async ({ chatMessage, room_id }) => {
-         console.log(chatMessage, room_id)
         const d = new Date();
         const date = d.toUTCString();
 
@@ -35,8 +34,7 @@ module.exports = io => {
 
         io.to(room_id).emit("chatMessage", msg);
 
-        await addMessage(room_id, user_id, chatMessage);
-
+        await addMessage(room_id, user_id, chatMessage)
         if (role === "employer") {
           const jb_msg = "jobseeker_new_msg";
           await addNotifications(jb_msg, room_id);

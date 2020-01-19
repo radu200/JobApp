@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { matchPath } from "react-router";
 import { getAllNotifications } from "../../../redux/chat/selectors";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -137,7 +138,6 @@ class MainNavBar extends React.Component {
     const { classes, auth, role, notifications } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}
