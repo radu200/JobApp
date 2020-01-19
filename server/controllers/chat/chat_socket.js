@@ -24,7 +24,7 @@ module.exports = io => {
       socket.on("chatMessage", async ({ chatMessage, room_id }) => {
         const d = new Date();
         const date = d.toUTCString();
-
+          console.log(chatMessage, room_id)
         const msg = {
           message_id: uuidv4(),
           time: date,

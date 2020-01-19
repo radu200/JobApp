@@ -14,7 +14,7 @@ const withAuthAdmin = Wrap => {
     }
 
     async getUserData() {
-      const { role, auth, history } = this.props;
+      const { role, history } = this.props;
       await this.props.fetchRole();
       if (role && role !== "admin") {
         return history.push("/login-err");

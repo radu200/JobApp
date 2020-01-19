@@ -38,13 +38,14 @@ class Chat extends Component {
       this.props.fetchNotification(notification);
     });
 
+    socket.on("chatMessage", msg => {
+      this.props.fetchNewMessages(msg);
+    });
+
     if (room_id !== undefined) {
       this.setState({ receiverName, roomStatus: true });
       this.props.fetchRoomDetails(room_id);
 
-      socket.on("chatMessage", msg => {
-        this.props.fetchNewMessages(msg);
-      });
       socket.on("updateChat", data => {
         this.setState({ updateChat: data });
       });
@@ -66,7 +67,7 @@ class Chat extends Component {
         this.setState({ receiverName, roomStatus: true });
       }
     }
-    if(props.room !== this.props.room) {
+    if (props.room !== this.props.room) {
       this.scrollToBottom();
     }
   }
@@ -91,7 +92,6 @@ class Chat extends Component {
   async onSubmit(e) {
     e.preventDefault();
     const { chatMessage, room_id } = this.state;
-
     if (room_id === null || room_id === undefined) {
       const url = queryString.parse(this.props.location.search);
       const room_id = url.id;
@@ -108,7 +108,7 @@ class Chat extends Component {
   scrollToBottom() {
     animateScroll.scrollToBottom({
       containerId: "chatRoom",
-      linear:true
+      linear: true,
     });
   }
 
