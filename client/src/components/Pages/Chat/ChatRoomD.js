@@ -1,10 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {formatDate} from '../../../Utils/formatDate'
+import ChatHeader from './ChatHeader'
 
 const styles = makeStyles({
   root: {
-    height: "86vh",
+    height: "85vh",
     overflowY: "auto",
     display:'flex',
     flexDirection:'column',
@@ -46,15 +47,16 @@ time:{
     opacity:0.6,
 }
 });
-const ChatRoom = ({ room, user_id }) => {
+const ChatRoom = ({ room, user_id, receiverName }) => {
   const classes = styles();  
   return (
     <>
-      <div className={classes.root}>
+      <div className={classes.root } >
+        <ChatHeader name={receiverName}/>
         {room &&
           room.map((m)=> {
             return (
-              <div key={m.message_id} className={classes.msgContainer}>
+              <div key={m.message_id}>
                 {user_id === m.message_user_id ? (
                   <div className={classes.msgSender}>
                       <div className={classes.msgTextSender}>{m.message_text}</div>

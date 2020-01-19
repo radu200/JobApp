@@ -17,7 +17,6 @@ import { BrandName } from "../../../Utils/BrandName";
 import withAuth from "../../../HOC/auth/Auth";
 import Translator from "../../../Utils/Translator";
 import ModalPremium from "../../payment/ModalPremium";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {
   Profile,
   Settings,

@@ -20,11 +20,9 @@ class Chat extends Component {
   constructor() {
     super();
     this.state = {
-      new_msg:[],
       chatMessage:'',
       room_id: null,
-      updateChat:null,
-      status:'',
+      receiverName:''
     };
     
     this.handleChange = this.handleChange.bind(this);
@@ -34,47 +32,52 @@ class Chat extends Component {
   
   async componentDidMount() {
     this.props.fetchRooms();
-    const room = queryString.parse(this.props.location.search)
-    const room_id = room.id
-
+    const url = queryString.parse(this.props.location.search)
+    const room_id = url.id
+    console.log(room_id)
+    const receiverName = url.name
+    
+    this.setState({ receiverName })
+    
     this.props.fetchRoomDetails(room_id);
 
-     socket.on('chatMessage', msg => {
-          console.log('message',msg)
-          this.props.fetchNewMessages(msg)
-     })
-     socket.on('notification', (notification) => {
-        this.props.fetchNotification(notification)
-      })
-     socket.on('updateChat', data => {
-       this.setState({updateChat:data})
-     })
+    socket.on('chatMessage', msg => {
+      this.props.fetchNewMessages(msg)
+    })
+    socket.on('notification', (notification) => {
+      this.props.fetchNotification(notification)
+    })
+    socket.on('updateChat', data => {
+      this.setState({updateChat:data})
+    })
     
-     window.scrollTo({
-      bottom: 0,
-      left: 0,
-      behavior: "smooth"
-    });
-  }
-
- 
- 
-  componentDidUpdate(props, state) {
-     if(state.room_id !== this.state.room_id){
-       if(state.room_id !== null || state.room_id !== undefined){
-          const newRoom = this.state.room_id;
-          const oldRoom = state.room_id
-           socket.emit('switchRoom', {newRoom, oldRoom})
-           this.setState({chatMessages:[]})
-       }
+     if(room_id !== null || room_id !== undefined){
+       socket.emit('join', {room_id});
      }
-     
+  
+     window.scrollTo({
+      top: document.body.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
+    
   }
 
-  async handleRoomDetails(room_id) {
+ 
+ 
+  componentDidUpdate(props) {
+     if(props.location.search !== this.props.location.search){
+       const url = queryString.parse(this.props.location.search)
+       const receiverName = url.name
+       this.setState({ receiverName })
+     }
+    
+  }
+
+  async handleRoomDetails(room_id, receiverFn, receiverLn) {
 
      this.props.fetchRoomDetails(room_id);
-     this.props.history.push(`/chat?id=${room_id}`)
+     this.props.history.push(`/chat?id=${room_id}&name=${receiverFn} ${receiverLn}`)
      socket.emit('join', {room_id});
      socket.emit('removeNotification', {room_id})
      this.setState({room_id})
@@ -90,17 +93,25 @@ class Chat extends Component {
   async onSubmit(e) {
     e.preventDefault();
      const { chatMessage, room_id } = this.state;
-     socket.emit("chatMessage", { chatMessage, room_id});
-     this.setState({chatMessage:''})
+
+     if(room_id === null || room_id === undefined) {
+      const url = queryString.parse(this.props.location.search)
+      const room_id = url.id
+      socket.emit("chatMessage", { chatMessage, room_id});
+      this.setState({chatMessage:''})
+     } else{
+       socket.emit("chatMessage", { chatMessage, room_id});
+       this.setState({chatMessage:''})
+     }
     
   }
 
   render() {
-    const { chatMessage} = this.state;
+    const { chatMessage, receiverName } = this.state;
     const { handleChange, onSubmit, handleRoomDetails } = this;
     const { room, rooms, user_id} = this.props;
     return (
-      <div>
+      <>
         <ChatPage
           room={room}
           chatRoomList={rooms}
@@ -109,9 +120,9 @@ class Chat extends Component {
           onSubmit={onSubmit}
           value={chatMessage}
           user_id={user_id}
+          receiverName={receiverName}
         />
-        
-      </div>
+      </>
     );
   }
 }

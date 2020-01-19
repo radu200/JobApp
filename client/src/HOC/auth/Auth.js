@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {fetchRole } from '../../redux/auth/operators'
 import {getAuthSelector, getRoleSelector, getUserIdSelector } from '../../redux/auth/selectors'
-import { loadState } from '../../Utils/persistState'
 
 const withAuth = (Wrap) => {
   class Auth  extends Component {

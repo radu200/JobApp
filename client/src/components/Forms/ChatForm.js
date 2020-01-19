@@ -2,9 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
-
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,6 +16,8 @@ const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
+    border:'none',
+    outline:'none'
   },
   iconButton: {
     padding: 10,
@@ -27,19 +28,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const createChatRoom = ({ onSubmit, value, handleChange }) => {
+const ChatForm = ({ onSubmit, value, handleChange }) => {
   const classes = useStyles();
   return (
     <>
       <Paper component="form" onSubmit={onSubmit} className={classes.root}>
-        <InputBase
+        <TextareaAutosize
+          rowsMin={2}
+          rowsMax={4}
           className={classes.input}
           placeholder="Mesaje"
-          inputProps={{ "aria-label": "search google maps" }}
           onChange={handleChange}
           value={value}
         />
-
         <Divider className={classes.divider} orientation="vertical" />
         <Button type="submit" color="primary" className={classes.button}>
           Trimite
@@ -49,4 +50,4 @@ const createChatRoom = ({ onSubmit, value, handleChange }) => {
   );
 };
 
-export default createChatRoom;
+export default ChatForm;

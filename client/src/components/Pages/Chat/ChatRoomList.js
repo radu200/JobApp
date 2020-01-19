@@ -26,17 +26,18 @@ const styles = makeStyles({
   },
 });
 
-const ChatRoomsList = ({ chatRoomList, handleRoom }) => {
-  const classes = styles();
+const ChatRoomsList = ({ chatRoomList, handleRoom, handleRoomM}) => {
+  const classes = styles(); 
   return (
     <div className={classes.root}>
       {chatRoomList &&
         chatRoomList.map(r => {
           return (
-            <div
-              onClick={() => handleRoom(r.room_id)}
+            <div key={r.room_id} onClick={handleRoomM}>
+              <div
+              onClick={() => handleRoom(r.room_id, r.first_name, r.last_name)}
               className={classes.rooms}
-              key={r.room_id}
+              
             >
               <Avatar alt="Travis Howard" src={r.avatar} />
               <span className={classes.userName}>
@@ -49,9 +50,11 @@ const ChatRoomsList = ({ chatRoomList, handleRoom }) => {
                 ></Badge>
               </IconButton>
             </div>
+           </div>
           );
         })}
     </div>
+  
   );
 };
 

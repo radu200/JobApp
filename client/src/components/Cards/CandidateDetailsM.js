@@ -21,6 +21,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative",
+    backgroundColor:'#2552C7'
   },
   title: {
     marginLeft: theme.spacing(2),
@@ -40,6 +41,10 @@ const useStyles = makeStyles(theme => ({
       color: "red",
     },
   },
+  openChat:{
+    backgroundColor:'#2552C7',
+
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -89,6 +94,7 @@ export default function FullScreenDialog({
                 />
                 <CardContent>
                   <Button
+                    className={classes.openChat}
                     variant="contained"
                     color="primary"
                     fullWidth
