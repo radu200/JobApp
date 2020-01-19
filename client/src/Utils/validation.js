@@ -7,10 +7,10 @@ export const validate = value => {
       status = false
     } 
     
-    if (value.length > 70) {
-     error = "Te rog nu cauta mai mult de 70 de caractere"; 
-     status = false
-   } 
+  //   if (value.length > 70) {
+  //    error = "Te rog nu cauta mai mult de 70 de caractere"; 
+  //    status = false
+  //  } 
     return {error,status}
 };
 

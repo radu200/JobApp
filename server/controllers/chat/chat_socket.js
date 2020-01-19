@@ -56,19 +56,19 @@ module.exports = io => {
         }
       });
 
-      // setInterval(async () => {
-      //   if (role === "employer") {
-      //     const em_msg = 'employer_new_msg'
-      //     const em_id = 'employer_id'
-      //     const result = await getNotifications(em_msg, em_id, user_id)
-      //     socket.emit("notification", result);
-      //   } else if (role === 'jobseeker') {
-      //     const jb_msg = 'jobseeker_new_msg'
-      //     const jb_id = 'jobseeker_id'
-      //     const result = await getNotifications(jb_msg, jb_id, user_id)
-      //     socket.emit("notification", result);
-      //   }
-      // }, 1000)
+      setInterval(async () => {
+        if (role === "employer") {
+          const em_msg = 'employer_new_msg'
+          const em_id = 'employer_id'
+          const result = await getNotifications(em_msg, em_id, user_id)
+          socket.emit("notification", result);
+        } else if (role === 'jobseeker') {
+          const jb_msg = 'jobseeker_new_msg'
+          const jb_id = 'jobseeker_id'
+          const result = await getNotifications(jb_msg, jb_id, user_id)
+          socket.emit("notification", result);
+        }
+      }, 1000)
 
       socket.on("switchRoom", ({ newRoom, oldRoom }) => {
         // leave the current room  and join new room

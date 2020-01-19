@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import DialogContent from "@material-ui/core/DialogContent"
-import DialogActions from "@material-ui/core/DialogActions"
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
 import { formatDate } from "../../../Utils/formatDate";
 import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,16 +12,14 @@ import Slide from "@material-ui/core/Slide";
 import ChatForm from "../../Forms/ChatForm";
 
 const useStyles = makeStyles(theme => ({
-
-  content:{
-    backgroundColor:"#F4F4F4"
+  content: {
+    backgroundColor: "#F4F4F4",
   },
-  footer:{
-    backgroundColor:"#F4F4F4"
-
+  footer: {
+    backgroundColor: "#F4F4F4",
   },
-  messages:{
-    overflowY: 'auto',
+  messages: {
+    overflowY: "auto",
   },
   appBar: {
     position: "relative",
@@ -63,17 +61,26 @@ const useStyles = makeStyles(theme => ({
   time: {
     opacity: 0.6,
   },
-  messageInput:{
-    position:'fixed'
-  }
+  messageInput: {
+    position: "fixed",
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ChatRoomM({ handleClose, open, room, user_id, onSubmit, value, handleChange, receiverName }) {
-  
+export default function ChatRoomM({
+  handleClose,
+  open,
+  room,
+  user_id,
+  onSubmit,
+  value,
+  handleChange,
+  receiverName,
+  formErros,
+}) {
   const classes = useStyles();
 
   return (
@@ -83,7 +90,6 @@ export default function ChatRoomM({ handleClose, open, room, user_id, onSubmit, 
         open={open}
         onClose={handleClose}
         TransitionComponent={Transition}
-      
       >
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -98,32 +104,35 @@ export default function ChatRoomM({ handleClose, open, room, user_id, onSubmit, 
             {receiverName}
           </Toolbar>
         </AppBar>
-        <DialogContent className={classes.content} >
-        {room &&
-          room.map(m => {
-            return (  
-             <div className={classes.messages} key={m.message_id}>
-                {user_id === m.message_user_id ? (
-                  <div className={classes.msgSender}>
-                    <p className={classes.msgTextSender}>
-                      {m.message_text}
-                    </p>
-                    <span className={classes.time}>{formatDate(m.time)}</span>
-                  </div>
-                ) : (
-                  <div className={classes.msgReceiver}>
-                    <p className={classes.msgTextReceiver}>
-                      {m.message_text}
-                    </p>
-                    <span className={classes.time}>{formatDate(m.time)}</span>
-                  </div>
-                )}
-             </div>
-            );
-          })}
-         </DialogContent>
+        <DialogContent className={classes.content} id="chatRoom">
+          {room &&
+            room.map(m => {
+              return (
+                <div className={classes.messages} key={m.message_id}>
+                  {user_id === m.message_user_id ? (
+                    <div className={classes.msgSender}>
+                      <p className={classes.msgTextSender}>{m.message_text}</p>
+                      <span className={classes.time}>{formatDate(m.time)}</span>
+                    </div>
+                  ) : (
+                    <div className={classes.msgReceiver}>
+                      <p className={classes.msgTextReceiver}>
+                        {m.message_text}
+                      </p>
+                      <span className={classes.time}>{formatDate(m.time)}</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+        </DialogContent>
         <DialogActions className={classes.footer}>
-          <ChatForm onSubmit={onSubmit} value={value} handleChange={handleChange}  />
+          <ChatForm
+            onSubmit={onSubmit}
+            value={value}
+            handleChange={handleChange}
+            formErros={formErros}
+          />
         </DialogActions>
       </Dialog>
     </>

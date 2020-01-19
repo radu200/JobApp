@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight:'bold',
     position:'fixed',
     zIndex: 999,
+ 
   },
 }));
 

@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { getAllNotifications } from "../../../redux/chat/selectors";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
+import Badge from "@material-ui/core/Badge";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -67,7 +71,7 @@ const styles = theme => ({
   },
   appBar: {
     backgroundColor: "#2552C7",
-    margin:0
+    margin: 0,
   },
   translator: {
     display: "flex",
@@ -91,6 +95,9 @@ const styles = theme => ({
     [theme.breakpoints.down("md")]: {
       display: "none",
     },
+  },
+  notification: {
+    margin: "5px",
   },
 });
 
@@ -127,8 +134,7 @@ class MainNavBar extends React.Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes, auth, role } = this.props;
-
+    const { classes, auth, role, notifications } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -193,7 +199,11 @@ class MainNavBar extends React.Component {
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <MainSideNav auth={auth} role={role} handleModalOpen={this.handleModalOpen} />
+            <MainSideNav
+              auth={auth}
+              role={role}
+              handleModalOpen={this.handleModalOpen}
+            />
             <Typography
               className={classes.title}
               variant="h6"
@@ -220,7 +230,13 @@ class MainNavBar extends React.Component {
                 </MenuItem>
                 <MenuItem button>
                   <Link className={classes.links} to="/chat">
-                    Chat
+                    <Badge
+                      className={classes.notification}
+                      badgeContent={notifications > 0 ? notifications : null}
+                      color="secondary"
+                    >
+                      Chat
+                    </Badge>
                   </Link>
                 </MenuItem>
                 <MenuItem button>
@@ -231,6 +247,22 @@ class MainNavBar extends React.Component {
               </div>
             ) : null}
 
+            {role && role === "jobseeker" ? (
+              <div className={classes.employerNavItems}>
+                <MenuItem button>
+                  <Link className={classes.links} to="/chat">
+                    <Badge
+                      className={classes.notification}
+                      badgeContent={notifications > 0 ? notifications : null}
+                      color="secondary"
+                    >
+                      Chat
+                    </Badge>
+                  </Link>
+                </MenuItem>
+              </div>
+            ) : null}
+       
             <div className={classes.sectionDesktop}>
               {(role && role === "employer") || role === "jobseeker" ? (
                 <div>
@@ -288,4 +320,12 @@ MainNavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withAuth(withStyles(styles)(MainNavBar));
+const mapState = state => ({
+  notifications: getAllNotifications(state),
+});
+
+export default compose(
+  withAuth,
+  withStyles(styles),
+  connect(mapState, { getAllNotifications }),
+)(MainNavBar);

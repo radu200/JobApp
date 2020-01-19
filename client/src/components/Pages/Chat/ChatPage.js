@@ -15,7 +15,7 @@ const ChatPage = ({
   onSubmit,
   handleChange,
   value,
-  receiverName
+  receiverName,
 }) => {
   const [open, setOpen] = useState(true);
   //open and close for candidate details

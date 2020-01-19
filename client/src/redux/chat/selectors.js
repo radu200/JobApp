@@ -25,3 +25,11 @@ export const getRooms = createSelector(chatRooms, notifications, (r, n) => {
     );
   return  room ;
 });
+
+
+export const  getAllNotifications = createSelector(
+   notifications,
+   (n) => {
+      return n && n.map(n => n.new_msg).reduce((acu, cu) => acu + cu, 0)
+   }
+)
