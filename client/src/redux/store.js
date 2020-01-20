@@ -1,26 +1,25 @@
 import { createStore, applyMiddleware, compose } from "redux";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
-import { loadState, saveState } from "../Utils/persistState";
-import throttle from "lodash/throttle";
 
- const persistedState = loadState();
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: ['auth']
+};
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleware = [thunk];
 
 const store = createStore(
-  rootReducer,
-   persistedState,
+  persistedReducer,
   compose(
     applyMiddleware(...middleware),
     // window.__REDUX_DEVTOOLS_EXTENSION__ &&
     //   window.__REDUX_DEVTOOLS_EXTENSION__(),
   ),
 );
-
-store.subscribe(throttle(() => {
-  saveState(store.getState())
-
-}, 1000))
 
 export default store;

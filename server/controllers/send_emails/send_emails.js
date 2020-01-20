@@ -1,4 +1,10 @@
 const urlPaths = require(".././utils/url-paths");
+const footerText = 'Probleme sau întrebări ? Contacteaza-ne la'
+const phoneNumber = '2128102911'
+const emailAdress = 'gmail@mail.com'
+const facebook = 'https://www.facebook.com/mihaichirita15'
+const instagram = 'https://www.facebook.com/mihaichirita15'
+const twitter = 'https://www.facebook.com/mihaichirita15'
 
 const emailFooter = ` <tr>
 <td height="40">
@@ -9,9 +15,9 @@ const emailFooter = ` <tr>
 </tr>
 <!-- Social Media -->
 <tr>
-<td align="center" style="padding-bottom:0;padding-right:0;padding-left:0;padding-top:0px;" valign="middle"><span class="sg-image" data-imagelibrary="%7B%22width%22%3A%228%22%2C%22height%22%3A18%2C%22alt_text%22%3A%22Facebook%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/0a1d076f825eb13bd17a878618a1f749835853a3a3cce49111ac7f18255f10173ecf06d2b5bd711d6207fbade2a3779328e63e26a3bfea5fe07bf7355823567d.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"><a href="https://www.facebook.com/vervewine/" target="_blank"><img alt="Facebook" height="18" src="https://marketing-image-production.s3.amazonaws.com/uploads/0a1d076f825eb13bd17a878618a1f749835853a3a3cce49111ac7f18255f10173ecf06d2b5bd711d6207fbade2a3779328e63e26a3bfea5fe07bf7355823567d.png" style="border-width: 0px; margin-right: 21px; margin-left: 21px; width: 8px; height: 18px;" width="8"></a></span>
-  <!--[if gte mso 9]>&nbsp;&nbsp;&nbsp;<![endif]--><span class="sg-image" data-imagelibrary="%7B%22width%22%3A%2223%22%2C%22height%22%3A18%2C%22alt_text%22%3A%22Twitter%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/6234335b200b187dda8644356bbf58d946eefadae92852cca49fea227cf169f44902dbf1698326466ef192bf122aa943d61bc5b092d06e6a940add1368d7fb71.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"><a href="https://twitter.com/vervewine" target="_blank"><img alt="Twitter" height="18" src="https://marketing-image-production.s3.amazonaws.com/uploads/6234335b200b187dda8644356bbf58d946eefadae92852cca49fea227cf169f44902dbf1698326466ef192bf122aa943d61bc5b092d06e6a940add1368d7fb71.png" style="border-width: 0px; margin-right: 16px; margin-left: 16px; width: 23px; height: 18px;" width="23"></a></span>
-  <!--[if gte mso 9]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--><span class="sg-image" data-imagelibrary="%7B%22width%22%3A%2218%22%2C%22height%22%3A18%2C%22alt_text%22%3A%22Instagram%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/650ae3aa9987d91a188878413209c1d8d9b15d7d78854f0c65af44cab64e6c847fd576f673ebef2b04e5a321dc4fed51160661f72724f1b8df8d20baff80c46a.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"><a href="https://www.instagram.com/vervewine/" target="_blank"><img alt="Instagram" height="18" src="https://marketing-image-production.s3.amazonaws.com/uploads/650ae3aa9987d91a188878413209c1d8d9b15d7d78854f0c65af44cab64e6c847fd576f673ebef2b04e5a321dc4fed51160661f72724f1b8df8d20baff80c46a.png" style="border-width: 0px; margin-right: 16px; margin-left: 16px; width: 18px; height: 18px;" width="18"></a></span></td>
+<td align="center" style="padding-bottom:0;padding-right:0;padding-left:0;padding-top:0px;" valign="middle"><span class="sg-image" data-imagelibrary="%7B%22width%22%3A%228%22%2C%22height%22%3A18%2C%22alt_text%22%3A%22Facebook%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/0a1d076f825eb13bd17a878618a1f749835853a3a3cce49111ac7f18255f10173ecf06d2b5bd711d6207fbade2a3779328e63e26a3bfea5fe07bf7355823567d.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"><a href=${facebook} target="_blank"><img alt="Facebook" height="18" src="https://marketing-image-production.s3.amazonaws.com/uploads/0a1d076f825eb13bd17a878618a1f749835853a3a3cce49111ac7f18255f10173ecf06d2b5bd711d6207fbade2a3779328e63e26a3bfea5fe07bf7355823567d.png" style="border-width: 0px; margin-right: 21px; margin-left: 21px; width: 8px; height: 18px;" width="8"></a></span>
+  <!--[if gte mso 9]>&nbsp;&nbsp;&nbsp;<![endif]--><span class="sg-image" data-imagelibrary="%7B%22width%22%3A%2223%22%2C%22height%22%3A18%2C%22alt_text%22%3A%22Twitter%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/6234335b200b187dda8644356bbf58d946eefadae92852cca49fea227cf169f44902dbf1698326466ef192bf122aa943d61bc5b092d06e6a940add1368d7fb71.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"><a href=${twitter} target="_blank"><img alt="Twitter" height="18" src="https://marketing-image-production.s3.amazonaws.com/uploads/6234335b200b187dda8644356bbf58d946eefadae92852cca49fea227cf169f44902dbf1698326466ef192bf122aa943d61bc5b092d06e6a940add1368d7fb71.png" style="border-width: 0px; margin-right: 16px; margin-left: 16px; width: 23px; height: 18px;" width="23"></a></span>
+  <!--[if gte mso 9]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--><span class="sg-image" data-imagelibrary="%7B%22width%22%3A%2218%22%2C%22height%22%3A18%2C%22alt_text%22%3A%22Instagram%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/650ae3aa9987d91a188878413209c1d8d9b15d7d78854f0c65af44cab64e6c847fd576f673ebef2b04e5a321dc4fed51160661f72724f1b8df8d20baff80c46a.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"><a href=${instagram} target="_blank"><img alt="Instagram" height="18" src="https://marketing-image-production.s3.amazonaws.com/uploads/650ae3aa9987d91a188878413209c1d8d9b15d7d78854f0c65af44cab64e6c847fd576f673ebef2b04e5a321dc4fed51160661f72724f1b8df8d20baff80c46a.png" style="border-width: 0px; margin-right: 16px; margin-left: 16px; width: 18px; height: 18px;" width="18"></a></span></td>
 </tr>
 <!-- whitespace -->
 <tr>
@@ -26,11 +32,11 @@ const emailFooter = ` <tr>
 <td style="padding-top:0;padding-bottom:0;padding-right:30px;padding-left:30px;text-align:center;Margin-right:auto;Margin-left:auto;">
   <center>
     <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;font-size:15px;color:#a1a8ad;line-height:23px;">
-      Probleme sau întrebări ? Contacteaza-ne la
-      <nobr><a class="tel" href="tel:2128102899" style="color:#a1a8ad;text-decoration:none;" target="_blank"><span style="white-space: nowrap">212.810.2899</span></a></nobr>
+     ${footerText}
+      <nobr><a class="tel" href="tel:${phoneNumber}" style="color:#a1a8ad;text-decoration:none;" target="_blank"><span style="white-space: nowrap">212.810.2899</span></a></nobr>
     </p>
 
-    <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;font-size:15px;color:#a1a8ad;line-height:23px;">or email <a href="mailto:hello@vervewine.com" style="color:#a1a8ad;text-decoration:underline;" target="_blank">hello@mail.com</a></p>
+    <p style="font-family:'Muli',Arial,sans-serif;Margin:0;text-align:center;Margin-right:auto;Margin-left:auto;font-size:15px;color:#a1a8ad;line-height:23px;">or email <a href="mailto:hello@vervewine.com" style="color:#a1a8ad;text-decoration:underline;" target="_blank">${emailAdress}</a></p>
 
   </center>
 </td>
@@ -48,11 +54,11 @@ const emailFooter = ` <tr>
 module.exports.forgotPassword = (req, res, next, nodemailer, email, token) => {
   ///send email with token
   const transwerporter = nodemailer.createTransport({
-    service: "GMAIL",
+    service: process.env.EMAIL_SERVICE,
     auth: {
       user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASSWORD
-    }
+      pass: process.env.MAIL_PASSWORD,
+    },
   });
 
   const mailOptions = {
@@ -67,7 +73,7 @@ module.exports.forgotPassword = (req, res, next, nodemailer, email, token) => {
 <table align="center" cellpadding="0" style="border-spacing:0;font-family:'Muli',Arial,sans-serif;color:#333333;Margin:0 auto;width:100%;max-width:600px;">
 <tbody>
 <tr>
-<td align="center"><h1 style="color:white;background: red; padding: 20px 0; margin: 50px; width:100px">JOB APP</h1></td>
+<td align="center"><h1 style="color:white;background: red; padding: 20px 0; margin: 50px; width:100px">${process.env.COMPANY_NAME}</h1></td>
 </tr>
 <!-- Start of Email Body-->
 <tr>
@@ -79,7 +85,7 @@ module.exports.forgotPassword = (req, res, next, nodemailer, email, token) => {
   <tr>
     <td class="inner contents center" style="padding-top:15px;padding-bottom:15px;padding-right:30px;padding-left:30px;text-align:left;">
       <center>
-        <p class="h1 center" style="Margin:0;text-align:center;font-family:'flama-condensed','Arial Narrow',Arial;font-weight:100;font-size:30px;Margin-bottom:26px;">Reseteaza Parola Job App</p>
+        <p class="h1 center" style="Margin:0;text-align:center;font-family:'flama-condensed','Arial Narrow',Arial;font-weight:100;font-size:30px;Margin-bottom:26px;">Reseteaza Parola ${process.env.COMPANY_NAME}</p>
         <!--[if (gte mso 9)|(IE)]><![endif]-->
 
         <p class="description center" style="font-family:'Muli','Arial Narrow',Arial;Margin:0;text-align:center;max-width:320px;color:#a1a8ad;line-height:24px;font-size:15px;Margin-bottom:10px;margin-left: auto; margin-right: auto;"><span style="color: rgb(161, 168, 173); font-family: Muli, &quot;Arial Narrow&quot;, Arial; font-size: 15px; text-align:center; background-color:rgb(255, 255, 255);">
@@ -104,7 +110,7 @@ ${emailFooter}
 </table>
 </div>
 </center>
-</body> `
+</body> `,
   };
 
   transwerporter.sendMail(mailOptions, err => {
@@ -121,11 +127,11 @@ ${emailFooter}
 module.exports.forgotPasswordSucess = (req, res, nex, nodemailer, email) => {
   //send email that password was updated
   const transwerporter = nodemailer.createTransport({
-    service: "GMAIL",
+    service: process.env.EMAIL_SERVICE,
     auth: {
       user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASSWORD
-    }
+      pass: process.env.MAIL_PASSWORD,
+    },
   });
 
   const mailOptions = {
@@ -138,7 +144,7 @@ module.exports.forgotPasswordSucess = (req, res, nex, nodemailer, email) => {
                   <table align="center" cellpadding="0" style="border-spacing:0;font-family:'Muli',Arial,sans-serif;color:#333333;Margin:0 auto;width:100%;max-width:600px;">
                     <tbody>
                       <tr>
-                        <td align="center"><h1 style="color:white;background: red; padding: 20px 0; margin: 50px; width:100px">JOB APP</h1></td>
+                        <td align="center"><h1 style="color:white;background: red; padding: 20px 0; margin: 50px; width:100px">${process.env.COMPANY_NAME}</h1></td>
                       </tr>
                       <!-- Start of Email Body-->
                       <tr>
@@ -175,7 +181,7 @@ module.exports.forgotPasswordSucess = (req, res, nex, nodemailer, email) => {
                   </table>
                 </div>
               </center>
-            </body>`
+            </body>`,
   };
 
   transwerporter.sendMail(mailOptions, err => {
@@ -191,12 +197,12 @@ module.exports.forgotPasswordSucess = (req, res, nex, nodemailer, email) => {
 
 module.exports.changePasswordProfile = (req, res, next, nodemailer, email) => {
   const transwerporter = nodemailer.createTransport({
-    service: "gmail",
+    service: process.env.EMAIL_SERVICE,
     host: "smtp.gmail.com",
     auth: {
       user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASSWORD
-    }
+      pass: process.env.MAIL_PASSWORD,
+    },
   });
 
   const mailOptions = {
@@ -209,7 +215,7 @@ module.exports.changePasswordProfile = (req, res, next, nodemailer, email) => {
           <table align="center" cellpadding="0" style="border-spacing:0;font-family:'Muli',Arial,sans-serif;color:#333333;Margin:0 auto;width:100%;max-width:600px;">
             <tbody>
               <tr>
-                <td align="center"><h1 style="color:white;background: red; padding: 20px 0; margin: 50px; width:100px">JOB APP</h1></td>
+                <td align="center"><h1 style="color:white;background: red; padding: 20px 0; margin: 50px; width:100px">${process.env.COMPANY_NAME}</h1></td>
               </tr>
               <!-- Start of Email Body-->
               <tr>
@@ -246,7 +252,7 @@ module.exports.changePasswordProfile = (req, res, next, nodemailer, email) => {
           </table>
         </div>
       </center>
-    </body>`
+    </body>`,
   };
 
   transwerporter.sendMail(mailOptions, err => {
@@ -261,11 +267,11 @@ module.exports.changePasswordProfile = (req, res, next, nodemailer, email) => {
 module.exports.checkEmailAfterSignUp = (req, res, nodemailer, email, token) => {
   ///send email with token
   const transporter = nodemailer.createTransport({
-    service: "GMAIL",
+    service: process.env.EMAIL_SERVICE,
     auth: {
       user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASSWORD
-    }
+      pass: process.env.MAIL_PASSWORD,
+    },
   });
 
   const mailOptions = {
@@ -279,7 +285,7 @@ module.exports.checkEmailAfterSignUp = (req, res, nodemailer, email, token) => {
 <table align="center" cellpadding="0" style="border-spacing:0;font-family:'Muli',Arial,sans-serif;color:#333333;Margin:0 auto;width:100%;max-width:600px;">
 <tbody>
 <tr>
-  <td align="center"><h1 style="color:white;background: red; padding: 20px 0; margin: 50px; width:100px">JOB APP</h1></td>
+  <td align="center"><h1 style="color:white;background: red; padding: 20px 0; margin: 50px; width:100px">${process.env.COMPANY_NAME}</h1></td>
 </tr>
 <!-- Start of Email Body-->
 <tr>
@@ -313,7 +319,7 @@ ${emailFooter}
 </table>
 </div>
 </center>
-</body>`
+</body>`,
   };
 
   transporter.sendMail(mailOptions, err => {

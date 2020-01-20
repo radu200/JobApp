@@ -110,7 +110,10 @@ module.exports.postChangePassword = async (req, res, next) => {
       res.redirect(urlPaths.back);
     }
   } catch (err) {
-    console.log(err);
+    req.flash("error_msg", {
+      msg: "O erroare a avut loc."
+    });
+    res.redirect('back')
   }
 };
 

@@ -1,6 +1,7 @@
 const { dbPromise } = require("../.././config/database.js");
 const msg = require(".././utils/messages");
 
+
 module.exports.searchJobs = async (req, res, next) => {
   const searchVal = req.query.search_query || null;
   const page = parseInt(req.query.page) || 1;
@@ -12,6 +13,8 @@ module.exports.searchJobs = async (req, res, next) => {
   const results = {};
 
   try {
+   
+    // validationError(req,res, next)
     const db = await dbPromise;
 
     const sqlCity = `AND city  LIKE '%${city}%'`;

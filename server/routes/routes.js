@@ -94,7 +94,7 @@ module.exports = function (app) {
   app.delete('/api/job/delete/:id', accessController.ensureAuthenticated, accessController.employer, jobsController.deleteJob)
 
   //search
-  app.post('/api/search/job', searchController.searchJobs)
+  app.post('/api/search/job',  searchController.searchJobs)
   app.get('/api/candidate-details',accessController.ensureAuthenticatedJ, accessController.employerJ, searchController.getCandidateDetails)
   app.get('/api/candidate-search', accessController.ensureAuthenticatedJ, accessController.employerJ, searchController.searchCandidates)
   ///contact us
