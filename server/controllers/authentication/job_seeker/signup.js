@@ -103,7 +103,7 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
         avatar: null,
         email_confirmation_token: token,
         terms_conditions: siteRules,
-        email_status: "unverified",
+        email_status: "verified",
         ip_adress: req.ip,
         software: req.headers["user-agent"],
         preferred_lang: req.acceptsLanguages().toString(),
@@ -119,23 +119,22 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
         [token]
       );
 
-      await send_emails.checkEmailAfterSignUp(
-        req,
-        res,
-        nodemailer,
-        email,
-        token
-      );
+      // await send_emails.checkEmailAfterSignUp(
+      //   req,
+      //   res,
+      //   nodemailer,
+      //   email,
+      //   token
+      // );
 
       req.flash("warning_msg", {
         msg:
-          "Vă mulțumim pentru înregistrarea pe site-ul nostru. V-am trimis un e-mail cu detalii suplimentare pentru a vă confirma e-mailul.Daca nu gasiti emailul va rog sa va loga-ti si sa retrimite-ti."
+          "Vă mulțumim pentru înregistrarea pe site-ul nostru."
       });
 
       res.redirect(urlPaths.login);
     }
   } catch (err) {
-    console.log(err);
     req.flash("error_msg", {
       msg: msg.error
     });

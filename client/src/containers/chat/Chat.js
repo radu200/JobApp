@@ -59,16 +59,21 @@ class Chat extends Component {
   componentDidUpdate(props) {
     if (props.location.search !== this.props.location.search) {
       const url = queryString.parse(this.props.location.search);
+      const prevUrl = queryString.parse(props.location.search)
       const receiverName = url.name;
       const room_id = url.id;
+      const newRoom = room_id;
+      const oldRoom = prevUrl.id
+       socket.emit('switchRoom', {newRoom, oldRoom})
+
       if (room_id === undefined) {
-        this.setState({ roomStatus: false });
+         this.setState({ roomStatus: false, chatMessages:[] });
       } else {
         this.setState({ receiverName, roomStatus: true });
       }
     }
     if (props.room !== this.props.room) {
-      this.scrollToBottom();
+       this.scrollToBottom();
     }
   }
 

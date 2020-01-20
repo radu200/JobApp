@@ -6,6 +6,7 @@ const saltRounds = 10;
 const send_emails = require("../../send_emails/send_emails");
 const msg = require("../../utils/messages");
 const urlPaths = require("../../utils/url-paths");
+const recaptcha = require("../../../middleware/recaptcha");
 
  //report users 
  module.exports.getReportUser = async (req, res) => {
@@ -115,7 +116,10 @@ module.exports.postChangePassword = async (req, res, next) => {
 
 //forgot password
 module.exports.getForgotPassword = (req, res, next) => {
-  res.render("./users/settings/forgot_password", {});
+  res.render("./users/settings/forgot_password", {
+    RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY
+  });
+
 };
 
 //forgot password
@@ -164,7 +168,12 @@ module.exports.postForgotPassword = async (req, res, next) => {
 
         send_emails.forgotPassword(req, res, next, nodemailer, email, token)
       ]);
+      const GoogleCAPTCHA = await recaptcha.GoogleCAPTCHA(req, res);
 
+      if(GoogleCAPTCHA === false){
+        return res.redirect(urlPaths.back);
+
+      }
       req.flash("success_msg", {
         msg: `A fost trimis un e-mail la
                 ${email} cu instrucțiuni suplimentare.`

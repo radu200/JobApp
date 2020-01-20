@@ -12,8 +12,13 @@ const { dbPromise } = require("./../../config/database.js");
   }
   
   const addMessage = async (room_id, s_id, chatMessage) => {
-    const db = await dbPromise;
-    await db.query('INSERT  INTO chat_message (room_id, message_user_id, message_text) VALUES(?,?,?)', [room_id, s_id, chatMessage])
+    try{
+      const db = await dbPromise;
+      await db.query('INSERT  INTO chat_message (room_id, message_user_id, message_text) VALUES(?,?,?)', [room_id, s_id, chatMessage])
+    } catch(err){
+      return err
+    }
+   
   }
   const addNotifications = async (user_role_msg, room_id) => {
     try {

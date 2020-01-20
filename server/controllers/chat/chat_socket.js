@@ -24,7 +24,6 @@ module.exports = io => {
       socket.on("chatMessage", async ({ chatMessage, room_id }) => {
         const d = new Date();
         const date = d.toUTCString();
-          console.log(chatMessage, room_id)
         const msg = {
           message_id: uuidv4(),
           time: date,
@@ -71,14 +70,16 @@ module.exports = io => {
       socket.on("switchRoom", ({ newRoom, oldRoom }) => {
         // leave the current room  and join new room
         if (oldRoom !== null) {
+          console.log('left room')
           socket.leave(oldRoom);
           socket.join(newRoom);
           socket.room = newRoom;
         }
+
       });
       socket.on("disconnect", () => {
         console.log('disconnect')
-        // socket.leave(socket.room);
+         socket.leave(socket.room);
       });
     }
   });
