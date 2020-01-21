@@ -1,4 +1,4 @@
-const { dbPromise, db } = require(".././config/database.js");
+const { dbPromise } = require(".././config/database.js");
 
 //Login required middleware
 module.exports.ensureAuthenticated = function(req, res, next) {
@@ -34,23 +34,23 @@ module.exports.admin = function(req, res, next) {
   }
 };
 
-module.exports.ensureEmailChecked = (req, res, next) => {
-  db.query(
+module.exports.ensureEmailChecked = async (req, res, next) => {
+  const db = await dbPromise;
+  const [
+    results,
+  ] = await db.execute(
     "select id, email,email_status from users where id = ? ",
     [req.user.id],
-    (err, results) => {
-      if (err) throw err;
-
-      if (
-        results[0].email_status === "unverified" ||
-        results[0].email_status === null
-      ) {
-        res.redirect("/api/resend/email/check");
-      } else {
-        return next();
-      }
-    },
   );
+
+  if (
+    results[0].email_status === "unverified" ||
+    results[0].email_status === null
+  ) {
+    res.redirect("/api/resend/email/check");
+  } else {
+    return next();
+  }
 };
 
 module.exports.authRole = (req, res) => {
@@ -77,15 +77,15 @@ module.exports.membershipJob = async (req, res, next) => {
     );
 
     const mDate = member[0].membership_approved_date;
-    const mJobLimit = member[0].jobs_limit
+    const mJobLimit = member[0].jobs_limit;
     const job_status = member[0].status;
     const jobsId = member.filter(job => job.jobId && job.jobId);
     const job_posted_date = member[0].job_posted_date;
     const jobLen = jobsId.length;
     const jobLimit = 30;
-    console.log( typeof mJobLimit)
+    console.log(typeof mJobLimit);
 
-    if (mDate > presentDate && mJobLimit < jobLimit  || jobLen < 1) {
+    if ((mDate > presentDate && mJobLimit < jobLimit) || jobLen < 1) {
       return next();
     } else if (jobLen === 1) {
       const daysDif = timeDifference(presentDate, job_posted_date);
@@ -98,7 +98,7 @@ module.exports.membershipJob = async (req, res, next) => {
 
         return res.redirect("back");
       }
-    } else if ( mJobLimit > jobLimit) {
+    } else if (mJobLimit > jobLimit) {
       req.flash("warning_msg", {
         msg:
           "Limita locuri de muncă postate de dvs. a fost depasita va rog sa ne contacta-ti pentru a va mari limita sau pute-ti sa sterge din unele posturi",

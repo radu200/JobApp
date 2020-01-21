@@ -406,7 +406,7 @@ module.exports.deleteJob = async (req, res, next) => {
     );
 
     req.flash("success_msg", {
-      msg: "Jobul a fost sters cu success",
+      msg: "Postul de munca a fost sters cu success",
     });
     res.redirect(urlPaths.MyJobs);
   } catch (err) {

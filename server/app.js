@@ -18,7 +18,7 @@ const MySQLStore = require('express-mysql-session')(session);
 const methodOverride = require('method-override');
 const helmet = require('helmet')
 const cors = require ('cors');
- 
+const { clearDataBase } = require('./scripts/main.js')
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' })
@@ -122,7 +122,6 @@ app.use(function(req, res, next) {
     next();
 });  
 
-
 ///middleware to restrict access in ui in dependence of user
 app.use(function(req, res, next) {
     if(req.isAuthenticated() === true){
@@ -188,6 +187,7 @@ app.use(function(err, req, res, next) {
 
 
 server.listen(app.get('port'), function() {
+    clearDataBase()
     console.log('Express server listening on port ' + app.get('port'));
 });
 

@@ -1,18 +1,15 @@
-const mysql = require("mysql2");
 
-const db = mysql.createPool({
+const mysql = require("mysql2/promise");
+
+const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 150,
-  queueLimit: 50
 });
 
-const mysqlPromise = require("mysql2/promise");
 
-const dbPromise = mysqlPromise.createPool({
+const dbPromise = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -25,6 +22,6 @@ const dbPromise = mysqlPromise.createPool({
 
 
 module.exports = {
-  db,
+  connection,
   dbPromise
 };

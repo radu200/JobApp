@@ -1,6 +1,6 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const { db } = require("./database");
+const { dbPromise  } = require("./database");
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
@@ -19,9 +19,9 @@ module.exports = function(passport) {
       {
         passReqToCallback: true
       },
-      function(req, username, password, done) {
+     async  function(req, username, password, done) {
         //validation login
-
+        const db = await dbPromise
         db.query(
           "SELECT id, blacklist, password,type, email,first_name, last_name FROM users WHERE email = ?",
           [username],
