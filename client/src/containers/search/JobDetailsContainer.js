@@ -1,4 +1,5 @@
 import React from "react";
+import { compose } from "redux";
 import JobDetails from "../../components/Pages/Jobs/JobDetails";
 import {
   getSingleJob,
@@ -8,6 +9,7 @@ import {
 } from "../../redux/jobs/selectors";
 import { applyJob, fetchAppliedJobs } from "../../redux/jobs/operators";
 import { connect } from "react-redux";
+import withAuthJobSeeker from "../../HOC/auth/JobSeeker";
 
 const JobDetailsContainer = ({
   job,
@@ -18,11 +20,10 @@ const JobDetailsContainer = ({
   appliedJob,
   fetchAppliedJobs,
   history,
+  role,
 }) => {
   const handleApplyJob = async id => {
-    //check fo auth
-    const data = JSON.parse(localStorage.getItem("state"));
-    if (data && data.auth.role === "jobseeker") {
+    if (role && role === "jobseeker") {
       await applyJob(id);
       fetchAppliedJobs();
     } else {
@@ -51,6 +52,7 @@ const mapState = state => ({
   appliedJob: appliedJobSelector(state),
 });
 
-export default connect(mapState, { getSingleJob, applyJob, fetchAppliedJobs })(
-  JobDetailsContainer,
-);
+export default compose(
+  withAuthJobSeeker,
+  connect(mapState, { getSingleJob, applyJob, fetchAppliedJobs }),
+)(JobDetailsContainer);

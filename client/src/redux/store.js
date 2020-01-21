@@ -7,7 +7,7 @@ import rootReducer from "./rootReducer";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ['auth']
+  blacklist: ['auth', 'chatRoomD']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -17,8 +17,8 @@ const store = createStore(
   persistedReducer,
   compose(
     applyMiddleware(...middleware),
-    // window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    //   window.__REDUX_DEVTOOLS_EXTENSION__(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__() || compose,
   ),
 );
 

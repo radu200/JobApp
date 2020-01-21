@@ -16,6 +16,7 @@ module.exports = io => {
       const role = socket.request.session.passport.user.type;
 
       socket.on("join", ({ room_id }) => {
+        console.log('joined')
         socket.user_id = user_id;
         socket.room = room_id;
         socket.join(room_id);
@@ -39,9 +40,9 @@ module.exports = io => {
 
           io.to(room_id).emit("chatMessage", msg);
  
-          // throttle(async () => {
+          
             await addMessage(room_id, user_id, chatMessage);
-          // },1000)
+    
 
           if (role === "employer") {
             const jb_msg = "jobseeker_new_msg";
@@ -68,6 +69,8 @@ module.exports = io => {
           const em_msg = "employer_new_msg";
           const em_id = "employer_id";
           const result = await getNotifications(em_msg, em_id, user_id);
+          const no = result.map(n => n.new_msg).reduce((ac,cu) => ac + cu, 0)
+           socket.no = no
           socket.emit("notification", result);
         } else if (role === "jobseeker") {
           const jb_msg = "jobseeker_new_msg";

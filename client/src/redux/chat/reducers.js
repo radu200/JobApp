@@ -38,7 +38,7 @@ export const roomsReducer = (state = roomsState, action) => {
 const roomDState = {
   room: [],
   loading: false,
-  err: null,
+  err: false,
 };
 
 export const roomDReducer = (state = roomDState, action) => {
@@ -48,9 +48,9 @@ export const roomDReducer = (state = roomDState, action) => {
     case RECEIVED_ROOM_D:
       return { ...state, loading: false, room: action.room };
     case FAILURE_ROOM_D:
-      return { ...state, loading: false, err: action.err };
+      return { ...state, loading: false, err: true};
     case RECEIVED_NEW_MSG:
-       return {...state, loading:false, room:[...state.room, action.msg]}
+       return {...state, loading:false, room:[...state.room,action.msg]}
     default:
       return state;
   }

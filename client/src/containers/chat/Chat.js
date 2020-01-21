@@ -18,6 +18,7 @@ class Chat extends Component {
     super();
     this.state = {
       chatMessage: "",
+      new_msg:[],
       room_id: null,
       receiverName: "",
       roomStatus: false,
@@ -29,6 +30,8 @@ class Chat extends Component {
   }
 
   async componentDidMount() {
+    console.log('mounted')
+    this._mount = true
     this.props.fetchRooms();
     const url = queryString.parse(this.props.location.search);
     const room_id = url.id;
@@ -37,50 +40,56 @@ class Chat extends Component {
     socket.on("notification", notification => {
       this.props.fetchNotification(notification);
     });
-
-    socket.on("chatMessage", msg => {
-      this.props.fetchNewMessages(msg);
-    });
-
+    
     if (room_id !== undefined) {
-      this.setState({ receiverName, roomStatus: true });
+      
+      socket.on("chatMessage", msg => {
+          this.setState({new_msg: msg})
+        
+      });
       this.props.fetchRoomDetails(room_id);
 
-      socket.on("updateChat", data => {
-        this.setState({ updateChat: data });
-      });
 
+      this.setState({ receiverName, roomStatus: true });
       socket.emit("join", { room_id });
 
       this.scrollToBottom();
     }
   }
 
-  componentDidUpdate(props) {
+  componentDidUpdate(props, state) {
     if (props.location.search !== this.props.location.search) {
       const url = queryString.parse(this.props.location.search);
-      const prevUrl = queryString.parse(props.location.search)
+      const prevUrl = queryString.parse(props.location.search);
       const receiverName = url.name;
       const room_id = url.id;
       const newRoom = room_id;
-      const oldRoom = prevUrl.id
-       socket.emit('switchRoom', {newRoom, oldRoom})
+      const oldRoom = prevUrl.id;
+      socket.emit("switchRoom", { newRoom, oldRoom });
 
       if (room_id === undefined) {
-         this.setState({ roomStatus: false, chatMessages:[] });
-      } else {
+        
+        this.setState({ roomStatus: false,});
+      } 
         this.setState({ receiverName, roomStatus: true });
       }
-    }
+    
     if (props.room !== this.props.room) {
-       this.scrollToBottom();
+      this.scrollToBottom();
     }
+   
+    if(state.new_msg !== this.state.new_msg){
+      const { new_msg } = this.state
+      this.props.fetchNewMessages(new_msg);
+
+    }
+ 
   }
 
   async handleRoomDetails(room_id, receiverFn, receiverLn) {
     this.props.fetchRoomDetails(room_id);
     this.props.history.push(
-      `/chat?id=${room_id}&name=${receiverFn} ${receiverLn}`,
+      `/chat/room/?id=${room_id}&name=${receiverFn} ${receiverLn}`,
     );
     socket.emit("join", { room_id });
     socket.emit("removeNotification", { room_id });
@@ -97,11 +106,11 @@ class Chat extends Component {
   async onSubmit(e) {
     e.preventDefault();
     const { chatMessage, room_id } = this.state;
-    // if (room_id === null || room_id === undefined) {
-    //   const url = queryString.parse(this.props.location.search);
-    //   const room_id = url.id;
-    //   this.sendMessage(chatMessage, room_id);
-    // }
+    if (room_id === null || room_id === undefined) {
+      const url = queryString.parse(this.props.location.search);
+      const room_id = url.id;
+      this.sendMessage(chatMessage, room_id);
+    }
     this.sendMessage(chatMessage, room_id);
   }
 
@@ -120,8 +129,7 @@ class Chat extends Component {
   render() {
     const { chatMessage, receiverName, roomStatus } = this.state;
     const { handleChange, onSubmit, handleRoomDetails } = this;
-    const { room, rooms, user_id, loadingRoom} = this.props;
-    console.log(loadingRoom);
+    const { room, rooms, user_id, loadingRoom } = this.props;
     return (
       <>
         <ChatPage
@@ -143,8 +151,7 @@ class Chat extends Component {
 const mapState = state => ({
   rooms: getRooms(state),
   room: state.chatRoomD.room,
-  loadingRoom:state.chatRoomD.loading
-
+  loadingRoom: state.chatRoomD.loading,
 });
 
 export default compose(

@@ -139,7 +139,6 @@ class MainNavBar extends React.Component {
     const { classes, auth, role, notifications, handleModalOpen, handleModalClose, openModalMembership } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    console.log('modal', this.props)
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}

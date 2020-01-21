@@ -115,6 +115,8 @@ module.exports.postAddJobs = async (req, res, next) => {
   const salary_currency = req.body.salary_currency;
   const experience = req.body.experience;
   const language = req.body.language;
+  const status = 'active';
+  const user_id = req.user.id;
 
   req.checkBody("category", "Alege Categoria").notEmpty();
   req.checkBody("position", "Poziția  este necesară").notEmpty();
@@ -179,8 +181,9 @@ module.exports.postAddJobs = async (req, res, next) => {
       lang = language.toString();
     }
 
+
     let jobs = {
-      employer_id: req.user.id,
+      employer_id: user_id,
       category: category,
       position: position,
       description: description,
@@ -193,13 +196,21 @@ module.exports.postAddJobs = async (req, res, next) => {
       experience: experience,
       language: lang,
       image: job_image,
+      status:status
+      
     };
-
+     
     //     //creat employer
     await db.query("INSERT INTO jobs SET ?", jobs);
     req.flash("success_msg", {
       msg: "A fost adaugat cu success. Va multumim!",
     });
+    const [limit] = await db.execute('SELECT jobs_limit FROM  users where id = ?', [user_id])
+    
+    const job_limit = limit[0].jobs_limit;
+    const new_job_Limit = job_limit + 1
+    await db.query('UPDATE users SET jobs_limit = ? where id = ?', [new_job_Limit, user_id])
+
     res.redirect(urlPaths.MyJobs);
   } catch (err) {
     res.redirect("back");
@@ -260,11 +271,13 @@ module.exports.postJobImageEdit = async (req, res, next) => {
 //employer jobs
 module.exports.getEmployerJobs = async (req, res, next) => {
   try {
+    const user_id = req.user.id
+    const status = 'active'
     const db = await dbPromise;
 
     const [jobs] = await db.execute(
-      "select * from jobs where employer_id = ? ",
-      [req.user.id],
+      "select * from jobs where employer_id = ? AND status = ?  ",
+      [user_id, status],
     );
 
     res.render("profile/employer/employer_jobs", {
@@ -384,30 +397,19 @@ module.exports.postEmployerJobEdit = async (req, res, next) => {
 
 //delete product
 module.exports.deleteJob = async (req, res, next) => {
-  let id = req.params.id;
-
+  let job_id = req.params.id;
+  const status = 'removed'
   try {
     const db = await dbPromise;
-    const [userDetails] = await db.query(
-      `SELECT id,image FROM jobs  WHERE id =${id}`,
+     await db.query(
+      `UPDATE jobs SET status = ?  WHERE id = ?`,[status, job_id]
     );
-
-    await db.execute(`DELETE FROM jobs  WHERE id =${id}`);
-
-    if (
-      userDetails[0].image &&
-      userDetails[0].image !== null &&
-      userDetails[0].image > 0
-    ) {
-      await fsPromises.unlink(`./public/${userDetails[0].image}`);
-    }
 
     req.flash("success_msg", {
       msg: "Jobul a fost sters cu success",
     });
     res.redirect(urlPaths.MyJobs);
   } catch (err) {
-    console.log(err);
 
     req.flash("error_msg", {
       msg: msg.error,
@@ -415,3 +417,4 @@ module.exports.deleteJob = async (req, res, next) => {
     res.redirect(urlPaths.back);
   }
 };
+
