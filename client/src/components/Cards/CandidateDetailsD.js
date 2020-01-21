@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { compose } from "recompose";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -13,6 +14,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import Grid from "@material-ui/core/Grid";
 import NoUser from "../../images/no_user.png";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import withMembership from "../../HOC/membership/withMembership";
+import withMembershipModal from "../../HOC/modal/membershipModal";
+import ModalPremium from "../payment/ModalPremium";
 
 const useStyles = makeStyles({
   media: {
@@ -62,12 +66,12 @@ const useStyles = makeStyles({
     zIndex: 999,
     position: "absolute",
   },
-  reportBtn:{
-    marginTop:'10px',
-    '&:hover':{
-      color:'red'
-    }
-  }
+  reportBtn: {
+    marginTop: "10px",
+    "&:hover": {
+      color: "red",
+    },
+  },
 });
 
 const CandidateDetailsCard = ({
@@ -76,7 +80,11 @@ const CandidateDetailsCard = ({
   loading,
   open,
   handleClose,
-  handleChat
+  handleChat,
+  member,
+  handleModalOpen,
+  handleModalClose,
+  openModalMembership
 }) => {
   const classes = useStyles();
   return (
@@ -104,15 +112,27 @@ const CandidateDetailsCard = ({
                   className={classes.avatar}
                 />
                 <CardContent>
-                   
-                <Button variant="contained" color="primary" fullWidth onClick={() => handleChat(candidate.id)}> Deschide Chat <LockOutlinedIcon /></Button>
+                  {member ? (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      fullWidth
+                      onClick={() => handleChat(candidate.id)}
+                    >
+                      Deschide Chat ...
+                    </Button>
+                  ) : (
+                    <Button variant="contained" color="primary" fullWidth onClick={handleModalOpen}>
+                      Deschide Chat <LockOutlinedIcon />
+                    </Button>
+                  )}
                   <Button
                     className={classes.reportBtn}
                     href={`/api/report/${candidate.id}`}
                     size="small"
                     color="primary"
-                    >
-                    Raportea-za 
+                  >
+                    Raportea-za
                   </Button>
                   <Typography
                     gutterBottom
@@ -182,6 +202,7 @@ const CandidateDetailsCard = ({
             })}
         </Card>
       )}
+       <ModalPremium open={openModalMembership} handleClose={handleModalClose} />
     </>
   );
 };
@@ -203,4 +224,7 @@ CandidateDetailsCard.propTypes = {
   ),
 };
 
-export default CandidateDetailsCard;
+export default compose(
+  withMembership,
+  withMembershipModal,
+)(CandidateDetailsCard);

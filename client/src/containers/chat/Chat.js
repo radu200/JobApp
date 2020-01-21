@@ -97,11 +97,11 @@ class Chat extends Component {
   async onSubmit(e) {
     e.preventDefault();
     const { chatMessage, room_id } = this.state;
-    if (room_id === null || room_id === undefined) {
-      const url = queryString.parse(this.props.location.search);
-      const room_id = url.id;
-      this.sendMessage(chatMessage, room_id);
-    }
+    // if (room_id === null || room_id === undefined) {
+    //   const url = queryString.parse(this.props.location.search);
+    //   const room_id = url.id;
+    //   this.sendMessage(chatMessage, room_id);
+    // }
     this.sendMessage(chatMessage, room_id);
   }
 
@@ -120,8 +120,8 @@ class Chat extends Component {
   render() {
     const { chatMessage, receiverName, roomStatus } = this.state;
     const { handleChange, onSubmit, handleRoomDetails } = this;
-    const { room, rooms, user_id } = this.props;
-    console.log(roomStatus);
+    const { room, rooms, user_id, loadingRoom} = this.props;
+    console.log(loadingRoom);
     return (
       <>
         <ChatPage
@@ -134,6 +134,7 @@ class Chat extends Component {
           user_id={user_id}
           receiverName={receiverName}
           roomStatus={roomStatus}
+          loadingRoom={loadingRoom}
         />
       </>
     );
@@ -142,6 +143,8 @@ class Chat extends Component {
 const mapState = state => ({
   rooms: getRooms(state),
   room: state.chatRoomD.room,
+  loadingRoom:state.chatRoomD.loading
+
 });
 
 export default compose(

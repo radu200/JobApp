@@ -39,9 +39,9 @@ module.exports = io => {
 
           io.to(room_id).emit("chatMessage", msg);
  
-          throttle(async () => {
+          // throttle(async () => {
             await addMessage(room_id, user_id, chatMessage);
-          },1000)
+          // },1000)
 
           if (role === "employer") {
             const jb_msg = "jobseeker_new_msg";

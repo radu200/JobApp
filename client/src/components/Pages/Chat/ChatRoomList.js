@@ -8,6 +8,8 @@ const styles = makeStyles({
   root: {
     maxHeight: "91vh",
     overflowY: "auto",
+    display: "flex",
+    flexDirection: "column-reverse",
   },
   rooms: {
     maxWidth: "100%",
@@ -15,7 +17,7 @@ const styles = makeStyles({
     minHeight: "50px",
     borderBottom: "1px solid #D3D3D3",
     backgroundColor: "#fff",
-    display: "flex",
+     display:'flex',
     alignItems: "center",
     "&:hover": {
       backgroundColor: "#DCDCDC",
@@ -26,8 +28,8 @@ const styles = makeStyles({
   },
 });
 
-const ChatRoomsList = ({ chatRoomList, handleRoom, handleRoomM}) => {
-  const classes = styles(); 
+const ChatRoomsList = ({ chatRoomList, handleRoom, handleRoomM }) => {
+  const classes = styles();
   return (
     <div className={classes.root}>
       {chatRoomList &&
@@ -35,26 +37,24 @@ const ChatRoomsList = ({ chatRoomList, handleRoom, handleRoomM}) => {
           return (
             <div key={r.room_id} onClick={handleRoomM}>
               <div
-              onClick={() => handleRoom(r.room_id, r.first_name, r.last_name)}
-              className={classes.rooms}
-              
-            >
-              <Avatar alt="Travis Howard" src={r.avatar} />
-              <span className={classes.userName}>
-                {r.first_name} {r.last_name}
-              </span>
-              <IconButton aria-label="show 4 new mails" color="inherit">
-                <Badge
-                  badgeContent={r.notification[0]}
-                  color="secondary"
-                ></Badge>
-              </IconButton>
+                onClick={() => handleRoom(r.room_id, r.first_name, r.last_name)}
+                className={classes.rooms}
+              >
+                <Avatar alt="Travis Howard" src={r.avatar} />
+                <span className={classes.userName}>
+                  {r.first_name} {r.last_name}
+                </span>
+                <IconButton aria-label="show 4 new mails" color="inherit">
+                  <Badge
+                    badgeContent={r.notification[0]}
+                    color="secondary"
+                  ></Badge>
+                </IconButton>
+              </div>
             </div>
-           </div>
           );
         })}
     </div>
-  
   );
 };
 

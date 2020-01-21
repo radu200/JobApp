@@ -117,4 +117,4 @@ CandidatesPage.propTypes = {
   candidates: PropTypes.array,
   formErrors: PropTypes.object,
 };
-export default CandidatesPage;
+export default CandidatesPage

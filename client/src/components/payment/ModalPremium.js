@@ -55,27 +55,23 @@ export default function ModalPremium({ open, handleClose }) {
       >
         <DialogTitle className={classes.title}>Descopera Premium</DialogTitle>
         <DialogContent className={classes.content}>
-          <DialogContentText className={classes.contentText}>
-            <Typography variant="h5">Mai multe locuri de muncă</Typography>
-            <Typography variant="p">
-              Postează mai multe locuri de muncă pe lună
-            </Typography>
-          </DialogContentText>
-          <DialogContentText className={classes.contentText}>
-            <Typography variant="h5">Chaturi Nelimitate</Typography>
-            <Typography variant="p">
-              Deblocați accesul la sute de candidați locali
-            </Typography>
-          </DialogContentText>{" "}
-          <DialogContentText className={classes.contentText}>
-            <Typography variant="h5">Angajare rapidă</Typography>
-            <Typography variant="p">
-              Gaseste si angajea-za mai rapid talente
-            </Typography>
-          </DialogContentText>
-        <DialogContentText >
-          <Typography variant="h6" className={classes.price} >269 Lei pe luna</Typography>
-        </DialogContentText>
+          <Typography variant="h5">Mai multe locuri de muncă</Typography>
+          <Typography variant="subtitle1">
+            Postează mai multe locuri de muncă pe lună
+          </Typography>
+
+          <Typography variant="h5">Chaturi Nelimitate</Typography>
+          <Typography variant="subtitle1">
+            Deblocați accesul la sute de candidați locali
+          </Typography>
+
+          <Typography variant="h5">Angajare rapidă</Typography>
+          <Typography variant="subtitle1">
+            Gaseste si angajea-za mai rapid talente
+          </Typography>
+          <Typography variant="h6" className={classes.price}>
+            269 Lei pe luna
+          </Typography>
         </DialogContent>
         <DialogActions className={classes.footer}>
           <Button

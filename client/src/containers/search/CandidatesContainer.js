@@ -10,8 +10,8 @@ import {
   fetchCandidatesDetails,
   fetchMoreCandidates,
 } from "../../redux/candidates/operators";
-
 import { fetchCreateRoom } from "../../redux/chat/operators";
+
 
 class CandidatesContainer extends Component {
   constructor(props) {

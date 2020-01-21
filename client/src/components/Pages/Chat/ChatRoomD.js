@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {formatDate} from '../../../Utils/formatDate'
 import ChatHeader from './ChatHeader'
+import Loading from '../../../Utils/Loading'
 
 const styles = makeStyles({
   root: {
@@ -50,10 +51,11 @@ time:{
     opacity:0.6,
 }
 });
-const ChatRoom = ({ room, user_id, receiverName }) => {
+const ChatRoom = ({ room, user_id, receiverName, loadingRoom }) => {
   const classes = styles();  
   return (
     <>
+      {loadingRoom ?  <Loading /> : 
       <div className={classes.root } id="chatRoom" >
         <ChatHeader name={receiverName}/>
         {room &&
@@ -74,7 +76,7 @@ const ChatRoom = ({ room, user_id, receiverName }) => {
               </div>
             );
           })}
-      </div>
+         </div> }
     </>
   );
 };

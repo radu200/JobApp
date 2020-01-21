@@ -1,8 +1,7 @@
 const { dbPromise, db } = require(".././config/database.js");
 
-
 //Login required middleware
-module.exports.ensureAuthenticated = function (req, res, next) {
+module.exports.ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
@@ -11,7 +10,7 @@ module.exports.ensureAuthenticated = function (req, res, next) {
 };
 
 /// middleware for user access controll
-module.exports.employer = function (req, res, next) {
+module.exports.employer = function(req, res, next) {
   if (req.user.type === "employer") {
     return next();
   } else {
@@ -19,7 +18,7 @@ module.exports.employer = function (req, res, next) {
   }
 };
 
-module.exports.jobSeeker = function (req, res, next) {
+module.exports.jobSeeker = function(req, res, next) {
   if (req.user.type === "jobseeker") {
     return next();
   } else {
@@ -27,14 +26,13 @@ module.exports.jobSeeker = function (req, res, next) {
   }
 };
 
-module.exports.admin = function (req, res, next) {
+module.exports.admin = function(req, res, next) {
   if (req.user.type === "admin") {
     return next();
   } else {
     res.redirect("/api/login");
   }
 };
-
 
 module.exports.ensureEmailChecked = (req, res, next) => {
   db.query(
@@ -51,115 +49,130 @@ module.exports.ensureEmailChecked = (req, res, next) => {
       } else {
         return next();
       }
-    }
+    },
   );
 };
-
-
 
 module.exports.authRole = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({
-      'role': req.user.type,
-      'user_id':req.user.id,
-      'auth': true
-    })
+      role: req.user.type,
+      user_id: req.user.id,
+      auth: true,
+    });
   }
-}
-
+};
 
 // job post membership check middleware for server-side rendering
 module.exports.membershipJob = async (req, res, next) => {
-
   try {
     const db = await dbPromise;
-    const userId = req.user.id
-    const presentDate = Date.now()
-    const [member] = await db.execute('SELECT membership_approved_date, jobs.id as jobId FROM users LEFT JOIN jobs ON users.id = jobs.employer_id WHERE users.id = ?', [userId])
+    const userId = req.user.id;
+    const presentDate = Date.now();
+    const [
+      member,
+    ] = await db.execute(
+      "SELECT membership_approved_date, jobs.id as jobId FROM users LEFT JOIN jobs ON users.id = jobs.employer_id WHERE users.id = ?",
+      [userId],
+    );
 
-    const mDate = member[0].membership_approved_date
-    const jobsId = member.map(job => job.jobId)
-    const jobLen = jobsId && jobsId.length
+    const mDate = member[0].membership_approved_date;
+    const jobsId = member.map(job => job.jobId);
+    const jobLen = jobsId && jobsId.length;
 
-    if (mDate < presentDate && jobLen > 1) {
+    if (mDate > presentDate) {
+      return next();
+    } else if (mDate < presentDate && jobLen > 1) {
       req.flash("warning_msg", {
-        msg:
-          "Pentru a posta mai multe locuri de muncă, trebuie să fii membru"
-      })
-      res.redirect('back')
-    } else if (mDate > presentDate) {
-      return next()
-    } else {
-      return next()
+        msg: "Pentru a posta mai multe locuri de muncă, trebuie să fii membru",
+      });
+      res.redirect("back");
     }
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-}
+};
 
 //  membership check middleware for client side SPA Pages
 module.exports.membership = async (req, res, next) => {
-
   try {
     const db = await dbPromise;
-    const userId = req.user.id
-    const presentDate = Date.now()
-    const [member] = await db.execute('SELECT membership_approved_date FROM users WHERE users.id = ?', [userId])
+    const userId = req.user.id;
+    const presentDate = Date.now();
+    const [
+      member,
+    ] = await db.execute(
+      "SELECT membership_approved_date FROM users WHERE users.id = ?",
+      [userId],
+    );
 
-    const mDate = member[0].membership_approved_date
-
-    if (mDate < presentDate) {
-      res.json({ member: false })
-
-    } else if (mDate > presentDate) {
-      res.json({ member: true })
+    const mDate = member[0].membership_approved_date;
+    if (mDate > presentDate) {
+      return res.json({ member: true });
     }
+    res.json({ member: false });
   } catch (e) {
-    res.status(500)
+    res.status(500);
   }
-}
+};
 
+module.exports.checkMembership = async (req, res, next) => {
+  try {
+    const db = await dbPromise;
+    const userId = req.user.id;
+    const presentDate = Date.now();
+    const [
+      member,
+    ] = await db.execute(
+      "SELECT membership_approved_date FROM users WHERE users.id = ?",
+      [userId],
+    );
 
+    const mDate = member[0].membership_approved_date;
+
+    if (mDate > presentDate) {
+      return next();
+    }
+    return res.status(404).json("Membership expired");
+  } catch (e) {
+    res.status(500);
+  }
+};
 
 ///auth json res
-module.exports.ensureAuthenticatedJ = function (req, res, next) {
+module.exports.ensureAuthenticatedJ = function(req, res, next) {
   try {
     if (req.isAuthenticated()) {
       return next();
     } else {
-      res.status(404).json('Te rog logheaza-te');
+      res.status(404).json("Te rog logheaza-te");
     }
-
   } catch (err) {
-    res.status(500).json("Server Error")
+    res.status(500).json("Server Error");
   }
 };
 
 /// middleware for user access controll
-module.exports.employerJ = function (req, res, next) {
+module.exports.employerJ = function(req, res, next) {
   try {
     if (req.user.type === "employer") {
       return next();
     } else {
-      res.status(404).json('Te rog logheaza-te');
+      res.status(404).json("Te rog logheaza-te");
     }
-
   } catch (err) {
-    res.status(500).json("Server Error")
+    res.status(500).json("Server Error");
+  }
+};
 
-  };
-}
-
-module.exports.jobSeekerJ = function (req, res, next) {
+module.exports.jobSeekerJ = function(req, res, next) {
   try {
     if (req.user.type === "jobseeker") {
       return next();
     } else {
-      res.status(404).json('Te rog logheaza-te');
+      res.status(404).json("Te rog logheaza-te");
     }
-
   } catch (err) {
-    res.status(500).json("Server Error")
-
+    res.status(500).json("Server Error");
   }
-}
+};

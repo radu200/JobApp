@@ -23,8 +23,9 @@ const ChatPage = ({
   value,
   receiverName,
   roomStatus,
+  loadingRoom
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   //open and close for candidate details
   const handleClose = () => {
     setOpen(false);
@@ -63,6 +64,7 @@ const ChatPage = ({
             value={value}
             receiverName={receiverName}
             roomStatus={roomStatus}
+            loadingRoom={loadingRoom}
           />
         ) : (
           <Grid item xs={12} sm={12} md={10}>
@@ -75,6 +77,7 @@ const ChatPage = ({
                   value={value}
                   user_id={user_id}
                   receiverName={receiverName}
+                  loadingRoom={loadingRoom}
                 />
                 <ChatForm
                   handleChange={handleChange}

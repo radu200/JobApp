@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { matchPath } from "react-router";
 import { getAllNotifications } from "../../../redux/chat/selectors";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -22,6 +21,8 @@ import { BrandName } from "../../../Utils/BrandName";
 import withAuth from "../../../HOC/auth/Auth";
 import Translator from "../../../Utils/Translator";
 import ModalPremium from "../../payment/ModalPremium";
+import withMembershipModal from '../../../HOC/modal/membershipModal'
+
 import {
   Profile,
   Settings,
@@ -106,15 +107,15 @@ class MainNavBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
-    open: false,
+    // open: false,
   };
 
-  handleModalOpen = () => {
-    this.setState({ open: true });
-  };
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  // handleModalOpen = () => {
+  //   this.setState({ open: true });
+  // };
+  // handleClose = () => {
+  //   this.setState({ open: false });
+  // };
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -135,9 +136,10 @@ class MainNavBar extends React.Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes, auth, role, notifications } = this.props;
+    const { classes, auth, role, notifications, handleModalOpen, handleModalClose, openModalMembership } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    console.log('modal', this.props)
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}
@@ -202,7 +204,7 @@ class MainNavBar extends React.Component {
             <MainSideNav
               auth={auth}
               role={role}
-              handleModalOpen={this.handleModalOpen}
+              handleModalOpen={handleModalOpen}
             />
             <Typography
               className={classes.title}
@@ -219,11 +221,11 @@ class MainNavBar extends React.Component {
               <div className={classes.employerNavItems}>
                 <Button
                   className={classes.btnPremium}
-                  onClick={this.handleModalOpen}
+                  onClick={handleModalOpen}
                   variant="contained"
                   color="primary"
                 >
-                  Descopera Premium
+                Premium
                 </Button>
                 <MenuItem button component="a" href={"api/my-jobs"}>
                   Locuri de muncă
@@ -309,7 +311,7 @@ class MainNavBar extends React.Component {
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
-        <ModalPremium open={this.state.open} handleClose={this.handleClose} />
+        <ModalPremium open={openModalMembership} handleClose={handleModalClose} />
         {/* <div className={classes.translator}> <Translator/></div> */}
       </div>
     );
@@ -325,6 +327,7 @@ const mapState = state => ({
 });
 
 export default compose(
+  withMembershipModal,
   withAuth,
   withStyles(styles),
   connect(mapState, { getAllNotifications }),

@@ -1,4 +1,5 @@
 import React from "react";
+import { compose } from 'recompose'
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -17,11 +18,14 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Loading from "../../Utils/Loading";
 import NoUser from "../../images/no_user.png";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import withMembership from "../../HOC/membership/withMembership";
+import withMembershipModal from "../../HOC/modal/membershipModal";
+import ModalPremium from "../payment/ModalPremium";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative",
-    backgroundColor:'#2552C7'
+    backgroundColor: "#2552C7",
   },
   title: {
     marginLeft: theme.spacing(2),
@@ -41,27 +45,32 @@ const useStyles = makeStyles(theme => ({
       color: "red",
     },
   },
-  openChat:{
-    backgroundColor:'#2552C7',
-
-  }
+  openChat: {
+    backgroundColor: "#2552C7",
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({
+function CandidateDetailsM({
   handleClose,
   open,
   candidate,
   experience,
   loading,
   handleChat,
+  member,
+  handleModalClose,
+  handleModalOpen,
+  openModalMembership
 }) {
   const classes = useStyles();
   return (
-    <div>
+    <>
+        <ModalPremium open={openModalMembership} handleClose={handleModalClose} />
+
       <Dialog
         fullScreen
         open={open}
@@ -93,16 +102,28 @@ export default function FullScreenDialog({
                   image={candidate.avatar ? candidate.avatar : NoUser}
                 />
                 <CardContent>
-                  <Button
-                    className={classes.openChat}
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    onClick={() => handleChat(candidate.id)}
-                  >
-                    {" "}
-                    Deschide Chat <LockOutlinedIcon />
-                  </Button>
+                  {member ? (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      fullWidth
+                      onClick={() => handleChat(candidate.id)}
+                    >
+                      {" "}
+                      Deschide Chat ... 
+                    </Button>
+                  ) : (
+                    <Button
+                     className={classes.openChat}
+                      variant="contained"
+                      className={classes.openChat}
+                      color="primary"
+                      fullWidth
+                      onClick={handleModalOpen}
+                    >
+                      Deschide Chat <LockOutlinedIcon />
+                    </Button>
+                  )}
                   <Button
                     className={classes.reportBtn}
                     href={`/api/report/${candidate.id}`}
@@ -179,6 +200,13 @@ export default function FullScreenDialog({
             })}
         </Card>
       </Dialog>
-    </div>
+  
+    </>
   );
 }
+
+export default compose(
+  withMembership,
+  withMembershipModal
+)(CandidateDetailsM);
+
