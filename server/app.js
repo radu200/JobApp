@@ -187,7 +187,6 @@ app.use(function(err, req, res, next) {
 
 
 server.listen(app.get('port'), function() {
-    clearDataBase()
     console.log('Express server listening on port ' + app.get('port'));
 });
 

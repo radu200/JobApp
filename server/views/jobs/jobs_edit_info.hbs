@@ -125,7 +125,7 @@
       </div>
       <button type="submit" class="btn blue right">Adauga</button>
     </form>
-    <form method="POST" action="/api/job/delete/{{result.id}}?_method=DELETE">
+    <form method="POST" action="/api/job/delete/{{result.id}}">
       <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <button class="btn  " type='submit' value='delete'>Sterge</button>
     </form>

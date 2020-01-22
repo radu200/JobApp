@@ -29,7 +29,7 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
   const last_name = req.body.last_name;
   const siteRules = req.body.terms_conditions;
   const city = req.body.city;
-
+  const status = 'active'
   //validation
   req.checkBody("email", "E-mailul nu este valid").isEmail();
   req.checkBody("first_name", "Prenumele este necesar ").notEmpty();
@@ -108,7 +108,8 @@ module.exports.postSignUpJobSeeker = async (req, res, next) => {
         preferred_lang: req.acceptsLanguages().toString(),
         job_seeker_location: city,
         blacklist:'no',
-        checked:'no'
+        checked:'no',
+        status
       };
 
       await db.query("insert into users set ?", user);

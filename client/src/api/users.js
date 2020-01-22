@@ -14,3 +14,8 @@ export const getCandidateDetails = async id => {
   const res = await instanceAPI.get(`/api/candidate-details?id=${id}`);
   return res.data;
 };
+
+export const deleteProfile = async () => {
+  const res = await instanceAPI.post(`/api/profile/delete`);
+  return res
+} 

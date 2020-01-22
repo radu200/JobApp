@@ -8,6 +8,16 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME,
 });
 
+const db = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 150,
+  queueLimit: 50
+});
+
 
 const dbPromise = mysql.createPool({
   host: process.env.DB_HOST,
@@ -23,5 +33,6 @@ const dbPromise = mysql.createPool({
 
 module.exports = {
   connection,
+  // db,
   dbPromise
 };

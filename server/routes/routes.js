@@ -56,6 +56,7 @@ module.exports = function (app) {
   app.get('/api/profile', accessController.ensureAuthenticated, accessController.ensureEmailChecked, profileController.getProfile)
   app.get('/api/profile/avatar', accessController.ensureAuthenticated, profileController.getProfileAvatarEdit)
   app.post('/api/profile/avatar', accessController.ensureAuthenticated, filesController.avatar, profileController.postProfileAvatarEdit)
+  app.post('/api/profile/delete', accessController.ensureAuthenticated, profileController.deleteProfile)
   //employer profile
   app.get('/api/profile/edit/employer', accessController.ensureAuthenticated, accessController.ensureEmailChecked, accessController.employer, employerProfileController.getEmployerProfileInfoEdit)
   app.post('/api/profile/edit/employer', accessController.ensureAuthenticated, accessController.employer, employerProfileController.postEmployerProfileInfoEdit)

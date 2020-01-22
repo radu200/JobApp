@@ -21,7 +21,7 @@ const deleteJob = async () =>  {
           `SELECT id,image FROM jobs  WHERE status = ? LIMIT ${limit}`,[status]
         );
     
-        // return await db.execute(`DELETE FROM jobs  WHERE status  = ? LIMIT ${limit}` [status] );
+     return  await db.query(`DELETE FROM jobs  WHERE status  = ? LIMIT ${limit}` [status] );
     
         // if (
         //   userDetails[0].image &&
@@ -30,7 +30,7 @@ const deleteJob = async () =>  {
         // ) {
         //   await fsPromises.unlink(`./public/${userDetails[0].image}`);
         // }
-       return userDetails
+     
       } catch (err) {
          console.log('script job err', err)
       }

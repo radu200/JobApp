@@ -14,6 +14,8 @@ import LoginErr from '../components/Pages/LoginErr'
 
 import Checkout from '../containers/payment/Checkout'
 
+//settings 
+import DeleteProfile from '../containers/settings/DeleteProfile'
 // auth
 import  withAuth  from '../HOC/auth/Auth'
 import  withAuthEmployer  from '../HOC/auth/Employer'
@@ -44,8 +46,10 @@ const Routes = () => (
        
         {/* payment */}
         <Route exact path='/checkout' component={withAuthEmployer(Checkout)} />
-
-
+         
+         {/* profile */}
+         <Route exact path='/profile/delete' component={withAuth(DeleteProfile)} />
+         
       </Switch>
    </BrowserRouter>
   </main>
