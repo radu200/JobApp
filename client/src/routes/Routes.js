@@ -18,6 +18,8 @@ import Checkout from '../containers/payment/Checkout'
 import DeleteProfile from '../containers/settings/DeleteProfile'
 // auth
 import  withAuth  from '../HOC/auth/Auth'
+import  withAuthUsers  from '../HOC/auth/AuthUsers'
+
 import  withAuthEmployer  from '../HOC/auth/Employer'
 import withAuthJobSeeker  from '../HOC/auth/JobSeeker'
 import  withAuthAdmin  from '../HOC/auth/Admin'
@@ -29,8 +31,8 @@ const Routes = () => (
         <Route exact path='/' component={JobsList} />
         <Route exact path='/jobs' component={JobsList} />
         <Route exact path='/job/details' component={JobDetails} />
-        <Route exact path='/chat' component={withAuth(Chat)} />
-        <Route exact path='/chat/room' component={withAuth(Chat)} />
+        <Route exact path='/chat' component={withAuthUsers(Chat)} />
+        <Route exact path='/chat/room' component={withAuthUsers(Chat)} />
         <Route exact path='/search-candidate' component={Candidates} />
         <Route exact path='/job-application/applicants/:status/:id' component={withAuthEmployer(Applicants)} />
         <Route exact path='/my/applications' component={withAuthJobSeeker(JobSeekerApplications)} />
@@ -48,7 +50,7 @@ const Routes = () => (
         <Route exact path='/checkout' component={withAuthEmployer(Checkout)} />
          
          {/* profile */}
-         <Route exact path='/profile/delete' component={withAuth(DeleteProfile)} />
+         <Route exact path='/profile/delete' component={withAuthUsers(DeleteProfile)} />
          
       </Switch>
    </BrowserRouter>
