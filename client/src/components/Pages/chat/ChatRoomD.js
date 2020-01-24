@@ -51,13 +51,17 @@ time:{
     opacity:0.6,
 }
 });
-const ChatRoom = ({ room, user_id, receiverName, loadingRoom }) => {
+const ChatRoom = ({ room, user_id, receiverName, loadingRoom, handleReports, handleRemoveRoom }) => {
   const classes = styles();  
   return (
     <>
       {loadingRoom ?  <Loading /> : 
       <div className={classes.root } id="chatRoom" >
-        <ChatHeader name={receiverName}/>
+        <ChatHeader 
+            name={receiverName}
+            handleReports={handleReports} 
+            handleRemoveRoom={handleRemoveRoom}
+        />
         {room &&
           room.map((m)=> {
             return (

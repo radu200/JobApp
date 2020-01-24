@@ -110,12 +110,7 @@ class MainNavBar extends React.Component {
     // open: false,
   };
 
-  // handleModalOpen = () => {
-  //   this.setState({ open: true });
-  // };
-  // handleClose = () => {
-  //   this.setState({ open: false });
-  // };
+
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });

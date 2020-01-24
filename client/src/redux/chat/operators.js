@@ -13,9 +13,10 @@ import {
   failureNewMsg,
   requestNotification,
   receivedNotification,
-  failureNotification
+  failureNotification,
+  receivedRemoveRoom
 } from "./actions";
-import { getRooms, getRoomDetails, createRoom  } from "../../api/chat";
+import { getRooms, getRoomDetails, createRoom, removeRoom  } from "../../api/chat";
 
 export const fetchRooms = () => async dispatch => {
   try {
@@ -63,5 +64,16 @@ export const fetchNotification = (notification) => async dispatch =>  {
      dispatch(receivedNotification(notification))
   } catch(err){
     dispatch(failureNotification(err))
+  }
+}
+
+export const fetchRemoveRoom = room_id => async dispatch => {
+  try {
+     const res = await removeRoom(room_id)
+     if(res.status === 200){
+       dispatch(receivedRemoveRoom(room_id))
+     }
+  } catch(err) {
+
   }
 }

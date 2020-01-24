@@ -8,9 +8,10 @@ import {
   fetchRoomDetails,
   fetchNewMessages,
   fetchNotification,
+  fetchRemoveRoom
 } from "../../redux/chat/operators";
 import { getRooms } from "../../redux/chat/selectors";
-import ChatPage from "../../components/Pages/Chat/ChatPage";
+import ChatPage from "../../components/Pages/chat/ChatPage";
 import queryString from "query-string";
 
 class Chat extends Component {
@@ -27,15 +28,22 @@ class Chat extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleRoomDetails = this.handleRoomDetails.bind(this);
+    this.handleRemoveRoom = this.handleRemoveRoom.bind(this)
+    this.handleReports = this.handleReports.bind(this)
   }
 
+  getUrlParams = url => {
+    const data = queryString.parse(url);
+    const room_id = data.id;
+    const receiverName = data.name;
+    const receiver_id = data.r
+    return { room_id, receiver_id, receiverName}
+   } 
+
   async componentDidMount() {
-    console.log('mounted')
-    this._mount = true
-    this.props.fetchRooms();
-    const url = queryString.parse(this.props.location.search);
-    const room_id = url.id;
-    const receiverName = url.name;
+    const { location, fetchRooms, fetchRoomDetails} = this.props
+     fetchRooms();
+    const { room_id, receiverName } = this.getUrlParams(location.search)
 
     socket.on("notification", notification => {
       this.props.fetchNotification(notification);
@@ -47,7 +55,7 @@ class Chat extends Component {
           this.setState({new_msg: msg})
         
       });
-      this.props.fetchRoomDetails(room_id);
+      fetchRoomDetails(room_id);
 
 
       this.setState({ receiverName, roomStatus: true });
@@ -59,10 +67,8 @@ class Chat extends Component {
 
   componentDidUpdate(props, state) {
     if (props.location.search !== this.props.location.search) {
-      const url = queryString.parse(this.props.location.search);
+      const { room_id, receiverName } = this.getUrlParams(this.props.location.search)
       const prevUrl = queryString.parse(props.location.search);
-      const receiverName = url.name;
-      const room_id = url.id;
       const newRoom = room_id;
       const oldRoom = prevUrl.id;
       socket.emit("switchRoom", { newRoom, oldRoom });
@@ -86,10 +92,10 @@ class Chat extends Component {
  
   }
 
-  async handleRoomDetails(room_id, receiverFn, receiverLn) {
+  async handleRoomDetails(room_id, receiver_id, receiverFn, receiverLn) {
     this.props.fetchRoomDetails(room_id);
     this.props.history.push(
-      `/chat/room/?id=${room_id}&name=${receiverFn} ${receiverLn}`,
+      `/chat/room/?id=${room_id}&r=${receiver_id}&name=${receiverFn} ${receiverLn}`,
     );
     socket.emit("join", { room_id });
     socket.emit("removeNotification", { room_id });
@@ -107,8 +113,7 @@ class Chat extends Component {
     e.preventDefault();
     const { chatMessage, room_id } = this.state;
     if (room_id === null || room_id === undefined) {
-      const url = queryString.parse(this.props.location.search);
-      const room_id = url.id;
+      const { room_id,  } = this.getUrlParams(this.props.location.search)
       this.sendMessage(chatMessage, room_id);
     }
     this.sendMessage(chatMessage, room_id);
@@ -118,7 +123,7 @@ class Chat extends Component {
     socket.emit("chatMessage", { chatMessage, room_id });
     this.setState({ chatMessage: "" });
   }
-
+  
   scrollToBottom() {
     animateScroll.scrollToBottom({
       containerId: "chatRoom",
@@ -126,9 +131,19 @@ class Chat extends Component {
     });
   }
 
+   async handleRemoveRoom () {
+     const { room_id } = this.getUrlParams(this.props.location.search)
+     this.props.fetchRemoveRoom(room_id)
+   }
+
+   handleReports () {
+     const { receiver_id } = this.getUrlParams(this.props.location.search)
+      this.props.history.push(`/api/report/${receiver_id}`)
+   }
+  
   render() {
     const { chatMessage, receiverName, roomStatus } = this.state;
-    const { handleChange, onSubmit, handleRoomDetails } = this;
+    const { handleChange, onSubmit, handleRoomDetails, handleRemoveRoom, handleReports } = this;
     const { room, rooms, user_id, loadingRoom } = this.props;
     return (
       <>
@@ -143,6 +158,8 @@ class Chat extends Component {
           receiverName={receiverName}
           roomStatus={roomStatus}
           loadingRoom={loadingRoom}
+          handleReports={handleReports} 
+          handleRemoveRoom={handleRemoveRoom}
         />
       </>
     );
@@ -160,5 +177,6 @@ export default compose(
     fetchRoomDetails,
     fetchNewMessages,
     fetchNotification,
+    fetchRemoveRoom
   }),
 )(Chat);

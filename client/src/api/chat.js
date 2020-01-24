@@ -18,3 +18,10 @@ export const getRoomDetails =  async (room_id) => {
     const res = await instanceAPI.get(url)
     return res.data
 }
+export const removeRoom = async (room_id) => {
+    const url = `/api/chat/remove`
+    const res = await instanceAPI.post(url, {
+        room_id
+    })
+    return res;
+}

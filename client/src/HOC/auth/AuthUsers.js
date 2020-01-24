@@ -12,7 +12,7 @@ const withAuth = (Wrap) => {
    async getAuth () {
          const {fetchRole, role,auth, history } = this.props
          await fetchRole()
-         if(!auth){
+         if(auth && !auth){
             return history.push('/login-err');
          }
       }

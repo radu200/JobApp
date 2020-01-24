@@ -37,7 +37,7 @@ const ChatRoomsList = ({ chatRoomList, handleRoom, handleRoomM }) => {
           return (
             <div key={r.room_id} onClick={handleRoomM}>
               <div
-                onClick={() => handleRoom(r.room_id, r.first_name, r.last_name)}
+                onClick={() => handleRoom(r.room_id, r.receiver_id, r.first_name, r.last_name, )}
                 className={classes.rooms}
               >
                 <Avatar alt="Travis Howard" src={r.avatar} />

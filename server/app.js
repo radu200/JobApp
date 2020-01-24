@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app)
 const io = require('socket.io')(server);
+const rateLimit = require("express-rate-limit");
 const exphbs = require('express-handlebars');
 const path = require('path');
 const expressValidator = require('express-validator');
@@ -71,14 +72,20 @@ app.use((req, res, next) => {
         next();
     });
     
-    
-   app.use(helmet());
-   app.use(helmet.hidePoweredBy() ) ;
-   app.use(helmet.xssFilter());
-   app.use(helmet.xssFilter({ setOnOldIE: true }));
-   app.use(helmet.frameguard({ action: 'sameorigin' }))
-   app.use(helmet.dnsPrefetchControl({ allow: true }))
 
+app.use(helmet());
+app.use(helmet.hidePoweredBy() ) ;
+app.use(helmet.xssFilter());
+app.use(helmet.xssFilter({ setOnOldIE: true }));
+app.use(helmet.frameguard({ action: 'sameorigin' }))
+app.use(helmet.dnsPrefetchControl({ allow: true }))
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 150, // limit each IP to 100 requests per windowMs
+    message:
+    "Too many accounts created from this IP, please try again after an hour"
+  });
 
 const options = {
     host: process.env.DB_HOST,
@@ -105,6 +112,7 @@ app.use(sessionMiddleware)
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+// app.use(limiter);
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 

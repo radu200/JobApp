@@ -14,6 +14,7 @@ import {
   REQUEST_NOTIFICATION,
   RECEIVED_NOTIFICATION,
   FAILURE_NOTIFICATION,
+  REMOVE_ROOM
 } from "./constants";
 
 const roomsState = {
@@ -27,9 +28,12 @@ export const roomsReducer = (state = roomsState, action) => {
     case REQUEST_ROOMS:
       return { ...state, loading: true };
     case RECEIVED_ROOMS:
+      
       return { ...state, loading: false, rooms: action.rooms };
     case FAILURE_ROOMS:
       return { ...state, loading: false, err: action.err };
+    case REMOVE_ROOM:
+       return {...state, rooms: state.rooms.filter(r => r.room_id !== action.id ) }
     default:
       return state;
   }

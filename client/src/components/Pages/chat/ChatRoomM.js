@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Slide from "@material-ui/core/Slide";
 import ChatForm from "../../Forms/ChatForm";
+import ChatHeader from './ChatHeader'
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -82,7 +83,9 @@ export default function ChatRoomM({
   value,
   handleChange,
   receiverName,
-  roomStatus
+  roomStatus, 
+  handleReports, 
+  handleRemoveRoom
 }) {
   const classes = useStyles();
 
@@ -109,6 +112,11 @@ export default function ChatRoomM({
         </AppBar>
         {roomStatus ? 
         <>
+         <ChatHeader 
+            name={receiverName}
+            handleReports={handleReports} 
+            handleRemoveRoom={handleRemoveRoom}
+        />
         <DialogContent className={classes.content} id="chatRoom">
           {room &&
             room.map(m => {

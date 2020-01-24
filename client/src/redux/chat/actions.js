@@ -13,7 +13,8 @@ import {
   FAILURE_NEW_MSG,
   RECEIVED_NOTIFICATION,
   REQUEST_NOTIFICATION,
-  FAILURE_NOTIFICATION
+  FAILURE_NOTIFICATION,
+  REMOVE_ROOM
 } from "./constants";
 
 
@@ -124,3 +125,9 @@ export const failureNewMsg = err => {
     };
   };
   
+ export const receivedRemoveRoom = id => {
+   return {
+     type: REMOVE_ROOM,
+     id
+   }
+ }

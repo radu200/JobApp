@@ -14,6 +14,7 @@ import LoginErr from '../components/Pages/LoginErr'
 
 import Checkout from '../containers/payment/Checkout'
 
+import TermsConditions from '../components/Pages/content/TermsConditions'
 //settings 
 import DeleteProfile from '../containers/settings/DeleteProfile'
 // auth
@@ -52,6 +53,10 @@ const Routes = () => (
          {/* profile */}
          <Route exact path='/profile/delete' component={withAuthUsers(DeleteProfile)} />
          
+
+         {/* content */}
+         <Route exact path='/terms' component={TermsConditions} />
+
       </Switch>
    </BrowserRouter>
   </main>

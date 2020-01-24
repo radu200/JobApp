@@ -43,19 +43,14 @@ module.exports.getRooms = async (req, res) => {
     const user_role = req.user.type
     const db = await dbPromise
     if (user_role === 'employer') {
-      const [rooms] = await db.execute('SELECT chat_room.*, users.first_name, users.last_name, users.avatar  FROM chat_room LEFT JOIN users ON  users.id = chat_room.jobseeker_id WHERE employer_id = ?', [user_id])
-      const results = {}
-      results.sender_id =  user_id
-      results.rooms = rooms
-      res.status(200).json(results)
+      const [rooms] = await db.execute('SELECT chat_room.*, users.id as receiver_id, users.first_name, users.last_name, users.avatar  FROM chat_room LEFT JOIN users ON  users.id = chat_room.jobseeker_id WHERE employer_id = ?', [user_id])
+      res.status(200).json(rooms)
     } else if (user_role === 'jobseeker') {
-      const [rooms] = await db.execute('SELECT chat_room.*, users.first_name, users.last_name, users.avatar, users.company_name FROM chat_room LEFT JOIN users ON  users.id = chat_room.employer_id WHERE jobseeker_id = ?', [user_id])
-      const results = {}
-      results.sender_id =  user_id
-      results.rooms = rooms
-      res.status(200).json(results)
+      const [rooms] = await db.execute('SELECT chat_room.*, users.id as receiver_id, users.first_name, users.last_name, users.avatar, users.company_name FROM chat_room LEFT JOIN users ON  users.id = chat_room.employer_id WHERE jobseeker_id = ?', [user_id])
+      res.status(200).json(rooms)
     }
   } catch (err) {
+    console.log(err)
     res.status(500).json('Server Err')
   }
 }
@@ -76,3 +71,14 @@ module.exports.getRoomDetails = async (req, res) => {
 
 
 
+module.exports.removeRoom = async (req, res) => {
+  try{
+    const room_id = req.body.room_id
+    const db = await dbPromise;
+     await db.query('DELETE FROM chat_room WHERE room_id = ?', [room_id])
+  } catch(err){
+    res.json(err)
+  }
+
+  res.json('Success')
+}
