@@ -10,8 +10,8 @@ const root = {
 const TermsConditions = () => {
   return (
     <div style={root}>
-      <h2>Bun venit la Company name!</h2>
-        <h1>Termenii şi condiţiile Company name</h1>
+      <h2>Bun venit la ANGAJAT.CO!</h2>
+        <h1>Termenii şi condiţiile ANGAJAT.CO</h1>
      
       <p>
         Prin utilizarea Serviciilor noastre, sunteţi de acord cu prezenţii
@@ -23,7 +23,7 @@ const TermsConditions = () => {
         pentru produse (inclusiv cerinţe referitoare la vârstă). În cazul
         anumitor Servicii, există Termeni şi condiţii suplimentare, iar, dacă
         utilizaţi acele Servicii, Termenii şi condiţiile suplimentare respective
-        fac parte din contractul dintre dvs. şi Company name.
+        fac parte din contractul dintre dvs. şi ANGAJAT.CO.
       </p>
       <h2>Utilizarea Serviciilor noastre</h2>
       <p>
@@ -33,7 +33,7 @@ const TermsConditions = () => {
       <p>
         Nu utilizaţi Serviciile în mod necorespunzător. De exemplu, nu încercaţi
         să influenţaţi Serviciile sau să le accesaţi în alt mod decât prin
-        interfaţa şi prin instrucţiunile oferite de Company name. Puteţi utiliza
+        interfaţa şi prin instrucţiunile oferite de ANGAJAT.CO. Puteţi utiliza
         Serviciile numai conform legii, inclusiv conform legilor şi
         reglementărilor aplicabile pentru controlul exporturilor şi al
         reexporturilor. Putem întrerupe sau înceta furnizarea Serviciilor către
@@ -53,7 +53,7 @@ const TermsConditions = () => {
         împreună cu Serviciile.
       </p>
       <p>
-        Serviciile noastre afişează un anumit conţinut care nu aparţine Company name.
+        Serviciile noastre afişează un anumit conţinut care nu aparţine ANGAJAT.CO.
         Responsabilitatea pentru acest conţinut revine exclusiv entităţii care
         îl pune la dispoziţie. Putem examina conţinutul pentru a stabili dacă
         este ilegal sau dacă încalcă politicile noastre şi putem elimina sau
@@ -74,27 +74,27 @@ const TermsConditions = () => {
         Nu utilizați aceste Servicii într-un mod care vă distrage atenția și vă
         împiedică să respectați legislația rutieră și de siguranță.
       </p>
-      <h2>Contul dvs. Company name</h2>
+      <h2>Contul dvs. ANGAJAT.CO</h2>
       <p>
-        Pentru a utiliza unele dintre Servicii, poate fi necesar un Cont Company name.
-        Puteţi să vă creaţi propriul Cont Company name sau Contul Company name vă poate fi
+        Pentru a utiliza unele dintre Servicii, poate fi necesar un Cont ANGAJAT.CO.
+        Puteţi să vă creaţi propriul Cont ANGAJAT.CO sau Contul ANGAJAT.CO vă poate fi
         atribuit de un administrator, cum ar fi angajatorul sau instituţia dvs.
-        de învăţământ. Dacă utilizaţi un Cont Company name atribuit de un
+        de învăţământ. Dacă utilizaţi un Cont ANGAJAT.CO atribuit de un
         administrator, se pot aplica Termeni şi condiţii diferite sau
         suplimentare, iar administratorul poate avea dreptul să vă acceseze sau
         să vă dezactiveze contul.
       </p>
       <p>
-        Pentru a vă proteja Contul Company name, păstrați parola confidențială.
+        Pentru a vă proteja Contul ANGAJAT.CO, păstrați parola confidențială.
         Purtați întreaga responsabilitate pentru activitatea care are loc în sau
-        prin intermediul Contului Company name. Încercați să nu reutilizați parola
-        Contului Company name pentru aplicații terță parte. Dacă aflați despre orice
-        utilizare neautorizată a parolei sau a Contului Company name,{" "}
+        prin intermediul Contului ANGAJAT.CO. Încercați să nu reutilizați parola
+        Contului ANGAJAT.CO pentru aplicații terță parte. Dacă aflați despre orice
+        utilizare neautorizată a parolei sau a Contului ANGAJAT.CO,{" "}
       </p>
       <h2>Protejarea confidenţialităţii şi a drepturilor de autor</h2>
       <p>
         {" "}
-        Company name explică modul în care tratăm datele dvs. cu caracter personal și
+        ANGAJAT.CO explică modul în care tratăm datele dvs. cu caracter personal și
         în care vă protejăm confidențialitatea atunci când utilizați Serviciile
         noastre.
       </p>
@@ -110,7 +110,7 @@ const TermsConditions = () => {
         gestioneze proprietatea intelectuală online. În cazul în care
         consideraţi că vă sunt încălcate drepturile de autor şi doriţi să ne
         înştiinţaţi, puteţi găsi informaţii despre trimiterea notificărilor şi
-        despre politica Company name cu privire la răspunsul la notificări
+        despre politica ANGAJAT.CO cu privire la răspunsul la notificări
         <a>în Centrul nostru de ajutor</a>
       </p>
       <p>
@@ -121,7 +121,7 @@ const TermsConditions = () => {
       </p>
       <p>
         Când încărcați, trimiteți, stocați sau primiți conținut în cadrul
-        Serviciilor sau prin intermediul acestora, acordați Company name (și părților
+        Serviciilor sau prin intermediul acestora, acordați ANGAJAT.CO (și părților
         cu care lucrăm) o licenţă globală pentru utilizarea, găzduirea,
         stocarea, reproducerea, modificarea, crearea de lucrări derivate (cum ar
         fi cele rezultate din traduceri, adaptări sau alte modificări pe care le
@@ -132,7 +132,7 @@ const TermsConditions = () => {
         promovare și îmbunătățire a Serviciilor, precum și de dezvoltare a unor
         servicii noi. Această licenţă rămâne în vigoare chiar dacă nu mai
         utilizaţi Serviciile noastre (de exemplu, pentru înregistrarea unei
-        companii pe care aţi adăugat-o la Hărţi Company name). Anumite Servicii vă pot
+        companii pe care aţi adăugat-o la Hărţi ANGAJAT.CO). Anumite Servicii vă pot
         oferi modalităţi de accesare şi de eliminare a conţinutului furnizat
         către respectivul Serviciu. De asemenea, anumite Servicii au Termeni şi
         condiţii sau setări care restrâng domeniul de utilizare a conţinutului
@@ -149,19 +149,19 @@ const TermsConditions = () => {
       </p>
 
       <p>
-        Dacă aveți un Cont Company name, este posibil să afișăm Numele profilului,
+        Dacă aveți un Cont ANGAJAT.CO, este posibil să afișăm Numele profilului,
         Fotografia de profil și acțiunile dvs. pe care le întreprindeți în
-        cadrul Company name sau în cadrul aplicațiilor terță parte conectate la Contul
-        Company name (de exemplu, +1rile, recenziile pe care le scrieți și
+        cadrul ANGAJAT.CO sau în cadrul aplicațiilor terță parte conectate la Contul
+        ANGAJAT.CO (de exemplu, +1rile, recenziile pe care le scrieți și
         comentariile pe care le postați) în Serviciile noastre, inclusiv să le
         afișăm în anunțuri sau în alte contexte comerciale. Vom respecta
         alegerile pe care le faceți pentru a limita setările de distribuție sau
-        de vizibilitate din Contul Company name. De exemplu, puteți configura
+        de vizibilitate din Contul ANGAJAT.CO. De exemplu, puteți configura
         setările, astfel încât numele și fotografia dvs. să nu apară într-un
         anunț.
       </p>
       <p>
-        Puteţi afla mai multe informaţii despre modul în care Company name utilizează
+        Puteţi afla mai multe informaţii despre modul în care ANGAJAT.CO utilizează
         şi stochează conţinutul în politica de confidenţialitate sau în Termenii
         şi condiţiile suplimentare pentru anumite Servicii. Dacă trimiteţi
         feedback sau sugestii despre Servicii, putem utiliza feedbackul sau
@@ -176,11 +176,11 @@ const TermsConditions = () => {
         pentru actualizarea automată.
       </p>
       <p>
-        Company name vă oferă o licenţă personală, globală, scutită de redevenţe,
+        ANGAJAT.CO vă oferă o licenţă personală, globală, scutită de redevenţe,
         netransmisibilă şi neexclusivă pentru a utiliza programul software
-        furnizat de Company name ca parte a Serviciilor. Această licenţă are unicul
+        furnizat de ANGAJAT.CO ca parte a Serviciilor. Această licenţă are unicul
         scop de a vă permite să utilizaţi şi să vă bucuraţi de beneficiile
-        Serviciilor, aşa cum sunt acestea furnizate de Company name, în modul permis
+        Serviciilor, aşa cum sunt acestea furnizate de ANGAJAT.CO, în modul permis
         de prezenţii Termeni şi condiţii. Nu aveţi dreptul să copiaţi, să
         modificaţi, să distribuiţi, să vindeţi sau să închiriaţi nicio parte a
         Serviciilor şi a programelor software incluse; nu aveţi dreptul să
@@ -206,7 +206,7 @@ const TermsConditions = () => {
       </p>
       <p>
         Puteţi să renunţaţi oricând la utilizarea Serviciilor noastre, însă ne
-        va părea rău să nu mai colaborăm cu dvs. De asemenea, Company name poate
+        va părea rău să nu mai colaborăm cu dvs. De asemenea, ANGAJAT.CO poate
         întrerupe furnizarea Serviciilor către dvs. sau poate adăuga ori stabili
         în orice moment noi limite pentru Serviciile respective.
       </p>
@@ -227,7 +227,7 @@ const TermsConditions = () => {
       </p>
       <p>
         Cu excepţia prevederilor explicite din prezenţii Termeni şi condiţii sau
-        din Termenii şi condiţiile suplimentare, Company name şi furnizorii sau
+        din Termenii şi condiţiile suplimentare, ANGAJAT.CO şi furnizorii sau
         distribuitorii săi nu fac nicio promisiune specială în legătură cu
         Serviciile. De exemplu, nu ne luăm niciun angajament cu privire la
         conţinutul din cadrul Serviciilor, funcţiile specifice disponibile prin
@@ -243,13 +243,13 @@ const TermsConditions = () => {
       <h2>Răspunderea pentru Serviciile noastre</h2>
 
       <p>
-        În măsura permisă de lege, Company name, furnizorii şi distribuitorii Company name
+        În măsura permisă de lege, ANGAJAT.CO, furnizorii şi distribuitorii ANGAJAT.CO
         nu vor fi răspunzători pentru pierderile de profituri, venituri sau
         date, pentru pierderile financiare sau pentru daunele indirecte,
         speciale, subsecvente, exemplare sau punitive.
       </p>
       <p>
-        În limitele permise de lege, răspunderea totală a companiei Company name, a
+        În limitele permise de lege, răspunderea totală a companiei ANGAJAT.CO, a
         furnizorilor şi a distribuitorilor săi pentru orice reclamaţii în baza
         prezenţilor Termeni şi condiţii, inclusiv pentru toate garanţiile
         implicite, se limitează la suma pe care ne-aţi plătit-o pentru
@@ -257,7 +257,7 @@ const TermsConditions = () => {
         furniza din nou Serviciile).
       </p>
       <p>
-        Company name, furnizorii şi distribuitorii săi nu vor fi în niciun caz
+        ANGAJAT.CO, furnizorii şi distribuitorii săi nu vor fi în niciun caz
         responsabili pentru nicio pierdere sau pagubă care nu poate fi prevăzută
         în mod rezonabil
       </p>
@@ -272,7 +272,7 @@ const TermsConditions = () => {
       <p>
         Dacă utilizaţi Serviciile noastre în numele unei companii, compania
         respectivă acceptă prezenţii Termeni şi condiţii. Compania respectivă va
-        apăra şi va despăgubi Company name, afiliaţii, funcţionarii, agenţii şi
+        apăra şi va despăgubi ANGAJAT.CO, afiliaţii, funcţionarii, agenţii şi
         angajaţii acesteia împotriva oricăror pretenţii, procese sau acţiuni
         rezultate din sau în legătură cu utilizarea Serviciilor sau cu
         încălcarea prezenţilor Termeni şi condiţii, inclusiv toate răspunderile
@@ -301,7 +301,7 @@ const TermsConditions = () => {
         suplimentare.
       </p>
       <p>
-        Prezenţii Termeni şi condiţii reglementează relaţia dintre Company name şi
+        Prezenţii Termeni şi condiţii reglementează relaţia dintre ANGAJAT.CO şi
         dvs. Aceştia nu creează niciun fel de drepturi pentru terţi beneficiari.
       </p>
       <p>
@@ -315,7 +315,7 @@ const TermsConditions = () => {
       </p>
       <h2>Legea aplicabilă și Competenţa</h2>
       <p>
-        Pentru informaţii despre modul în care puteţi să contactaţi Company name,
+        Pentru informaţii despre modul în care puteţi să contactaţi ANGAJAT.CO,
         accesaţi <a>pagina noastră de contact</a>{" "}
       </p>
     </div>

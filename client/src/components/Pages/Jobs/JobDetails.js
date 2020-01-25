@@ -3,6 +3,7 @@ import MainNav from "../../NavBars/MainNav/MainNav";
 import JobDetailsCard from '../../Cards/JobDetails'
 import { Grid } from '@material-ui/core'
 import { withStyles } from "@material-ui/core/styles";
+import Footer from '../../footer/Footer'
 
 const styles = theme => ({
   root: {

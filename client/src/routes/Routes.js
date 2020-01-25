@@ -16,6 +16,7 @@ import Checkout from '../containers/payment/Checkout'
 
 import TermsConditions from '../components/Pages/content/TermsConditions'
 //settings 
+import ContactUs from '../components/Pages/settings/ContactUs';
 import DeleteProfile from '../containers/settings/DeleteProfile'
 // auth
 import  withAuth  from '../HOC/auth/Auth'
@@ -50,9 +51,10 @@ const Routes = () => (
         {/* payment */}
         <Route exact path='/checkout' component={withAuthEmployer(Checkout)} />
          
-         {/* profile */}
+         {/* settings */}
          <Route exact path='/profile/delete' component={withAuthUsers(DeleteProfile)} />
-         
+         <Route exact path='/contact' component={ContactUs} />
+
 
          {/* content */}
          <Route exact path='/terms' component={TermsConditions} />

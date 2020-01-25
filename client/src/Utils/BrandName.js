@@ -1,4 +1,4 @@
 
 
-export const  BrandName = 'MuncaAzi';
+export const  BrandName = 'ANGAJAT.CO';
 

@@ -5,6 +5,8 @@ import JobCard from "../../Cards/JobCard";
 import MainNav from "../../NavBars/MainNav/MainNav";
 import Loading from "../../../Utils/Loading";
 import SearchJobForm from "../../Forms/SearchJob";
+import Pagination from "../../Pagination/Pagination";
+import Footer from '../../footer/Footer'
 
 const useStyles = makeStyles({
   root: {
@@ -27,7 +29,14 @@ const JobsPage = ({
   location,
   cities,
   loading,
-  formErrors
+  formErrors,
+  currentPage,
+  handleNextPage,
+  handlePrevPage,
+  nextPage,
+  prevPage,
+  totalPages
+
 }) => {
   const classes = useStyles();
   return (
@@ -56,6 +65,15 @@ const JobsPage = ({
           )}
         </Grid>
       </div>
+      <Pagination
+          currentPage={currentPage}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          pages={totalPages}
+        />
+     <Footer />
     </>
   );
 };

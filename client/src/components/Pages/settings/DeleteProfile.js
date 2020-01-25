@@ -4,6 +4,9 @@ import Button from '@material-ui/core/Button'
 import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 import MainNav from "../../NavBars/MainNav/MainNav";
+import  withAuthUsers  from '../../../HOC/auth/AuthUsers'
+
+import Footer from '../../footer/Footer'
 
 const useStyles = makeStyles({
     root: {
@@ -28,8 +31,9 @@ const DeleteProfile = ({ onClick }) => {
                 Acesta actiune e ireversibila
             </Typography>
             <Button fullWidth type="submit" color="secondary" variant='contained'  onClick={onClick}>
-                Sterge Profile
+                Sterge Profil
             </Button>
+          
            </Grid>
           </Grid>
         </>

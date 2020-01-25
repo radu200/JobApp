@@ -8,7 +8,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { withStyles } from "@material-ui/core/styles";
@@ -17,11 +16,11 @@ import Divider from "@material-ui/core/Divider";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import MainSideNav from "./MainSideNav";
-import { BrandName } from "../../../Utils/BrandName";
 import withAuth from "../../../HOC/auth/Auth";
 import Translator from "../../../Utils/Translator";
 import ModalPremium from "../../payment/ModalPremium";
-import withMembershipModal from '../../../HOC/modal/membershipModal'
+import withMembershipModal from "../../../HOC/modal/membershipModal";
+import Logo from '../../logo/Logo'
 
 import {
   Profile,
@@ -43,12 +42,7 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
-  },
+
 
   logIn: {
     color: "white",
@@ -110,8 +104,6 @@ class MainNavBar extends React.Component {
     // open: false,
   };
 
-
-
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
@@ -131,7 +123,15 @@ class MainNavBar extends React.Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes, auth, role, notifications, handleModalOpen, handleModalClose, openModalMembership } = this.props;
+    const {
+      classes,
+      auth,
+      role,
+      notifications,
+      handleModalOpen,
+      handleModalClose,
+      openModalMembership,
+    } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const renderMenu = (
@@ -200,15 +200,8 @@ class MainNavBar extends React.Component {
               role={role}
               handleModalOpen={handleModalOpen}
             />
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-              {BrandName}
-            </Typography>
-
+           
+            <Logo />
             <div className={classes.grow} />
 
             {role && role === "employer" ? (
@@ -219,7 +212,7 @@ class MainNavBar extends React.Component {
                   variant="contained"
                   color="primary"
                 >
-                Premium
+                  Premium
                 </Button>
                 <MenuItem button component="a" href={"api/my-jobs"}>
                   Locuri de muncă
@@ -258,7 +251,7 @@ class MainNavBar extends React.Component {
                 </MenuItem>
               </div>
             ) : null}
-       
+
             <div className={classes.sectionDesktop}>
               {(role && role === "employer") || role === "jobseeker" ? (
                 <div>
@@ -274,21 +267,12 @@ class MainNavBar extends React.Component {
                 </div>
               ) : (
                 <>
-                  <Button color="inherit">
-                    <a className={classes.logIn} href={SignUpUrlEmployer}>
-                      Angajeaza
-                    </a>
-                  </Button>
-                  <Button color="inherit">
-                    <a className={classes.logIn} href={SignUpUrlJobSeeker}>
-                      Inregistrare
-                    </a>
-                  </Button>
-                  <Button color="inherit">
-                    <a className={classes.logIn} href={LoginUrl}>
-                      Logare
-                    </a>
-                  </Button>
+                  <a className={classes.links} href={SignUpUrlEmployer}>
+                    <Button color="inherit">Inregistrare</Button>
+                  </a>
+                  <a className={classes.links} href={LoginUrl}>
+                    <Button color="inherit">Logare</Button>
+                  </a>
                 </>
               )}
             </div>
@@ -305,8 +289,11 @@ class MainNavBar extends React.Component {
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
-        <ModalPremium open={openModalMembership} handleClose={handleModalClose} />
-        {/* <div className={classes.translator}> <Translator/></div> */}
+        <ModalPremium
+          open={openModalMembership}
+          handleClose={handleModalClose}
+        />
+        <div className={classes.translator}> <Translator/></div>
       </div>
     );
   }

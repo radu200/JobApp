@@ -132,6 +132,7 @@ const JobDetail = ({
       </CardActionArea>
     </Card>
     }
+    
     </>
   );
 };

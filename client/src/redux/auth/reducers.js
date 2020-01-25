@@ -2,7 +2,7 @@ import { REQUEST_ROLE, RECEIVED_ROLE, FAILURE_ROLE } from './constants';
  
 const initialState = {
     role:null,
-    auth:null,
+    auth:false,
     user_id:null,
     loading:false,
     err:false

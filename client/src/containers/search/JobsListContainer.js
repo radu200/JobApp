@@ -14,7 +14,6 @@ import {
 } from "../../redux/jobs/selectors";
 import JobsPage from "../../components/Pages/Jobs/JobsPage";
 import queryString from "query-string";
-import Pagination from "../../components/Pagination/Pagination";
 import { validate } from "../../Utils/validation";
 
 class JobsContainer extends Component {
@@ -161,8 +160,6 @@ class JobsContainer extends Component {
           categories={categories}
           loading={loading}
           formErrors={formErrors}
-        />
-        <Pagination
           currentPage={currentPage}
           handleNextPage={handleNextPage}
           handlePrevPage={handlePrevPage}
@@ -170,6 +167,7 @@ class JobsContainer extends Component {
           prevPage={prevPage}
           pages={totalPages}
         />
+     
       </>
     );
   }

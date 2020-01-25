@@ -5,7 +5,6 @@ const chatRooms = state => state.chatRooms.rooms;
 const notifications = state => state.notifications.notification;
 
 export const getRooms = createSelector(chatRooms, notifications, (r, n) => {
-  console.log(r)
   const room =
     r &&
     r.map(
