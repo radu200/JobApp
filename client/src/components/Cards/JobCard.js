@@ -8,7 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { SalaryCurrency } from "./../../Utils/messages";
-import NoJobImage from "../../images/no_job_image.png";
+import NoJobImage from "../../assets/images/no_job_image.png";
 
 const styles = {
   JobDetails: {
