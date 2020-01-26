@@ -15,7 +15,8 @@ function Copyright() {
     <>
       <Typography
         className={classes.CopyrightContainer}
-        variant="div"
+        component="div"
+        variant="body"
         color="textSecondary"
       >
         <Logo />
@@ -24,7 +25,8 @@ function Copyright() {
         {"."}
       </Typography>
       <Typography
-        variant="span"
+        component="span"
+        variant="body2"
         color="textSecondary"
         align="center"
       ></Typography>
