@@ -93,7 +93,7 @@ const footers = [
     description: [
       {
         name: "Ajutor",
-        url: "/api/contact-us",
+        url: "/api/contact-us"
       },
     ],
   },
