@@ -43,7 +43,6 @@ const JobsPage = ({
     <>
       <MainNav />
       <div className={classes.root}>
-        <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={12}>
             <SearchJobForm
               handleSubmit={handleSubmit}
@@ -55,9 +54,8 @@ const JobsPage = ({
               formErrors={formErrors}
             />
           </Grid>
-        </Grid>
         {loading && <Loading />}
-        <Grid container spacing={2}>
+        <Grid container >
           {jobs.length > 0 ? (
             <JobCard job={jobs} getJobId={getJobId} />
           ) : (

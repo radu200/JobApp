@@ -12,7 +12,7 @@ const LoginErr = () => {
    return (
        <>
         <NavBar/>
-        <h2 className={styles.root}> Te rog Logheazate <a href="http://localhost:8000/api/login">Login</a> </h2>
+        <h2 className={styles.root}> Te rog Logheazate <a href="/api/login">Login</a> </h2>
        </>
    )
 }

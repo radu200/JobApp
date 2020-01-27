@@ -24,6 +24,9 @@ const styles = {
   heading: {
     opacity: 0.7,
   },
+  card:{
+    margin:5
+  }
 };
 
 const JobCard = ({ job, classes, getJobId }) => {

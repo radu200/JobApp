@@ -16,7 +16,7 @@ function Copyright() {
       <Typography
         className={classes.CopyrightContainer}
         component="div"
-        variant="body"
+        variant="body2"
         color="textSecondary"
       >
         <Logo />
