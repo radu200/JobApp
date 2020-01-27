@@ -60,6 +60,12 @@ module.exports.authRole = (req, res) => {
       user_id: req.user.id,
       auth: true,
     });
+  } else {
+    res.json({
+      role: null,
+      user_id: null,
+      auth: false,
+    });
   }
 };
 

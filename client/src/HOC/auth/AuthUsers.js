@@ -5,20 +5,26 @@ import {
   getAuthSelector,
   getRoleSelector,
   getUserIdSelector,
+  getAuth
 } from "../../redux/auth/selectors";
 
 const withAuth = Wrap => {
   class Auth extends Component {
+  
     componentDidMount() {
       this.getAuth();
     }
-    componentDidUpdate() {}
+    componentDidUpdate() {
+         this.getAuth()
+       
+    }
 
-    async getAuth() {
+     getAuth() {
       const { auth, history } = this.props;
-      if (!auth) {
-         return history.push('/login-err');
-      }
+      console.log(auth)
+       if(auth === false){
+           history.push('/login-err');
+       }
     }
 
     render() {

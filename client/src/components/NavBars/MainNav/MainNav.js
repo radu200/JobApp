@@ -293,7 +293,7 @@ class MainNavBar extends React.Component {
           open={openModalMembership}
           handleClose={handleModalClose}
         />
-        <div className={classes.translator}> <Translator/></div>
+        {/* <div className={classes.translator}> <Translator/></div> */}
       </div>
     );
   }
