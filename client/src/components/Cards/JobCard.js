@@ -25,7 +25,7 @@ const styles = {
     opacity: 0.7,
   },
   card:{
-    margin:5
+    margin:10
   }
 };
 

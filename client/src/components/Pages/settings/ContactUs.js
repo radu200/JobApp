@@ -6,11 +6,14 @@ import MainNav from "../../NavBars/MainNav/MainNav";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import Badge from "@material-ui/core/Badge";
 import { supportEmail } from "../../../Utils/email";
+import { fbPageId, fbAppId } from '../../../Utils/Keys/Keys'
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     display: "flex",
     justifyContent: "center",
+     textAlign:'center',
     marginTop: 20,
   },
   title: {
@@ -37,19 +40,18 @@ const ContactUs = () => {
           >
             Contacteza-ne
           </Typography>
-          <Badge>
             <Typography className={classes.text} variant="h6" component="div">
               Pentru ajutor vă rugăm să ne contactați pe acest mail:
             </Typography>
             <Typography color="secondary" variant="h6" component="div">
               {supportEmail}
             </Typography>
-          </Badge>
+         
         </Grid>
       </Grid>
       <MessengerCustomerChat
-        pageId="102352537993313"
-        appId="2570461776416669"
+        pageId={fbPageId}
+        appId={fbAppId}
         htmlRef={window.location.pathname}
       />
     </>
