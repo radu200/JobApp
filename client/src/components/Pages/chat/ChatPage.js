@@ -39,7 +39,7 @@ const ChatPage = ({
   
   const classes = useStyle()
   const matchespx = useMediaQuery("(max-width:960px)");
-
+   console.log(chatRoomList.length)
   return (
     <>
       <MainNav />
@@ -50,6 +50,7 @@ const ChatPage = ({
             handleRoom={handleRoom}
             handleRoomM={handleOpen}
           />
+          {matchespx && chatRoomList.length <= 0 ? <h2 className={classes.roomStatusText} >Aici vor aparea camerele chatului </h2> : null}
         </Grid>
 
         {matchespx ? (

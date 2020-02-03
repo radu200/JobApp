@@ -19,3 +19,12 @@ export const deleteProfile = async () => {
   const res = await instanceAPI.post(`/api/profile/delete`);
   return res
 } 
+
+export const uploadAvatar = async (formData) => {
+  const res = await instanceAPI.post('/api/profile/avatar', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+  })
+  return res
+}

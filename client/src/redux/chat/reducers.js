@@ -14,6 +14,8 @@ import {
   REQUEST_NOTIFICATION,
   RECEIVED_NOTIFICATION,
   FAILURE_NOTIFICATION,
+  NEW_NOTIFICATION,
+  DELETE_NOTIFICATION,
   REMOVE_ROOM
 } from "./constants";
 
@@ -28,7 +30,6 @@ export const roomsReducer = (state = roomsState, action) => {
     case REQUEST_ROOMS:
       return { ...state, loading: true };
     case RECEIVED_ROOMS:
-      
       return { ...state, loading: false, rooms: action.rooms };
     case FAILURE_ROOMS:
       return { ...state, loading: false, err: action.err };
@@ -72,7 +73,11 @@ export const notificationReducer = (state = notificationState, action) => {
          return {...state, loading:true}
       case RECEIVED_NOTIFICATION:
          return {...state, loading: false, notification:action.data}
-      case FAILURE_NOTIFICATION:
+      case NEW_NOTIFICATION:
+          return {...state, loading: false, notification:[...state.notification,action.data]}
+      case DELETE_NOTIFICATION:
+         return {...state, loading:false, notification:state.notification.filter(n => n.room_id !== action.room_id)}
+     case FAILURE_NOTIFICATION:
          return {...state, loading:false, err:true}
       default:
         return state

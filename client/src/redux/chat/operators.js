@@ -16,7 +16,7 @@ import {
   failureNotification,
   receivedRemoveRoom
 } from "./actions";
-import { getRooms, getRoomDetails, createRoom, removeRoom  } from "../../api/chat";
+import { getRooms, getRoomDetails, createRoom, removeRoom, getNotifications  } from "../../api/chat";
 
 export const fetchRooms = () => async dispatch => {
   try {
@@ -43,7 +43,6 @@ export const fetchNewMessages = (data) => async dispatch => {
     dispatch(requestNewMsg());
     dispatch(receivedNewMsg(data));
   } catch (err) {
-    console.log(err)
     dispatch(failureNewMsg(err));
   }
 }
@@ -58,10 +57,11 @@ export const fetchCreateRoom = (user_id) => async dispatch => {
 };
 
 
-export const fetchNotification = (notification) => async dispatch =>  {
+export const fetchNotification = () => async dispatch =>  {
   try{
      dispatch(requestNotification())
-     dispatch(receivedNotification(notification))
+     const data = await getNotifications()
+     dispatch(receivedNotification(data))
   } catch(err){
     dispatch(failureNotification(err))
   }

@@ -214,7 +214,7 @@ class MainNavBar extends React.Component {
                 >
                   Premium
                 </Button>
-                <MenuItem button component="a" href={"api/my-jobs"}>
+                <MenuItem button component="a" href="/api/my-jobs">
                   Locuri de muncă
                 </MenuItem>
                 <MenuItem button>
@@ -304,7 +304,7 @@ MainNavBar.propTypes = {
 };
 
 const mapState = state => ({
-  notifications: getAllNotifications(state),
+  notifications: 0
 });
 
 export default compose(

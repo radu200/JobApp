@@ -37,16 +37,17 @@ const ChatRoomsList = ({ chatRoomList, handleRoom, handleRoomM }) => {
           return (
             <div key={r.room_id} onClick={handleRoomM}>
               <div
-                onClick={() => handleRoom(r.room_id, r.receiver_id, r.first_name, r.last_name, )}
+                onClick={() => handleRoom(r.room_id, r.receiver_id, r.receiver_fn, r.receiver_ln, )}
                 className={classes.rooms}
               >
-                <Avatar alt="Travis Howard" src={r.avatar} />
+                <Avatar alt="Travis Howard" src={r.receiver_avatar} />
                 <span className={classes.userName}>
-                  {r.first_name} {r.last_name}
+                  {r.receiver_fn} {r.receiver_ln}
                 </span>
                 <IconButton aria-label="show 4 new mails" color="inherit">
                   <Badge
-                    badgeContent={r.notification[0]}
+                    
+                    badgeContent={r.msg_notification}
                     color="secondary"
                   ></Badge>
                 </IconButton>

@@ -1,50 +1,55 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import MainNav from "../../NavBars/MainNav/MainNav";
-;
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     display: "flex",
     justifyContent: "center",
+    textAlign: "center",
     marginTop: 20,
   },
   title: {
     textAlign: "center",
   },
+  text: {
+    marginRight: 10,
+  },
 });
-const DeleteProfile = ({ onClick }) => {
-  const classes = useStyles();
 
+const Success = ({ title, msg }) => {
+  const classes = useStyles();
   return (
     <>
-      <MainNav />
       <Grid className={classes.root} container spacing={2}>
-        <Grid item xs={12} sm={12} md={3}>
+        <Grid item xs={12} sm={12} md={6}>
           <Typography
             className={classes.title}
-            variant="h5"
+            variant="h4"
             component="div"
             gutterBottom
           >
-            Acesta actiune e ireversibila
+            {title}
           </Typography>
-          <Button
-            fullWidth
-            type="submit"
-            color="secondary"
-            variant="contained"
-            onClick={onClick}
+          <Typography
+            className={classes.text}
+            variant="subtitle1"
+            component="div"
           >
-            Sterge Profil
-          </Button>
+            {msg}
+          </Typography>
         </Grid>
       </Grid>
     </>
   );
 };
-export default DeleteProfile;
+
+
+Success.propTypes = {
+    title:PropTypes.string,
+    msg:PropTypes.string
+}
+export default Success;

@@ -7,7 +7,7 @@ import rootReducer from "./rootReducer";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ['auth', 'chatRoomD']
+  blacklist: ['auth', 'chatRoomD', 'chatRooms', 'notifications']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

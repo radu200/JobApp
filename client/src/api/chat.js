@@ -25,3 +25,8 @@ export const removeRoom = async (room_id) => {
     })
     return res;
 }
+export const getNotifications = async () => {
+    const url = `/api/chat/notification`
+    const res = await instanceAPI.get(url)
+    return res.data
+}

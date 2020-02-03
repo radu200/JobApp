@@ -14,7 +14,9 @@ import {
   RECEIVED_NOTIFICATION,
   REQUEST_NOTIFICATION,
   FAILURE_NOTIFICATION,
-  REMOVE_ROOM
+  NEW_NOTIFICATION,
+  REMOVE_ROOM,
+  DELETE_NOTIFICATION
 } from "./constants";
 
 
@@ -131,3 +133,17 @@ export const failureNewMsg = err => {
      id
    }
  }
+
+ export const newNotification = data => {
+   return {
+     type: NEW_NOTIFICATION,
+     data
+   }
+ }
+
+ export const delNotification = room_id => {
+  return {
+    type: DELETE_NOTIFICATION,
+    room_id
+  }
+}

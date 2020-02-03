@@ -107,7 +107,6 @@ export default function ChatRoomM({
             >
               <ArrowBackIcon />
             </IconButton>
-            {receiverName}
           </Toolbar>
         </AppBar>
         {roomStatus ? 

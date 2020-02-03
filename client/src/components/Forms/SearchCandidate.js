@@ -27,7 +27,6 @@ const SearchCandidate = ({
   formErrors,
 }) => {
   const classes = useStyles();
-  console.log(formErrors)
   return (
     <>
       <form className={classes.root} onSubmit={handleSubmit}>

@@ -11,6 +11,7 @@ import {
   fetchMoreCandidates,
 } from "../../redux/candidates/operators";
 import { fetchCreateRoom } from "../../redux/chat/operators";
+import { socket } from "../../config/socket.io";
 
 
 class CandidatesContainer extends Component {
@@ -102,8 +103,14 @@ class CandidatesContainer extends Component {
     );
   }
   async handleChat(userId) {
-    this.props.fetchCreateRoom(userId)
-    this.props.history.push('/chat')
+    socket.emit('addRoom', userId)
+    socket.on('addRoomRes', room => {
+       const { room_id,receiver_id, receiver_fn, receiver_ln } = room
+        this.props.history.push(
+          `/chat/room/?id=${room_id}&r=${receiver_id}&name=${receiver_fn} ${receiver_ln}`,
+        );
+        
+    })
   }
   render() {
     const { category, experienceMax, location, formErrors } = this.state;

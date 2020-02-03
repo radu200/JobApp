@@ -21,7 +21,6 @@ const withAuth = Wrap => {
 
      getAuth() {
       const { auth, history } = this.props;
-      console.log(auth)
        if(auth === false){
            history.push('/login-err');
        }
